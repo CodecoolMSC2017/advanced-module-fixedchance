@@ -1,7 +1,18 @@
+<div id="dark-background" *ngIf="isSignIn || isSignUp" (click)="backToMain()"></div>
+
+
 <div id="top-bar">
   <ul>
     <li class="toleft"><a>Home</a></li>
-    <li class="toright"><a>Sign in</a></li>
-    <li class="toright"><a>Sign up</a></li>
+    <li class="toright" (click)="onSignInClick()"><a>Sign in</a></li>
+    <li class="toright" (click)="onSignUpClick()"><a>Sign up</a></li>
   </ul>
+</div>
+
+<div *ngIf="isSignIn">
+  <app-login></app-login>
+</div>
+
+<div *ngIf="isSignUp">
+  <app-register></app-register>
 </div>

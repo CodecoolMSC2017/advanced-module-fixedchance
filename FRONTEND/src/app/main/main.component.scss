@@ -8,6 +8,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    z-index: -3;
 }
 
 #top-bar li[class="toleft"] {
@@ -28,4 +29,17 @@
 
 #top-bar li a:hover {
     background-color: #111;
+}
+
+
+#dark-background {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    z-index: -2;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
 }
