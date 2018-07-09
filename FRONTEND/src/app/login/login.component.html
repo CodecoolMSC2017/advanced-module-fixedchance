@@ -1,0 +1,9 @@
+<div id="login-content">
+  <h1>Login</h1>
+  <form id="login-form" autocomplete="off">
+    <input type="text" [(ngModel)]="email" placeholder="E-mail" name="email"><br>
+    <input type="password" [(ngModel)]="password" placeholder="Password" name="password"><br>
+    <button (click)="onLoginClick()">Login</button>
+    <button routerLink="register">Register</button>
+  </form>
+</div>

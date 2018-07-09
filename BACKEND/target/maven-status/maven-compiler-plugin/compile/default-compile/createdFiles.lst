@@ -1,0 +1,9 @@
+com/codecool/sample/model/User.class
+com/codecool/sample/SampleApplication.class
+com/codecool/sample/WebConfig.class
+com/codecool/sample/controller/RegisterController.class
+com/codecool/sample/controller/LoginController.class
+com/codecool/sample/repository/UserRepository.class
+com/codecool/sample/model/Message.class
+com/codecool/sample/service/UserService.class
+com/codecool/sample/model/Role.class
