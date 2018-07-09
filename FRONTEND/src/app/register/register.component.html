@@ -1,6 +1,10 @@
 <div id="register-content">
-  <h1>Register</h1>
-  <form id="register-form">
+  <div id="role-buttons">
+      <button name="STUDENT" (click)="roleChosen($event)" class="fa-button">STUDENT<br><i class="fa fa-graduation-cap img"></i></button>
+      <button name="TEACHER" (click)="roleChosen($event)" class="fa-button">TEACHER<br><i class="fa fa-book img"></i></button>
+      <button name="COMPANY" (click)="roleChosen($event)" class="fa-button">COMPANY<br><i class="fa fa-building img"></i></button>
+  </div>
+  <form id="register-form" autocomplete="off">
     <input type="text" [(ngModel)]="email" placeholder="E-mail" name="email"><br>
     <input type="password" [(ngModel)]="password" placeholder="Password" name="password"><br>
     <input type="password" [(ngModel)]="confpassword" placeholder="Confirm Password" name="confpassword"><br>

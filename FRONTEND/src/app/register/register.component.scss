@@ -1,10 +1,26 @@
 #register-content {
     width: 350px;
     margin: 0 auto;
+    margin-top: 8%;
     text-align: center;
-    border: 1px solid grey;
-    background-color: aliceblue;
+    border: 1px solid black;
+    background: rgb(149,149,149); /* Old browsers */
+    background: -moz-linear-gradient(-45deg, rgba(149,149,149,1) 0%, rgba(13,13,13,1) 46%, rgba(1,1,1,1) 50%, rgba(10,10,10,1) 53%, rgba(78,78,78,1) 76%, rgba(56,56,56,1) 87%, rgba(27,27,27,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, rgba(149,149,149,1) 0%,rgba(13,13,13,1) 46%,rgba(1,1,1,1) 50%,rgba(10,10,10,1) 53%,rgba(78,78,78,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, rgba(149,149,149,1) 0%,rgba(13,13,13,1) 46%,rgba(1,1,1,1) 50%,rgba(10,10,10,1) 53%,rgba(78,78,78,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#959595', endColorstr='#1b1b1b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
     padding: 10px;
+}
+
+#register-content .img {
+    font-size: 30px;
+    pointer-events: none;
+}
+
+#role-buttons {
+    text-align: center;
+    margin-top: -60px;
+    margin-bottom: 10px;
 }
 
 #register-form {
@@ -13,13 +29,13 @@
 
 #register-form input {
     width: 80%;
-    border: 2px solid darkcyan;
+    border: 2px solid black;
     padding: 10px;
     margin-bottom: 16px;
 }
 
 #register-form input:focus {
-    background-color: darkcyan;
+    background-color: rgb(245, 170, 7);
     -webkit-transition: 500ms;
     transition: 500ms;
 }
@@ -28,12 +44,13 @@
     width: 150px;
     padding: 10px;
     margin: 2px;
-    background-color: white;
-    border: 2px solid darkcyan;
+    margin-top: 57px;
+    background: white;
+    border: 2px solid black;
 }
 
 #register-form button:hover {
-    background-color: darkcyan;
+    background-color: rgb(245, 170, 7);
     -webkit-transition: 500ms;
     transition: 500ms;
 }
@@ -59,12 +76,36 @@ h1:before {
     width: 80px;   
 }
 
-h1:after {      
-    background-image: linear-gradient(to right, #777, #fff);
-    right: 10px;
+h1:after {  
+    background-image: linear-gradient(to right, #777, #fff);    
+    right: 25px;
 }
 
 h1:before {
     background-image: linear-gradient(to left, #777, #fff);
-    left: 10px;
+    left: 25px;
+}
+
+.fa-button {
+    width: 97px;
+    padding: 10px;
+    margin: 2px;
+    margin-top: 57px;
+    background-color: white;
+    border: 2px solid black;
+}
+
+
+.fa-button:hover {
+    background-color: rgb(245, 170, 7);
+    -webkit-transition: 500ms;
+    transition: 500ms;
+}
+
+.activerole {
+    background-color: rgb(245, 170, 7);
+}
+
+.form-table {
+    margin: 0 auto;
 }

@@ -1,8 +1,12 @@
 <div id="login-content">
-    <h1>Login</h1>
-    <form id="login-form" autocomplete="off">
-      <input type="text" [(ngModel)]="email" placeholder="E-mail" name="email"><br>
-      <input type="password" [(ngModel)]="password" placeholder="Password" name="password"><br>
-      <button (click)="onLoginClick()">Login</button>
-    </form>
+  <div id="role-buttons">
+    <button name="STUDENT" (click)="roleChosen($event)" class="fa-button">STUDENT<br><i class="fa fa-graduation-cap img"></i></button>
+    <button name="TEACHER" (click)="roleChosen($event)" class="fa-button">TEACHER<br><i class="fa fa-book img"></i></button>
+    <button name="COMPANY" (click)="roleChosen($event)" class="fa-button">COMPANY<br><i class="fa fa-building img"></i></button>
+  </div>
+  <form id="login-form" autocomplete="off">
+    <input type="text" [(ngModel)]="email" placeholder="E-mail" name="email"><br>
+    <input type="password" [(ngModel)]="password" placeholder="Password" name="password"><br>
+    <button (click)="onLoginClick()">Login</button>
+  </form>
 </div>

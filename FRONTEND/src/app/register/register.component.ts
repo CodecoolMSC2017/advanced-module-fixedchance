@@ -16,6 +16,8 @@ export class RegisterComponent implements OnInit {
   confpassword : string = this.confpassword;
   message : Message;
   errormessage: string;
+  selectedRole : string;
+  prevSelectedRole : Element;
 
 
   constructor(private http : HttpClient, private route: ActivatedRoute, private router: Router) { }
@@ -41,5 +43,15 @@ export class RegisterComponent implements OnInit {
         this.errormessage = 'E-mail already in use';
       }
     });
+  }
+
+  roleChosen(event) {
+    if (this.prevSelectedRole != null) {
+      this.prevSelectedRole.classList.remove('activerole');
+    }
+    this.prevSelectedRole = event.target;
+    event.target.classList.add('activerole');
+    this.selectedRole = event.target.name;
+    console.log(this.selectedRole);
   }
 }
