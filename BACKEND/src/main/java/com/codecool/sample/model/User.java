@@ -8,15 +8,12 @@ import java.util.Date;
 
 @Entity
 @Table(name="users", schema="public")
-public class User {
+public class User extends AbstractModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    private Integer experience;
+    private Integer experience = 0;
     private String email, firstName, lastName, password, description;
-    private Date birthDate, registrationDate;
+    private Date birthDate;
+    private Date registrationDate = new Date();
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -29,10 +26,6 @@ public class User {
     }
 
     // Getters
-    public Integer getId() {
-        return id;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -74,10 +67,6 @@ public class User {
     }
 
     // Setters
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -123,7 +112,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id=" + super.getId() +
                 ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

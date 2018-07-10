@@ -9,7 +9,7 @@ import java.util.Date;
 public class Company extends AbstractModel {
 
     private String name;
-    private Date registrationDate;
+    private Date registrationDate = new Date();
     private String email;
     private String password;
     private boolean active;
@@ -77,5 +77,21 @@ public class Company extends AbstractModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    //Methods
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id='" + super.getId() + '\'' +
+                ", name='" + name + '\'' +
+                ", registrationDate=" + registrationDate +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                ", subscription='" + subscription + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
