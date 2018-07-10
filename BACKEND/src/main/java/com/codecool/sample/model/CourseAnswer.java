@@ -9,6 +9,7 @@ public class CourseAnswer extends AbstractModel {
 
     private String answer;
     private Integer questionId;
+    private boolean isRight;
 
     public CourseAnswer() {}
 
@@ -21,6 +22,10 @@ public class CourseAnswer extends AbstractModel {
         return questionId;
     }
 
+    public boolean isRight() {
+        return isRight;
+    }
+
     // Setters
     public void setAnswer(String answer) {
         this.answer = answer;
@@ -28,5 +33,9 @@ public class CourseAnswer extends AbstractModel {
 
     public void setQuestionId(Integer questionId) {
         this.questionId = questionId;
+    }
+
+    public void setRight(boolean right) {
+        isRight = right;
     }
 }
