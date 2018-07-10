@@ -3,7 +3,10 @@ package com.codecool.sample.controller;
 import com.codecool.sample.model.Advertisement;
 import com.codecool.sample.service.AdvertisementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
@@ -22,12 +25,15 @@ public class AdvertisementController {
     }
 
     @RequestMapping("/advertisements/id")
-    public Optional<Advertisement> getAdById(Integer id) {
+    public Optional<Advertisement> getAdById(Integer id) throws SQLException {
         return adService.getAdvertisementById(id);
     }
 
-    @RequestMapping("/advertisements/add")
-    public void add(Advertisement ad) {
+    @RequestMapping(path = "/advertisements/add",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            consumes = {"application/json"})
+    public void add(@RequestBody Advertisement ad) {
         try {
             adService.addNewAdvertisement(ad);
         } catch (SQLException e) {

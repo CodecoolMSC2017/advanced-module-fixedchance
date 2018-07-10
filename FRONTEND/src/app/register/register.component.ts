@@ -35,18 +35,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegisterClick() {
-    if (this.selectedRole == 'STUDENT' || this.selectedRole == 'TEACHER') {
-      if (this.email == null || this.password == null
-          || this.firstname == null || this.lastname == null || this.birthdate == null) {
-        return;
-      }
-    } else {
-      if (this.email == null || this.name == null || this.password == null) {
-        return;
-      }
-    }
-
-    if (this.password != this.confpassword) {
+    if (this.checkForMissingInfo()) {
       return;
     }
 
@@ -87,5 +76,23 @@ export class RegisterComponent implements OnInit {
     this.prevSelectedSub = event.target;
     event.target.classList.add('activesub');
     this.selectedSub = event.target.name;
+  }
+
+  checkForMissingInfo() {
+    if (this.selectedRole == 'STUDENT' || this.selectedRole == 'TEACHER') {
+      if (this.email == null || this.password == null
+          || this.firstname == null || this.lastname == null || this.birthdate == null) {
+        return true;
+      }
+    } else {
+      if (this.email == null || this.name == null || this.password == null) {
+        return true;
+      }
+    }
+
+    if (this.password != this.confpassword) {
+      return true;
+    }
+    return false;
   }
 }

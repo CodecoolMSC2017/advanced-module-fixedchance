@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { MainComponent } from './main/main.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MainComponent } from './main/main.component';
     RegisterComponent,
     HomeComponent,
     MainComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

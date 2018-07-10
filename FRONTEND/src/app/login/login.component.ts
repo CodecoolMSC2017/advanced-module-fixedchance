@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { DataService } from '../data.service';
+import { deserialize } from 'json-typescript-mapper';
+import { User } from '../user';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -14,11 +17,12 @@ export class LoginComponent implements OnInit {
   password : string = this.password;
   params : URLSearchParams = new URLSearchParams;
   result : string;
-  user: Object;
   selectedRole : string;
   prevSelectedRole : Element;
 
-  constructor(private http : HttpClient, private route: ActivatedRoute, private router: Router) { }
+  user : any;
+
+  constructor(private http : HttpClient, private route: ActivatedRoute, private router: Router, public dataService : DataService) { }
 
   ngOnInit() {
   }
@@ -31,20 +35,30 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    console.log(this.route.data);
+
     const params = {email : this.email, password : this.password};
-    let post;
     if (this.selectedRole == 'STUDENT' || this.selectedRole == 'TEACHER') {
-      post = this.http.post("http://localhost:8080/login", params); 
+      this.http.post("http://localhost:8080/login", params).subscribe(response => {
+        if (response == null) {
+          return;
+        } else {
+          this.user = deserialize(User, response);
+          console.log(this.user);
+          this.dataService.setUser(this.user);
+          console.log(this.dataService.user);
+          this.router.navigate(['home']);
+        }
+      }); 
     } else {
-      post = this.http.post("http://localhost:8080/company-login", params);
+      this.http.post("http://localhost:8080/company-login", params).subscribe(response => {
+        if (response == null) {
+          return;
+        } else {
+          this.router.navigate(['home']);
+        }
+      });
     }
-    post.subscribe(response => {
-      if (response == null) {
-        return;
-      } else {
-        this.router.navigate(['home']);
-      }
-    });
   }
 
   roleChosen(event) {
