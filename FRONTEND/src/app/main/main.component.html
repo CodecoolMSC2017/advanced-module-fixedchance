@@ -16,13 +16,38 @@
 <div *ngIf="isSignUp">
   <app-register></app-register>
 </div>
-<section>
-	<img src="assets/learn.png">
-	<article>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-	</article>
-</section>
+<div id="tiles">
+<div class="liveTile" (click)="choosenTile(event)" name="programming" >
+	<!--
+		<div class="container" (click)="choosenTile(event)" name="programming">
+		</div>
+	-->
+	</div>
+	
+	<div class="liveTile tl_Gray">
+		<div class="container">
+				<i class="fa fa-camera"></i>
+			<span>Photo and Video editing</span>
+		</div>
+	</div>
+	<br>
+	<div class="liveTile tl_Gray tl_miniBig">
+		<div class="container">
+				<i class="fa fa-chart-bar"></i>
+			<span>Add project</span>
+		</div>
+	</div>
+	<div class="liveTile tl_Gray">
+			<div class="container">
+					<i class="fa fa-chart-bar"></i>
+				<span>Photo course</span>
+			</div>
+		</div>
+		<br>
+		<div class="liveTile tl_Gray tl_miniBig">
+			<div class="container">
+				<img src="https://cdn4.iconfinder.com/data/icons/e-commerce-icon-set/48/More_2-128.png">
+				<span>Add project</span>
+			</div>
+		</div>
+</div>

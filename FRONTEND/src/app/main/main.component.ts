@@ -9,6 +9,8 @@ export class MainComponent implements OnInit {
 
   isSignIn : boolean = false;
   isSignUp : boolean = false;
+  selectedRole : string;
+  prevSelectedRole : Element;
 
   constructor() { }
 
@@ -26,6 +28,16 @@ export class MainComponent implements OnInit {
   backToMain() {
     this.isSignIn = false;
     this.isSignUp = false;
+  }
+
+  choosenTile(event) {
+    if (this.prevSelectedRole != null) {
+      this.prevSelectedRole.classList.remove('activerole');
+    }
+    this.prevSelectedRole = event.target;
+    event.target.classList.add('activerole');
+    this.selectedRole = event.target.name;
+    console.log(this.selectedRole);
   }
 
 }
