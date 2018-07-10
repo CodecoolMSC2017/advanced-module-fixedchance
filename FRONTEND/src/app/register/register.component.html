@@ -1,14 +1,31 @@
 <div id="register-content">
   <div id="role-buttons">
-      <button name="STUDENT" (click)="roleChosen($event)" class="fa-button">STUDENT<br><i class="fa fa-graduation-cap img"></i></button>
-      <button name="TEACHER" (click)="roleChosen($event)" class="fa-button">TEACHER<br><i class="fa fa-book img"></i></button>
-      <button name="COMPANY" (click)="roleChosen($event)" class="fa-button">COMPANY<br><i class="fa fa-building img"></i></button>
+    <button name="STUDENT" (click)="roleChosen($event)" class="fa-button">STUDENT<br><i class="fa fa-graduation-cap img"></i></button>
+    <button name="TEACHER" (click)="roleChosen($event)" class="fa-button">TEACHER<br><i class="fa fa-book img"></i></button>
+    <button name="COMPANY" (click)="roleChosen($event)" class="fa-button">COMPANY<br><i class="fa fa-building img"></i></button>
   </div>
-  <form id="register-form" autocomplete="off">
+  <form *ngIf="selectedRole == 'STUDENT' || selectedRole == 'TEACHER'" id="register-form" autocomplete="off">
     <input type="text" [(ngModel)]="email" placeholder="E-mail" name="email"><br>
+    <input type="text" [(ngModel)]="firstname" placeholder="First Name" name="firstname"><br>
+    <input type="text" [(ngModel)]="lastname" placeholder="Last Name" name="lastname"><br>
+    <input type="date" [(ngModel)]="birthdate" name="birthdate"><br>
     <input type="password" [(ngModel)]="password" placeholder="Password" name="password"><br>
     <input type="password" [(ngModel)]="confpassword" placeholder="Confirm Password" name="confpassword"><br>
     <button (click)="onRegisterClick()">Register</button>
+  </form>
+
+  <form *ngIf="selectedRole == 'COMPANY'" id="register-form" autocomplete="off">
+    <input type="text" [(ngModel)]="name" placeholder="Company Name" name="name"><br>
+    <input type="text" [(ngModel)]="email" placeholder="E-mail" name="email"><br>
+    <input type="password" [(ngModel)]="password" placeholder="Password" name="password"><br>
+    <input type="password" [(ngModel)]="confpassword" placeholder="Confirm Password" name="confpassword"><br>
+    <div id="sub-buttons">
+      <button name="1month" (click)="subChosen($event)" class="fa-button">1 MONTH<br><i class="img">20$</i></button>
+      <button name="6month" (click)="subChosen($event)" class="fa-button">6 MONTH<br><i class="img">40$</i></button>
+      <button name="12month" (click)="subChosen($event)" class="fa-button month">12 MONTH<br><i class="img">60$</i></button><br>
+      <button name="later" (click)="subChosen($event)" class="fa-button later">CHOOSE LATER</button>
+    </div>
+    <button id="regbutton" (click)="onRegisterClick()">Register</button>
   </form>
 </div>
 <p>{{ errormessage }}</p>

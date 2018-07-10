@@ -32,7 +32,13 @@ export class LoginComponent implements OnInit {
     }
 
     const params = {email : this.email, password : this.password};
-    this.http.post("http://localhost:8080/login", params).subscribe(response => { 
+    let post;
+    if (this.selectedRole == 'STUDENT' || this.selectedRole == 'TEACHER') {
+      post = this.http.post("http://localhost:8080/login", params); 
+    } else {
+      post = this.http.post("http://localhost:8080/company-login", params);
+    }
+    post.subscribe(response => {
       if (response == null) {
         return;
       } else {
@@ -48,6 +54,5 @@ export class LoginComponent implements OnInit {
     this.prevSelectedRole = event.target;
     event.target.classList.add('activerole');
     this.selectedRole = event.target.name;
-    console.log(this.selectedRole);
   }
 }

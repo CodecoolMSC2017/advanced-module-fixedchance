@@ -109,3 +109,31 @@ h1:before {
 .form-table {
     margin: 0 auto;
 }
+
+#sub-buttons {
+    text-align: center;
+    margin-top: -60px;
+    margin-bottom: 10px;
+}
+
+#sub-buttons .fa-button {
+    width: 97px;
+    padding: 10px;
+    margin: 2px;
+    margin-top: 57px;
+    margin-bottom: -50px;
+    background-color: white;
+    border: 2px solid black;
+}
+
+#sub-buttons .activesub {
+    background-color: rgb(245, 170, 7);
+}
+
+#sub-buttons .later {
+    width: 300px;
+}
+
+#register-form #regbutton {
+    margin: 10px;
+}

@@ -4,7 +4,7 @@
     <button name="TEACHER" (click)="roleChosen($event)" class="fa-button">TEACHER<br><i class="fa fa-book img"></i></button>
     <button name="COMPANY" (click)="roleChosen($event)" class="fa-button">COMPANY<br><i class="fa fa-building img"></i></button>
   </div>
-  <form id="login-form" autocomplete="off">
+  <form id="login-form" autocomplete="off" *ngIf="selectedRole != null">
     <input type="text" [(ngModel)]="email" placeholder="E-mail" name="email"><br>
     <input type="password" [(ngModel)]="password" placeholder="Password" name="password"><br>
     <button (click)="onLoginClick()">Login</button>
