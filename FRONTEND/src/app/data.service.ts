@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { User } from './user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private goals = new BehaviorSubject<any>(['The initial goal', 'Another silly life goal']);
-  goal = this.goals.asObservable();
+  user : User;
 
   constructor() { }
 
-  changeGoal(goal) {
-    this.goals.next(goal)
+  setUser(user : User) {
+    this.user = user;
+  }
+
+  getUser() {
+    return this.user;
   }
 }
