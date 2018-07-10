@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS course_topics;
 DROP TABLE IF EXISTS course_reviews;
 DROP TABLE IF EXISTS schedules;
 DROP TABLE IF EXISTS advertisements;
@@ -78,6 +79,7 @@ CREATE TABLE course_answers (
 	id SERIAL PRIMARY KEY,
 	answer TEXT NOT NULL,
 	question_id INTEGER NOT NULL,
+	is_right BOOLEAN NOT NULL,
 	CONSTRAINT answer_not_empty CHECK (answer <> '')
 );
 
@@ -107,6 +109,13 @@ CREATE TABLE schedules (
 CREATE TABLE course_reviews (
 	id SERIAL PRIMARY KEY,
 	course_id INTEGER NOT NULL,
-	rating INTERVAL(5) NOT NULL,
+	rating INTEGER NOT NULL,
 	description TEXT
+);
+
+CREATE TABLE course_topics (
+    id SERIAL PRIMARY KEY,
+    course_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    FOREIGN KEY (course_id) REFERENCES courses(id)
 );
