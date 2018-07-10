@@ -11,7 +11,7 @@
     <input type="date" [(ngModel)]="birthdate" name="birthdate"><br>
     <input type="password" [(ngModel)]="password" placeholder="Password" name="password"><br>
     <input type="password" [(ngModel)]="confpassword" placeholder="Confirm Password" name="confpassword"><br>
-    <button (click)="onRegisterClick()">Register</button>
+    <button id="regbutton" (click)="onRegisterClick()">Register</button>
   </form>
 
   <form *ngIf="selectedRole == 'COMPANY'" id="register-form" autocomplete="off">
@@ -25,7 +25,7 @@
       <button name="12month" (click)="subChosen($event)" class="fa-button month">12 MONTH<br><i class="img">60$</i></button><br>
       <button name="later" (click)="subChosen($event)" class="fa-button later">CHOOSE LATER</button>
     </div>
-    <button id="regbutton" (click)="onRegisterClick()">Register</button>
+    <button id="compregbutton" (click)="onRegisterClick()">Register</button>
   </form>
 </div>
 <p>{{ errormessage }}</p>
