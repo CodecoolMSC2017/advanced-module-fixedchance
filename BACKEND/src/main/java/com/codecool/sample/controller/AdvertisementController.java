@@ -16,19 +16,26 @@ import java.util.Optional;
 @RestController
 public class AdvertisementController {
 
-    @Autowired
     private AdvertisementService adService;
 
+    @Autowired
+    public void setAdService(AdvertisementService adService) {
+        this.adService = adService;
+    }
+
+    // Get all advertisements
     @RequestMapping("/advertisements")
     public List<Advertisement> getAllAds() throws SQLException {
         return adService.getAdvertisements();
     }
 
+    // Get advertisement by its ID
     @RequestMapping("/advertisements/id")
     public Optional<Advertisement> getAdById(Integer id) throws SQLException {
         return adService.getAdvertisementById(id);
     }
 
+    // Add new advertisement to database
     @RequestMapping(path = "/advertisements/add",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
