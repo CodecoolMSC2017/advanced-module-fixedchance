@@ -1,91 +1,42 @@
 <div id="dark-background" *ngIf="isSignIn || isSignUp" (click)="backToMain()"></div>
 
 
-<div id="top-bar">
+<header id="top-bar">
   <ul>
-    <li class="toleft"><a>Home</a></li>
-    <li class="toright" (click)="onSignInClick()"><a>Sign in</a></li>
-    <li class="toright" (click)="onSignUpClick()"><a>Sign up</a></li>
+	<li class="toleft"><img id="logoimg" src="assets/logo.png" />
+	<li class="toleft" id="logo">FIXEDCHANCE</li>
+    <li class="toright" (click)="onSignInClick()"><a>SIGN IN</a></li>
+    <li class="toright" (click)="onSignUpClick()"><a>SIGN UP</a></li>
   </ul>
-</div>
+</header>
 
-<div class="form-div" *ngIf="isSignIn">
-  <app-login></app-login>
-</div>
+<div id="main-first-div">
+	<img src="assets/bckgrnd.jpg">
 
-<div class="form-div" *ngIf="isSignUp">
-  <app-register></app-register>
-</div>
-<div id="tiles">
-	<div class="liveTile" (click)="choosenTile(event)" name="programming" >
-		<div class="container" (click)="choosenTile(event)" name="programming">
-			<img src="assets/code.png">
-			<span>Programming</span>
-			<ul>
-				<li>Select a programming language</li>
-				<li>Select a course you like</li>
-				<li>Then learn everything from our experts</li>
-			</ul>
-		</div>
+	<div id="main-text">
+		<p id="title">Fixed Chance</p>
+		<p id="desc">description description description description description<br>
+			description description description description description<br>
+			description description description description description<br>
+			description description description description description<br>
+			description description description description description<br>
+			description description description description description<br>
+			description description description description description<br>
+			description description description description description<br>
+			description description description description description<br>
+			description description description description description<br>
+			description description description description description<br>
+			description description description description description<br></p>
+	</div>
+		
+	<div class="form-div" *ngIf="isSignIn">
+		<app-login></app-login>
 	</div>
 	
-	<div class="liveTile tl_Gray">
-		<div class="container">
-				<img src="assets/video.png">
-			<span>Photo and Video editing</span>
-			<ul>
-				<li>Learn <b>Photo</b> editing</li>
-				<li>Learn <b>Video</b> editing</li>
-				<li>Learn how to make amazing visual content</li>
-				</ul>
-		</div>
+	<div class="form-div" *ngIf="isSignUp">
+		<app-register></app-register>
 	</div>
-	<div class="liveTile tl_Gray tl_miniBig">
-			<div class="container">
-					<img src="assets/mentoring.jpg">
-				<span>Private Mentoring with Experts</span>
-				<ul>
-					<li>Private lesson with a choosen expert</li>
-				</ul>
-			</div>
-		</div>
-	<br>
-	<div class="liveTile tl_Gray tl_miniBig">
-		<div class="container">
-				<img src="assets/math.jpg">
-			<span>Learn Advanced Math</span>
-		</div>
-	</div>
-	<div class="liveTile tl_Gray">
-			<div class="container">
-					<img src="assets/languages.jpeg">
-				<span>Language course</span>
-				<ul>
-					<li>Choose a language</li>
-					<li>Choose a learning style</li>
-				</ul>
-			</div>
-		</div>
-		<div class="liveTile tl_Gray tl_miniBig">
-			<div class="container">
-				<img src="assets/skills.jpg" height="100px">
-			<span>Learn Important Soft Skills</span>
-			</div>
-		</div>
-</div>
-<br><br><br>
 
-<div id="about">
-	<h1>About</h1>
-	<p>We wanted to help for the people who want to learn and for companies who needs
-		new employees. That's why we created this site where you can learn everything to 
-		get hired and contact with
-		companies instantly. 
-	</p>
-	<p>We offer : </p>
-	<ul>
-		<li>premium learning contents</li>
-		<li>job opportunities</li>
-		<li>student friendly prices</li>
-	</ul>
 </div>
+		
+<div>asdsadadsads</div>

@@ -1,14 +1,20 @@
+#top-bar {
+    margin-bottom: 70px;
+}
+
 #top-bar ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: rgb(20, 20, 20);
     width: 100%;
     position: absolute;
     top: 0;
     left: 0;
     z-index: -3;
+    opacity: .9;
+    border-bottom: 2px solid white;
 }
 
 #top-bar li[class="toleft"] {
@@ -23,8 +29,11 @@
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 12px 16px;
     text-decoration: none;
+    font-family: 'Teko', sans-serif;
+    font-size: 30px;
+    cursor: pointer;
 }
 
 #top-bar li a:hover {
@@ -43,86 +52,7 @@
     bottom: 0;
     top: 0;
 }
-/*++++++Welcome+++++*/
-#tiles{
-    position: absolute;
-    top: 45px;
-    z-index: -100;
-}
-#tiles span {
-    color: black;
-}
 
-#tiles li {
-    color: black;
-}
-
-.liveTile {
-    display:inline-block;
-    width:200px;
-    height:200px;
-    margin:5px;
-    overflow: hidden;
-    background:#dcdcdc;
-    border:2px solid #cccccc;
-  }
-  
-  .liveTile:hover {
-    background-color: rgb(245, 170, 7);
-    border: 2px solid rgb(245, 170, 7);
-    -webkit-transition: 500ms;
-    transition: 500ms;
-}
-  
-  .liveTile .container {
-    position:relative;
-    top:-200px; 
-    
-    -webkit-animation:  moveFromUp 15s ease infinite;
-  }
-  
-  .liveTile img {
-    display:inline-block;
-    text-align:center;
-    width:100%;
-    height: 100%;
-  }
-  
-  .liveTile span {
-    display:inline-block;
-    width:100%;
-    font:20px Segoe UI;
-    text-align:center;
-    margin:20% 0px;
-    vertical-align:middle;
-  }
-  
-  @-webkit-keyframes moveFromUp {
-    0% {top: -200px;}
-    45% { top: 0px; }
-    55% { top: 0px; }
-  }
-  
-  .tl_Gray {
-    background:#dcdcdc;
-    border:2px solid #cccccc;
-    color: #adadad;
-  }
-  
-  .tl_miniBig {
-    width:420px;
-  }
-
-  #about {
-      width: 100%;
-      position: absolute;
-      right: 0;
-      left: 0;
-      bottom: 0;
-  }
-  #about h1 {
-      background-color: rgb(245, 170, 7);
-  }
 section div:nth-of-type(2) {
 	grid-column: 2 / 4;
 }
@@ -131,4 +61,53 @@ section div:nth-of-type(2) {
     position: absolute;
     left: 40%;
     right: 40%;
+}
+
+#logo {
+    font-family: 'Teko', sans-serif;
+    color: white;
+    font-size: 30px;
+    padding: 10px;
+    padding-top: 14px;
+    padding-left: 75px;
+    cursor: default;
+}
+
+#logoimg {
+    padding: 6px 5px 5px 15px;
+    width: 55px;
+    position: absolute;
+}
+
+#main-text {
+    margin-left: 35px;
+    position: absolute;
+    color:white;
+}
+
+#main-text #title {
+    font-family: 'Lobster', cursive;
+    font-size: 60px;
+}
+
+#main-text #desc {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 25px;
+}
+
+#main-first-div img {
+    position: static;
+    width: 100%;
+}
+
+#main-first-div div {
+    position: absolute;
+    top: 30px;
+}
+
+#main-first-div {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
