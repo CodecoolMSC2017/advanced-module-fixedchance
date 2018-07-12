@@ -96,18 +96,28 @@ section div:nth-of-type(2) {
 }
 
 #main-first-div img {
-    position: static;
+    position: relative;
     width: 100%;
+    height: 91.3%;
+    margin-bottom: 0;
 }
 
 #main-first-div div {
+    margin: 0px 0px 0px 50px;
+    padding: 0px 0px 0px 0px;
     position: absolute;
-    top: 30px;
+    top: 0px;
 }
 
 #main-first-div {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: relative;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#test {
+    background-color: black;
+    margin-top: -70px;
+    height: 1000px;
 }
