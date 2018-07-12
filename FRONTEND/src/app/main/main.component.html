@@ -10,9 +10,16 @@
   </ul>
 </header>
 
+<div class="form-div" *ngIf="isSignIn">
+	<app-login></app-login>
+</div>
+
+<div class="form-div" *ngIf="isSignUp">
+	<app-register></app-register>
+</div>
+
 <div id="main-first-div">
 	<img src="assets/bckgrnd.jpg">
-
 	<div id="main-text">
 		<p id="title">Fixed Chance</p>
 		<p id="desc">description description description description description<br>
@@ -28,15 +35,7 @@
 			description description description description description<br>
 			description description description description description<br></p>
 	</div>
-		
-	<div class="form-div" *ngIf="isSignIn">
-		<app-login></app-login>
-	</div>
-	
-	<div class="form-div" *ngIf="isSignUp">
-		<app-register></app-register>
-	</div>
-
 </div>
+
 		
 <div id="test">asdsadadsads</div>

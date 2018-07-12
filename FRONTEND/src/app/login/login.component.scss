@@ -10,7 +10,9 @@
     background: linear-gradient(135deg, rgba(149,149,149,1) 0%,rgba(13,13,13,1) 46%,rgba(1,1,1,1) 50%,rgba(10,10,10,1) 53%,rgba(78,78,78,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#959595', endColorstr='#1b1b1b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
     padding: 10px;
-    z-index: 2;
+    z-index: 10;
+    position: absolute;
+    top: 0;
 }
 
 #login-content .img {
@@ -54,37 +56,6 @@
     background-color: rgb(245, 170, 7);
     -webkit-transition: 500ms;
     transition: 500ms;
-}
-
-h1 {
-    text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
-    text-transform: uppercase;
-    text-align: center;
-    color: darkcyan;
-    margin: 0 0 30px 0;
-    letter-spacing: 4px;
-    font: normal 26px/1 Verdana, Helvetica;
-    position: relative;
-}
-
-h1:after, 
-h1:before {
-    background-color: #777;
-    content: "";
-    height: 1px;
-    position: absolute;
-    top: 15px;
-    width: 80px;   
-}
-
-h1:after {  
-    background-image: linear-gradient(to right, #777, #fff);    
-    right: 25px;
-}
-
-h1:before {
-    background-image: linear-gradient(to left, #777, #fff);
-    left: 25px;
 }
 
 .fa-button {
