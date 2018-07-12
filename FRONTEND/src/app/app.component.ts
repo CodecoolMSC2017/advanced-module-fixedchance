@@ -1,6 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AOS } from '../../bower_components/aos/dist/aos';
 
+declare var require : any;
+
 @Component({
   encapsulation: ViewEncapsulation.None,
   selector: 'app-root',
