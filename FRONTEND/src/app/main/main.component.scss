@@ -99,7 +99,7 @@ section div:nth-of-type(2) {
 #main-first-div img {
     position: relative;
     width: 100%;
-    height: 91.3%;
+    height: 100%;
     margin-bottom: 0;
 }
 
@@ -112,7 +112,7 @@ section div:nth-of-type(2) {
 
 #main-first-div {
     position: relative;
-    height: 100%;
+    height: 91.3%;
     margin: 0;
     padding: 0;
 }
@@ -305,4 +305,25 @@ section div:nth-of-type(2) {
     height: 250px;
     border: 3px solid red;
     margin: 6px;
+}
+
+.parallax { 
+    /* The image used */
+
+    /* Set a specific height */
+    height: 440px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.para-1 {
+    background-image: url("../../assets/parallax-1.jpg");
+}
+
+.para-2 {
+    background-image: url("../../assets/parallax-2.png");
 }
