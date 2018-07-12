@@ -7,7 +7,9 @@ import java.util.Date;
 @Table(name="schedules", schema="public")
 public class Schedule extends AbstractModel{
 
-    private Integer teacherId, studentId, startTime;
+    private Integer teacherId;
+    private Integer studentId;
+    private Integer startTime;
     private Date date;
 
     public Schedule() {
