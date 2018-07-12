@@ -11,7 +11,11 @@ import java.util.Date;
 public class User extends AbstractModel {
 
     private Integer experience = 0;
-    private String email, firstName, lastName, password, description;
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String password;
+    private String description;
     private Date birthDate;
     private Date registrationDate = new Date();
 
