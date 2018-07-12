@@ -37,7 +37,33 @@
 	</div>
 </div>
 
-		
+<div id="overview">
+	<div class="overview-entry" id="student-overview" (mouseenter)="onEntryHover($event)" (mouseleave)="onEntryLeave($event)">
+		<span><i class="fa fa-graduation-cap faoverview"></i><br><span id="faoverview-text">STUDENT</span></span><br>
+		<div class="overviewbody" *ngIf="isStudentOverView">
+			<div class="firstentryinnerbody">Hello</div>
+			<div class="secondentryinnerbody">Hi</div>
+			<div class="thirdentryinnerbody">Csá</div>
+		</div>
+	</div>
+	<div class="overview-entry" id="teacher-overview" (mouseenter)="onEntryHover($event)" (mouseleave)="onEntryLeave($event)">
+		<span><i class="fa fa-book faoverview"></i><br><span id="faoverview-text">TEACHER</span></span><br>
+		<div class="overviewbody" *ngIf="isTeacherOverView">
+			<div class="firstentryinnerbody">Hello</div>
+			<div class="secondentryinnerbody">Hi</div>
+			<div class="thirdentryinnerbody">Csá</div>
+		</div>
+	</div>
+	<div class="overview-entry" id="company-overview" (mouseenter)="onEntryHover($event)" (mouseleave)="onEntryLeave($event)">
+		<span><i class="fa fa-building faoverview"></i><br><span id="faoverview-text">COMPANY</span></span><br>
+		<div class="overviewbody" *ngIf="isCompanyOverView">
+			<div class="firstentryinnerbody">Hello</div>
+			<div class="secondentryinnerbody">Hi</div>
+			<div class="thirdentryinnerbody">Csá</div>
+		</div>
+	</div>
+</div>
+
 <footer id="social-media">
 	<p id="follow-title">Follow us on social media!</p>
 	<p id="follow-body">
