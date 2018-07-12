@@ -1,7 +1,7 @@
 #register-content {
     width: 350px;
     margin: 0 auto;
-    margin-top: 8%;
+    margin-top: 10px;
     text-align: center;
     border: 1px solid black;
     background: rgb(149,149,149); /* Old browsers */
@@ -11,8 +11,7 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#959595', endColorstr='#1b1b1b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
     padding: 10px;
     z-index: 10;
-    position: absolute;
-    top: 0;
+    position: fixed;
 }
 
 #register-content .img {
