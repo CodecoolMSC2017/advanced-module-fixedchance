@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { MainComponent } from './main/main.component';
 import { ProfileComponent } from './profile/profile.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ProfileComponent } from './profile/profile.component';
     HomeComponent,
     MainComponent,
     ProfileComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,
