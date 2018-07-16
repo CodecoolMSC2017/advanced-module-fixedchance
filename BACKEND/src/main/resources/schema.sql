@@ -46,7 +46,7 @@ CREATE TABLE companies (
 CREATE TABLE courses (
 	id SERIAL PRIMARY KEY,
 	teacher_id INTEGER NOT NULL,
-	student_id INTEGER NOT NULL,
+	student_id INTEGER,
 	name TEXT NOT NULL UNIQUE,
 	is_validated BOOLEAN NOT NULL DEFAULT 'false',
 	CONSTRAINT name_not_empty CHECK (name <> '')
