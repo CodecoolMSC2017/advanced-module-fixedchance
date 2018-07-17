@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
     //this.user = this.dataService.user;
     
     this.user = new User();
-    this.user.experience = 2700;
+    this.user.experience = 2699;
     this.user.email = 'hegedus.csanad96@gmail.com';
     this.user.firstName = 'Csanád';
     this.user.lastName = 'Hegedűs';
@@ -38,8 +38,8 @@ export class ProfileComponent implements OnInit {
       this.user.experience -= 1200;
       this.userLevel = 1;
       while (this.user.experience - 1200 - this.userLevel * 300 >= 0) {
+        this.user.experience -= 1200 + this.userLevel * 300;
         this.userLevel++;
-        this.user.experience -= 1200 - this.userLevel * 300;
       }
       this.currentExp = this.user.experience;
       this.expToNextLevel = 1200 + this.userLevel * 300;
