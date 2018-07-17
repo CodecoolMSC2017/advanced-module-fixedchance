@@ -1,6 +1,27 @@
-<p>
-  Hi<br>
-  <button routerLink="../profile">Profile</button>
-</p>
+<header id="top-bar">
+  <ul>
+    <li class="toleft"><img id="logoimg" src="assets/logo.png" />
+    <li class="toleft" id="logo"><a>PROFILE</a></li>
+    <li class="toleft"><input type="text" [(ngModel)]="choosen" id="ajax" list="json-datalist" placeholder="Search here"></li>
+      <datalist id="json-datalist">
+        <option value="HTML">
+        <option value="CSS">
+        <option value="JavaScript">
+        <option value="Java">
+        <option value="Python">
+        <option value="Ruby">
+        <option value="PHP">
+        <option value="Photo editing">
+        <option value="Soft skills">
+      </datalist>
+    <li class="toleft" id="button"><a (click)="onSearchClick()"><i class="fa fa-search"></i></a></li>
+    <li class="toright" (click)="onLogOutClick()"><a>LOGOUT</a></li>
+  </ul>
+</header>
 
-<div data-aos="fade-right" style="background-color: black">asd</div>
+<div id="wall">
+  <img src="assets/code.png" class="item" data-aos="flip-up"><br>
+  <img src="assets/languages.jpeg" class="item" data-aos="flip-up"><br>
+  <img src="assets/math.jpg" class="item" data-aos="flip-up"><br>
+  <img src="assets/mentoring.jpg" class="item" data-aos="flip-up"><br>
+</div>
