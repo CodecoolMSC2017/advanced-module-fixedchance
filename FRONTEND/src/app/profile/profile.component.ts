@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
     //this.user = this.dataService.user;
     
     this.user = new User();
-    this.user.experience = 4500;
+    this.user.experience = 2699;
     this.user.email = 'hegedus.csanad96@gmail.com';
     this.user.firstName = 'Csanád';
     this.user.lastName = 'Hegedűs';
