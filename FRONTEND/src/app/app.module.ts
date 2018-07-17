@@ -13,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { MainComponent } from './main/main.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { RoundProgressModule } from 'angular-svg-round-progressbar';
+import { AddCourseComponent } from './add-course/add-course.component';
 
 @NgModule({
   declarations: [
@@ -22,14 +24,16 @@ import { NotfoundComponent } from './notfound/notfound.component';
     HomeComponent,
     MainComponent,
     ProfileComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    AddCourseComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    RoundProgressModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
