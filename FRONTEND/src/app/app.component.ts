@@ -7,7 +7,7 @@ declare var require : any;
   encapsulation: ViewEncapsulation.None,
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss', '../../bower_components/aos/dist/aos.css']
+  styleUrls: ['./app.component.scss', '../../bower_components/aos/dist/aos.css'],
 })
 export class AppComponent {
   title = 'app';

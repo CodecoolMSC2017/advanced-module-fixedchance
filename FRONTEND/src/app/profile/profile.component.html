@@ -1,10 +1,24 @@
-<p>
-  {{ user.id }}<br>
-  {{ user.email }}<br>
-  {{ user.firstName }}<br>
-  {{ user.lastName }}<br>
-  {{ user.birthDate }}<br>
-  {{ user.experience }}<br>
-  {{ user.role }}<br>
-  <button routerLink="../home">Back</button>
-</p>
+
+<header id="top-bar">
+  <ul>
+	<li class="toleft"><img id="logoimg" src="assets/logo.png" />
+  <li class="toleft" id="logo">FIXEDCHANCE</li>
+  <li class="toleft"><a routerLink="home">DASHBOARD</a></li>
+  <li class="toright" routerLink=""><a>LOGOUT</a></li>
+  </ul>
+</header>
+
+
+<div class="progress-wrapper">
+    <round-progress id="progress" [current]="currentExp" [max]="expToNextLevel"></round-progress>
+    <div class="text">{{ userLevel }} <br> 
+    {{ currentExp }} / {{ expToNextLevel }} <br> 
+      {{ percentage }}%
+  </div>
+  <div class="data">
+    E-mail: {{ user.email }} <br>
+    Name: {{ user.firstName + " " + user.lastName}} <br>
+    Birth date:  {{ user.birthDate }} <br>
+    Role: {{ user.role }}
+  </div>
+</div>
