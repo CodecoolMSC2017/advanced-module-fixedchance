@@ -1,25 +1,32 @@
-
 <header id="top-bar">
   <ul>
-	<li class="toleft"><img id="logoimg" src="assets/logo.png" />
-  <li class="toleft" id="logo">FIXEDCHANCE</li>
-  <li class="toleft"><a routerLink="../home">DASHBOARD</a></li>
-  <li class="toright" routerLink=""><a>LOGOUT</a></li>
+    <li class="toleft">
+      <img id="logoimg" src="assets/logo.png" />
+      <li class="toleft" id="logo">FIXEDCHANCE</li>
+      <li class="toleft">
+        <a routerLink="../home">DASHBOARD</a>
+      </li>
+      <li class="toright" routerLink="">
+        <a>LOGOUT</a>
+      </li>
   </ul>
 </header>
 
 
 <div class="progress-wrapper">
-    <round-progress id="progress" [current]="currentExp" [max]="expToNextLevel"></round-progress>
-    <div class="text">{{ userLevel }} <br> 
-    {{ currentExp }} / {{ expToNextLevel }} <br> 
-      {{ percentage }}%
+  <round-progress id="progress" [current]="currentExp" [max]="expToNextLevel"></round-progress>
+  <div class="text">{{ userLevel }}
+    <br> {{ currentExp }} / {{ expToNextLevel }}
+    <br> {{ percentage }}%
   </div>
   <div class="data">
-    E-mail: {{ user.email }} <br>
-    Name: {{ user.firstName + " " + user.lastName}} <br>
-    Birth date:  {{ user.birthDate }} <br>
-    Role: {{ user.role }} <br>
-    <button routerLink="../add-course">Add Course</button>
+    E-mail: {{ user.email }}
+    <br> Name: {{ user.firstName + " " + user.lastName}}
+    <br> Birth date: {{ userBirthDate }}
+    <br> Role: {{ user.role }}
+    <br>
+    <div *ngIf='isValid()'>
+      <button routerLink="../add-course">Add Course</button>
+    </div>
   </div>
 </div>

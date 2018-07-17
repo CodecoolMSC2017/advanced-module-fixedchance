@@ -15,6 +15,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { AddCourseComponent } from './add-course/add-course.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { AddCourseComponent } from './add-course/add-course.component';
     HttpClientModule,
     RoundProgressModule,
   ],
-  providers: [DataService],
+  providers: [DataService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
