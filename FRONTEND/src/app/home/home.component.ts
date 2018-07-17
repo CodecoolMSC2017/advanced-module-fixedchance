@@ -14,8 +14,12 @@ export class HomeComponent implements OnInit {
   constructor(private http : HttpClient, private route: ActivatedRoute, private router: Router, public dataService : DataService) { }
 
   choosen: string = this.choosen;
+  user : User;
+  postContent : string = this.postContent;
 
   ngOnInit() {
+    this.user = this.dataService.user;
+    this.user.firstName = this.dataService.user.firstName;
   }
 
   onLogOutClick() {
@@ -24,5 +28,9 @@ export class HomeComponent implements OnInit {
 
   onSearchClick() {
     console.log(this.choosen)
+  }
+
+  onShareClick() {
+    console.log(this.postContent); 
   }
 }

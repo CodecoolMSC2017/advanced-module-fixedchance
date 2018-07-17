@@ -91,7 +91,8 @@ grid-column: 2 / 4;
   font-family: 'Teko', sans-serif;
   color: white;
   font-size: 30px;
-  margin-top: 0px;
+  padding: 10px;
+  padding-top: 14px;
   padding-left: 75px;
   cursor: default;
 }
@@ -108,10 +109,31 @@ grid-column: 2 / 4;
 
 #wall {
   position: relative;
+  background: rgb(149,149,149); /* Old browsers */
+  background: -moz-linear-gradient(-45deg, rgba(149,149,149,1) 0%, rgba(13,13,13,1) 46%, rgba(1,1,1,1) 50%, rgba(10,10,10,1) 53%, rgba(78,78,78,1) 76%, rgba(56,56,56,1) 87%, rgba(27,27,27,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, rgba(149,149,149,1) 0%,rgba(13,13,13,1) 46%,rgba(1,1,1,1) 50%,rgba(10,10,10,1) 53%,rgba(78,78,78,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, rgba(149,149,149,1) 0%,rgba(13,13,13,1) 46%,rgba(1,1,1,1) 50%,rgba(10,10,10,1) 53%,rgba(78,78,78,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#959595', endColorstr='#1b1b1b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+#shareButton {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80px;
 }
 
   #wall .item {
     display: block;
+    color: black;;
+    background-color: lightgray;
+    border: 1px solid;
+    border-color: orange;
     margin:0 auto;
     width: 50%;
   }

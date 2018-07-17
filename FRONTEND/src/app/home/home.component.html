@@ -1,7 +1,8 @@
 <header id="top-bar">
   <ul>
     <li class="toleft"><img id="logoimg" src="assets/logo.png" />
-    <li class="toleft" id="logo"><a routerLink="../profile">PROFILE</a></li>
+    <li class="toleft" id="logo">FIXEDCHANCE</li>
+    <li class="toleft" ><a routerLink="../profile">PROFILE</a></li>
     <li class="toleft"><input type="text" [(ngModel)]="choosen" id="ajax" list="json-datalist" placeholder="Search here"></li>
       <datalist id="json-datalist">
         <option value="HTML">
@@ -20,8 +21,14 @@
 </header>
 
 <div id="wall">
-  <img src="assets/code.png" class="item" data-aos="flip-up"><br>
+  <div class="item" data-aos="flip-up">
+    <h3>Hello {{ user.firstName }} , do you have something in mind?</h3>
+    <hr>
+    <textarea type="text" [(ngModel)]="postContent" placeholder="Type your idea"></textarea>
+    <button id="shareButton" (click)="onShareClick()">Share</button>
+  </div><br>
+  <img src="assets/code.png" class="item" id="trigger-left" data-aos="flip-up"><br>
   <img src="assets/languages.jpeg" class="item" data-aos="flip-up"><br>
-  <img src="assets/math.jpg" class="item" data-aos="flip-up"><br>
+  <img src="assets/math.jpg" class="item" id="trigger-right" data-aos="flip-up"><br>
   <img src="assets/mentoring.jpg" class="item" data-aos="flip-up"><br>
 </div>
