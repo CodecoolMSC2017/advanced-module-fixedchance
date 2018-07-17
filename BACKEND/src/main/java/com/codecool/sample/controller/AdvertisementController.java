@@ -1,6 +1,6 @@
 package com.codecool.sample.controller;
 
-import com.codecool.sample.model.Advertisement;
+import com.codecool.sample.domain.Advertisement;
 import com.codecool.sample.service.AdvertisementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

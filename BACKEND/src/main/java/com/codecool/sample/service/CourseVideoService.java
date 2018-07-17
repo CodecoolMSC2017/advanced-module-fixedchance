@@ -1,7 +1,6 @@
 package com.codecool.sample.service;
 
-import com.codecool.sample.model.CourseQuestion;
-import com.codecool.sample.model.CourseVideo;
+import com.codecool.sample.domain.CourseVideo;
 import com.codecool.sample.repository.CourseVideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

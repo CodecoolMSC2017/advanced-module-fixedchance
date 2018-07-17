@@ -1,6 +1,6 @@
 package com.codecool.sample.service;
 
-import com.codecool.sample.model.Advertisement;
+import com.codecool.sample.domain.Advertisement;
 import com.codecool.sample.repository.AdvertisementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

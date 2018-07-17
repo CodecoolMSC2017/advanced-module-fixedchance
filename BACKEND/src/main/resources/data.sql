@@ -1,7 +1,7 @@
 INSERT INTO users (email, first_name, last_name, birth_date, registration_date, password, role) VALUES
-    ('admin', 'admin', 'user', '1990-01-01', '1990-01-01', 'admin', 'ADMIN'),
-    ('student', 'student', 'student', '1990-01-01', '1990-01-01', 'student', 'STUDENT'),
-    ('teacher', 'teacher', 'teacher', '1990-01-01', '1990-01-01', 'teacher', 'TEACHER');
+    ('admin', 'Admin', 'Admin', '1988-04-01', '1990-01-01', 'admin', 'ADMIN'),
+    ('student', 'John', 'Doe', '1990-05-12', '1990-01-01', 'student', 'STUDENT'),
+    ('teacher', 'Jane', 'Doe', '1978-06-24', '1990-01-01', 'teacher', 'TEACHER');
 
 INSERT INTO companies (name, registration_date, email, password, active, subscription) VALUES
     ('admin', '1990-01-01', 'admin', 'admin', true, '12month');

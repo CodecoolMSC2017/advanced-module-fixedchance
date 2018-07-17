@@ -1,7 +1,6 @@
-package com.codecool.sample.model;
+package com.codecool.sample.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.codecool.sample.model;
+package com.codecool.sample.domain;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -1,9 +1,7 @@
 package com.codecool.sample.service;
 
-import com.codecool.sample.model.Company;
-import com.codecool.sample.model.User;
+import com.codecool.sample.domain.Company;
 import com.codecool.sample.repository.CompanyRepository;
-import com.codecool.sample.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

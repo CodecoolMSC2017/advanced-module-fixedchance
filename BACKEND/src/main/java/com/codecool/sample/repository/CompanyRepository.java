@@ -1,7 +1,6 @@
 package com.codecool.sample.repository;
 
-import com.codecool.sample.model.Company;
-import com.codecool.sample.model.User;
+import com.codecool.sample.domain.Company;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

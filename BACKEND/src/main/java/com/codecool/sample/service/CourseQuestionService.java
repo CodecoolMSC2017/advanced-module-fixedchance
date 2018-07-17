@@ -1,6 +1,6 @@
 package com.codecool.sample.service;
 
-import com.codecool.sample.model.CourseQuestion;
+import com.codecool.sample.domain.CourseQuestion;
 import com.codecool.sample.repository.CourseQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

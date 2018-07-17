@@ -1,6 +1,6 @@
 package com.codecool.sample.controller;
 
-import com.codecool.sample.model.Schedule;
+import com.codecool.sample.domain.Schedule;
 import com.codecool.sample.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

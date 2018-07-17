@@ -1,6 +1,6 @@
 package com.codecool.sample.controller;
 
-import com.codecool.sample.model.CourseTopic;
+import com.codecool.sample.domain.CourseTopic;
 import com.codecool.sample.service.CourseTopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

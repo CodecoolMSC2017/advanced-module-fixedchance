@@ -1,6 +1,6 @@
 package com.codecool.sample.repository;
 
-import com.codecool.sample.model.Schedule;
+import com.codecool.sample.domain.Schedule;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

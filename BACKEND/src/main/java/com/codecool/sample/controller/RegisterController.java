@@ -1,8 +1,8 @@
 package com.codecool.sample.controller;
 
-import com.codecool.sample.model.Company;
-import com.codecool.sample.model.Message;
-import com.codecool.sample.model.User;
+import com.codecool.sample.domain.Company;
+import com.codecool.sample.domain.Message;
+import com.codecool.sample.domain.User;
 import com.codecool.sample.service.CompanyService;
 import com.codecool.sample.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

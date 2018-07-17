@@ -1,6 +1,6 @@
 package com.codecool.sample.repository;
 
-import com.codecool.sample.model.CourseReview;
+import com.codecool.sample.domain.CourseReview;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
