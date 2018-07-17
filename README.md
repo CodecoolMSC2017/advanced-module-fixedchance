@@ -1,3 +1,3 @@
-# Advanced Module [Eragon]
+# Advanced Module [FixedChance]
 
-## This is the base repo for the Eragon project
+## This is the base repo for the FixedChance project
