@@ -24,6 +24,16 @@ export class DataService {
   }
 
   getUser() {
+    if (this.user == null) {
+      this.user = new User();
+      this.user.birthDate = new Date();
+      this.user.email = "user@user.user";
+      this.user.firstName = "User";
+      this.user.lastName = "Profile";
+      this.user.role = "ADMIN";
+      this.user.id = 10;
+    }
+    
     return this.user;
   }
 }

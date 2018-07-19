@@ -112,7 +112,7 @@ section div:nth-of-type(2) {
 
 #main-first-div {
     position: relative;
-    height: 91.3%;
+    height: 115%;
     margin: 0;
     padding: 0;
 }
@@ -235,11 +235,11 @@ section div:nth-of-type(2) {
     line-height: 100px;
     text-align: center;
     margin-top: -380px;
-    transition: all 2s ease-in-out;
-    -webkit-animation: bodyanim 2s;
-    -moz-animation: bodyanim 2s;
-    -o-animation: bodyanim 2s;
-    animation: bodyanim 2s;
+    transition: all 0.5s ease-in-out;
+    -webkit-animation: bodyanim 0.8s;
+    -moz-animation: bodyanim 0.8s;
+    -o-animation: bodyanim 0.8s;
+    animation: bodyanim 0.8s;
 }
 
 
@@ -259,7 +259,7 @@ section div:nth-of-type(2) {
     }
 
     .overviewbody {
-        transition: all 2s ease-in-out;
+        transition: all 0.5s ease-in-out;
     }
 }
 
@@ -282,28 +282,25 @@ section div:nth-of-type(2) {
 
 .firstentryinnerbody {
     display: inline-block;
-    transition: all 2s ease-in-out;
+    transition: all 0.5s ease-in-out;
     width: 30%;
     height: 250px;
-    border: 3px solid red;
     margin: 6px;
 }
 
 .secondentryinnerbody {
     display: inline-block;
-    transition: all 2s ease-in-out;
+    transition: all 0.5s ease-in-out;
     width: 30%;
     height: 250px;
-    border: 3px solid red;
     margin: 6px;
 }
 
 .thirdentryinnerbody {
     display: inline-block;
-    transition: all 2s ease-in-out;
+    transition: all 0.5s ease-in-out;
     width: 30%;
     height: 250px;
-    border: 3px solid red;
     margin: 6px;
 }
 

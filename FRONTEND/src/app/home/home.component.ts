@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   show : boolean = false;
 
   ngOnInit() {
-    this.user = this.dataService.user;
+    this.user = this.dataService.getUser();
     this.user.firstName = this.dataService.user.firstName;
     this.dataService.post.subscribe(res => this.posts = res);
     this.dataService.changePost(this.posts);

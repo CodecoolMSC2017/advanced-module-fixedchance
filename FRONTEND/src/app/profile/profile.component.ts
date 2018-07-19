@@ -19,12 +19,17 @@ export class ProfileComponent implements OnInit {
   // stores the date in the right format (yyyy-MM-dd)
   userBirthDate : string;
   xpNum : number;
+  showCourse : boolean;
+
+  courseEntries : Array<String>;
 
   constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe) { }
 
   ngOnInit() {
     
-    this.user = this.dataService.user;
+    this.user = this.dataService.getUser();
+
+    
     
     this.user.experience = 1500;
     
@@ -78,5 +83,28 @@ export class ProfileComponent implements OnInit {
       this.expToNextLevel = 1200 + this.userLevel * 300;
       this.percentage = Math.round((this.currentExp / this.expToNextLevel) * 100);
     }*/
+  }
+
+  showCourses(event) {
+    this.showCourse = true;
+    switch (event.target.id) {
+      case 'programming':
+      this.courseEntries = ["Python for dummies", "Python from zero to hero", "Python advanced", "Python master", "Python for web developers",
+      "Java for dummies", "Java from zero to hero", "Java advanced", "Java master", "Java for web developers"];
+      break;
+      case 'videos':
+      this.courseEntries = ["Fiery effect tutorial", "Manipulate sound effects", "Special effects", "CGI tutorial"];
+      break;
+      case 'photos':
+      this.courseEntries = ["All about exposure", "How to change hair color", "3D effect for text tutorial", "Masking for dummies"];
+      break;
+      case 'softs':
+      this.courseEntries = ["A way to successful job interviews", "HR questions and answers", "You can be charismatic as well!"];
+      break;
+    }
+  }
+
+  backToProfile() {
+    this.showCourse = false;
   }
 }

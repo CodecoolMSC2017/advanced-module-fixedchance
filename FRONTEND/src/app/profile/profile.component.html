@@ -1,3 +1,5 @@
+<div id="dark-background" *ngIf="showCourse" (click)="backToProfile()"></div>
+
 <header id="top-bar">
   <ul>
     <li class="toleft">
@@ -12,6 +14,7 @@
   </ul>
 </header>
 
+<div id="bck"></div>
 
 <div class="progress-wrapper">
   <round-progress id="progress" [current]="currentExp" [max]="expToNextLevel"></round-progress>
@@ -32,4 +35,21 @@
       <button (click)="addXp()">Add XP</button>
     </div>
   </div>
+</div>
+
+<div class="courses">
+  <p>Courses you finished</p>
+  <hr>
+  <div class="course">
+    <div class="courseTopic" (click)="showCourses($event)" id="programming">Programming</div>
+    <div class="courseTopic" (click)="showCourses($event)" id="videos">Video Editing</div>
+    <div class="courseTopic" (click)="showCourses($event)" id="photos">Photos Editing</div>
+    <div class="courseTopic" (click)="showCourses($event)" id="softs">Soft skills</div>
+  </div>
+</div> 
+
+<div id="showCourse" *ngIf="showCourse">
+    <div class="courseName" *ngFor="let course of courseEntries">
+      {{ course }}
+    </div>
 </div>
