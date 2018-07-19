@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Observable } from 'rxjs';
 import { User } from './user';
 
 @Injectable({
@@ -6,9 +8,16 @@ import { User } from './user';
 })
 export class DataService {
 
+  private posts = new BehaviorSubject<any>(['The initial post', 'Another post']);
+  post = this.posts.asObservable();
+
   user : User;
 
   constructor() { }
+
+  changePost(post) {
+    this.posts.next(post)
+  }
 
   setUser(user : User) {
     this.user = user;

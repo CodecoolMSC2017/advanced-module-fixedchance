@@ -16,10 +16,15 @@ export class HomeComponent implements OnInit {
   choosen: string = this.choosen;
   user : User;
   postContent : string = this.postContent;
+  postedContent :string = this.postedContent;
+  posts = [];
+  show : boolean = false;
 
   ngOnInit() {
     this.user = this.dataService.user;
     this.user.firstName = this.dataService.user.firstName;
+    this.dataService.post.subscribe(res => this.posts = res);
+    this.dataService.changePost(this.posts);
   }
 
   onLogOutClick() {
@@ -31,6 +36,19 @@ export class HomeComponent implements OnInit {
   }
 
   onShareClick() {
-    console.log(this.postContent); 
+    this.show = true;
+    this.postedContent = this.postContent;
+    this.postContent = '';
+  }
+
+  addItem() {
+    this.posts.push(this.postContent);
+    this.postContent = '';
+    this.dataService.changePost(this.posts);
+  }
+
+  removeItem(i) {
+    this.posts.splice(i, 1);
+    this.dataService.changePost(this.posts);
   }
 }

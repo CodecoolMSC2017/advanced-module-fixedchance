@@ -26,6 +26,10 @@
   float: right;
 }
 
+#top-bar li[class="tocenter"] {
+  display: inline-block;
+}
+
 #top-bar li {
   margin-top: 0px;
 }
@@ -49,6 +53,7 @@
   height: 40px;
   display: block;
   padding: 12px 16px;
+  margin-left: 80%;
   margin-top: 10px;
   margin-bottom: 0px;
   text-decoration: none;
@@ -58,6 +63,7 @@
 }
 
 #button {
+  margin-left: 12%;
   height: 55px;
   display: block;
   text-decoration: none;
@@ -99,7 +105,7 @@ grid-column: 2 / 4;
 
 #logoimg {
   padding: 6px 5px 5px 15px;
-  width: 55px;
+  width: 75px;
   position: absolute;
 }
 
@@ -109,6 +115,12 @@ grid-column: 2 / 4;
 
 #wall {
   position: relative;
+}
+
+#page {
+  position: fixed;
+  width: 100%;
+  height: 100%;
   background: rgb(149,149,149); /* Old browsers */
   background: -moz-linear-gradient(-45deg, rgba(149,149,149,1) 0%, rgba(13,13,13,1) 46%, rgba(1,1,1,1) 50%, rgba(10,10,10,1) 53%, rgba(78,78,78,1) 76%, rgba(56,56,56,1) 87%, rgba(27,27,27,1) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(-45deg, rgba(149,149,149,1) 0%,rgba(13,13,13,1) 46%,rgba(1,1,1,1) 50%,rgba(10,10,10,1) 53%,rgba(78,78,78,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%); /* Chrome10-25,Safari5.1-6 */
@@ -132,10 +144,14 @@ textarea {
     display: block;
     color: black;;
     background-color: lightgray;
-    border: 1px solid;
+    border: 2px solid;
     border-color: orange;
     margin:0 auto;
     width: 50%;
+  }
+
+  .hidden {
+    display: none;
   }
 
   #ajax {
