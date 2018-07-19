@@ -24,16 +24,16 @@
     <br> Role: {{ user.role }}
     <br>
     <div *ngIf='isValid()'>
-      <button routerLink="../add-course">Add Course</button>
+      <button class="prof-button" routerLink="../add-course">Add Course</button>
     </div>
     <div>
-      <button (click)="addXp()">Add XP</button>
+      <button class="prof-button" (click)="addXp()">Add XP</button>
     </div>
   </div>
 </div>
 
 <div class="courses">
-  <p>Courses you finished</p>
+  <p>YOUR FINISHED COURSES</p>
   <hr>
   <div class="course">
     <div class="courseTopic" (click)="showCourses($event)" id="programming">Programming</div>

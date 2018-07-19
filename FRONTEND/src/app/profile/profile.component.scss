@@ -1,3 +1,17 @@
+.prof-button {
+    width: 150px;
+    padding: 10px;
+    margin: 2px;
+    background: white;
+    border: 2px solid black;
+    transition: 500ms;
+}
+
+.prof-button:hover {
+    background-color: rgb(245, 170, 7);
+    transition: 500ms;
+}
+
 .wrapper {
     width: 100%; /* Set the size of the progress bar */
     height: 90%;
@@ -63,21 +77,24 @@
 
 .progress-wrapper {
   position: absolute;
-  left: 150px;
-  width: 50%;
-  top: 150px;
+  left: 160px;
+  width: 78.6%;
+  top: 80px;
+  background-color: rgba(0, 0, 0, .4);
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .progress-wrapper .text {
   position: absolute;
-  left: 8.2%;
+  left: 3.2%;
   top: 50%;
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
   text-align: center;
   width: 15%;
   z-index: 1;
-  color: black;
+  color: white;
 }
 
 .progress-wrapper .data {
@@ -89,14 +106,16 @@
 
 .courses {
   position: absolute;
-  top: 450px;
+  top: 360px;
   left: 0;
   right: 0;
   width: 80%;
+  height: 50%;
   background-color: rgba(0, 0, 0, .4);
   margin: 0 auto;
   padding-bottom: 20px;
   padding-top: 0px;
+  border-radius: 10px;
 }
 
 .courses p {
