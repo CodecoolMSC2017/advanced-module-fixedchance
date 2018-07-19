@@ -1,24 +1,29 @@
-<body>
+<header id="top-bar">
+  <ul>
+    <li class="toleft"><img id="logoimg" src="assets/logo.png" />
+    <li class="toleft" id="logo">FIXEDCHANCE</li>
+    <li class="toleft"><a routerLink="../home">DASHBOARD</a></li>
+    <li class="toright" routerLink=""><a>LOGOUT</a></li>
+  </ul>
+</header>
 
-  <p>
-    Add new course
-  </p>
-  <form id="add-course-form" autocomplete="off">
-    <input type="text" [(ngModel)]="name" placeholder="Course name" name="name">
-    <br>
-    <div *ngFor='let link of links'>
-      <input type="text" [attr.name]="link" placeholder="link">
-    </div>
-    <input type="button" value="Add new video" (click)="addNewVideoLink()">
-    <br>
-    <!--
-      <input type="text" [(ngModel)]="video" placeholder="Video Url" name="video"><br>
-      <input type="text" [(ngModel)]="videoName" placeholder="Video name" name="videoName"><br>
-      <input type="text" [(ngModel)]="description" placeholder="Description" name="description"><br>
-      <input type="text" [(ngModel)]="question" placeholder="Question" name="question"><br>
-      <input type="text" [(ngModel)]="answer" placeholder="Answer" name="answer"><br>
-      -->
-    <button id="add-course-button" (click)="onAddNewCourseClick()">Add new course</button>
-  </form>
-
-</body>
+<p>
+  Add new course
+</p>
+<form id="add-course-form" autocomplete="off">
+  <input type="text" [(ngModel)]="name" placeholder="Course name" name="name">
+  <br>
+  <div *ngFor='let link of links'>
+    <input type="text" [attr.name]="link" placeholder="link">
+  </div>
+  <input type="button" value="Add new video" (click)="addNewVideoLink()">
+  <br>
+  <!--
+    <input type="text" [(ngModel)]="video" placeholder="Video Url" name="video"><br>
+    <input type="text" [(ngModel)]="videoName" placeholder="Video name" name="videoName"><br>
+    <input type="text" [(ngModel)]="description" placeholder="Description" name="description"><br>
+    <input type="text" [(ngModel)]="question" placeholder="Question" name="question"><br>
+    <input type="text" [(ngModel)]="answer" placeholder="Answer" name="answer"><br>
+    -->
+  <button id="add-course-button" (click)="onAddNewCourseClick()">Add new course</button>
+</form>
