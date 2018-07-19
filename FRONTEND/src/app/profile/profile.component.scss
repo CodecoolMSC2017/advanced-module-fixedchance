@@ -30,7 +30,7 @@
     display: block;
     color: white;
     text-align: center;
-    padding: 12px 16px;
+    padding: 14px 16px;
     text-decoration: none;
     font-family: 'Teko', sans-serif;
     font-size: 30px;
@@ -58,8 +58,8 @@
 }
 
 .wrapper {
-    width: 100px; /* Set the size of the progress bar */
-    height: 100px;
+    width: 100%; /* Set the size of the progress bar */
+    height: 90%;
     position: absolute; /* Enable clipping */
     clip: rect(0px, 100px, 100px, 50px); /* Hide half of the progress bar */
   }
@@ -121,15 +121,20 @@
   }
 
 .progress-wrapper {
-    position: relative;
-    background-color: thistle;
+    position: fixed;
+    background: rgb(149,149,149); /* Old browsers */
+    background: -moz-linear-gradient(-45deg, rgba(149,149,149,1) 0%, rgba(13,13,13,1) 46%, rgba(1,1,1,1) 50%, rgba(10,10,10,1) 53%, rgba(78,78,78,1) 76%, rgba(56,56,56,1) 87%, rgba(27,27,27,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, rgba(149,149,149,1) 0%,rgba(13,13,13,1) 46%,rgba(1,1,1,1) 50%,rgba(10,10,10,1) 53%,rgba(78,78,78,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, rgba(149,149,149,1) 0%,rgba(13,13,13,1) 46%,rgba(1,1,1,1) 50%,rgba(10,10,10,1) 53%,rgba(78,78,78,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    height: 90%;
+    width: 100%;
 }
 
 .progress-wrapper .text {
-    position: absolute;
-    top: 50%;
-    left: 0.5%;
-    transform: translateY(-50%);
+  position: absolute;
+  left: 0.5%;
+  top: 17%;
+  transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     text-align: center;
     width: 15%;
