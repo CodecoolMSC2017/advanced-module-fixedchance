@@ -68,6 +68,7 @@ CREATE TABLE courses (
 	teacher_id INTEGER NOT NULL,
 	name TEXT NOT NULL UNIQUE,
 	is_validated BOOLEAN NOT NULL DEFAULT 'false',
+	FOREIGN KEY (teacher_id) REFERENCES users(id),
 	CONSTRAINT name_not_empty CHECK (name <> '')
 );
 
@@ -85,6 +86,7 @@ CREATE TABLE course_videos (
 	name TEXT NOT NULL,
 	video TEXT NOT NULL,
 	description TEXT,
+	FOREIGN KEY (course_id) REFERENCES courses(id),
 	CONSTRAINT name_not_empty CHECK (name <> ''),
 	CONSTRAINT video_not_empty CHECK (video <> '')
 );
@@ -95,6 +97,7 @@ CREATE TABLE course_questions (
 	id SERIAL PRIMARY KEY,
 	course_id INTEGER NOT NULL,
 	question TEXT NOT NULL,
+	FOREIGN KEY (course_id) REFERENCES courses(id),
 	CONSTRAINT question_not_empty CHECK (question <> '')
 );
 
@@ -105,6 +108,7 @@ CREATE TABLE course_answers (
 	answer TEXT NOT NULL,
 	question_id INTEGER NOT NULL,
 	is_right BOOLEAN NOT NULL,
+	FOREIGN KEY (question_id) REFERENCES course_questions(id),
 	CONSTRAINT answer_not_empty CHECK (answer <> '')
 );
 
@@ -115,6 +119,7 @@ CREATE TABLE advertisements (
 	company_id INTEGER NOT NULL,
 	name TEXT NOT NULL,
 	description TEXT NOT NULL,
+	FOREIGN KEY (company_id) REFERENCES companies(id),
 	CONSTRAINT name_not_empty CHECK (name <> ''),
 	CONSTRAINT description_not_empty CHECK (description <> '')
 );
@@ -126,7 +131,9 @@ CREATE TABLE schedules (
 	teacher_id INTEGER NOT NULL,
 	student_id INTEGER NOT NULL,
 	date DATE NOT NULL,
-	start_time INTEGER NOT NULL
+	start_time INTEGER NOT NULL,
+	FOREIGN KEY (teacher_id) REFERENCES users(id),
+	FOREIGN KEY (student_id) REFERENCES users(id)
 );
 
 
@@ -135,7 +142,9 @@ CREATE TABLE course_reviews (
 	id SERIAL PRIMARY KEY,
 	course_id INTEGER NOT NULL,
 	rating INTEGER NOT NULL,
-	description TEXT
+	description TEXT,
+	FOREIGN KEY (course_id) REFERENCES courses(id),
+	CONSTRAINT rating_between_one_five CHECK (rating >= 1 AND rating <= 5)
 );
 
 CREATE TABLE course_topics (
