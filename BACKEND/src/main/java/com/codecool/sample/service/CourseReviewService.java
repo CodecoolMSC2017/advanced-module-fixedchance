@@ -23,11 +23,7 @@ public class CourseReviewService {
         return reviewRepository.findById(id);
     }
 
-    public void addNewReview(CourseReview review) throws SQLException {
-        try {
-            reviewRepository.save(review);
-        } catch (Exception e) {
-            throw new SQLException("Review already exists");
-        }
+    public void addNewReview(CourseReview review) {
+        reviewRepository.save(review);
     }
 }

@@ -19,12 +19,8 @@ public final class AdvertisementService {
         return repository.findAll();
     }
 
-    public void addNewAdvertisement(Advertisement ad) throws SQLException {
-        try {
-            repository.save(ad);
-        } catch (Exception e) {
-            throw new SQLException("Advertisement already exists");
-        }
+    public void addNewAdvertisement(Advertisement ad) {
+        repository.save(ad);
     }
 
     public Optional<Advertisement> getAdvertisementById(Integer id) {

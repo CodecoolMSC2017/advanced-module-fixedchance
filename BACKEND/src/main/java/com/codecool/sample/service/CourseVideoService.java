@@ -23,11 +23,7 @@ public class CourseVideoService {
         return videoRepository.findById(id);
     }
 
-    public void addNewVideo(CourseVideo video) throws SQLException {
-        try {
-            videoRepository.save(video);
-        } catch (Exception e) {
-            throw new SQLException("Video already exists");
-        }
+    public void addNewVideo(CourseVideo video) {
+        videoRepository.save(video);
     }
 }

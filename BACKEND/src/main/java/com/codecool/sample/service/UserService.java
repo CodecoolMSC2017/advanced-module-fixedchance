@@ -13,23 +13,19 @@ public final class UserService {
     @Autowired
     private UserRepository repository;
 
-    public Iterable<User> getUsers() throws SQLException {
+    public Iterable<User> getUsers() {
         return repository.findAll();
     }
 
-    public void addNewUser(User user) throws SQLException {
-        try {
+    public void addNewUser(User user) {
             repository.save(user);
-        } catch (Exception e) {
-            throw new SQLException("E-mail already exists");
-        }
     }
 
-    public void deleteUser(int userId) throws SQLException {
+    public void deleteUser(int userId) {
         repository.deleteById(userId);
     }
 
-    public User findByEmail(String email) throws SQLException {
+    public User findByEmail(String email) {
         return repository.findByEmail(email);
     }
 }

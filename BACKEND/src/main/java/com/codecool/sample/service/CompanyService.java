@@ -13,23 +13,19 @@ public final class CompanyService {
     @Autowired
     private CompanyRepository repository;
 
-    public Iterable<Company> getUsers() throws SQLException {
+    public Iterable<Company> getUsers() {
         return repository.findAll();
     }
 
-    public void addNewCompany(Company company) throws SQLException {
-        try {
-            repository.save(company);
-        } catch (Exception e) {
-            throw new SQLException("E-mail already exists");
-        }
+    public void addNewCompany(Company company) {
+        repository.save(company);
     }
 
-    public void deleteCompany(int companyId) throws SQLException {
+    public void deleteCompany(int companyId) {
         repository.deleteById(companyId);
     }
 
-    public Company findByEmail(String email) throws SQLException {
+    public Company findByEmail(String email) {
         return repository.findByEmail(email);
     }
 }

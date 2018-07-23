@@ -23,11 +23,7 @@ public class CourseAnswerService {
         return answerRepository.findById(id);
     }
 
-    public void addNewAnswer(CourseAnswer answer) throws SQLException {
-        try {
-            answerRepository.save(answer);
-        } catch (Exception e) {
-            throw new SQLException("Answer already exists");
-        }
+    public void addNewAnswer(CourseAnswer answer) {
+        answerRepository.save(answer);
     }
 }
