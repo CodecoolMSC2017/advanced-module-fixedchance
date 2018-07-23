@@ -1,28 +1,42 @@
 package com.codecool.sample.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="courses", schema="public")
 public class Course extends AbstractModel {
 
-    private Integer teacherId, studentId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "teacherId")
+    @NotNull
+    private User teacher;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JoinTable(name = "course_student",
+                joinColumns = {@JoinColumn(name = "course_id")},
+                inverseJoinColumns = {@JoinColumn(name = "student_id")})
+    private Set<User> students = new HashSet<>();
+
     private String name;
+
     private boolean isValidated;
 
     public Course() {
     }
 
     // Getters
-
-    public Integer getTeacherId() {
-        return teacherId;
+    public Set<User> getStudents() {
+        return students;
     }
 
-    public Integer getStudentId() {
-        return studentId;
+    public User getTeacher() {
+        return teacher;
     }
 
     public String getName() {
@@ -34,13 +48,12 @@ public class Course extends AbstractModel {
     }
 
     // Setters
-
-    public void setTeacherId(Integer teacherId) {
-        this.teacherId = teacherId;
+    public void setStudents(Set<User> students) {
+        this.students = students;
     }
 
-    public void setStudentId(Integer studentId) {
-        this.studentId = studentId;
+    public void setTeacher(User teacher) {
+        this.teacher = teacher;
     }
 
     public void setName(String name) {

@@ -1,14 +1,19 @@
 package com.codecool.sample.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="course_answers", schema="public")
 public class CourseAnswer extends AbstractModel {
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "questionId")
+    @NotNull
+    private CourseQuestion courseQuestion;
+
     private String answer;
-    private Integer questionId;
+
     private boolean isRight;
 
     public CourseAnswer() {}
@@ -18,8 +23,8 @@ public class CourseAnswer extends AbstractModel {
         return answer;
     }
 
-    public Integer getQuestionId() {
-        return questionId;
+    public CourseQuestion getCourseQuestion() {
+        return courseQuestion;
     }
 
     public boolean isRight() {
@@ -31,8 +36,8 @@ public class CourseAnswer extends AbstractModel {
         this.answer = answer;
     }
 
-    public void setQuestionId(Integer questionId) {
-        this.questionId = questionId;
+    public void setCourseQuestion(CourseQuestion courseQuestion) {
+        this.courseQuestion = courseQuestion;
     }
 
     public void setRight(boolean right) {

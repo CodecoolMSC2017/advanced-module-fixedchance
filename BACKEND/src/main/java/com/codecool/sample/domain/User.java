@@ -1,25 +1,52 @@
 package com.codecool.sample.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name="users", schema="public")
-public class User extends AbstractModel {
+@Table(name = "users", schema = "public")
+public class User extends AbstractModel implements Serializable {
 
     private Integer experience = 0;
     private String email;
+    private String username;
     private String firstName;
     private String lastName;
     private String password;
     private String description;
     private Date birthDate;
+    private boolean enabled;
     private Date registrationDate = new Date();
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "teacher")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Course> teacherCourses;
+
+    /*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Course studentCourse;*/
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "course_student",
+            joinColumns = {@JoinColumn(name = "student_id")},
+            inverseJoinColumns = {@JoinColumn(name = "course_id")})
+    private Set<User> students = new HashSet<>();
+
+
+    @ElementCollection
+    @CollectionTable(
+            name = "authorities",
+            joinColumns = @JoinColumn(name = "username", referencedColumnName = "username")
+    )
+    @Column(name = "authority")
+    private List<String> authorities;
 
     @JsonInclude()
     @Transient
@@ -29,6 +56,24 @@ public class User extends AbstractModel {
     }
 
     // Getters
+
+
+    public List<Course> getTeacherCourses() {
+        return teacherCourses;
+    }
+
+    public Set<User> getStudents() {
+        return students;
+    }
+
+    public List<String> getAuthorities() {
+        return authorities;
+    }
+
+    public String getUserName() {
+        return username;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -57,10 +102,6 @@ public class User extends AbstractModel {
         return password;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -69,7 +110,33 @@ public class User extends AbstractModel {
         return confpassword;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
     // Setters
+
+
+    public void setExperience(Integer experience) {
+        this.experience = experience;
+    }
+
+    public void setTeacherCourses(List<Course> teacherCourses) {
+        this.teacherCourses = teacherCourses;
+    }
+
+    public void setStudents(Set<User> students) {
+        this.students = students;
+    }
+
+    public void setAuthorities(List<String> authorities) {
+        this.authorities = authorities;
+    }
+
+    public void setUserName(String userName) {
+        this.username = userName;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -98,10 +165,6 @@ public class User extends AbstractModel {
         this.password = password;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -110,21 +173,26 @@ public class User extends AbstractModel {
         this.confpassword = confpassword;
     }
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
     // Methods
+
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + super.getId() +
+                "id='" + super.getId() +
+                "experience=" + experience +
                 ", email='" + email + '\'' +
+                ", userName='" + username + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", birthDate=" + birthDate +
-                ", registrationDate=" + registrationDate +
-                ", experience=" + experience +
                 ", password='" + password + '\'' +
-                ", role=" + role +
                 ", description='" + description + '\'' +
+                ", birthDate=" + birthDate +
+                ", enabled=" + enabled +
+                ", registrationDate=" + registrationDate +
                 ", confpassword='" + confpassword + '\'' +
                 '}';
     }

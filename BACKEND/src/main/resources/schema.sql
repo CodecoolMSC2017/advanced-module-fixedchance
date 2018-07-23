@@ -5,12 +5,16 @@ DROP TABLE IF EXISTS advertisements;
 DROP TABLE IF EXISTS course_answers;
 DROP TABLE IF EXISTS course_questions;
 DROP TABLE IF EXISTS course_videos;
+DROP TABLE IF EXISTS course_student;
 DROP TABLE IF EXISTS courses;
+DROP TABLE IF EXISTS company_authorities;
 DROP TABLE IF EXISTS companies;
+DROP TABLE IF EXISTS authorities;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
 	id SERIAL PRIMARY KEY,
+	username TEXT NOT NULL UNIQUE,
 	email TEXT NOT NULL UNIQUE,
 	first_name TEXT NOT NULL,
 	last_name TEXT NOT NULL,
@@ -18,7 +22,7 @@ CREATE TABLE users (
 	registration_date DATE NOT NULL,
 	experience INTEGER NOT NULL DEFAULT '0',
 	password TEXT NOT NULL,
-	role TEXT NOT NULL,
+	enabled BOOLEAN NOT NULL,
 	description TEXT,
 	CONSTRAINT email_not_empty CHECK (email <> ''),
 	CONSTRAINT firstname_not_empty CHECK (first_name <> ''),
@@ -26,19 +30,35 @@ CREATE TABLE users (
 	CONSTRAINT password_not_empty CHECK (password <> '')
 );
 
+CREATE TABLE authorities (
+    username TEXT NOT NULL,
+    authority TEXT NOT NULL,
+    FOREIGN KEY (username) REFERENCES users(username),
+    UNIQUE (username, authority)
+);
+
 
 CREATE TABLE companies (
 	id SERIAL PRIMARY KEY,
 	name TEXT NOT NULL UNIQUE,
+	username TEXT NOT NULL UNIQUE,
 	registration_date DATE NOT NULL,
 	email TEXT NOT NULL UNIQUE,
 	password TEXT NOT NULL,
 	active BOOLEAN NOT NULL DEFAULT 'false',
 	subscription TEXT NOT NULL,
 	description TEXT,
+	enabled BOOLEAN NOT NULL,
 	CONSTRAINT name_not_empty CHECK (name <> ''),
 	CONSTRAINT password_not_empty CHECK (password <> ''),
 	CONSTRAINT email_not_empty CHECK (email <> '')
+);
+
+CREATE TABLE company_authorities (
+    username TEXT NOT NULL,
+    authority TEXT NOT NULL,
+    FOREIGN KEY (username) REFERENCES companies(username),
+    UNIQUE (username, authority)
 );
 
 
@@ -46,13 +66,18 @@ CREATE TABLE companies (
 CREATE TABLE courses (
 	id SERIAL PRIMARY KEY,
 	teacher_id INTEGER NOT NULL,
-	student_id INTEGER,
 	name TEXT NOT NULL UNIQUE,
 	is_validated BOOLEAN NOT NULL DEFAULT 'false',
 	CONSTRAINT name_not_empty CHECK (name <> '')
 );
 
-
+CREATE TABLE course_student (
+    course_id INTEGER NOT NULL,
+    student_id INTEGER NOT NULL,
+    FOREIGN KEY (course_id) REFERENCES courses(id),
+    FOREIGN KEY (student_id) REFERENCES users(id),
+    UNIQUE (course_id, student_id)
+);
 
 CREATE TABLE course_videos (
 	id SERIAL PRIMARY KEY,

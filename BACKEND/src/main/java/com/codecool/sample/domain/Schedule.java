@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="schedules", schema="public")
-public class Schedule extends AbstractModel{
+public class Schedule extends AbstractModel {
 
     private Integer teacherId;
     private Integer studentId;

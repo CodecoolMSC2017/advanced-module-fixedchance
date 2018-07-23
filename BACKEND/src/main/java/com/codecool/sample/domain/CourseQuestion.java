@@ -1,20 +1,24 @@
 package com.codecool.sample.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="course_questions", schema="public")
 public class CourseQuestion extends AbstractModel {
 
-    private Integer courseId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "courseId")
+    @NotNull
+    private Course course;
+
     private String question;
 
     public CourseQuestion() {}
 
     // Getters
-    public Integer getCourseId() {
-        return courseId;
+    public Course getCourse() {
+        return course;
     }
 
     public String getQuestion() {
@@ -22,8 +26,8 @@ public class CourseQuestion extends AbstractModel {
     }
 
     // Setters
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public void setQuestion(String question) {

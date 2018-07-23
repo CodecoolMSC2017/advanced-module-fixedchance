@@ -9,17 +9,27 @@ import java.util.Date;
 public class Company extends AbstractModel {
 
     private String name;
+    private String username;
     private Date registrationDate = new Date();
     private String email;
     private String password;
     private boolean active;
     private String subscription;
     private String description;
+    private boolean enabled;
 
     public Company() {
     }
 
     // Getters
+    public String getUserName() {
+        return username;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
     public String getName() {
         return name;
     }
@@ -50,6 +60,13 @@ public class Company extends AbstractModel {
 
 
     // Setters
+    public void setUserName(String userName) {
+        this.username = username;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -84,14 +101,16 @@ public class Company extends AbstractModel {
     @Override
     public String toString() {
         return "Company{" +
-                "id='" + super.getId() + '\'' +
-                ", name='" + name + '\'' +
+                "id='" + super.getId() +
+                "name='" + name + '\'' +
+                ", userName='" + username + '\'' +
                 ", registrationDate=" + registrationDate +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", active=" + active +
                 ", subscription='" + subscription + '\'' +
                 ", description='" + description + '\'' +
+                ", enabled=" + enabled +
                 '}';
     }
 }
