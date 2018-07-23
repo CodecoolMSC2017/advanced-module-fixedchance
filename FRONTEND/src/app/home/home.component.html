@@ -1,6 +1,6 @@
 <header id="top-bar">
   <ul>
-    <li class="toleft"><img id="logoimg" style="width: 75px" src="assets/logo.png" />
+    <li class="toleft"><img id="logoimg" src="assets/logo.png" />
     <li class="toleft" id="logo">FIXEDCHANCE</li>
     <li class="toleft" ><a routerLink="../profile">PROFILE</a></li>
     <li class="toleft" ><a routerLink="../profile">COMPANIES</a></li>
@@ -26,9 +26,9 @@
 
   <div id="wall">
     <div class="item" data-aos="flip-up">
-      <h3>Hello {{ user.firstName }} , do you have something in mind?</h3>
+      <h3>Hello {{ user.firstName }}, do you have anything to share?</h3>
       <hr>
-      <textarea type="text" [(ngModel)]="postContent" placeholder="Type your idea"></textarea>
+      <textarea style="width: 80%; margin-left: 10%;" type="text" [(ngModel)]="postContent" placeholder="Type your idea"></textarea>
       <button id="shareButton" (click)="addItem()">Share</button>
     </div><br>
     <!--

@@ -8,7 +8,7 @@ import { User } from './user';
 })
 export class DataService {
 
-  private posts = new BehaviorSubject<any>(['The initial post', 'Another post']);
+  private posts = new BehaviorSubject<any>(['Importing JSON file from Amazon with Python: https://stackoverflow.com/questions/51436740/importing-json-file-from-amazon-s3-into-aws-rds-postgresql-using-python', 'Creating own tag in HTML: https://stackoverflow.com/questions/51414777/can-we-make-our-own-tag-in-html']);
   post = this.posts.asObservable();
 
   user : User;
@@ -26,10 +26,10 @@ export class DataService {
   getUser() {
     if (this.user == null) {
       this.user = new User();
-      this.user.birthDate = new Date();
-      this.user.email = "user@user.user";
-      this.user.firstName = "User";
-      this.user.lastName = "Profile";
+      this.user.birthDate = new Date("1996-11-12");
+      this.user.email = "csanad@gmail.com";
+      this.user.firstName = "Csanád";
+      this.user.lastName = "Hegedűs";
       this.user.role = "ADMIN";
       this.user.id = 10;
     }
