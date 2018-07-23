@@ -23,7 +23,7 @@ public class LoginController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
-    public User loginUser(@RequestBody User user) throws SQLException, IOException {
+    public User loginUser(@RequestBody User user) {
         return userService.findByEmail(user.getEmail());
     }
 
@@ -31,7 +31,7 @@ public class LoginController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
-    public Company loginCompany(@RequestBody Company company) throws SQLException, IOException {
+    public Company loginCompany(@RequestBody Company company) {
         return companyService.findByEmail(company.getEmail());
     }
 }

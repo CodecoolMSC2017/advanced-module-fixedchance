@@ -27,26 +27,15 @@ public class RegisterController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
-    public Message registerUser(@RequestBody User user) throws SQLException, IOException {
-        try {
-            userService.addNewUser(user);
-            return new Message("Registration successful");
-        } catch (SQLException sql) {
-            return new Message("E-mail already in use");
-        }
+    public void registerUser(@RequestBody User user) {
+        userService.addNewUser(user);
     }
 
     @RequestMapping(path = "/company-register",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
-    public Message registerCompany(@RequestBody Company company) throws SQLException, IOException {
-        System.out.println(company.toString());
-        try {
-            companyService.addNewCompany(company);
-            return new Message("Registration successful");
-        } catch (SQLException sql) {
-            return new Message("E-mail already in use");
-        }
+    public void registerCompany(@RequestBody Company company) {
+        companyService.addNewCompany(company);
     }
 }

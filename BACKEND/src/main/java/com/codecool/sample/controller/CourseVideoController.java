@@ -4,10 +4,7 @@ import com.codecool.sample.domain.CourseVideo;
 import com.codecool.sample.service.CourseVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -30,21 +27,17 @@ public class CourseVideoController {
     }
 
     // Get video by its ID
-    @RequestMapping("/courses/videos/id")
-    public Optional<CourseVideo> getVideoById(Integer id) {
+    @RequestMapping("/courses/videos/{id}")
+    public Optional<CourseVideo> getVideoById(@PathVariable("id") Integer id) {
         return videoService.getVideoById(id);
     }
 
     // Add video to database
-    @RequestMapping(path = "/courses/videos/add",
+    @RequestMapping(path = "/courses/videos",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
     public void add(@RequestBody CourseVideo video) {
-        try {
             videoService.addNewVideo(video);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }

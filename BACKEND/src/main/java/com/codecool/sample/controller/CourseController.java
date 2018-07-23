@@ -4,12 +4,10 @@ import com.codecool.sample.domain.Course;
 import com.codecool.sample.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -23,7 +21,12 @@ public class CourseController {
         return courseService.getAllCourses();
     }
 
-    @RequestMapping(path = "/courses/add",
+    @RequestMapping("/courses/{id}")
+    public Course getCourseById(@PathVariable("id") Integer id) {
+        return courseService.getById(id);
+    }
+
+    @RequestMapping(path = "/courses",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})

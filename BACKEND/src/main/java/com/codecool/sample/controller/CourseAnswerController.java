@@ -4,10 +4,7 @@ import com.codecool.sample.domain.CourseAnswer;
 import com.codecool.sample.service.CourseAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -28,20 +25,16 @@ public class CourseAnswerController {
         return answerService.getAnswers();
     }
 
-    @RequestMapping("/courses/answers/id")
-    public Optional<CourseAnswer> getAnswerById(Integer id) {
+    @RequestMapping("/courses/answers/{id}")
+    public Optional<CourseAnswer> getAnswerById(@PathVariable("id") Integer id) {
         return answerService.getAnswerById(id);
     }
 
-    @RequestMapping(path = "/courses/answers/add",
+    @RequestMapping(path = "/courses/answers",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
     public void add(@RequestBody CourseAnswer answer) {
-        try {
-            answerService.addNewAnswer(answer);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        answerService.addNewAnswer(answer);
     }
 }

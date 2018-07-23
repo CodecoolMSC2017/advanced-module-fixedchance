@@ -4,10 +4,7 @@ import com.codecool.sample.domain.CourseReview;
 import com.codecool.sample.service.CourseReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -30,21 +27,17 @@ public class CourseReviewController {
     }
 
     // Get review by its ID
-    @RequestMapping("/courses/reviews/id")
-    public Optional<CourseReview> getReviewById(Integer id) {
+    @RequestMapping("/courses/reviews/{id}")
+    public Optional<CourseReview> getReviewById(@PathVariable("id") Integer id) {
         return reviewService.getReviewById(id);
     }
 
     // Add review to database
-    @RequestMapping(path = "/courses/reviews/add",
+    @RequestMapping(path = "/courses/reviews",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
     public void add(@RequestBody CourseReview review) {
-        try {
-            reviewService.addNewReview(review);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        reviewService.addNewReview(review);
     }
 }
