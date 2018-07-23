@@ -1,13 +1,21 @@
 package com.codecool.sample.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
 @Table(name="schedules", schema="public")
 public class Schedule extends AbstractModel {
 
-    private Integer teacherId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "teacherId")
+    @NotNull
+    @JsonBackReference
+    private User teacher;
+
     private Integer studentId;
     private Integer startTime;
     private Date date;
@@ -16,8 +24,8 @@ public class Schedule extends AbstractModel {
     }
 
     // Getters
-    public Integer getTeacherId() {
-        return teacherId;
+    public User getTeacher() {
+        return teacher;
     }
 
     public Integer getStudentId() {
@@ -33,9 +41,8 @@ public class Schedule extends AbstractModel {
     }
 
     // Setters
-
-    public void setTeacherId(Integer teacherId) {
-        this.teacherId = teacherId;
+    public void setTeacher(User user) {
+        this.teacher = teacher;
     }
 
     public void setStudentId(Integer studentId) {
@@ -48,5 +55,16 @@ public class Schedule extends AbstractModel {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    // Methods
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "teacherId=" + teacher +
+                ", studentId=" + studentId +
+                ", startTime=" + startTime +
+                ", date=" + date +
+                '}';
     }
 }

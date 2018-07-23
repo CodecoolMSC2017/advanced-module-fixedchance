@@ -1,6 +1,6 @@
 package com.codecool.sample.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,11 +17,22 @@ public class Course extends AbstractModel {
     private User teacher;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JoinTable(name = "course_student",
                 joinColumns = {@JoinColumn(name = "course_id")},
                 inverseJoinColumns = {@JoinColumn(name = "student_id")})
     private Set<User> students = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    @JsonManagedReference
+    private Set<CourseQuestion> questions = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    @JsonManagedReference
+    private Set<CourseReview> reviews = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    @JsonManagedReference
+    private Set<CourseVideo> videos = new HashSet<>();
 
     private String name;
 
@@ -31,6 +42,18 @@ public class Course extends AbstractModel {
     }
 
     // Getters
+    public Set<CourseVideo> getVideos() {
+        return videos;
+    }
+
+    public Set<CourseReview> getReviews() {
+        return reviews;
+    }
+
+    public Set<CourseQuestion> getQuestions() {
+        return questions;
+    }
+
     public Set<User> getStudents() {
         return students;
     }
@@ -48,6 +71,18 @@ public class Course extends AbstractModel {
     }
 
     // Setters
+    public void setVideos(Set<CourseVideo> videos) {
+        this.videos = videos;
+    }
+
+    public void setReviews(Set<CourseReview> reviews) {
+        this.reviews = reviews;
+    }
+
+    public void setQuestions(Set<CourseQuestion> questions) {
+        this.questions = questions;
+    }
+
     public void setStudents(Set<User> students) {
         this.students = students;
     }
@@ -62,5 +97,16 @@ public class Course extends AbstractModel {
 
     public void setValidated(boolean validated) {
         isValidated = validated;
+    }
+
+    //Methods
+    @Override
+    public String toString() {
+        return "Course{" +
+                "teacher=" + teacher +
+                ", students=" + students +
+                ", name='" + name + '\'' +
+                ", isValidated=" + isValidated +
+                '}';
     }
 }

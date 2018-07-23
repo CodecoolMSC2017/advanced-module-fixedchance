@@ -1,5 +1,7 @@
 package com.codecool.sample.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -8,8 +10,9 @@ import javax.validation.constraints.NotNull;
 public class CourseAnswer extends AbstractModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "questionId")
+    @JoinColumn(name = "question_id")
     @NotNull
+    @JsonBackReference
     private CourseQuestion courseQuestion;
 
     private String answer;
@@ -42,5 +45,15 @@ public class CourseAnswer extends AbstractModel {
 
     public void setRight(boolean right) {
         isRight = right;
+    }
+
+    // Methods
+    @Override
+    public String toString() {
+        return "CourseAnswer{" +
+                "courseQuestion=" + courseQuestion +
+                ", answer='" + answer + '\'' +
+                ", isRight=" + isRight +
+                '}';
     }
 }

@@ -1,22 +1,28 @@
 package com.codecool.sample.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="course_reviews", schema="public")
 public class CourseReview extends AbstractModel {
 
-    private Integer courseId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
+    @NotNull
+    @JsonBackReference
+    private Course course;
     private Integer rating;
     private String description;
 
     public CourseReview() {}
 
     // Getters
-    public Integer getCourseId() {
-        return courseId;
+    public Course getCourse() {
+        return course;
     }
 
     public Integer getRating() {
@@ -28,8 +34,8 @@ public class CourseReview extends AbstractModel {
     }
 
     // Setters
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public void setRating(Integer rating) {
@@ -38,5 +44,15 @@ public class CourseReview extends AbstractModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    // Methods
+    @Override
+    public String toString() {
+        return "CourseReview{" +
+                "course=" + course +
+                ", rating=" + rating +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

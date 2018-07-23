@@ -1,11 +1,17 @@
 package com.codecool.sample.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name="companies", schema="public")
+@Table(name = "companies", schema = "public")
 public class Company extends AbstractModel {
 
     private String name;
@@ -18,10 +24,23 @@ public class Company extends AbstractModel {
     private String description;
     private boolean enabled;
 
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
+    @JsonManagedReference
+    private Set<Advertisement> ads = new HashSet<>();
+
     public Company() {
     }
 
     // Getters
+    public String getUsername() {
+        return username;
+    }
+
+    public Set<Advertisement> getAds() {
+        return ads;
+    }
+
     public String getUserName() {
         return username;
     }
@@ -60,8 +79,16 @@ public class Company extends AbstractModel {
 
 
     // Setters
-    public void setUserName(String userName) {
+    public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setAds(Set<Advertisement> ads) {
+        this.ads = ads;
+    }
+
+    public void setUserName(String userName) {
+        this.username = userName;
     }
 
     public void setEnabled(boolean enabled) {
@@ -97,7 +124,6 @@ public class Company extends AbstractModel {
     }
 
     //Methods
-
     @Override
     public String toString() {
         return "Company{" +

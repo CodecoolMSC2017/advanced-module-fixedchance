@@ -1,6 +1,7 @@
 package com.codecool.sample.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -27,7 +28,13 @@ public class User extends AbstractModel implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "teacher")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonManagedReference
     private List<Course> teacherCourses;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "teacher")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonManagedReference
+    private Set<Schedule> schedules = new HashSet<>();
 
     /*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -56,7 +63,13 @@ public class User extends AbstractModel implements Serializable {
     }
 
     // Getters
+    public String getUsername() {
+        return username;
+    }
 
+    public Set<Schedule> getSchedules() {
+        return schedules;
+    }
 
     public List<Course> getTeacherCourses() {
         return teacherCourses;
@@ -115,7 +128,13 @@ public class User extends AbstractModel implements Serializable {
     }
 
     // Setters
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
+    public void setSchedules(Set<Schedule> schedules) {
+        this.schedules = schedules;
+    }
 
     public void setExperience(Integer experience) {
         this.experience = experience;
@@ -176,9 +195,8 @@ public class User extends AbstractModel implements Serializable {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
     // Methods
-
-
     @Override
     public String toString() {
         return "User{" +

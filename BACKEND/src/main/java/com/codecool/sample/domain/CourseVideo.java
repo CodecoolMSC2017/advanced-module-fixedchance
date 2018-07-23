@@ -1,13 +1,19 @@
 package com.codecool.sample.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="course_videos", schema="public")
 public class CourseVideo extends AbstractModel {
 
-    private Integer courseId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "course_id")
+    @NotNull
+    @JsonBackReference
+    private Course course;
     private String name;
     private String video;
     private String description;
@@ -15,8 +21,8 @@ public class CourseVideo extends AbstractModel {
     public CourseVideo() {}
 
     // Getters
-    public Integer getCourseId() {
-        return courseId;
+    public Course getCourse() {
+        return course;
     }
 
     public String getName() {
@@ -32,8 +38,8 @@ public class CourseVideo extends AbstractModel {
     }
 
     // Setters
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public void setName(String name) {
@@ -46,5 +52,16 @@ public class CourseVideo extends AbstractModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    // Methods
+    @Override
+    public String toString() {
+        return "CourseVideo{" +
+                "courseId=" + course +
+                ", name='" + name + '\'' +
+                ", video='" + video + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
