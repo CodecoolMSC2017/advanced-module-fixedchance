@@ -1,9 +1,13 @@
 # ENDPOINTS:
 `prefix: http://localhost:8080`
-![GET](GET)
-![POST](POST)
-![PUT](PUT)
-![DELETE](DELETE)
+
+![GET](#GET)
+
+![POST](#POST)
+
+![PUT](#PUT)
+
+![DELETE](#DELETE)
 
 ## GET
 
