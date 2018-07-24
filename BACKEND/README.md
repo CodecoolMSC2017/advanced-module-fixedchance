@@ -2,42 +2,42 @@
 `prefix: http://localhost:8080`
 ## GET
 
-* /courses				✓
-* /courses/questions			✓
-* /courses/questions/`<id>`		✓
-* /courses/answers			✓
-* /courses/answers/`<id>`		✓
-* /courses/reviews			✓
-* /courses/reviews/`<id>`		✓
-* /courses/topics/			✓
-* /courses/topics/`<id>`		✓
-* /courses/videos			✓
-* /courses/videos/`<id>`		✓
-* /schedules				✓
-* /schedules/`<id>`			✓
-* /advertisements			✓
-* /advertisements/`<id>`		✓
+* /courses
+* /courses/questions
+* /courses/questions/`<id`
+* /courses/answers	
+* /courses/answers/`<id>`
+* /courses/reviews			
+* /courses/reviews/`<id>`		
+* /courses/topics/			
+* /courses/topics/`<id>`		
+* /courses/videos			
+* /courses/videos/`<id>`		
+* /schedules				
+* /schedules/`<id>`			
+* /advertisements			
+* /advertisements/`<id>`		
 
 
 ## POST
 
-* /login				✓
+* /login				
    * `{"email" : "admin", "password" : "admin"}`
-* /company-login			✓
+* /company-login			
    * `{"email" : "admin", "password" : "admin"}`
-* /register				✓
+* /register				
    * `{"userName" : "test", "email" : "test@tesst.tdset", "password" : "test", "confpassword" : "test", "firstName" : "test", "lastName" : "test", "birthDate" : "2018-01-01", "enabled" : "true"}`
-* /company-register			✓
+* /company-register			
    * `{"name" : "companyNamme", "userName" : "compUser", "email" : "company@company", "password" : "psw", "subscription" : "1month"}`
-* /courses/`<teacher_id>`		✓
+* /courses/`<teacher_id>`		
    * `{"name" : "Course #3", "isValidated" : "false"}`
-* /courses/`<course_id>`/questions	✓
+* /courses/`<course_id>`/questions	
    * `{"question" : "What is polymorphism?"}`
-* /courses/`<course_id>`/reviews	✓
+* /courses/`<course_id>`/reviews	
    * `{"rating" : "4", "description" : "Great course!"}`
-* /courses/`<course_id>`/topics		✓
+* /courses/`<course_id>`/topics		
    * `{"name" : "Sport"}`
-* /courses/`<course_id>`/videos		✓
+* /courses/`<course_id>`/videos		
    * `{"name" : "Python basics", "video" : "[URL]", "description" : "A video tutorial of python"}`
 * /courses/`<course_id>`/questions/`<question_id>`/answers
    * `{"answer" : "Definitely", "isRight" : "false"}`
