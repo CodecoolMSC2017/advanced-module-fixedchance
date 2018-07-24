@@ -1,13 +1,6 @@
 # ENDPOINTS:
 `prefix: http://localhost:8080`
 
-![](## GET)
-
-![](## POST)
-
-![](## PUT)
-
-![](## DELETE)
 
 ## GET
 
@@ -56,6 +49,7 @@
 * /schedules/`<teacher_id>`
    * `{"studentId" : "1", "startTime" : "14", "date" : "2018-07-12"}`
 
+
 ## PUT
 
 * /user/`<id>`
@@ -78,6 +72,7 @@
    * `{"name" : "test_company_ad", "description" : "test_company_desc"}`
 * /schedules/`<id>`
    * `{"starTime" : "18"}`
+
 
 ## DELETE
 
