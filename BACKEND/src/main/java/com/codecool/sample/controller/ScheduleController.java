@@ -10,12 +10,12 @@ import java.util.List;
 public class ScheduleController extends AbstractController {
 
     @RequestMapping("/schedules")
-    public List<Schedule> getAllSchedules() {
+    public List<Schedule> getAll() {
         return scheduleService.getAllSchedules();
     }
 
     @RequestMapping("/schedules/{id}")
-    public Schedule getScheduleById(@PathVariable("id") Integer id) {
+    public Schedule getOne(@PathVariable("id") Integer id) {
         return scheduleService.getScheduleById(id);
     }
 
@@ -23,7 +23,7 @@ public class ScheduleController extends AbstractController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
-    public void addSchedule(@PathVariable("teacher_id") Integer teacherId, @RequestBody Schedule schedule) {
+    public void add(@PathVariable("teacher_id") Integer teacherId, @RequestBody Schedule schedule) {
         System.out.println(schedule.toString());
         scheduleService.addNewSchedule(teacherId, schedule);
     }

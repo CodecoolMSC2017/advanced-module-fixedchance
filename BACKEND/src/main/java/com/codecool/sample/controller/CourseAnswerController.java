@@ -14,12 +14,12 @@ import java.util.Optional;
 public class CourseAnswerController extends AbstractController {
 
     @RequestMapping("/courses/answers")
-    public List<CourseAnswer> getAllAnswer() throws SQLException {
+    public List<CourseAnswer> getAll() throws SQLException {
         return answerService.getAnswers();
     }
 
     @RequestMapping("/courses/answers/{id}")
-    public CourseAnswer getAnswerById(@PathVariable("id") Integer id) {
+    public CourseAnswer getOne(@PathVariable("id") Integer id) {
         return answerService.getAnswerById(id);
     }
 

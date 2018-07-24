@@ -14,12 +14,12 @@ import java.util.Optional;
 public class CourseReviewController extends AbstractController {
 
     @RequestMapping("/courses/reviews")
-    public List<CourseReview> getAllReviews() {
+    public List<CourseReview> getAll() {
         return reviewService.getReviews();
     }
 
     @RequestMapping("/courses/reviews/{id}")
-    public CourseReview getReviewById(@PathVariable("id") Integer id) {
+    public CourseReview getOne(@PathVariable("id") Integer id) {
         return reviewService.getReviewById(id);
     }
 

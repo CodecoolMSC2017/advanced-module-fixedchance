@@ -14,12 +14,12 @@ import java.util.Optional;
 public class AdvertisementController extends AbstractController {
 
     @RequestMapping("/advertisements")
-    public List<Advertisement> getAllAds() throws SQLException {
+    public List<Advertisement> getAll() {
         return advertisementService.getAdvertisements();
     }
 
     @RequestMapping("/advertisements/{id}")
-    public Advertisement getAdById(@PathVariable("id") Integer id) throws SQLException {
+    public Advertisement getOne(@PathVariable("id") Integer id) {
         return advertisementService.getAdvertisementById(id);
     }
 

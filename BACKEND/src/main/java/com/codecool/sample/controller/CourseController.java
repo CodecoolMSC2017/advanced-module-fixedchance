@@ -10,12 +10,12 @@ import java.util.List;
 public class CourseController extends AbstractController {
 
     @RequestMapping("/courses")
-    public List<Course> getAllCourses() {
+    public List<Course> getAll() {
         return courseService.getAllCourses();
     }
 
     @RequestMapping("/courses/{id}")
-    public Course getCourseById(@PathVariable("id") Integer id) {
+    public Course getOne(@PathVariable("id") Integer id) {
         return courseService.getById(id);
     }
 

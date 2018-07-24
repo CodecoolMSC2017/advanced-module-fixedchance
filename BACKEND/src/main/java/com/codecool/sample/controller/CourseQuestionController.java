@@ -15,12 +15,12 @@ import java.util.Optional;
 public class CourseQuestionController extends AbstractController {
 
     @RequestMapping("/courses/questions")
-    public List<CourseQuestion> getAllQuestions() {
+    public List<CourseQuestion> getAll() {
         return questionService.getQuestions();
     }
 
     @RequestMapping("/courses/questions/{id}")
-    public CourseQuestion getQuestionById(@PathVariable("id") Integer id) {
+    public CourseQuestion getOne(@PathVariable("id") Integer id) {
         return questionService.getQuestionById(id);
     }
 

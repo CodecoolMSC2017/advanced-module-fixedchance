@@ -14,12 +14,12 @@ import java.util.Optional;
 public class CourseVideoController extends AbstractController {
 
     @RequestMapping("/courses/videos")
-    public List<CourseVideo> getAllVideos() {
+    public List<CourseVideo> getAll() {
         return videoService.getVideos();
     }
 
     @RequestMapping("/courses/videos/{id}")
-    public CourseVideo getVideoById(@PathVariable("id") Integer id) {
+    public CourseVideo getOne(@PathVariable("id") Integer id) {
         return videoService.getVideoById(id);
     }
 
