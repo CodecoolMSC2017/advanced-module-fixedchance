@@ -1,20 +1,14 @@
 package com.codecool.sample.controller;
 
 import com.codecool.sample.domain.Course;
-import com.codecool.sample.service.CourseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
-public class CourseController {
-
-    @Autowired
-    private CourseService courseService;
+public class CourseController extends AbstractController {
 
     @RequestMapping("/courses")
     public List<Course> getAllCourses() {

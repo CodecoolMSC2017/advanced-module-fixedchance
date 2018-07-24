@@ -11,10 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class CourseAnswerController {
-
-    @Autowired
-    private CourseAnswerService answerService;
+public class CourseAnswerController extends AbstractController {
 
     @RequestMapping("/courses/answers")
     public List<CourseAnswer> getAllAnswer() throws SQLException {

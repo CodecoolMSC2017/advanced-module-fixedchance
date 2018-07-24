@@ -11,28 +11,18 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class CourseVideoController {
+public class CourseVideoController extends AbstractController {
 
-    private CourseVideoService videoService;
-
-    @Autowired
-    public void setVideoService(CourseVideoService videoService) {
-        this.videoService = videoService;
-    }
-
-    // Get all videos
     @RequestMapping("/courses/videos")
     public List<CourseVideo> getAllVideos() {
         return videoService.getVideos();
     }
 
-    // Get video by its ID
     @RequestMapping("/courses/videos/{id}")
     public CourseVideo getVideoById(@PathVariable("id") Integer id) {
         return videoService.getVideoById(id);
     }
 
-    // Add video to database
     @RequestMapping(path = "/courses/{course_id}/videos",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,

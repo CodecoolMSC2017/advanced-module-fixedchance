@@ -12,12 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @RestController
-public class LoginController {
-
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private CompanyService companyService;
+public class LoginController extends AbstractController {
 
     @RequestMapping(path = "/login",
             method = RequestMethod.POST,

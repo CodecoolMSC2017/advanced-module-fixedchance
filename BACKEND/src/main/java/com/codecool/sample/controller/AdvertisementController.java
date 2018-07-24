@@ -11,33 +11,23 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class AdvertisementController {
+public class AdvertisementController extends AbstractController {
 
-    private AdvertisementService adService;
-
-    @Autowired
-    public void setAdService(AdvertisementService adService) {
-        this.adService = adService;
-    }
-
-    // Get all advertisements
     @RequestMapping("/advertisements")
     public List<Advertisement> getAllAds() throws SQLException {
-        return adService.getAdvertisements();
+        return advertisementService.getAdvertisements();
     }
 
-    // Get advertisement by its ID
     @RequestMapping("/advertisements/{id}")
     public Advertisement getAdById(@PathVariable("id") Integer id) throws SQLException {
-        return adService.getAdvertisementById(id);
+        return advertisementService.getAdvertisementById(id);
     }
 
-    // Add new advertisement to database
     @RequestMapping(path = "/advertisements/{company_id}",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
     public void add(@PathVariable("company_id") Integer companyId, @RequestBody Advertisement ad) {
-        adService.addNewAdvertisement(companyId, ad);
+        advertisementService.addNewAdvertisement(companyId, ad);
     }
 }

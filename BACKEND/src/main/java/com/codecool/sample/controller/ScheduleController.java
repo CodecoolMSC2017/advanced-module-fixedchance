@@ -14,18 +14,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class ScheduleController {
+public class ScheduleController extends AbstractController {
 
-    @Autowired
-    private ScheduleService scheduleService;
-
-    // Get all schedules
     @RequestMapping("/schedules")
     public List<Schedule> getAllSchedules() {
         return scheduleService.getAllSchedules();
     }
 
-    // Get schedule by its ID
     @RequestMapping("/schedules/{id}")
     public Schedule getScheduleById(@PathVariable("id") Integer id) {
         return scheduleService.getScheduleById(id);

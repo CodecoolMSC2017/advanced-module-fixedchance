@@ -16,12 +16,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @RestController
-public class RegisterController {
-
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private CompanyService companyService;
+public class RegisterController extends AbstractController {
 
     @RequestMapping(path = "/register",
             method = RequestMethod.POST,

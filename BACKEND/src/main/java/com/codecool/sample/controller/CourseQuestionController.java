@@ -12,28 +12,18 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-public class CourseQuestionController {
+public class CourseQuestionController extends AbstractController {
 
-    private CourseQuestionService questionService;
-
-    @Autowired
-    public void setQuestionService(CourseQuestionService questionService) {
-        this.questionService = questionService;
-    }
-
-    // Get all questions
     @RequestMapping("/courses/questions")
     public List<CourseQuestion> getAllQuestions() {
         return questionService.getQuestions();
     }
 
-    // Get question by its ID
     @RequestMapping("/courses/questions/{id}")
     public CourseQuestion getQuestionById(@PathVariable("id") Integer id) {
         return questionService.getQuestionById(id);
     }
 
-    // Add question to database
     @RequestMapping(path = "/courses/{course_id}/questions",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
