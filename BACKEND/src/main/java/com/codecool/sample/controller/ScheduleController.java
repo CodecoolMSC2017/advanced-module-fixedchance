@@ -1,17 +1,10 @@
 package com.codecool.sample.controller;
 
-import com.codecool.sample.domain.Company;
-import com.codecool.sample.domain.CourseVideo;
 import com.codecool.sample.domain.Schedule;
-import com.codecool.sample.service.ScheduleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class ScheduleController extends AbstractController {
