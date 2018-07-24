@@ -2,14 +2,9 @@ package com.codecool.sample.service;
 
 import com.codecool.sample.domain.Course;
 import com.codecool.sample.domain.CourseQuestion;
-import com.codecool.sample.repository.CourseQuestionRepository;
-import com.codecool.sample.repository.CourseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public final class CourseQuestionService extends AbstractService {
@@ -27,4 +22,11 @@ public final class CourseQuestionService extends AbstractService {
         question.setCourse(course);
         questionRepository.save(question);
     }
+
+    public void update(Integer id, CourseQuestion question) {
+        CourseQuestion question1 = questionRepository.getOne(id);
+        question1.setAll(question);
+        questionRepository.save(question1);
+    }
+
 }

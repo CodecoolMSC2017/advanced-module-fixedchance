@@ -38,6 +38,10 @@ public class CourseTopic extends AbstractModel {
         this.name = name;
     }
 
+    public void setAll(CourseTopic courseTopic) {
+        this.name = courseTopic.getName();
+    }
+
     // Methods
     @Override
     public String toString() {

@@ -53,6 +53,10 @@ public class CourseQuestion extends AbstractModel {
         this.question = question;
     }
 
+    public void setAll(CourseQuestion question) {
+        this.question = question.getQuestion();
+    }
+
     // Methods
     @Override
     public String toString() {

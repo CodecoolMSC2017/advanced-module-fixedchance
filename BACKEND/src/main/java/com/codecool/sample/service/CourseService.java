@@ -2,13 +2,9 @@ package com.codecool.sample.service;
 
 import com.codecool.sample.domain.Course;
 import com.codecool.sample.domain.User;
-import com.codecool.sample.repository.CourseRepository;
-import com.codecool.sample.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public final class CourseService extends AbstractService {
@@ -25,4 +21,11 @@ public final class CourseService extends AbstractService {
         System.out.println(course);
         courseRepository.save(course);
     }
+
+    public void update(Integer id, Course course) {
+        Course course1 = courseRepository.getOne(id);
+        course1.setName(course.getName());
+        courseRepository.save(course1);
+    }
+
 }

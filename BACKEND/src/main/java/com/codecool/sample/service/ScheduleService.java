@@ -1,14 +1,9 @@
 package com.codecool.sample.service;
 
-import com.codecool.sample.domain.CourseVideo;
 import com.codecool.sample.domain.Schedule;
 import com.codecool.sample.domain.User;
-import com.codecool.sample.repository.ScheduleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public final class ScheduleService extends AbstractService {
@@ -27,4 +22,11 @@ public final class ScheduleService extends AbstractService {
         System.out.println(schedule.toString());
         scheduleRepository.save(schedule);
     }
+
+    public void update(Integer id, Schedule schedule) {
+        Schedule schedule1 = scheduleRepository.getOne(id);
+        schedule1.setAll(schedule);
+        scheduleRepository.save(schedule1);
+    }
+
 }

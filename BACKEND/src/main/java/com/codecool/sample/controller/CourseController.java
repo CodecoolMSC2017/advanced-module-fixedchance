@@ -27,4 +27,11 @@ public class CourseController extends AbstractController {
         System.out.println(teacherId + ", " + course);
         courseService.addNewCourse(teacherId, course);
     }
+
+    @RequestMapping(path = "/courses/{id}",
+            method = RequestMethod.PUT,
+            consumes = {"application/json"})
+    public void put(@PathVariable("id") Integer id, @RequestBody Course course) {
+        courseService.update(id, course);
+    }
 }

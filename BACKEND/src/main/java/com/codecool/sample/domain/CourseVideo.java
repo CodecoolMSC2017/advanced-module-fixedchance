@@ -56,6 +56,12 @@ public class CourseVideo extends AbstractModel {
         this.description = description;
     }
 
+    public void setAll(CourseVideo courseVideo) {
+        this.description = courseVideo.getDescription();
+        this.name = courseVideo.getName();
+        this.video = courseVideo.getVideo();
+    }
+
     // Methods
     @Override
     public String toString() {

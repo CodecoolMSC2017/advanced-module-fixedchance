@@ -59,6 +59,9 @@ public class Schedule extends AbstractModel {
         this.date = date;
     }
 
+    public void setAll(Schedule schedule) {
+        this.startTime = schedule.getStartTime();
+    }
     // Methods
     @Override
     public String toString() {

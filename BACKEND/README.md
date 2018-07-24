@@ -49,4 +49,25 @@
 
 ## PUT
 
+* /user/`<id>`
+   * `{"firstName" : "modifiedFirstName", "lastName" : "modifiedLastName", "password" : "modifiedPassword"}`
+* /company/`<id>`
+   * `{"name" : "modifiedName", "description" : "modifiedDescription", "password" : "modifiedPassword"}`
+* /courses/`<id>`
+   * `{"name" : "modifiedName"}`
+* /courses/questions/`<id>`
+   * `{"question" : "modifiedQuestion"}`
+* /courses/reviews/`<id>`
+   * `{"rating" : "1", "description" : "modifiedDescription"}`
+* /courses/topics/`<id>`
+   * `{"name" : "modifiedName"}`
+* /courses/videos/`<id>`
+   * `{"name" : "modifiedName", "video" : "modified[URL]", "description" : "modifiedDescription"}`
+* /courses/answers/`<id>`
+   * `{"answer" : "modifiedAnswer", "isRight" : "false"}`
+* /advertisements/`<id>`
+   * `{"name" : "test_company_ad", "description" : "test_company_desc"}`
+* /schedules/`<id>`
+   * `{"starTime" : "18"}`
+
 ## DELETE

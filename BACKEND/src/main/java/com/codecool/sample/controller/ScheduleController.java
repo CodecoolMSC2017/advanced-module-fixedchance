@@ -27,4 +27,11 @@ public class ScheduleController extends AbstractController {
         System.out.println(schedule.toString());
         scheduleService.addNewSchedule(teacherId, schedule);
     }
+
+    @RequestMapping(path = "/schedules/{id}",
+            method = RequestMethod.PUT,
+            consumes = {"application/json"})
+    public void put(@PathVariable("id") Integer id, @RequestBody Schedule schedule) {
+        scheduleService.update(id, schedule);
+    }
 }

@@ -48,6 +48,11 @@ public class CourseReview extends AbstractModel {
         this.description = description;
     }
 
+    public void setAll(CourseReview review) {
+        this.rating = review.getRating();
+        this.description = review.getDescription();
+    }
+
     // Methods
     @Override
     public String toString() {

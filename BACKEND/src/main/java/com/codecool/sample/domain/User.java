@@ -196,6 +196,12 @@ public class User extends AbstractModel implements Serializable {
         this.enabled = enabled;
     }
 
+    public void setAll(User user) {
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.password = user.getPassword();
+    }
+
     // Methods
     @Override
     public String toString() {

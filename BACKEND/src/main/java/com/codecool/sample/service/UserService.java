@@ -1,31 +1,30 @@
 package com.codecool.sample.service;
 
 import com.codecool.sample.domain.User;
-import com.codecool.sample.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.SQLException;
-
 @Component
-public final class UserService {
+public final class UserService extends AbstractService {
 
-    @Autowired
-    private UserRepository repository;
-
-    public Iterable<User> getUsers() {
-        return repository.findAll();
+    public Iterable<User> getAll() {
+        return userRepository.findAll();
     }
 
-    public void addNewUser(User user) {
-            repository.save(user);
+    public void add(User user) {
+            userRepository.save(user);
     }
 
-    public void deleteUser(int userId) {
-        repository.deleteById(userId);
+    public void delete(int userId) {
+        userRepository.deleteById(userId);
     }
 
-    public User findByEmail(String email) {
-        return repository.findByEmail(email);
+    public User find(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public void update(Integer id, User usr) {
+        User user = userRepository.getOne(id);
+        user.setAll(usr);
+        userRepository.save(user);
     }
 }

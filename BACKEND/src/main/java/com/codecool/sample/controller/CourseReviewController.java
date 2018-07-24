@@ -1,14 +1,10 @@
 package com.codecool.sample.controller;
 
 import com.codecool.sample.domain.CourseReview;
-import com.codecool.sample.service.CourseReviewService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class CourseReviewController extends AbstractController {
@@ -29,5 +25,12 @@ public class CourseReviewController extends AbstractController {
             consumes = {"application/json"})
     public void add(@PathVariable("course_id") Integer courseId, @RequestBody CourseReview review) {
         reviewService.addNewReview(courseId, review);
+    }
+
+    @RequestMapping(path = "/courses/reviews/{id}",
+            method = RequestMethod.PUT,
+            consumes = {"application/json"})
+    public void put(@PathVariable("id") Integer id, @RequestBody CourseReview review) {
+        reviewService.update(id, review);
     }
 }

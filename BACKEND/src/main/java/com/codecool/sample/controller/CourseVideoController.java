@@ -1,14 +1,10 @@
 package com.codecool.sample.controller;
 
 import com.codecool.sample.domain.CourseVideo;
-import com.codecool.sample.service.CourseVideoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class CourseVideoController extends AbstractController {
@@ -29,5 +25,12 @@ public class CourseVideoController extends AbstractController {
             consumes = {"application/json"})
     public void add(@PathVariable("course_id") Integer courseId, @RequestBody CourseVideo video) {
             videoService.addNewVideo(courseId, video);
+    }
+
+    @RequestMapping(path = "/courses/videos/{id}",
+            method = RequestMethod.PUT,
+            consumes = {"application/json"})
+    public void put(@PathVariable("id") Integer id, @RequestBody CourseVideo video) {
+        videoService.update(id, video);
     }
 }

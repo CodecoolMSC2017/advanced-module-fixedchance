@@ -49,6 +49,11 @@ public class CourseAnswer extends AbstractModel {
         isRight = right;
     }
 
+    public void setAll(CourseAnswer answer) {
+        this.answer = answer.getAnswer();
+        this.isRight = answer.isRight();
+    }
+
     // Methods
     @Override
     public String toString() {

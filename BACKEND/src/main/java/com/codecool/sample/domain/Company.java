@@ -125,6 +125,12 @@ public class Company extends AbstractModel {
         this.description = description;
     }
 
+    public void setAll(Company company) {
+        this.name = company.getName();
+        this.description = company.getDescription();
+        this.password = company.getPassword();
+    }
+
     //Methods
     @Override
     public String toString() {

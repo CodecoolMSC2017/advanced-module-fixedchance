@@ -49,6 +49,10 @@ public class Advertisement extends AbstractModel {
         this.description = description;
     }
 
+    public void setAll(Advertisement ad) {
+        this.name = ad.getName();
+        this.description = ad.getDescription();
+    }
     // Methods
     @Override
     public String toString() {

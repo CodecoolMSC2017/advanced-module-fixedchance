@@ -1,13 +1,10 @@
 package com.codecool.sample.controller;
 
 import com.codecool.sample.domain.CourseTopic;
-import com.codecool.sample.service.CourseTopicService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class CourseTopicController extends AbstractController {
@@ -30,4 +27,10 @@ public class CourseTopicController extends AbstractController {
         topicService.addNewTopic(courseId, topic);
     }
 
+    @RequestMapping(path = "/courses/topics/{id}",
+            method = RequestMethod.PUT,
+            consumes = {"application/json"})
+    public void put(@PathVariable("id") Integer id, @RequestBody CourseTopic topic) {
+        topicService.update(id, topic);
+    }
 }
