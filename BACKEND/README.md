@@ -1,5 +1,10 @@
 # ENDPOINTS:
 `prefix: http://localhost:8080`
+![GET](GET)
+![POST](POST)
+![PUT](PUT)
+![DELETE](DELETE)
+
 ## GET
 
 * /courses
@@ -71,3 +76,14 @@
    * `{"starTime" : "18"}`
 
 ## DELETE
+
+* /user/`<id>`
+* /company/`<id>`
+* /courses/`<id>` !!! NOT WORKING !!!
+* /courses/questions/`<id>`
+* /courses/reviews/`<id>`
+* /courses/topics/`<id>`
+* /courses/videos/`<id>`
+* /courses/answers/`<id>`
+* /advertisements/`<id>` !!! NOT WORKING !!!
+* /schedules/`<id>` !!! NOT WORKING !!!

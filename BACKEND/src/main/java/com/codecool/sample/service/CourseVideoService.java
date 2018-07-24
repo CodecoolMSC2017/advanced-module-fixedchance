@@ -9,15 +9,15 @@ import java.util.List;
 @Component
 public final class CourseVideoService extends AbstractService {
 
-    public List<CourseVideo> getVideos() {
+    public List<CourseVideo> getAll() {
         return videoRepository.findAll();
     }
 
-    public CourseVideo getVideoById(Integer id) {
+    public CourseVideo getOne(Integer id) {
         return videoRepository.getOne(id);
     }
 
-    public void addNewVideo(Integer courseId, CourseVideo video) {
+    public void add(Integer courseId, CourseVideo video) {
         Course course = courseRepository.getOne(courseId);
         video.setCourse(course);
         videoRepository.save(video);
@@ -27,6 +27,10 @@ public final class CourseVideoService extends AbstractService {
         CourseVideo video1 = videoRepository.getOne(id);
         video1.setAll(video);
         videoRepository.save(video1);
+    }
+
+    public void delete(Integer id) {
+        videoRepository.deleteById(id);
     }
 
 }

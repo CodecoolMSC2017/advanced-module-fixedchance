@@ -1,7 +1,6 @@
 package com.codecool.sample.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,13 +23,13 @@ public class Course extends AbstractModel {
                 inverseJoinColumns = {@JoinColumn(name = "student_id")})
     private Set<User> students = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "course")
     private Set<CourseQuestion> questions = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "course")
     private Set<CourseReview> reviews = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "course")
     private Set<CourseVideo> videos = new HashSet<>();
 
     private String name;

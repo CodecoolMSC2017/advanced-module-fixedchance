@@ -31,6 +31,13 @@ public class UserController extends AbstractController {
         userService.update(id, user);
     }
 
+    @RequestMapping(path = "/user/{id}",
+            method = RequestMethod.DELETE,
+            consumes = {"application/json"})
+    public void deleteUser(@PathVariable("id") Integer id) {
+        userService.delete(id);
+    }
+
     @RequestMapping(path = "/company-login",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -52,5 +59,12 @@ public class UserController extends AbstractController {
             consumes = {"application/json"})
     public void updateCompany(@PathVariable("id") Integer id, @RequestBody Company company) {
         companyService.update(id, company);
+    }
+
+    @RequestMapping(path = "/company/{id}",
+            method = RequestMethod.DELETE,
+            consumes = {"application/json"})
+    public void deleteCompany(@PathVariable("id") Integer id) {
+        companyService.delete(id);
     }
 }

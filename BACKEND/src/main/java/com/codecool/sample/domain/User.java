@@ -46,7 +46,6 @@ public class User extends AbstractModel implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "course_id")})
     private Set<User> students = new HashSet<>();
 
-
     @ElementCollection
     @CollectionTable(
             name = "authorities",

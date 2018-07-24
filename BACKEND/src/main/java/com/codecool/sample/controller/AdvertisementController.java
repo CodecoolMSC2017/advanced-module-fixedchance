@@ -25,10 +25,17 @@ public class AdvertisementController extends AbstractController {
         advertisementService.add(companyId, ad);
     }
 
-    @RequestMapping(path = "/advertisements/{ad_id}",
+    @RequestMapping(path = "/advertisements/{id}",
             method = RequestMethod.PUT,
             consumes = {"application/json"})
-    public void put(@PathVariable("ad_id") Integer id, @RequestBody Advertisement ad) {
+    public void put(@PathVariable("id") Integer id, @RequestBody Advertisement ad) {
         advertisementService.update(id, ad);
+    }
+
+    @RequestMapping(path = "/advertisements/{id}",
+            method = RequestMethod.DELETE,
+            consumes = {"application/json"})
+    public void delete(@PathVariable("id") Integer id) {
+        advertisementService.delete(id);
     }
 }

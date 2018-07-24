@@ -11,12 +11,12 @@ public class CourseController extends AbstractController {
 
     @RequestMapping("/courses")
     public List<Course> getAll() {
-        return courseService.getAllCourses();
+        return courseService.getAll();
     }
 
     @RequestMapping("/courses/{id}")
     public Course getOne(@PathVariable("id") Integer id) {
-        return courseService.getById(id);
+        return courseService.getOne(id);
     }
 
     @RequestMapping(path = "/courses/{teacher_id}",
@@ -25,7 +25,7 @@ public class CourseController extends AbstractController {
             consumes = {"application/json"})
     public void add(@PathVariable("teacher_id") Integer teacherId, @RequestBody Course course) {
         System.out.println(teacherId + ", " + course);
-        courseService.addNewCourse(teacherId, course);
+        courseService.add(teacherId, course);
     }
 
     @RequestMapping(path = "/courses/{id}",
@@ -33,5 +33,12 @@ public class CourseController extends AbstractController {
             consumes = {"application/json"})
     public void put(@PathVariable("id") Integer id, @RequestBody Course course) {
         courseService.update(id, course);
+    }
+
+    @RequestMapping(path = "/courses/{id}",
+            method = RequestMethod.DELETE,
+            consumes = {"application/json"})
+    public void delete(@PathVariable("id") Integer id) {
+        courseService.delete(id);
     }
 }

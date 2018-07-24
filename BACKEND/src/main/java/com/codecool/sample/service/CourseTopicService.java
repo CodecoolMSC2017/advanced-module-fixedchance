@@ -9,15 +9,15 @@ import java.util.List;
 @Component
 public final class CourseTopicService extends AbstractService {
 
-    public List<CourseTopic> getTopics() {
+    public List<CourseTopic> getAll() {
         return topicRepository.findAll();
     }
 
-    public CourseTopic getTopicById(Integer id) {
+    public CourseTopic getOne(Integer id) {
         return topicRepository.getOne(id);
     }
 
-    public void addNewTopic(Integer courseId, CourseTopic topic) {
+    public void add(Integer courseId, CourseTopic topic) {
         Course course = courseRepository.getOne(courseId);
         topic.setCourse(course);
         topicRepository.save(topic);
@@ -27,6 +27,10 @@ public final class CourseTopicService extends AbstractService {
         CourseTopic topic1 = topicRepository.getOne(id);
         topic1.setAll(topic);
         topicRepository.save(topic1);
+    }
+
+    public void delete(Integer id) {
+        topicRepository.deleteById(id);
     }
 
 }

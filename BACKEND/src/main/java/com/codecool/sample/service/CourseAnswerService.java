@@ -32,4 +32,8 @@ public final class CourseAnswerService extends AbstractService {
         answerRepository.save(ans);
     }
 
+    public void delete(Integer id) {
+        answerRepository.deleteById(id);
+    }
+
 }

@@ -33,4 +33,11 @@ public class CourseAnswerController extends AbstractController {
     public void put(@PathVariable("id") Integer id, @RequestBody CourseAnswer answer) {
         answerService.update(id, answer);
     }
+
+    @RequestMapping(path = "/courses/answers/{id}",
+            method = RequestMethod.DELETE,
+            consumes = {"application/json"})
+    public void delete(@PathVariable("id") Integer id) {
+        answerService.delete(id);
+    }
 }

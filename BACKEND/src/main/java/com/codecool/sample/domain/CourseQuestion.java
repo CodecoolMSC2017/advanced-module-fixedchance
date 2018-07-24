@@ -22,7 +22,7 @@ public class CourseQuestion extends AbstractModel {
 
     private String question;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "courseQuestion")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "courseQuestion")
     private Set<CourseAnswer> answers = new HashSet<>();
 
     public CourseQuestion() {}

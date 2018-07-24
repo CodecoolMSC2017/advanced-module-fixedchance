@@ -11,12 +11,12 @@ public class CourseTopicController extends AbstractController {
 
     @RequestMapping("/courses/topics")
     public List<CourseTopic> getAll() {
-        return topicService.getTopics();
+        return topicService.getAll();
     }
 
     @RequestMapping("/courses/topics/{id}")
     public CourseTopic getOne(@PathVariable("id") Integer id) {
-        return topicService.getTopicById(id);
+        return topicService.getOne(id);
     }
 
     @RequestMapping(path = "/courses/{course_id}/topics",
@@ -24,7 +24,7 @@ public class CourseTopicController extends AbstractController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
     public void add(@PathVariable("course_id") Integer courseId, @RequestBody CourseTopic topic) {
-        topicService.addNewTopic(courseId, topic);
+        topicService.add(courseId, topic);
     }
 
     @RequestMapping(path = "/courses/topics/{id}",
@@ -32,5 +32,12 @@ public class CourseTopicController extends AbstractController {
             consumes = {"application/json"})
     public void put(@PathVariable("id") Integer id, @RequestBody CourseTopic topic) {
         topicService.update(id, topic);
+    }
+
+    @RequestMapping(path = "/courses/topics/{id}",
+            method = RequestMethod.DELETE,
+            consumes = {"application/json"})
+    public void delete(@PathVariable("id") Integer id) {
+        topicService.delete(id);
     }
 }

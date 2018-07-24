@@ -9,15 +9,15 @@ import java.util.List;
 @Component
 public final class CourseReviewService extends AbstractService {
 
-    public List<CourseReview> getReviews() {
+    public List<CourseReview> getAll() {
         return reviewRepository.findAll();
     }
 
-    public CourseReview getReviewById(Integer id) {
+    public CourseReview getOne(Integer id) {
         return reviewRepository.getOne(id);
     }
 
-    public void addNewReview(Integer courseId, CourseReview review) {
+    public void add(Integer courseId, CourseReview review) {
         Course course = courseRepository.getOne(courseId);
         review.setCourse(course);
         reviewRepository.save(review);
@@ -27,6 +27,10 @@ public final class CourseReviewService extends AbstractService {
         CourseReview review1 = reviewRepository.getOne(id);
         review1.setAll(review);
         reviewRepository.save(review1);
+    }
+
+    public void delete(Integer id) {
+        reviewRepository.deleteById(id);
     }
 
 }

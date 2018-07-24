@@ -8,15 +8,15 @@ import java.util.List;
 @Component
 public final class ScheduleService extends AbstractService {
 
-    public List<Schedule> getAllSchedules() {
+    public List<Schedule> getAll() {
         return scheduleRepository.findAll();
     }
 
-    public Schedule getScheduleById(Integer id) {
+    public Schedule getOne(Integer id) {
         return scheduleRepository.getOne(id);
     }
 
-    public void addNewSchedule(Integer teacherId, Schedule schedule) {
+    public void add(Integer teacherId, Schedule schedule) {
         User teacher = userRepository.getOne(teacherId);
         schedule.setTeacher(teacher);
         System.out.println(schedule.toString());
@@ -29,4 +29,7 @@ public final class ScheduleService extends AbstractService {
         scheduleRepository.save(schedule1);
     }
 
+    public void delete(Integer id) {
+        scheduleRepository.deleteById(id);
+    }
 }

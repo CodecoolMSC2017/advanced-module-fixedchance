@@ -1,21 +1,18 @@
 package com.codecool.sample.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "companies", schema = "public")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Company extends AbstractModel {
+public class Company extends AbstractModel implements Serializable {
 
     private String name;
     private String username;
@@ -28,13 +25,25 @@ public class Company extends AbstractModel {
     private boolean enabled;
 
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "company")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "company")
     private Set<Advertisement> ads = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(
+            name = "company_authorities",
+            joinColumns = @JoinColumn(name = "username", referencedColumnName = "username")
+    )
+    @Column(name = "authority")
+    private List<String> authorities;
 
     public Company() {
     }
 
     // Getters
+    public List<String> getAuthorities() {
+        return authorities;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -81,6 +90,10 @@ public class Company extends AbstractModel {
 
 
     // Setters
+    public void setAuthorities(List<String> authorities) {
+        this.authorities = authorities;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
