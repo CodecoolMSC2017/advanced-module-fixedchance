@@ -13,12 +13,8 @@ import java.util.Optional;
 @RestController
 public class CourseAnswerController {
 
-    private CourseAnswerService answerService;
-
     @Autowired
-    public void setAnserService(CourseAnswerService ansService) {
-        this.answerService = ansService;
-    }
+    private CourseAnswerService answerService;
 
     @RequestMapping("/courses/answers")
     public List<CourseAnswer> getAllAnswer() throws SQLException {
@@ -26,15 +22,15 @@ public class CourseAnswerController {
     }
 
     @RequestMapping("/courses/answers/{id}")
-    public Optional<CourseAnswer> getAnswerById(@PathVariable("id") Integer id) {
+    public CourseAnswer getAnswerById(@PathVariable("id") Integer id) {
         return answerService.getAnswerById(id);
     }
 
-    @RequestMapping(path = "/courses/answers",
+    @RequestMapping(path = "/courses/{course_id}/questions/{question_id}/answers",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
-    public void add(@RequestBody CourseAnswer answer) {
-        answerService.addNewAnswer(answer);
+    public void add(@PathVariable("course_id") Integer courseId, @PathVariable("question_id") Integer questionId, @RequestBody CourseAnswer answer) {
+        answerService.addNewAnswer(courseId, questionId, answer);
     }
 }

@@ -28,16 +28,16 @@ public class CourseReviewController {
 
     // Get review by its ID
     @RequestMapping("/courses/reviews/{id}")
-    public Optional<CourseReview> getReviewById(@PathVariable("id") Integer id) {
+    public CourseReview getReviewById(@PathVariable("id") Integer id) {
         return reviewService.getReviewById(id);
     }
 
     // Add review to database
-    @RequestMapping(path = "/courses/reviews",
+    @RequestMapping(path = "/courses/{course_id}/reviews",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
-    public void add(@RequestBody CourseReview review) {
-        reviewService.addNewReview(review);
+    public void add(@PathVariable("course_id") Integer courseId, @RequestBody CourseReview review) {
+        reviewService.addNewReview(courseId, review);
     }
 }

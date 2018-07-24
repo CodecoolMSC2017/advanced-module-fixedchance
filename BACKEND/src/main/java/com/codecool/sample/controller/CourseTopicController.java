@@ -27,17 +27,17 @@ public class CourseTopicController {
 
     // Get topic by its ID
     @RequestMapping("/courses/topics/{id}")
-    public Optional<CourseTopic> getTopicById(@PathVariable("id") Integer id) {
+    public CourseTopic getTopicById(@PathVariable("id") Integer id) {
         return topicService.getTopicById(id);
     }
 
     // Add topic to database
-    @RequestMapping(path = "/courses/topics",
+    @RequestMapping(path = "/courses/{course_id}/topics",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
-    public void add(@RequestBody CourseTopic topic) {
-        topicService.addNewTopic(topic);
+    public void add(@PathVariable("course_id") Integer courseId, @RequestBody CourseTopic topic) {
+        topicService.addNewTopic(courseId, topic);
     }
 
 }

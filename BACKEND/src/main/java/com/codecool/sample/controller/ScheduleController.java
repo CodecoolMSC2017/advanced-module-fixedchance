@@ -27,15 +27,16 @@ public class ScheduleController {
 
     // Get schedule by its ID
     @RequestMapping("/schedules/{id}")
-    public Optional<Schedule> getScheduleById(@PathVariable("id") Integer id) {
+    public Schedule getScheduleById(@PathVariable("id") Integer id) {
         return scheduleService.getScheduleById(id);
     }
 
-    @RequestMapping(path = "/schedules",
+    @RequestMapping(path = "/schedules/{teacher_id}",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
-    public void registerCompany(@RequestBody Schedule schedule) {
-        scheduleService.addNewSchedule(schedule);
+    public void addSchedule(@PathVariable("teacher_id") Integer teacherId, @RequestBody Schedule schedule) {
+        System.out.println(schedule.toString());
+        scheduleService.addNewSchedule(teacherId, schedule);
     }
 }

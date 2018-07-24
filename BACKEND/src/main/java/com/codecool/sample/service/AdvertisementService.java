@@ -1,7 +1,9 @@
 package com.codecool.sample.service;
 
 import com.codecool.sample.domain.Advertisement;
+import com.codecool.sample.domain.Company;
 import com.codecool.sample.repository.AdvertisementRepository;
+import com.codecool.sample.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,20 +12,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public final class AdvertisementService {
-
-    @Autowired
-    private AdvertisementRepository repository;
+public final class AdvertisementService extends AbstractService {
 
     public List<Advertisement> getAdvertisements() {
-        return repository.findAll();
+        return advertisementRepository.findAll();
     }
 
-    public void addNewAdvertisement(Advertisement ad) {
-        repository.save(ad);
+    public Advertisement getAdvertisementById(Integer id) {
+        return advertisementRepository.getOne(id);
     }
 
-    public Optional<Advertisement> getAdvertisementById(Integer id) {
-        return repository.findById(id);
+    public void addNewAdvertisement(Integer companyId, Advertisement ad) {
+        Company company = companyRepository.getOne(companyId);
+        ad.setCompany(company);
+        advertisementRepository.save(ad);
     }
 }

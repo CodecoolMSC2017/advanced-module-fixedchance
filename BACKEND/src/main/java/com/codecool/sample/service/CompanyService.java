@@ -8,24 +8,21 @@ import org.springframework.stereotype.Component;
 import java.sql.SQLException;
 
 @Component
-public final class CompanyService {
-
-    @Autowired
-    private CompanyRepository repository;
+public final class CompanyService extends AbstractService {
 
     public Iterable<Company> getUsers() {
-        return repository.findAll();
-    }
-
-    public void addNewCompany(Company company) {
-        repository.save(company);
-    }
-
-    public void deleteCompany(int companyId) {
-        repository.deleteById(companyId);
+        return companyRepository.findAll();
     }
 
     public Company findByEmail(String email) {
-        return repository.findByEmail(email);
+        return companyRepository.findByEmail(email);
+    }
+
+    public void addNewCompany(Company company) {
+        companyRepository.save(company);
+    }
+
+    public void deleteCompany(int companyId) {
+        companyRepository.deleteById(companyId);
     }
 }

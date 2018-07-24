@@ -1,5 +1,6 @@
 package com.codecool.sample.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,6 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users", schema = "public")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User extends AbstractModel implements Serializable {
 
     private Integer experience = 0;
@@ -28,12 +30,10 @@ public class User extends AbstractModel implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "teacher")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonManagedReference
-    private List<Course> teacherCourses;
+    private Set<Course> teacherCourses;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "teacher")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonManagedReference
     private Set<Schedule> schedules = new HashSet<>();
 
     /*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -71,7 +71,7 @@ public class User extends AbstractModel implements Serializable {
         return schedules;
     }
 
-    public List<Course> getTeacherCourses() {
+    public Set<Course> getTeacherCourses() {
         return teacherCourses;
     }
 
@@ -140,7 +140,7 @@ public class User extends AbstractModel implements Serializable {
         this.experience = experience;
     }
 
-    public void setTeacherCourses(List<Course> teacherCourses) {
+    public void setTeacherCourses(Set<Course> teacherCourses) {
         this.teacherCourses = teacherCourses;
     }
 
@@ -200,8 +200,8 @@ public class User extends AbstractModel implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "id='" + super.getId() +
-                "experience=" + experience +
+                "id='" + super.getId() + "\'" +
+                ", experience='" + experience + "\'" +
                 ", email='" + email + '\'' +
                 ", userName='" + username + '\'' +
                 ", firstName='" + firstName + '\'' +

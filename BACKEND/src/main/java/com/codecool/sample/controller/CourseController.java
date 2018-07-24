@@ -26,11 +26,12 @@ public class CourseController {
         return courseService.getById(id);
     }
 
-    @RequestMapping(path = "/courses",
+    @RequestMapping(path = "/courses/{teacher_id}",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
-    public void add(@RequestBody Course course) {
-        courseService.addNewCourse(course);
+    public void add(@PathVariable("teacher_id") Integer teacherId, @RequestBody Course course) {
+        System.out.println(teacherId + ", " + course);
+        courseService.addNewCourse(teacherId, course);
     }
 }

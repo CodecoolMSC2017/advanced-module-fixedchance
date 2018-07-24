@@ -29,8 +29,8 @@ public class CourseQuestionController {
 
     // Get question by its ID
     @RequestMapping("/courses/questions/{id}")
-    public Optional<CourseQuestion> getQuestionById(@PathVariable("id") Integer id) {
-        return questionService.getQuestonById(id);
+    public CourseQuestion getQuestionById(@PathVariable("id") Integer id) {
+        return questionService.getQuestionById(id);
     }
 
     // Add question to database

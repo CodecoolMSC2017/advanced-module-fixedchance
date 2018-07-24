@@ -1,7 +1,6 @@
 package com.codecool.sample.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,12 +9,13 @@ import java.util.Set;
 
 @Entity
 @Table(name="advertisements", schema="public")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Advertisement extends AbstractModel {
 
+    @JsonBackReference(value = "advertisements.company")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id")
     @NotNull
-    @JsonBackReference
     private Company company;
 
     private String name;

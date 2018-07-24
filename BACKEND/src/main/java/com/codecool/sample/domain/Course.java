@@ -1,5 +1,6 @@
 package com.codecool.sample.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="courses", schema="public")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Course extends AbstractModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -23,15 +25,12 @@ public class Course extends AbstractModel {
     private Set<User> students = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
-    @JsonManagedReference
     private Set<CourseQuestion> questions = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
-    @JsonManagedReference
     private Set<CourseReview> reviews = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
-    @JsonManagedReference
     private Set<CourseVideo> videos = new HashSet<>();
 
     private String name;

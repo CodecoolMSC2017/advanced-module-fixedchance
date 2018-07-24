@@ -1,18 +1,20 @@
 package com.codecool.sample.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="course_videos", schema="public")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CourseVideo extends AbstractModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id")
     @NotNull
-    @JsonBackReference
+    @JsonBackReference(value = "course_videos.course")
     private Course course;
     private String name;
     private String video;

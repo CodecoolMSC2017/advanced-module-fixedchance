@@ -12,20 +12,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class CourseQuestionService {
-
-    @Autowired
-    private CourseQuestionRepository questionRepository;
-
-    @Autowired
-    private CourseRepository courseRepository;
+public final class CourseQuestionService extends AbstractService {
 
     public List<CourseQuestion> getQuestions() {
         return questionRepository.findAll();
     }
 
-    public Optional<CourseQuestion> getQuestonById(Integer id) {
-        return questionRepository.findById(id);
+    public CourseQuestion getQuestionById(Integer id) {
+        return questionRepository.getOne(id);
     }
 
     public void addNewQuestion(int courseId, CourseQuestion question) {

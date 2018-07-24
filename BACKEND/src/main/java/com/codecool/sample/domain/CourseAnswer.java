@@ -1,18 +1,20 @@
 package com.codecool.sample.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="course_answers", schema="public")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CourseAnswer extends AbstractModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "question_id")
     @NotNull
-    @JsonBackReference
+    @JsonBackReference(value = "course_answers.courseQuestion")
     private CourseQuestion courseQuestion;
 
     private String answer;

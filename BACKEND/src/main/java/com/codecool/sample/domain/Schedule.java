@@ -1,6 +1,7 @@
 package com.codecool.sample.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,10 +9,11 @@ import java.util.Date;
 
 @Entity
 @Table(name="schedules", schema="public")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Schedule extends AbstractModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "teacherId")
+    @JoinColumn(name = "teacher_id")
     @NotNull
     @JsonBackReference
     private User teacher;
@@ -41,7 +43,7 @@ public class Schedule extends AbstractModel {
     }
 
     // Setters
-    public void setTeacher(User user) {
+    public void setTeacher(User teacher) {
         this.teacher = teacher;
     }
 
@@ -61,7 +63,7 @@ public class Schedule extends AbstractModel {
     @Override
     public String toString() {
         return "Schedule{" +
-                "teacherId=" + teacher +
+                "teacher=" + teacher +
                 ", studentId=" + studentId +
                 ", startTime=" + startTime +
                 ", date=" + date +

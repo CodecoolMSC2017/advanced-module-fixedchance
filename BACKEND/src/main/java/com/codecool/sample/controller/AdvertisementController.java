@@ -28,16 +28,16 @@ public class AdvertisementController {
 
     // Get advertisement by its ID
     @RequestMapping("/advertisements/{id}")
-    public Optional<Advertisement> getAdById(@PathVariable("id") Integer id) throws SQLException {
+    public Advertisement getAdById(@PathVariable("id") Integer id) throws SQLException {
         return adService.getAdvertisementById(id);
     }
 
     // Add new advertisement to database
-    @RequestMapping(path = "/advertisements",
+    @RequestMapping(path = "/advertisements/{company_id}",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
-    public void add(@RequestBody Advertisement ad) {
-        adService.addNewAdvertisement(ad);
+    public void add(@PathVariable("company_id") Integer companyId, @RequestBody Advertisement ad) {
+        adService.addNewAdvertisement(companyId, ad);
     }
 }

@@ -28,16 +28,16 @@ public class CourseVideoController {
 
     // Get video by its ID
     @RequestMapping("/courses/videos/{id}")
-    public Optional<CourseVideo> getVideoById(@PathVariable("id") Integer id) {
+    public CourseVideo getVideoById(@PathVariable("id") Integer id) {
         return videoService.getVideoById(id);
     }
 
     // Add video to database
-    @RequestMapping(path = "/courses/videos",
+    @RequestMapping(path = "/courses/{course_id}/videos",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
-    public void add(@RequestBody CourseVideo video) {
-            videoService.addNewVideo(video);
+    public void add(@PathVariable("course_id") Integer courseId, @RequestBody CourseVideo video) {
+            videoService.addNewVideo(courseId, video);
     }
 }

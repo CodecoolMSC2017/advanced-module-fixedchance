@@ -1,5 +1,7 @@
 package com.codecool.sample.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "companies", schema = "public")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Company extends AbstractModel {
 
     private String name;
@@ -25,8 +28,7 @@ public class Company extends AbstractModel {
     private boolean enabled;
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company")
-    @JsonManagedReference
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "company")
     private Set<Advertisement> ads = new HashSet<>();
 
     public Company() {
