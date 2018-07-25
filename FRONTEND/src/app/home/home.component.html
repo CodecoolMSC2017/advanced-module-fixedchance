@@ -2,22 +2,22 @@
   <ul>
     <li class="toleft"><img id="logoimg" src="assets/logo.png" />
     <li class="toleft" id="logo">FIXEDCHANCE</li>
-    <li class="toleft" ><a routerLink="../profile">PROFILE</a></li>
-    <li class="toleft" ><a routerLink="../profile">COMPANIES</a></li>
+    <li class="toleft" ><a routerLink="../courses">COURSES</a></li>
     <li class="toleft"><input type="text" [(ngModel)]="choosen" id="ajax" list="json-datalist" placeholder="Search here"></li>
-      <datalist id="json-datalist">
-        <option value="HTML">
+    <datalist id="json-datalist">
+      <option value="HTML">
         <option value="CSS">
-        <option value="JavaScript">
-        <option value="Java">
-        <option value="Python">
-        <option value="Ruby">
-        <option value="PHP">
-        <option value="Photo editing">
-        <option value="Soft skills">
-      </datalist>
+          <option value="JavaScript">
+            <option value="Java">
+              <option value="Python">
+                <option value="Ruby">
+                  <option value="PHP">
+                    <option value="Photo editing">
+                      <option value="Soft skills">
+                      </datalist>
     <li class="toleft" id="button"><a (click)="onSearchClick()"><i class="fa fa-search"></i></a></li>
     <li class="toright" (click)="onLogOutClick()"><a>LOGOUT</a></li>
+    <li class="toright" ><a routerLink="../profile">PROFILE</a></li>
   </ul>
 </header>
 

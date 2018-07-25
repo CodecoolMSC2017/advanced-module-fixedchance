@@ -16,7 +16,11 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { AddCourseComponent } from './add-course/add-course.component';
 import { DatePipe } from '@angular/common';
+<<<<<<< Updated upstream
 import { httpInterceptorProviders } from './http-interceptors';
+=======
+import { CoursesComponent } from './courses/courses.component';
+>>>>>>> Stashed changes
 
 @NgModule({
   declarations: [
@@ -27,7 +31,8 @@ import { httpInterceptorProviders } from './http-interceptors';
     MainComponent,
     ProfileComponent,
     NotfoundComponent,
-    AddCourseComponent
+    AddCourseComponent,
+    CoursesComponent
   ],
   imports: [
     BrowserModule,

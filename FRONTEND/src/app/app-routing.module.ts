@@ -8,6 +8,7 @@ import { MainComponent } from './main/main.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { AddCourseComponent } from './add-course/add-course.component';
+import { CoursesComponent } from './courses/courses.component';
 
 const routes: Routes = [
   {
@@ -33,9 +34,13 @@ const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
-  path: 'add-course',
-  component: AddCourseComponent,
-  canActivate: [LoginGuard],
+    path: 'add-course',
+    component: AddCourseComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'courses',
+    component: CoursesComponent
   },
   {
     path: '**', 

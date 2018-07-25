@@ -81,10 +81,6 @@ public class User extends AbstractModel implements Serializable {
         return authorities;
     }
 
-    public String getUserName() {
-        return username;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -148,10 +144,6 @@ public class User extends AbstractModel implements Serializable {
 
     public void setAuthorities(List<String> authorities) {
         this.authorities = authorities;
-    }
-
-    public void setUserName(String userName) {
-        this.username = userName;
     }
 
     public void setEmail(String email) {
