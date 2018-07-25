@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
+import { AuthService } from '../auth.service';
+import { LoginDetails } from '../login-details';
 import { deserialize } from 'json-typescript-mapper';
 import { User } from '../user';
 
@@ -13,51 +15,40 @@ import { User } from '../user';
 })
 export class LoginComponent implements OnInit {
 
+  loginDetails: LoginDetails = new LoginDetails();
   email : string = this.email;
   password : string = this.password;
   params : URLSearchParams = new URLSearchParams;
   result : string;
   selectedRole : string;
   prevSelectedRole : Element;
+  username : string = this.username;
 
   user : any;
 
-  constructor(private http : HttpClient, private route: ActivatedRoute, private router: Router, public dataService : DataService) { }
+  constructor(private authService: AuthService, private http : HttpClient, private route: ActivatedRoute, private router: Router, public dataService : DataService) { }
 
   ngOnInit() {
   }
 
   onLoginClick() {
-    if (this.email == null) {
+    if (this.loginDetails.username == null) {
       return;
     }
-    if (this.password == null) {
+    if (this.loginDetails.password == null) {
       return;
     }
-
-    console.log(this.route.data);
-
-    const params = {email : this.email, password : this.password};
+    this.getAuth();
+    this.user = JSON.parse(sessionStorage.getItem('user'));
     if (this.selectedRole == 'STUDENT' || this.selectedRole == 'TEACHER') {
-      this.http.post("http://localhost:8080/login", params).subscribe(response => {
-        if (response == null) {
+        if (this.user == null) {
           return;
         } else {
-          this.user = deserialize(User, response);
-          console.log(this.user);
           this.dataService.setUser(this.user);
-          console.log(this.dataService.user);
+          console.log(this.user);
           this.router.navigate(['home']);
-        }
-      }); 
+        } 
     } else {
-      this.http.post("http://localhost:8080/company-login", params).subscribe(response => {
-        if (response == null) {
-          return;
-        } else {
-          this.router.navigate(['home']);
-        }
-      });
     }
   }
 
@@ -68,5 +59,11 @@ export class LoginComponent implements OnInit {
     this.prevSelectedRole = event.target;
     event.target.classList.add('activerole');
     this.selectedRole = event.target.name;
+  }
+
+  getAuth() {
+    return this.authService.getAuth(this.loginDetails).subscribe(user => {
+      sessionStorage.setItem('user', JSON.stringify(user));
+    }, error => alert(error.message));
   }
 }

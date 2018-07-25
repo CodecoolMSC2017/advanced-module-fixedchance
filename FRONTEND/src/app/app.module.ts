@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { MainComponent } from './main/main.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -16,6 +16,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { AddCourseComponent } from './add-course/add-course.component';
 import { DatePipe } from '@angular/common';
+import { httpInterceptorProviders } from './http-interceptors';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { DatePipe } from '@angular/common';
     HttpClientModule,
     RoundProgressModule,
   ],
-  providers: [DataService, DatePipe],
+  providers: [DataService, DatePipe, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

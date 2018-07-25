@@ -5,8 +5,8 @@
     <button name="COMPANY" (click)="roleChosen($event)" class="fa-button">COMPANY<br><i class="fa fa-building img"></i></button>
   </div>
   <form id="login-form" autocomplete="off" *ngIf="selectedRole != null">
-    <input type="text" [(ngModel)]="email" placeholder="E-mail" name="email"><br>
-    <input type="password" [(ngModel)]="password" placeholder="Password" name="password"><br>
+    <input type="text" [(ngModel)]="loginDetails.username" placeholder="Username" name="username"><br>
+    <input type="password" [(ngModel)]="loginDetails.password" placeholder="Password" name="password"><br>
     <button (click)="onLoginClick()">Login</button>
   </form>
 </div>

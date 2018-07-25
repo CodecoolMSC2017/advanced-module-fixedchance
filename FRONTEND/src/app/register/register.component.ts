@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Message } from '../message';
 import { deserialize } from 'json-typescript-mapper';
+import { RegisterService } from '../register.service';
+import { RegisterDetails } from '../register-details';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -12,11 +14,13 @@ import { deserialize } from 'json-typescript-mapper';
 })
 export class RegisterComponent implements OnInit {
 
+  registerDetails: RegisterDetails = new RegisterDetails();
   email : string = this.email;
   password : string = this.password;
   confpassword : string = this.confpassword;
   firstname : string = this.firstname;
   lastname : string = this.lastname;
+  username : string = this.username;
   birthdate : Date = this.birthdate;
   name : string = this.name;
 
@@ -29,7 +33,7 @@ export class RegisterComponent implements OnInit {
   prevSelectedSub : Element;
 
 
-  constructor(private http : HttpClient, private route: ActivatedRoute, private router: Router) { }
+  constructor(private registerService: RegisterService, private http : HttpClient, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
   }
@@ -41,13 +45,15 @@ export class RegisterComponent implements OnInit {
 
     let post;
     if (this.selectedRole == 'STUDENT' || this.selectedRole == 'TEACHER') {
-      const params = {email : this.email, password : this.password, confpassword : this.confpassword,
-      firstName : this.firstname, lastName : this.lastname, birthDate : this.birthdate, role : this.selectedRole};
-      post = this.http.post("http://localhost:8080/register", params);
+      const params = {email : this.email, password : this.registerDetails.password, confpassword : this.registerDetails.confirmationPassword,
+      firstName : this.firstname, lastName : this.lastname, username : this.registerDetails.username, birthDate : this.birthdate, role : this.selectedRole};
+      post = this.http.post("api/register", params);
+      this.register();
     } else {
       const params = {email : this.email, name : this.name, password : this.password,
                       subscription : this.selectedSub};
-      post = this.http.post("http://localhost:8080/company-register", params);
+      post = this.http.post("api/company-register", params);
+      this.register();
     }
     post.subscribe(response => {
       const message = deserialize(Message, response);
@@ -81,7 +87,8 @@ export class RegisterComponent implements OnInit {
   checkForMissingInfo() {
     if (this.selectedRole == 'STUDENT' || this.selectedRole == 'TEACHER') {
       if (this.email == null || this.password == null
-          || this.firstname == null || this.lastname == null || this.birthdate == null) {
+          || this.firstname == null || this.lastname == null || this.username == null || 
+             this.birthdate == null) {
         return true;
       }
     } else {
@@ -94,5 +101,11 @@ export class RegisterComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  register() {
+    this.registerService.register(this.registerDetails).subscribe(user => {
+      this.router.navigate(['login']);
+    }, error => alert(error.message));
   }
 }
