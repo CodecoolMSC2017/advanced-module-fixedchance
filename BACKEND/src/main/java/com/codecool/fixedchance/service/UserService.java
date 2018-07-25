@@ -8,6 +8,10 @@ import java.util.List;
 @Component
 public final class UserService extends AbstractService {
 
+    public User getUserByName(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     public List<User> getAll() {
         return userRepository.findAll();
     }
