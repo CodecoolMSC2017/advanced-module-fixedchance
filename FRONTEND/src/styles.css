@@ -123,5 +123,4 @@ html, body {
 ::-webkit-scrollbar-thumb:hover {
   animation: all 2s ease-in-out;
   background: rgb(255, 0, 0); 
-  width: 10px;
 }
