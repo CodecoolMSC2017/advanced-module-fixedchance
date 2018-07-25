@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS schedules;
 DROP TABLE IF EXISTS advertisements;
 DROP TABLE IF EXISTS course_answers;
 DROP TABLE IF EXISTS course_questions;
+DROP TYPE IF EXISTS question_types;
 DROP TABLE IF EXISTS course_videos;
 DROP TABLE IF EXISTS course_student;
 DROP TABLE IF EXISTS courses;
@@ -47,6 +48,7 @@ CREATE TABLE companies (
 	password TEXT NOT NULL,
 	active BOOLEAN NOT NULL DEFAULT 'false',
 	subscription TEXT NOT NULL,
+	payment_date DATE,
 	description TEXT,
 	enabled BOOLEAN NOT NULL,
 	CONSTRAINT name_not_empty CHECK (name <> ''),
@@ -56,7 +58,7 @@ CREATE TABLE companies (
 
 CREATE TABLE company_authorities (
     username TEXT NOT NULL,
-    authority TEXT NOT NULL,
+    authority TEXT NOT NULL DEFAULT 'ROLE_COMPANY',
     FOREIGN KEY (username) REFERENCES companies(username),
     UNIQUE (username, authority)
 );
@@ -91,12 +93,19 @@ CREATE TABLE course_videos (
 	CONSTRAINT video_not_empty CHECK (video <> '')
 );
 
-
+CREATE TYPE question_types AS ENUM (
+    'TF',
+    'SA',
+    'MA',
+    'YN',
+    'WA'
+);
 
 CREATE TABLE course_questions (
 	id SERIAL PRIMARY KEY,
 	course_id INTEGER NOT NULL,
 	question TEXT NOT NULL,
+	question_type question_types NOT NULL,
 	FOREIGN KEY (course_id) REFERENCES courses(id),
 	CONSTRAINT question_not_empty CHECK (question <> '')
 );
@@ -141,9 +150,11 @@ CREATE TABLE schedules (
 CREATE TABLE course_reviews (
 	id SERIAL PRIMARY KEY,
 	course_id INTEGER NOT NULL,
+	student_id INTEGER NOT NULL,
 	rating INTEGER NOT NULL,
 	description TEXT,
 	FOREIGN KEY (course_id) REFERENCES courses(id),
+	FOREIGN KEY (student_id) REFERENCES users(id),
 	CONSTRAINT rating_between_one_five CHECK (rating >= 1 AND rating <= 5)
 );
 
