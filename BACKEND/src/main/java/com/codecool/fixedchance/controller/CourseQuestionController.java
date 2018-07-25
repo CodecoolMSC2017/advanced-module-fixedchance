@@ -40,4 +40,11 @@ public class CourseQuestionController extends AbstractController {
     public void delete(@PathVariable("id") Integer id) {
         questionService.delete(id);
     }
+
+    @RequestMapping(path = "/courses/{course_id}/questions",
+            method = RequestMethod.GET,
+            consumes = {"application/json"})
+    public List<CourseQuestion> findByCourse(@PathVariable("course_id") Integer courseId) {
+        return questionService.findByCourse(courseId);
+    }
 }

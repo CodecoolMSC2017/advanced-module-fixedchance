@@ -38,4 +38,11 @@ public class AdvertisementController extends AbstractController {
     public void delete(@PathVariable("id") Integer id) {
         advertisementService.delete(id);
     }
+
+    @RequestMapping(path = "/companies/{company_id}/advertisements",
+            method = RequestMethod.GET,
+            consumes = {"application/json"})
+    public List<Advertisement> findByCompany(@PathVariable("company_id") Integer companyId) {
+        return advertisementService.findByCompany(companyId);
+    }
 }

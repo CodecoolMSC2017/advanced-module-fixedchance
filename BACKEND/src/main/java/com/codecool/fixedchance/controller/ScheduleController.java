@@ -41,4 +41,11 @@ public class ScheduleController extends AbstractController {
     public void delete(@PathVariable("id") Integer id) {
         scheduleService.delete(id);
     }
+
+    @RequestMapping(path = "/schedules/{teacher_id}/schedules",
+            method = RequestMethod.GET,
+            consumes = {"application/json"})
+    public List<Schedule> findByTeacher(@PathVariable("teacher_id") Integer teacherId) {
+        return scheduleService.findByTeacher(teacherId);
+    }
 }
