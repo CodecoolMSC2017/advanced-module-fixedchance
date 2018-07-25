@@ -32,4 +32,9 @@ public final class ScheduleService extends AbstractService {
     public void delete(Integer id) {
         scheduleRepository.deleteById(id);
     }
+
+    public List<Schedule> findByTeacher(Integer teacherId) {
+        User teacher = userRepository.getOne(teacherId);
+        return scheduleRepository.findByTeacher(teacher);
+    }
 }

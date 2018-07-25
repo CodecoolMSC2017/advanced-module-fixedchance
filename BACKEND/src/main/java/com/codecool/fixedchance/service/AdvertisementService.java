@@ -32,4 +32,9 @@ public final class AdvertisementService extends AbstractService {
     public void delete(Integer id) {
         advertisementRepository.deleteById(id);
     }
+
+    public List<Advertisement> findByCompany(Integer companyId) {
+        Company company = companyRepository.getOne(companyId);
+        return advertisementRepository.findByCompany(company);
+    }
 }

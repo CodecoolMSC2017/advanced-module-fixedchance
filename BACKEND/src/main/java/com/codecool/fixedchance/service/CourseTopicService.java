@@ -33,4 +33,9 @@ public final class CourseTopicService extends AbstractService {
         topicRepository.deleteById(id);
     }
 
+    public List<CourseTopic> findByCourse(Integer courseId) {
+        Course course = courseRepository.getOne(courseId);
+        return topicRepository.findByCourse(course);
+    }
+
 }

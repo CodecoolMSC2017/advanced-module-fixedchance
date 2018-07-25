@@ -33,4 +33,8 @@ public final class CourseVideoService extends AbstractService {
         videoRepository.deleteById(id);
     }
 
+    public List<CourseVideo> findByCourse(Integer courseId) {
+        Course course = courseRepository.getOne(courseId);
+        return videoRepository.findByCourse(course);
+    }
 }

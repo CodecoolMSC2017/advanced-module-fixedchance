@@ -33,4 +33,8 @@ public final class CourseReviewService extends AbstractService {
         reviewRepository.deleteById(id);
     }
 
+    public List<CourseReview> findByCourse(Integer courseId) {
+        Course course = courseRepository.getOne(courseId);
+        return reviewRepository.findByCourse(course);
+    }
 }
