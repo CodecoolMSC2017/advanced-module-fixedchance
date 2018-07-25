@@ -21,6 +21,7 @@ public class Company extends AbstractModel implements Serializable {
     private String password;
     private boolean active;
     private String subscription;
+    private Date paymentDate;
     private String description;
     private boolean enabled;
 
@@ -40,6 +41,10 @@ public class Company extends AbstractModel implements Serializable {
     }
 
     // Getters
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
     public List<String> getAuthorities() {
         return authorities;
     }
@@ -90,6 +95,10 @@ public class Company extends AbstractModel implements Serializable {
 
 
     // Setters
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
     public void setAuthorities(List<String> authorities) {
         this.authorities = authorities;
     }

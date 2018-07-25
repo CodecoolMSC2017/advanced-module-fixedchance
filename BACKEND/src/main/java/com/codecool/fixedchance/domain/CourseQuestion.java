@@ -21,12 +21,20 @@ public class CourseQuestion extends AbstractModel {
 
     private String question;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 2)
+    private QuestionType questionType;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "courseQuestion")
     private Set<CourseAnswer> answers = new HashSet<>();
 
     public CourseQuestion() {}
 
     // Getters
+    public QuestionType getQuestionType() {
+        return questionType;
+    }
+
     public Set<CourseAnswer> getAnswers() {
         return answers;
     }
@@ -40,6 +48,10 @@ public class CourseQuestion extends AbstractModel {
     }
 
     // Setters
+    public void setQuestionType(QuestionType questionType) {
+        this.questionType = questionType;
+    }
+
     public void setAnswers(Set<CourseAnswer> answers) {
         this.answers = answers;
     }
