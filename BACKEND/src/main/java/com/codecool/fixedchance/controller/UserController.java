@@ -8,12 +8,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class UserController extends AbstractController {
 
-    @RequestMapping(path = "/login",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            consumes = {"application/json"})
-    public User loginUser(@RequestBody User user) {
-        return userService.find(user.getEmail());
+    @RequestMapping(path = "/login/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public User loginUser(@PathVariable("id") Integer id) {
+        return userService.getOne(id);
     }
 
     @RequestMapping(path = "/register",

@@ -29,7 +29,7 @@ public class Application extends WebSecurityConfigurerAdapter {
 		http.csrf()
 				.disable()
 				.authorizeRequests()
-				.antMatchers("/register").permitAll()
+				.antMatchers("/register ", "/auth").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.httpBasic();
