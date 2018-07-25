@@ -4,22 +4,77 @@
 
 ## GET
 
+#### GET all courses
 * /courses
-* /courses/`<id>`
+
+#### GET course by ID
+* /courses/`<course_id>`
+
+#### GET all courses of teacher by teacher ID
+* /courses/`<teacher_id>`/courses
+
+#### GET all questions
 * /courses/questions
-* /courses/questions/`<id`
-* /courses/answers	
-* /courses/answers/`<id>`
+
+#### GET question by ID
+* /courses/questions/`<question_id>`
+
+#### GET questions of course by course ID
+* /courses/`<course_id>`/questions
+
+#### GET all answers
+* /courses/answers
+
+#### GET answer by ID	
+* /courses/answers/`<answer_id>`
+
+#### GET answers of question by question ID
+* /courses/questions/`<question_id>`
+
+#### GET all reviews
 * /courses/reviews
-* /courses/reviews/`<id>`
-* /courses/topics/	
-* /courses/topics/`<id>`	
-* /courses/videos	
-* /courses/videos/`<id>`	
+
+#### GET review by ID
+* /courses/reviews/`<review_id>`
+
+#### GET reviews of course by course ID
+* /courses/`<course_id>`/reviews
+
+#### GET all topics
+* /courses/topics/
+
+#### GET topic by ID	
+* /courses/topics/`<topic_id>`
+
+#### GET topics of course by course ID
+* /courses/`<course_id>`/topics
+
+#### GET all videos	
+* /courses/videos
+
+#### GET video by ID	
+* /courses/videos/`<video_id>`
+
+#### GET videos of course by course ID
+* /courses/`<course_id>`/videos
+
+#### GET all schedules	
 * /schedules	
-* /schedules/`<id>`	
+
+#### GET schedule by ID
+* /schedules/`<schedule_id>`	
+
+#### GET schedules of teachers by teacher ID
+* /schedules/`<teacher_id>`/schedules
+
+#### GET all advertisements
 * /advertisements	
-* /advertisements/`<id>`
+
+#### GET advertisement by ID
+* /advertisements/`<advertisement_id>`
+
+#### GET advertisements of company by company ID
+* /companies/`<company_id>`/advertisements
 
 
 ## POST
