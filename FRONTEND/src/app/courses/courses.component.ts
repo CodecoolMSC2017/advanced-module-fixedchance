@@ -6,6 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { LoginDetails } from '../login-details'
 import { User } from '../user';
 import { DataService } from '../data.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-courses',
@@ -18,7 +19,7 @@ export class CoursesComponent implements OnInit {
   courses : Course[];
   course : Course;
 
-  constructor(private http : HttpClient, private dataService : DataService) { }
+  constructor(private http : HttpClient, private dataService : DataService, private authService : AuthService) { }
 
   ngOnInit() {
     this.fetchCourses();
@@ -32,5 +33,9 @@ export class CoursesComponent implements OnInit {
     }).subscribe(course => {
       this.course = deserialize(Course, course) });
     console.log(this.course);
+  }
+
+  onLogoutClick() {
+    this.authService.deleteAuth();
   }
 }
