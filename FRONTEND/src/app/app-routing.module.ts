@@ -40,7 +40,8 @@ const routes: Routes = [
   },
   {
     path: 'courses',
-    component: CoursesComponent
+    component: CoursesComponent,
+    canActivate: [LoginGuard],
   },
   {
     path: '**', 
