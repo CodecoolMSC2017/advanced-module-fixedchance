@@ -32,12 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginClick() {
-<<<<<<< Updated upstream
     if (this.loginDetails.username == null) {
-=======
-    if (this.email == null) {
-      this.router.navigate(['home']);
->>>>>>> Stashed changes
       return;
     }
     if (this.loginDetails.password == null) {

@@ -1,11 +1,13 @@
-export class Review {
+export class Video {
     id : number;
-    rating : number;
+    name : string;
+    video : string;
     description : string;
 
     constructor() {
         this.id = undefined;
-        this.rating = undefined;
+        this.name = undefined;
+        this.video = undefined;
         this.description = undefined;
     }
 }
