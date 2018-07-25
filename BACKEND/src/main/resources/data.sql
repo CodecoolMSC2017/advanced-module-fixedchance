@@ -1,8 +1,8 @@
 INSERT INTO users (username, email, first_name, last_name, birth_date, registration_date, password, enabled) VALUES
-    ('admin', 'admin', 'Admin', 'Admin', '1988-04-01', '1990-01-01', '$2a$04$VB690Lz8ElA8kfDOepbcM.kuKbzMEx4Zv3Ou0Yh6n9OeGauykcNKm', false),
-    ('student', 'student', 'John', 'Doe', '1990-05-12', '1990-01-01', '$2a$04$6q5yNrA2VKNCwiYVibi3we5ojKOVTKKSlgXz2pd.uA4/hqwr9s8tK', false),
-    ('teacher', 'teacher', 'Jane', 'Doe', '1978-06-24', '1990-01-01', '$2a$04$u8Kp3qxzJ49Xysc.b0O9MuOQqxoKT7J2KCqEASlT1KZdfnfy9.Uam', false),
-    ('csanad', 'csanad@gmail.com', 'Csanád', 'Hegedűs', '1996-11-12', '2018-07-12', '$2a$04$uUK5k5HofChxb2/xYZ/Yoema6Py0Rw6pWn8SOynvKImyUPWGW7yK6', false);
+    ('admin', 'admin', 'Admin', 'Admin', '1988-04-01', '1990-01-01', '$2a$04$VB690Lz8ElA8kfDOepbcM.kuKbzMEx4Zv3Ou0Yh6n9OeGauykcNKm', true),
+    ('student', 'student', 'John', 'Doe', '1990-05-12', '1990-01-01', '$2a$04$6q5yNrA2VKNCwiYVibi3we5ojKOVTKKSlgXz2pd.uA4/hqwr9s8tK', true),
+    ('teacher', 'teacher', 'Jane', 'Doe', '1978-06-24', '1990-01-01', '$2a$04$u8Kp3qxzJ49Xysc.b0O9MuOQqxoKT7J2KCqEASlT1KZdfnfy9.Uam', true),
+    ('csanad', 'csanad@gmail.com', 'Csanád', 'Hegedűs', '1996-11-12', '2018-07-12', '$2a$04$uUK5k5HofChxb2/xYZ/Yoema6Py0Rw6pWn8SOynvKImyUPWGW7yK6', true);
 
 INSERT INTO authorities (username, authority) VALUES
     ('admin', 'ROLE_ADMIN'),
