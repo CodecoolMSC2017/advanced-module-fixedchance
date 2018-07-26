@@ -10,6 +10,19 @@
 
 <div id="bck"></div>
 
-<div *ngIf="courses" style="z-index: 20; position: absolute;">
-  <div *ngFor="let course of courses">Courses[] : {{ course.name }}</div>
+<div id="main-content">
+
+  <div id="title-div">
+    <h1 id="title">AVAILABLE COURSES</h1>
+  </div>
+  
+  <hr>
+  
+  <div id="courses" *ngIf="courses">
+    <div class="course" (click)="onCourseClick($event)" id="{{ course.id }}" *ngFor="let course of courses">
+      <span class="course-name">{{ course.name }}</span>
+    </div>
+  </div>
+
 </div>
+  

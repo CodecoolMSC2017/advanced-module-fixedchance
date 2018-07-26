@@ -1,0 +1,46 @@
+<header id="top-bar">
+    <ul>
+      <li class="toleft"><img id="logoimg" src="assets/logo.png" />
+      <li class="toleft" id="logo">FIXEDCHANCE</li>
+      <li class="toleft"><a routerLink="../home">DASHBOARD</a></li>
+      <li class="toright"><a (click)="onLogoutClick()">LOGOUT</a></li>
+      <li class="toright"><a routerLink="../profile">PROFILE</a></li>
+    </ul>
+  </header>
+
+  <div id="bck"></div>
+
+  <!-- TEACHER, STUDENTS[], QUESTIONS[], REVIEWS[], VIDEOS[], TOPICS[], NAME -->
+
+  <div id="main-content">
+
+    <div id="header-content">
+      <div id="teacher-info-div">
+        <span id="teacher-info">
+          <span id="profile-pic-span"><img id="profile-pic" src="assets/profile-pic.png"></span>
+          <span id="teacher-name">{{ teacher.username }}</span><br>
+          <span id="progress-bar"><round-progress class="progress" [current]="currentExp" [max]="expToNextLevel" [radius]="60" [stroke]="10"></round-progress></span>
+          <span><div class="text">{{ userLevel }}</div></span>
+        </span>
+      </div>
+        
+      <div id="course-info-div">
+        <span id="course-info">
+          <span id="course-name" style="padding-top: 30px;">{{ course.name }}</span><br>
+          
+          <span id="rating">
+            <ng-template #t let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+              </span>
+            </ng-template>
+            
+            <ngb-rating [(rate)]="courseRating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating><br>
+            <span> {{ courseRating }} </span>
+          </span>
+        </span>
+      </div>
+    
+    </div>
+  
+  </div>

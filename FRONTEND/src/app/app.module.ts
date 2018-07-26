@@ -18,6 +18,8 @@ import { AddCourseComponent } from './add-course/add-course.component';
 import { DatePipe } from '@angular/common';
 import { httpInterceptorProviders } from './http-interceptors';
 import { CoursesComponent } from './courses/courses.component';
+import { CourseComponent } from './course/course.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { CoursesComponent } from './courses/courses.component';
     ProfileComponent,
     NotfoundComponent,
     AddCourseComponent,
-    CoursesComponent
+    CoursesComponent,
+    CourseComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { CoursesComponent } from './courses/courses.component';
     BrowserAnimationsModule,
     HttpClientModule,
     RoundProgressModule,
+    NgbModule.forRoot(),
   ],
   providers: [DataService, DatePipe, httpInterceptorProviders],
   bootstrap: [AppComponent]

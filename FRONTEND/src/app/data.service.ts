@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Observable } from 'rxjs';
 import { User } from './user';
+import { Course } from './course';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class DataService {
 
   user : User;
 
-  constructor() { }
+  course : Course;
+
+  constructor(private http : HttpClient) { }
 
   changePost(post) {
     this.posts.next(post)
@@ -35,5 +38,13 @@ export class DataService {
     }
     
     return this.user;
+  }
+
+  setCurrentCourse(course) {
+    this.course = course;
+  }
+
+  getCurrentCourse() {
+    return this.course;
   }
 }

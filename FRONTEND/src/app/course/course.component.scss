@@ -1,0 +1,97 @@
+#main-content {
+    position: relative;
+    padding-top: 10px;
+}
+
+#header-content {
+    margin: 50px;
+    height: 250px;
+    line-height: 7px;
+}
+
+#teacher-info-div,
+#course-info-div {
+    display: inline-block;
+    background: rgba(0,0,0, .6);
+    border: 1px solid orange;
+    border-radius: 10px;
+    height: 300px;
+    padding: 10px;
+    width: 35%;
+}
+
+#teacher-info {
+    padding: 16px;
+    line-height: 60px;
+}
+
+#profile-pic-span {
+    width: 280px;
+    height: 280px;
+    margin: 0;
+}
+
+#profile-pic {
+    width: 250px;
+    padding: 25px;
+}
+
+.text {
+  position: absolute;
+  left: 21.3%;
+  top: 70%;
+  text-align: center;
+  width: 15%;
+  z-index: 1;
+  color: white;
+  font-size: 32px;
+}
+
+#progress-bar {
+    float: left;
+    padding: 0;
+    margin: 0;
+    margin-left: 50px;
+}
+
+#teacher-name {
+    float: left;
+    font-size: 50px;
+    padding: 0;
+    margin: 0;
+    margin-left: 50px;
+    margin-top: 60px;
+}
+
+#teacher-info span {
+    float: left;
+}
+
+#course-info-div {
+    width: 60%;
+    margin-left: 30px;
+}
+
+#course-name {
+    font-size: 42px;
+}
+
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 3rem;
+    color: #d3d3d3;
+}
+.full {
+    color: gold;
+}
+.half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: gold;
+}
+
+#rating {
+    font-size: 36px;
+}

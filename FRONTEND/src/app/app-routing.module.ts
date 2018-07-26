@@ -9,6 +9,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { AddCourseComponent } from './add-course/add-course.component';
 import { CoursesComponent } from './courses/courses.component';
+import { CourseComponent } from './course/course.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,11 @@ const routes: Routes = [
   {
     path: 'courses',
     component: CoursesComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'course',
+    component: CourseComponent,
     canActivate: [LoginGuard],
   },
   {

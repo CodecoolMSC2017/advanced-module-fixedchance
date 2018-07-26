@@ -64,25 +64,6 @@ export class ProfileComponent implements OnInit {
     this.currentExp = this.user.experience;
     this.expToNextLevel = 1200 + this.userLevel * 300;
     this.percentage = Math.round((this.currentExp / this.expToNextLevel) * 100);
-
-
-    /*
-    if (this.user.experience < 1200) {
-      this.userLevel = 0;
-      this.currentExp = this.user.experience;
-      this.expToNextLevel = 1200;
-      this.percentage = Math.round((this.currentExp / 1200) * 100);
-    } else {
-      this.user.experience -= 1200;
-      this.userLevel = 1;
-      while (this.user.experience - 1200 - this.userLevel * 300 >= 0) {
-        this.user.experience -= 1200 + this.userLevel * 300;
-        this.userLevel++;
-      }
-      this.currentExp = this.user.experience;
-      this.expToNextLevel = 1200 + this.userLevel * 300;
-      this.percentage = Math.round((this.currentExp / this.expToNextLevel) * 100);
-    }*/
   }
 
   showCourses(event) {
