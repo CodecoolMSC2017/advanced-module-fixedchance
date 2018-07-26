@@ -32,6 +32,9 @@ public class Course extends AbstractModel {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "course")
     private Set<CourseVideo> videos = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "course")
+    private Set<CourseTopic> topics = new HashSet<>();
+
     private String name;
 
     private boolean isValidated;
@@ -40,6 +43,10 @@ public class Course extends AbstractModel {
     }
 
     // Getters
+    public Set<CourseTopic> getTopics() {
+        return topics;
+    }
+
     public Set<CourseVideo> getVideos() {
         return videos;
     }
@@ -69,6 +76,10 @@ public class Course extends AbstractModel {
     }
 
     // Setters
+    public void setTopics(Set<CourseTopic> topics) {
+        this.topics = topics;
+    }
+
     public void setVideos(Set<CourseVideo> videos) {
         this.videos = videos;
     }

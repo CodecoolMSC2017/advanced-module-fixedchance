@@ -35,16 +35,6 @@ public class User extends AbstractModel implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Schedule> schedules = new HashSet<>();
 
-    /*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Course studentCourse;*/
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "course_student",
-            joinColumns = {@JoinColumn(name = "student_id")},
-            inverseJoinColumns = {@JoinColumn(name = "course_id")})
-    private Set<User> students = new HashSet<>();
-
     @ElementCollection
     @CollectionTable(
             name = "authorities",
@@ -71,10 +61,6 @@ public class User extends AbstractModel implements Serializable {
 
     public Set<Course> getTeacherCourses() {
         return teacherCourses;
-    }
-
-    public Set<User> getStudents() {
-        return students;
     }
 
     public List<String> getAuthorities() {
@@ -136,10 +122,6 @@ public class User extends AbstractModel implements Serializable {
 
     public void setTeacherCourses(Set<Course> teacherCourses) {
         this.teacherCourses = teacherCourses;
-    }
-
-    public void setStudents(Set<User> students) {
-        this.students = students;
     }
 
     public void setAuthorities(List<String> authorities) {
