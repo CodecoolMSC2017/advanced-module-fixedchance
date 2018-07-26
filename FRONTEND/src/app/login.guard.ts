@@ -9,7 +9,6 @@ export class LoginGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    console.log("hali LOGINGUARD");
     if (sessionStorage.getItem('user')) {
       return true;
     }

@@ -4,8 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
 import { AuthService } from '../auth.service';
 import { LoginDetails } from '../login-details';
-import { deserialize } from 'json-typescript-mapper';
-import { User } from '../user';
 
 @Component({
   encapsulation: ViewEncapsulation.None,

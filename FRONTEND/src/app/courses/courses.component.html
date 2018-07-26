@@ -9,3 +9,7 @@
 </header>
 
 <div id="bck"></div>
+
+<div *ngIf="courses" style="z-index: 20; position: absolute;">
+  <div *ngFor="let course of courses">Courses[] : {{ course.name }}</div>
+</div>

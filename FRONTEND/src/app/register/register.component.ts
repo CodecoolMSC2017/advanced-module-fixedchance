@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Message } from '../message';
-import { deserialize } from 'json-typescript-mapper';
 import { RegisterService } from '../register.service';
 import { RegisterDetails } from '../register-details';
 
@@ -56,7 +55,7 @@ export class RegisterComponent implements OnInit {
       this.register();
     }
     post.subscribe(response => {
-      const message = deserialize(Message, response);
+      const message = response;
       if (message.message.startsWith("Reg")) {
         this.errormessage = '';
         this.router.navigate(['']);

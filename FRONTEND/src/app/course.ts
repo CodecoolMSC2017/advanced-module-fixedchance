@@ -2,6 +2,7 @@ import { User } from './user';
 import { Question } from './question';
 import { Review } from './review';
 import { Video } from './video';
+import { Topic } from './topic';
 
 export class Course {
     id : number;
@@ -12,15 +13,5 @@ export class Course {
     teacher : User;
     validated : boolean;
     videos : Video[];
-
-    constructor() {
-        this.id = undefined;
-        this.name = undefined;
-        this.questions = undefined;
-        this.reviews = undefined;
-        this.students = undefined;
-        this.teacher = undefined;
-        this.validated = undefined;
-        this.videos = undefined;
-    }
+    topics : Topic[];
 }

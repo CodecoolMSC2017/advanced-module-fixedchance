@@ -22,6 +22,7 @@ export class AuthService {
   }
 
   deleteAuth() {
+    sessionStorage.clear();
     this.http.delete<void>('/api/auth');
     this.router.navigate([""]);
   }
