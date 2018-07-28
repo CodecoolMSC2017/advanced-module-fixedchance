@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
@@ -6,7 +6,7 @@ import { AuthService } from '../auth.service';
 import { LoginDetails } from '../login-details';
 
 // Google's login API namespace
-declare var gapi: any;
+declare const gapi: any;
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -14,7 +14,8 @@ declare var gapi: any;
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+
+export class LoginComponent implements OnInit, AfterViewInit {
 
   loginDetails: LoginDetails = new LoginDetails();
   email: string = this.email;
@@ -24,12 +25,12 @@ export class LoginComponent implements OnInit {
   selectedRole: string;
   prevSelectedRole: Element;
   username: string = this.username;
-
   user: any;
   // google login
-  googleLoginButton = "google-login-button";
+  googleLoginButton = 'google-login-button';
 
-  constructor(private authService: AuthService, private http: HttpClient, private route: ActivatedRoute, private router: Router, public dataService: DataService) { }
+  constructor(private authService: AuthService, private http: HttpClient, private route: ActivatedRoute, private router: Router,
+    public dataService: DataService) { }
 
   ngOnInit() {
   }
@@ -43,7 +44,7 @@ export class LoginComponent implements OnInit {
     }
     this.getAuth();
     this.user = JSON.parse(sessionStorage.getItem('user'));
-    if (this.selectedRole == 'STUDENT' || this.selectedRole == 'TEACHER') {
+    if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
       if (this.user == null) {
         return;
       } else {
@@ -77,9 +78,9 @@ export class LoginComponent implements OnInit {
     gapi.signin2.render(
       this.googleLoginButton,
       {
-        "onSuccess": this.onGoogleLoginSuccess,
-        "scope": "profile",
-        "theme": "light"
+        'onSuccess': this.onGoogleLoginSuccess,
+        'scope': 'profile',
+        'theme': 'light'
       });
   }
 
@@ -87,9 +88,10 @@ export class LoginComponent implements OnInit {
     const idToken = googleUser.getAuthResponse().id_token;
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'api/google-login');
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send(idToken);
-    this.router.navigate(['home']);
+    // After get back the user -> auth -> redirect
+    // this.router.navigate(['home']);
   }
 
 }
