@@ -16,11 +16,11 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
 	id SERIAL PRIMARY KEY,
 	username TEXT NOT NULL UNIQUE,
-	email TEXT NOT NULL UNIQUE,
-	first_name TEXT NOT NULL,
-	last_name TEXT NOT NULL,
-	birth_date DATE NOT NULL,
-	registration_date DATE NOT NULL,
+	email TEXT UNIQUE, -- NOT NULL
+	first_name TEXT, -- NOT NULL
+	last_name TEXT, -- NOT NULL
+	birth_date DATE, -- NOT NULL
+	registration_date DATE, -- NOT NULL
 	experience INTEGER NOT NULL DEFAULT '0',
 	password TEXT NOT NULL,
 	enabled BOOLEAN NOT NULL,

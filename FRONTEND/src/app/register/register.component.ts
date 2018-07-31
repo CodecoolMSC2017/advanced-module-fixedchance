@@ -14,25 +14,18 @@ import { RegisterDetails } from '../register-details';
 export class RegisterComponent implements OnInit {
 
   registerDetails: RegisterDetails = new RegisterDetails();
-  email : string = this.email;
-  password : string = this.password;
-  confpassword : string = this.confpassword;
-  firstname : string = this.firstname;
-  lastname : string = this.lastname;
-  username : string = this.username;
-  birthdate : Date = this.birthdate;
-  name : string = this.name;
+  name: string = this.name;
 
-  message : Message;
+  message: Message;
   errormessage: string;
-  selectedRole : string;
-  prevSelectedRole : Element;
+  selectedRole: string;
+  prevSelectedRole: Element;
 
-  selectedSub : string;
-  prevSelectedSub : Element;
+  selectedSub: string;
+  prevSelectedSub: Element;
 
 
-  constructor(private registerService: RegisterService, private http : HttpClient, private route: ActivatedRoute, private router: Router) { }
+  constructor(private registerService: RegisterService, private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
   }
@@ -42,27 +35,21 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    let post;
-    if (this.selectedRole == 'STUDENT' || this.selectedRole == 'TEACHER') {
-      const params = {email : this.email, password : this.registerDetails.password, confpassword : this.registerDetails.confirmationPassword,
-      firstName : this.firstname, lastName : this.lastname, username : this.registerDetails.username, birthDate : this.birthdate, role : this.selectedRole};
-      post = this.http.post("api/register", params);
-      this.register();
+    if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
+      this.register('REGULAR');
     } else {
-      const params = {email : this.email, name : this.name, password : this.password,
-                      subscription : this.selectedSub};
-      post = this.http.post("api/company-register", params);
-      this.register();
+      this.register('COMPANY');
     }
-    post.subscribe(response => {
-      const message = response;
-      if (message.message.startsWith("Reg")) {
-        this.errormessage = '';
-        this.router.navigate(['']);
-      } else {
-        this.errormessage = 'E-mail already in use';
-      }
-    });
+    /*  post.subscribe(response => {
+        const message = response;
+        if (message.message.startsWith("Reg")) {
+          this.errormessage = '';
+          this.router.navigate(['']);
+        } else {
+          this.errormessage = 'E-mail already in use';
+        }
+      });
+    */
   }
 
   roleChosen(event) {
@@ -84,27 +71,37 @@ export class RegisterComponent implements OnInit {
   }
 
   checkForMissingInfo() {
-    if (this.selectedRole == 'STUDENT' || this.selectedRole == 'TEACHER') {
-      if (this.email == null || this.password == null
-          || this.firstname == null || this.lastname == null || this.username == null || 
-             this.birthdate == null) {
+    if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
+      if (this.registerDetails.email == null || this.registerDetails.password == null
+        || this.registerDetails.firstName == null || this.registerDetails.lastName == null || this.registerDetails.username == null ||
+        this.registerDetails.birthdate == null) {
         return true;
       }
     } else {
-      if (this.email == null || this.name == null || this.password == null) {
+      if (this.registerDetails.email == null || this.registerDetails.companyname == null || this.registerDetails.password == null) {
         return true;
       }
     }
 
-    if (this.password != this.confpassword) {
+    if (this.registerDetails.password !== this.registerDetails.confirmationPassword) {
       return true;
     }
     return false;
   }
 
-  register() {
-    this.registerService.register(this.registerDetails).subscribe(user => {
-      this.router.navigate(['login']);
-    }, error => alert(error.message));
+  register(role: string) {
+    if (role === 'REGULAR') {
+      this.registerDetails.role = this.selectedRole;
+      this.registerService.studentOrTeacherRegister(this.registerDetails).subscribe(user => {
+        this.router.navigate(['']);
+      }, error => alert(error.message));
+    }
+    if (role === 'COMPANY') {
+      this.registerDetails.role = this.selectedRole;
+      this.registerDetails.subscription = this.selectedSub;
+      this.registerService.companyRegister(this.registerDetails).subscribe(user => {
+        this.router.navigate(['']);
+      }, error => alert(error.message));
+    }
   }
 }

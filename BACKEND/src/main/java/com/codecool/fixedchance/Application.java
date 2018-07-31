@@ -29,7 +29,7 @@ public class Application extends WebSecurityConfigurerAdapter {
 		http.csrf()
 				.disable()
 				.authorizeRequests()
-				.antMatchers("/register ", "/auth", "/google-login").permitAll()
+				.antMatchers("/register", "/company-register", "/auth", "/google-login").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.httpBasic();
