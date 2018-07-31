@@ -17,12 +17,22 @@ public class CourseReview extends AbstractModel {
     @NotNull
     @JsonBackReference(value = "course_reviews.course")
     private Course course;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "studentId")
+    @NotNull
+    private User student;
+
     private Integer rating;
     private String description;
 
     public CourseReview() {}
 
     // Getters
+    public User getStudent() {
+        return student;
+    }
+
     public Course getCourse() {
         return course;
     }
@@ -36,6 +46,10 @@ public class CourseReview extends AbstractModel {
     }
 
     // Setters
+    public void setStudent(User student) {
+        this.student = student;
+    }
+
     public void setCourse(Course course) {
         this.course = course;
     }

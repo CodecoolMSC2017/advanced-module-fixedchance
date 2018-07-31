@@ -2,6 +2,7 @@ package com.codecool.fixedchance.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -35,6 +36,10 @@ public class User extends AbstractModel implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Schedule> schedules = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "student")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Set<CourseReview> reviews;
+
     @ElementCollection
     @CollectionTable(
             name = "authorities",
@@ -51,6 +56,10 @@ public class User extends AbstractModel implements Serializable {
     }
 
     // Getters
+    public Set<CourseReview> getReviews() {
+        return reviews;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -108,6 +117,10 @@ public class User extends AbstractModel implements Serializable {
     }
 
     // Setters
+    public void setReviews(Set<CourseReview> reviews) {
+        this.reviews = reviews;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }

@@ -34,4 +34,7 @@ class AbstractService {
 
     @Autowired
     ScheduleRepository scheduleRepository;
+
+    @Autowired
+    CourseStudentRepository courseStudentRepository;
 }
