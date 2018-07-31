@@ -28,15 +28,19 @@ export class CoursesComponent implements OnInit {
   fetchCourses() {
     this.http.get<Course[]>("/api/courses").subscribe(courses => {
       this.courses = courses;
-      console.log(this.courses[0]);
-      courses[0].setTeacherLevel(2);
-      console.log(courses[0].teacherLevel);
       for (let i = 0; i < this.courses.length; i++) {
-        this.courses[i].setTeacherLevel(this.dataService.calculateLevel(this.courses[i].teacher));
-        console.log(this.courses[i]);
-        console.log(this.courses[i].teacher);
+        this.courses[i].teacherLevel = this.dataService.calculateLevel(this.courses[i].teacher.experience);
+        this.courses[i].rating = this.getRating(this.courses[i].reviews);
       }
     });
+  }
+
+  getRating(reviews) : number {
+    let sum = 0;
+    reviews.forEach(element => {
+      sum += element.rating;
+    });
+    return sum / reviews.length;
   }
 
   onLogoutClick() {

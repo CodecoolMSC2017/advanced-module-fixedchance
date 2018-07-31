@@ -23,11 +23,15 @@
       <div *ngIf="!checkForStudent(course)">
         <div name="true" class="course" (click)="onCourseClick($event)" id="{{ course.id }}">
           <div class="course-name">{{ course.name }}</div>
-          <div class="course-rating">{{ course.rating }}</div>
-          <div class="course-price">{{ (5 + (0.6 * course.questions.length) + (0.5 * course.videos.length) + (0.3 * course.teacherLevel)) }}</div>
-          CQL: {{ course.questions.length }}
-          CVL: {{ course.videos.length }}
-          CTL: {{ course.teacherLevel }}
+          <div class="course-rating">
+            <ng-template #t let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+              </span>
+            </ng-template>
+            <ngb-rating [rate]="course.rating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+          </div>
+          <div class="course-price">{{ (5 + (0.6 * course.questions.length) + (0.5 * course.videos.length) + (0.3 * course.teacherLevel)) }}$</div>
         </div>
       </div>
     </div>

@@ -19,8 +19,8 @@
 
 .course {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
     border: 2px solid black;
     background: rgba(0, 0, 0, .6);
     margin-top: 10px;
@@ -44,4 +44,20 @@
 
 #main-content {
     position: relative;
+}
+
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 3rem;
+    color: #d3d3d3;
+}
+.full {
+    color: gold;
+}
+.half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: gold;
 }

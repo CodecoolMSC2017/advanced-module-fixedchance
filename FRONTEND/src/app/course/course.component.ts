@@ -38,7 +38,6 @@ export class CourseComponent implements OnInit {
 
     this.teacher = this.course.teacher;
     this.userLevel = 0;
-    this.teacher.experience = 3600;
     while (this.teacher.experience - 1200 - this.userLevel * 300 >= 0) {
       this.teacher.experience -= 1200 + this.userLevel * 300;
       this.userLevel++;

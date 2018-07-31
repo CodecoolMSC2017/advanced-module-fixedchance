@@ -14,13 +14,6 @@ export class Course {
     validated : boolean;
     videos : Video[];
     topics : Topic[];
-    teacherLevel : number;
-
-    constructor(teacherLevel : number) {
-        this.teacherLevel = teacherLevel;
-    }
-
-    public setTeacherLevel(teacherLevel : number) {
-        this.teacherLevel = teacherLevel;
-    }
+    teacherLevel : number | null;
+    rating : number | null;
 }
