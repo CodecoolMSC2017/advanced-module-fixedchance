@@ -3,9 +3,11 @@ INSERT INTO users (username, email, first_name, last_name, birth_date, registrat
     ('balint', 'balint@gmail.com', 'Bálint', 'Csizmadia', '1988-03-16', '2018-07-02', '$2a$04$pxPucsFlobeOrZSqbFdgx.8Mn5PhJX6apJzuBI5VElimJHRcgzTEq', true), --2
     ('csanad', 'csanad@gmail.com', 'Csanád', 'Hegedűs', '1996-11-12', '2018-07-02', '$2a$04$uUK5k5HofChxb2/xYZ/Yoema6Py0Rw6pWn8SOynvKImyUPWGW7yK6', true), --3
     ('uszkai', 'uszkai@gmail.com', 'Dávid', 'Uszkai', '1987-02-17', '2018-07-10', '$2a$04$Psu.WEJiSQ0qX9O4QLe4uOYyQqXP7xII7TGgg9pC0RYglZzwu3Q.y', true), --4
-    ('norbi', 'norbi@gmail.com', 'Norbert', 'Csecskedy', '1986-04-11', '2018-07-16', '$2a$04$/xXRsGXGE/sU7swhtDmyq.kCTDyicJHIBQl7M3YmFHLHmtOAZUSXS', true), --5
-    ('kohrobi', 'kohrobi@gmail.com', 'Róbert', 'Kohányi', '1987-06-18', '2018-07-21', '$2a$04$sSneTQcV4U1Bv1CTpdFcEeL79ObP/Dwci.o3NwXUTiVuTDnYzZemq', true), --6
-    ('pakkko', 'pakkko@gmail.com', 'Pál', 'Monoczki', '1982-02-20', '2018-08-03', '$2a$04$/HUPO77ug5EIJkJCSfpzhOG8XDNip9m4kb61Nu9TYSzv2OILEjPXq', true);  --7
+    ('norbi', 'norbi@gmail.com', 'Norbert', 'Csecskedy', '1986-04-11', '2018-07-16', '$2a$04$/xXRsGXGE/sU7swhtDmyq.kCTDyicJHIBQl7M3YmFHLHmtOAZUSXS', true); --5
+
+INSERT INTO users (username, email, first_name, last_name, birth_date, registration_date, experience, password, enabled) VALUES
+    ('kohrobi', 'kohrobi@gmail.com', 'Róbert', 'Kohányi', '1987-06-18', '2018-07-21', '7821', '$2a$04$sSneTQcV4U1Bv1CTpdFcEeL79ObP/Dwci.o3NwXUTiVuTDnYzZemq', true), --6
+    ('pakkko', 'pakkko@gmail.com', 'Pál', 'Monoczki', '1982-02-20', '2018-08-03', '6492', '$2a$04$/HUPO77ug5EIJkJCSfpzhOG8XDNip9m4kb61Nu9TYSzv2OILEjPXq', true);  --7
 
 INSERT INTO authorities (username, authority) VALUES
     ('matteo', 'ROLE_ADMIN'),

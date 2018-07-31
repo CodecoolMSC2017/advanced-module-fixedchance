@@ -12,9 +12,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users", schema = "public")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User extends AbstractModel implements Serializable {
 

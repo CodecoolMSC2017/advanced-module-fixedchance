@@ -1,10 +1,12 @@
 package com.codecool.fixedchance.controller;
 
 import com.codecool.fixedchance.domain.Course;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class CourseController extends AbstractController {
