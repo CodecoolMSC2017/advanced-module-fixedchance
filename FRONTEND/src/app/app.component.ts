@@ -1,6 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ModuleWithProviders } from '@angular/core';
 import { AOS } from '../../bower_components/aos/dist/aos';
-
 
 declare var require: any;
 @Component({

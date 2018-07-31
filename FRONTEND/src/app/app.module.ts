@@ -23,6 +23,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SafePipe } from './safepipe.pipe';
 import { CourseExamComponent } from './course-exam/course-exam.component';
 import { CourseCheckoutComponent } from './course-checkout/course-checkout.component';
+import { ModuleWithProviders } from "@angular/core";
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import { CourseCheckoutComponent } from './course-checkout/course-checkout.compo
     "startFromZero": false,
     "titleColor": "white",
     "renderOnClick": false,
-    "maxPercent": 100})
+    "maxPercent": 100}),
   ],
   providers: [DataService, DatePipe, httpInterceptorProviders],
   bootstrap: [AppComponent]
