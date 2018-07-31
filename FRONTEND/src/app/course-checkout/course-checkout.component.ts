@@ -25,7 +25,8 @@ export class CourseCheckoutComponent implements OnInit {
   onSubmit() {
     if (this.price >= this.coursePrice) {
       this.errormessage = 'Successful. Redirecting you to the course-page';
-      this.http.post("api/course-student", { 'courseId' : this.dataService.getCurrentCourse().id, 'studentId' : this.dataService.getUser().id });
+      this.http.post("api/course-student", { 'courseId' : this.dataService.getCurrentCourse().id, 'studentId' : this.dataService.getUser().id })
+      .subscribe( resp => { console.log(resp) } );
       setTimeout(() => {
         this.router.navigate(['course'], { queryParams : { available : false } })}, 2000);
     } else {

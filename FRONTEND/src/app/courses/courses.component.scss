@@ -18,6 +18,9 @@
 }
 
 .course {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
     border: 2px solid black;
     background: rgba(0, 0, 0, .6);
     margin-top: 10px;
