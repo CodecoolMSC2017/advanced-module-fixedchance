@@ -24,7 +24,6 @@ public class CourseController extends AbstractController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
     public void add(@PathVariable("teacher_id") Integer teacherId, @RequestBody Course course) {
-        System.out.println(teacherId + ", " + course);
         courseService.add(teacherId, course);
     }
 

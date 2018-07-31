@@ -34,4 +34,7 @@ public class AbstractController {
 
     @Autowired
     ScheduleService scheduleService;
+
+    @Autowired
+    CourseStudentService courseStudentService;
 }
