@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Course } from '../course';
-import { deserialize } from 'json-typescript-mapper';
-import { HttpHeaders } from '@angular/common/http';
 import { User } from '../user';
 import { DataService } from '../data.service';
 import { AuthService } from '../auth.service';
@@ -37,7 +35,7 @@ export class CoursesComponent implements OnInit {
 
   onCourseClick(event) {
     this.dataService.setCurrentCourse(this.findCourseById(event.target.id));
-    this.router.navigate(['course']);
+    this.router.navigate(['course'], { queryParams : { available : event.target.getAttribute('name')} });
   }
 
   findCourseById(id) : Course {
@@ -46,5 +44,14 @@ export class CoursesComponent implements OnInit {
         return this.courses[i];
       }
     }
+  }
+
+  checkForStudent(course) {
+    for (let i = 0; i < course.students.length; i++) {
+      if (course.students[i].id == this.user.id) {
+        return true;
+      }
+    }
+    return false;
   }
 }

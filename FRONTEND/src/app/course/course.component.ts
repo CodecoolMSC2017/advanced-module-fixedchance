@@ -3,8 +3,9 @@ import { Course } from '../course';
 import { DataService } from '../data.service';
 import { User } from '../user';
 import { AuthService } from '../auth.service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-course',
@@ -19,13 +20,22 @@ export class CourseComponent implements OnInit {
   userLevel : number;
   currentExp : number;
   expToNextLevel : number;
+  isAvailable : boolean;
+  coursePrice : number;
 
-  constructor(private dataService : DataService, private authService : AuthService, config : NgbRatingConfig) {
+  constructor(private route : ActivatedRoute, private router : Router, private http : HttpClient, private dataService : DataService, private authService : AuthService, config : NgbRatingConfig) {
     config.readonly = true;
-   }
-
-  ngOnInit() {
     this.course = this.dataService.getCurrentCourse();
+    for (let i = 0; i < this.course.videos.length; i++) {
+      this.course.videos[i].video = this.transformUrl(this.course.videos[i].video);
+    }
+  }
+  
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.isAvailable = params.available;
+    });
+
     this.teacher = this.course.teacher;
     this.userLevel = 0;
     this.teacher.experience = 3600;
@@ -36,6 +46,11 @@ export class CourseComponent implements OnInit {
     this.currentExp = this.teacher.experience;
     this.expToNextLevel = 1200 + this.userLevel * 300;
     this.calculateRating();
+    this.calculatePrice();
+  }
+
+  calculatePrice() {
+    this.coursePrice = 5 + (0.6 * this.course.questions.length) + (0.5 * this.course.videos.length) + (0.3 * this.userLevel);
   }
 
   onLogoutClick() {
@@ -47,8 +62,26 @@ export class CourseComponent implements OnInit {
     for (let i = 0; i < this.course.reviews.length; i++) {
       sumOfRatings += this.course.reviews[i].rating;
     }
-    this.courseRating = Math.round((13 / 3) * 100) / 100;
-    //this.courseRating = sumOfRatings / this.course.reviews.length;
-    console.log(this.courseRating);
+    this.courseRating = sumOfRatings / this.course.reviews.length;
+  }
+
+  transformUrl(url) : string {
+    let id = this.getId(url);
+    return 'https://www.youtube.com/embed/' + id;
+  }
+
+  getId(url) {
+    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    var match = url.match(regExp);
+
+    if (match && match[2].length == 11) {
+        return match[2];
+    } else {
+        return 'error';
+    }
+  }
+
+  onCheckout() {
+    this.router.navigate(['course-checkout'], { queryParams : { price : this.coursePrice } })
   }
 }

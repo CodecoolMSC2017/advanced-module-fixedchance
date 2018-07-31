@@ -1,46 +1,111 @@
 <header id="top-bar">
-    <ul>
-      <li class="toleft"><img id="logoimg" src="assets/logo.png" />
-      <li class="toleft" id="logo">FIXEDCHANCE</li>
-      <li class="toleft"><a routerLink="../home">DASHBOARD</a></li>
-      <li class="toright"><a (click)="onLogoutClick()">LOGOUT</a></li>
-      <li class="toright"><a routerLink="../profile">PROFILE</a></li>
-    </ul>
-  </header>
+  <ul>
+    <li class="toleft"><img id="logoimg" src="assets/logo.png" />
+    <li class="toleft" id="logo">FIXEDCHANCE</li>
+    <li class="toleft"><a routerLink="../home">DASHBOARD</a></li>
+    <li class="toright"><a (click)="onLogoutClick()">LOGOUT</a></li>
+    <li class="toright"><a routerLink="../profile">PROFILE</a></li>
+  </ul>
+</header>
 
-  <div id="bck"></div>
+<div id="bck"></div>
 
-  <!-- TEACHER, STUDENTS[], QUESTIONS[], REVIEWS[], VIDEOS[], TOPICS[], NAME -->
+<div id="main-content">
 
-  <div id="main-content">
-
-    <div id="header-content">
-      <div id="teacher-info-div">
-        <span id="teacher-info">
-          <span id="profile-pic-span"><img id="profile-pic" src="assets/profile-pic.png"></span>
-          <span id="teacher-name">{{ teacher.username }}</span><br>
-          <span id="progress-bar"><round-progress class="progress" [current]="currentExp" [max]="expToNextLevel" [radius]="60" [stroke]="10"></round-progress></span>
-          <span><div class="text">{{ userLevel }}</div></span>
-        </span>
-      </div>
-        
-      <div id="course-info-div">
-        <span id="course-info">
-          <span id="course-name" style="padding-top: 30px;">{{ course.name }}</span><br>
-          
-          <span id="rating">
-            <ng-template #t let-fill="fill">
-              <span class="star" [class.full]="fill === 100">
-                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
-              </span>
-            </ng-template>
-            
-            <ngb-rating [(rate)]="courseRating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating><br>
-            <span> {{ courseRating }} </span>
-          </span>
-        </span>
-      </div>
+  <div id="header-content">
     
+    <div id="teacher-info-div">
+      <span id="profile-pic-span"><img id="profile-pic" src="assets/profile-pic.png"></span>
+      <div id="teacher-stats">
+        <span id="teacher-name">{{ teacher.username }}</span><br>
+        <span id="progress-bar">
+          <circle-progress
+          [radius]="50"
+          [percent]="percentage"
+          [title]="userLevel"
+          [titleFontSize]="60"
+          [showSubtitle]="false">
+          </circle-progress>
+        </span>
+      </div>
+    </div>
+      
+    <div id="course-info-div">
+      <span id="course-name">{{ course.name | uppercase }}</span><br>
+      
+      <span id="rating">
+        <ng-template #t let-fill="fill">
+          <span class="star" [class.full]="fill === 100">
+            <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+          </span>
+        </ng-template>
+        
+        <ngb-rating [(rate)]="courseRating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+      </span>
+        
+      <span id="course-rating"> {{ courseRating }} </span>
+      
+      <div class="stat" id="num-of-videos">Number of videos: {{ course.videos.length }}</div>
+      <div class="stat" id="num-of-ratings">Number of ratings: {{ course.reviews.length }}</div>
+      <div class="stat" id="num-of-questions">Number of questions: {{ course.questions.length }}</div>
     </div>
   
   </div>
+
+  <div id="main-course-content">
+
+    <div id="reviews">
+      <div id="review-title">
+        <h1>REVIEWS</h1>
+      </div>
+      <div id="review" *ngFor="let review of course.reviews">
+          <span id="review-student-name">{{ review.student.username }}</span><ngb-rating [(rate)]="review.rating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating><br>
+        <span id="review-description"><li>{{ review.description }}</li></span>
+      </div>
+    </div>
+    
+    <hr>
+
+    <div id="videos">
+      <div id="video-title">
+        <h1>VIDEOS</h1>
+      </div>
+      <div *ngIf="isAvailable == 'true'">
+        <div *ngFor="let video of course.videos | slice : 0 : 2">
+          <div id="video">
+            <div id="video-name">{{ video.name | uppercase }}</div>
+            <div id="video-description"><li>{{ video.description }}</li></div>
+            <iframe width="560" height="315" [src]="video.video | safe" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isAvailable == 'false'">
+        <div *ngFor="let video of course.videos">
+          <div id="video">
+            <div id="video-name">{{ video.name | uppercase }}</div>
+            <div id="video-description"><li>{{ video.description }}</li></div>
+            <iframe width="560" height="315" [src]="video.video | safe" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <hr>
+    
+    <div *ngIf="isAvailable == 'false'">
+      <div id="done-with-course">
+        <button id="proceed-button" routerLink="../course-exam">SEE THE EXAM</button>
+      </div>
+    </div>
+    
+    <div *ngIf="isAvailable == 'true'">
+      <div id="pay-for-course">
+        <h2>There are {{ course.videos.length - 2 }} videos and {{ course.questions.length }} questions left<br>
+        in this course for you.</h2><br>
+        <h1>{{ coursePrice }}$</h1>
+        <button id="checkout-button" (click)="onCheckout()">CHECKOUT</button>
+      </div>
+    </div>
+      
+  </div>
+</div>

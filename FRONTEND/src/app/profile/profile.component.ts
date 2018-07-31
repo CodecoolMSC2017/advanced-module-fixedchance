@@ -88,4 +88,8 @@ export class ProfileComponent implements OnInit {
   backToProfile() {
     this.showCourse = false;
   }
+
+  getExp() : string {
+    return this.currentExp + " / " + this.expToNextLevel;
+  }
 }

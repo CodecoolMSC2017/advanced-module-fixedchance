@@ -10,6 +10,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { AddCourseComponent } from './add-course/add-course.component';
 import { CoursesComponent } from './courses/courses.component';
 import { CourseComponent } from './course/course.component';
+import { CourseExamComponent } from './course-exam/course-exam.component';
+import { CourseCheckoutComponent } from './course-checkout/course-checkout.component';
 
 const routes: Routes = [
   {
@@ -47,6 +49,16 @@ const routes: Routes = [
   {
     path: 'course',
     component: CourseComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'course-exam',
+    component: CourseExamComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'course-checkout',
+    component: CourseCheckoutComponent,
     canActivate: [LoginGuard],
   },
   {
