@@ -3,6 +3,7 @@ import { User } from '../user';
 import { DataService } from '../data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +12,7 @@ import { DatePipe } from '@angular/common';
 })
 export class ProfileComponent implements OnInit {
 
-  userLevel : number;
+  userLevel : number = 0;
   currentExp : number;
   expToNextLevel : number;
   user : User;
@@ -23,21 +24,15 @@ export class ProfileComponent implements OnInit {
 
   courseEntries : Array<String>;
 
-  constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe) { }
+  constructor(private authService : AuthService, private dataService: DataService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe) { }
 
   ngOnInit() {
     
     this.user = this.dataService.getUser();
-
-    
-    
-    this.user.experience = 1500;
-    
     // convert date to the right format
     this.userBirthDate = this.datePipe.transform(this.user.birthDate,"yyyy-MM-dd");
     
     // xp calculations
-    this.userLevel = 0;
     this.calculateXp();
     
   }
@@ -57,11 +52,18 @@ export class ProfileComponent implements OnInit {
   }
 
   calculateXp() {
-    while (this.user.experience - 1200 - this.userLevel * 300 >= 0) {
-      this.user.experience -= 1200 + this.userLevel * 300;
+    this.userLevel = 0;
+    this.currentExp = 0;
+    this.expToNextLevel = 1200;
+    this.percentage = 0;
+    let experience = this.user.experience;
+
+    console.log(this.user);
+    while (experience - 1200 - this.userLevel * 300 >= 0) {
+      experience -= 1200 + this.userLevel * 300;
       this.userLevel++;
     }
-    this.currentExp = this.user.experience;
+    this.currentExp = experience;
     this.expToNextLevel = 1200 + this.userLevel * 300;
     this.percentage = Math.round((this.currentExp / this.expToNextLevel) * 100);
   }
@@ -91,5 +93,9 @@ export class ProfileComponent implements OnInit {
 
   getExp() : string {
     return this.currentExp + " / " + this.expToNextLevel;
+  }
+
+  onLogoutClick() {
+    this.authService.deleteAuth();
   }
 }

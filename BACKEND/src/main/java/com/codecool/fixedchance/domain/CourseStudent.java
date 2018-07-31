@@ -1,17 +1,11 @@
 package com.codecool.fixedchance.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="course_student", schema="public")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
-public class CourseStudent {
+public class CourseStudent implements Serializable {
 
     @EmbeddedId
     private CourseStudentIdentity courseStudentIdentity;

@@ -27,16 +27,6 @@ export class DataService {
   }
 
   getUser() {
-    if (this.user == null) {
-      this.user = new User();
-      this.user.birthDate = new Date("1996-11-12");
-      this.user.email = "csanad@gmail.com";
-      this.user.firstName = "Csanád";
-      this.user.lastName = "Hegedűs";
-      this.user.role = "ADMIN";
-      this.user.id = 10;
-    }
-    
     return this.user;
   }
 

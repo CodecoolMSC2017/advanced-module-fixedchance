@@ -6,7 +6,7 @@
       <li class="toleft" id="logo">FIXEDCHANCE</li>
       <li class="toleft"><a routerLink="../home">DASHBOARD</a></li>
       <li class="toleft"><a routerLink="../courses">COURSES</a></li>
-      <li class="toright" routerLink=""><a>LOGOUT</a></li>
+      <li class="toright"><a (click)="onLogoutClick()">LOGOUT</a></li>
     </ul>
   </header>
   
@@ -26,7 +26,7 @@
          E-mail: {{ user.email }}
     <br> Name: {{ user.firstName + " " + user.lastName}}
     <br> Birth date: {{ userBirthDate }}
-    <br> Role: {{ user.role }}
+    <br> Role: {{ user.authorities[0] }}
     <br>
     <div *ngIf='isValid()'>
       <button class="prof-button" routerLink="../add-course">Add Course</button>

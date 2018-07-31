@@ -24,7 +24,8 @@ export class AuthService {
     return this.http.get<User>('/api/auth', httpOptions);
   }
 
-  deleteAuth(): Observable<void> {
-    return this.http.delete<void>('/api/auth');
+  deleteAuth() {
+    this.http.delete<void>('/api/auth');
+    this.router.navigate(['']);
   }
 }

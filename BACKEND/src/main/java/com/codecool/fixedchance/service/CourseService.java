@@ -18,7 +18,6 @@ public final class CourseService extends AbstractService {
     public void add(Integer teacherId, Course course) {
         User teacher = userRepository.getOne(teacherId);
         course.setTeacher(teacher);
-        System.out.println(course);
         courseRepository.save(course);
     }
 

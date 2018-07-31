@@ -17,11 +17,12 @@ export class CourseComponent implements OnInit {
   courseRating : number;
   course : Course;
   teacher: User;
-  userLevel : number;
+  userLevel : number = 0;
   currentExp : number;
   expToNextLevel : number;
   isAvailable : boolean;
   coursePrice : number;
+  percentage : number;
 
   constructor(private route : ActivatedRoute, private router : Router, private http : HttpClient, private dataService : DataService, private authService : AuthService, config : NgbRatingConfig) {
     config.readonly = true;
@@ -37,13 +38,14 @@ export class CourseComponent implements OnInit {
     });
 
     this.teacher = this.course.teacher;
-    this.userLevel = 0;
-    while (this.teacher.experience - 1200 - this.userLevel * 300 >= 0) {
-      this.teacher.experience -= 1200 + this.userLevel * 300;
+    let experience = this.course.teacher.experience;
+    while (experience - 1200 - this.userLevel * 300 >= 0) {
+      experience -= 1200 + this.userLevel * 300;
       this.userLevel++;
     }
-    this.currentExp = this.teacher.experience;
+    this.currentExp = experience;
     this.expToNextLevel = 1200 + this.userLevel * 300;
+    this.percentage = Math.round((this.currentExp / this.expToNextLevel) * 100);
     this.calculateRating();
     this.calculatePrice();
   }

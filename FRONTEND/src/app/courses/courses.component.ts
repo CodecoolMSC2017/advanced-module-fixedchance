@@ -49,7 +49,7 @@ export class CoursesComponent implements OnInit {
 
   onCourseClick(event) {
     this.dataService.setCurrentCourse(this.findCourseById(event.target.id));
-    this.router.navigate(['course'], { queryParams : { available : event.target.getAttribute('name')} });
+    this.router.navigate(['course'], { queryParams : { available : event.target.getAttribute('name') }});
   }
 
   findCourseById(id) : Course {

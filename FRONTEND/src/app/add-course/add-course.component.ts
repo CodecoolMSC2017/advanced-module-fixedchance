@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Message } from 'src/app/message';
 import { DataService } from '../data.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-add-course',
@@ -17,7 +18,7 @@ export class AddCourseComponent implements OnInit {
   links = ["link"];
   linkNumber = 1;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, private dataService: DataService) { }
+  constructor(private authService : AuthService, private http: HttpClient, private route: ActivatedRoute, private router: Router, private dataService: DataService) { }
 
   ngOnInit() {
   }
@@ -35,6 +36,10 @@ export class AddCourseComponent implements OnInit {
   addNewVideoLink() {
     this.linkNumber++; 
     this.links.push("link"+this.linkNumber)
+  }
+
+  onLogoutClick() {
+    this.authService.deleteAuth();
   }
 }
 

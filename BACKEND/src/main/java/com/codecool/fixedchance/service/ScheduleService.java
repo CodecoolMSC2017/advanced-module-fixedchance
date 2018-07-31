@@ -19,7 +19,6 @@ public final class ScheduleService extends AbstractService {
     public void add(Integer teacherId, Schedule schedule) {
         User teacher = userRepository.getOne(teacherId);
         schedule.setTeacher(teacher);
-        System.out.println(schedule.toString());
         scheduleRepository.save(schedule);
     }
 

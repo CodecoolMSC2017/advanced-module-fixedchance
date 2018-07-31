@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
         return;
       } else {
         this.dataService.setUser(this.user);
-        console.log(this.user);
         this.router.navigate(['home']);
       }
     } else {
@@ -63,6 +62,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
     getAuth() {
     this.authService.getAuth(this.loginDetails).subscribe(user => {
+      this.dataService.setUser(user);
       this.router.navigate(['home']);
     }, error => alert(error.message));
   }
