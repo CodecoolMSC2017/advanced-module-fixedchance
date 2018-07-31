@@ -7,10 +7,12 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="advertisements", schema="public")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Advertisement extends AbstractModel {
 
-    @JsonBackReference(value = "advertisements.company")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id")
     @NotNull
