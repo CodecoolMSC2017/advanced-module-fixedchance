@@ -79,7 +79,7 @@ CREATE TABLE course_student (
     student_id INTEGER NOT NULL,
     FOREIGN KEY (course_id) REFERENCES courses(id),
     FOREIGN KEY (student_id) REFERENCES users(id),
-    UNIQUE (course_id, student_id)
+    PRIMARY KEY (course_id, student_id)
 );
 
 CREATE TABLE course_videos (
