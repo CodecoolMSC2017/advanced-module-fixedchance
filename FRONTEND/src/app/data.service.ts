@@ -47,4 +47,13 @@ export class DataService {
   getCurrentCourse() {
     return this.course;
   }
+
+  calculateLevel(user) : number {
+    let userLevel;
+    while (user.experience - 1200 - userLevel * 300 >= 0) {
+      user.experience -= 1200 + userLevel * 300;
+      userLevel++;
+    }
+    return userLevel;
+  }
 }

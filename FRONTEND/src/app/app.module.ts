@@ -23,7 +23,6 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SafePipe } from './safepipe.pipe';
 import { CourseExamComponent } from './course-exam/course-exam.component';
 import { CourseCheckoutComponent } from './course-checkout/course-checkout.component';
-import { ModuleWithProviders } from "@angular/core";
 
 @NgModule({
   declarations: [

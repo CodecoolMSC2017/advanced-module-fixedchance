@@ -22,7 +22,12 @@
     <div *ngFor="let course of courses">
       <div *ngIf="!checkForStudent(course)">
         <div name="true" class="course" (click)="onCourseClick($event)" id="{{ course.id }}">
-          <span class="course-name">{{ course.name }}</span>
+          <div class="course-name">{{ course.name }}</div>
+          <div class="course-rating">{{ course.rating }}</div>
+          <div class="course-price">{{ (5 + (0.6 * course.questions.length) + (0.5 * course.videos.length) + (0.3 * course.teacherLevel)) }}</div>
+          CQL: {{ course.questions.length }}
+          CVL: {{ course.videos.length }}
+          CTL: {{ course.teacherLevel }}
         </div>
       </div>
     </div>
