@@ -18,13 +18,8 @@ declare const gapi: any;
 export class LoginComponent implements OnInit, AfterViewInit {
 
   loginDetails: LoginDetails = new LoginDetails();
-  email: string = this.email;
-  password: string = this.password;
-  params: URLSearchParams = new URLSearchParams;
-  result: string;
   selectedRole: string;
   prevSelectedRole: Element;
-  username: string = this.username;
   user: any;
   // google login
   googleLoginButton = 'google-login-button';
@@ -65,11 +60,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.selectedRole = event.target.name;
   }
 
-  getAuth() {
-    return this.authService.getAuth(this.loginDetails).subscribe(user => {
-      sessionStorage.setItem('user', JSON.stringify(user));
+
+    getAuth() {
+    this.authService.getAuth(this.loginDetails).subscribe(user => {
+      this.router.navigate(['home']);
     }, error => alert(error.message));
   }
+
 
   // Angular hook that allows for interaction with elements inserted by the
   // rendering of a view.
