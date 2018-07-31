@@ -11,7 +11,13 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Map;
 
 
 @RestController
@@ -24,13 +30,33 @@ public class UserController extends AbstractController {
         return userService.getOne(id);
     }
 
-    @RequestMapping(path = "/register",
+   /* @RequestMapping(path = "/register",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
     public void registerUser(@RequestBody User user) {
         userService.add(user);
     }
+    */
+   @PostMapping("/register")
+   public void add(@RequestBody Map<String, String> map) {
+       String username = map.get("username");
+       String email = map.get("email");
+       String password = map.get("password");
+       String confirmationPassword = map.get("confirmationPassword");
+       String firstName = map.get("firstName");
+       String lastName = map.get("lastName");
+       String birthDateStr = map.get("birthDate");
+       DateFormat format = new SimpleDateFormat("YYYY-MM-dd", Locale.ENGLISH);
+       String role = map.get("role");
+       Date birthDate = null;
+       try {
+           birthDate = format.parse(birthDateStr);
+       } catch (ParseException e) {
+           e.printStackTrace();
+       }
+       userService.add(username, email, firstName, lastName, password, confirmationPassword, role, birthDate);
+   }
 
     @RequestMapping(path = "/user/{id}",
             method = RequestMethod.PUT,
@@ -53,7 +79,7 @@ public class UserController extends AbstractController {
     public Company loginCompany(@RequestBody Company company) {
         return companyService.find(company.getEmail());
     }
-
+/*
     @RequestMapping(path = "/company-register",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -61,6 +87,18 @@ public class UserController extends AbstractController {
     public void registerCompany(@RequestBody Company company) {
         companyService.add(company);
     }
+*/
+@PostMapping("/company-register")
+public void addCompany(@RequestBody Map<String, String> map) {
+    String username = map.get("username");
+    String name = map.get("name");
+    String email = map.get("email");
+    String password = map.get("password");
+    String confirmationPassword = map.get("confirmationPassword");
+    String role = map.get("role");
+    String subscription = map.get("subscription");
+    companyService.add(username, name, email, password, confirmationPassword, role, subscription);
+}
 
     @RequestMapping(path = "/company/{id}",
             method = RequestMethod.PUT,
