@@ -219,3 +219,15 @@ INSERT INTO course_topics (course_id, name) VALUES
     (8, 'Programming'),
     (8, 'English'),
     (8, 'Information Technology');
+
+INSERT INTO posts (user_id, post_content, post_topic) VALUES
+    (3, 'Hi everyone, if you are interested in Python You should check out this article: https://gist.github.com/sloria/7001839', 'PYTHON' ),
+    (2, 'Hey! What''s up? Here is a really good post about BlockChain and Java : https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa', 'JAVA'),
+    (1, 'Hey FixedChancers! If you are interested in JavaScript here is a nice github repo which explains everythin from the basics: https://github.com/wesbos/es6-articles', 'JAVASCRIPT'),
+    (4, 'If you have some free time and want to read something interesting you should check this out: https://codeburst.io/the-2018-web-developer-roadmap-826b1b806e8d', 'PHP'),
+    (5, 'In case you need a fake online REST API for testing and prototyping: https://jsonplaceholder.typicode.com/', 'JAVASCRIPT'),
+    (3, 'If you need some extra help with your project feel free to write me a message! Check out my profile', 'JAVA'),
+    (2, 'Hey FixedChance Society! Iam stuck with my angular project and I was wondering if someone could help me.', 'JAVASCRIPT'),
+    (1, 'Hey Everyone! I just finished the Java Collections course and it really helped me a lot so I recommend it to you if you want to know more about Collections!!','JAVA'),
+    (4, 'Please someone recommend me a good Java teacher here!!', 'JAVA'),
+    (5, 'Hey Fellas! Here is a RESTful API Design — Step By Step Guide: https://hackernoon.com/restful-api-design-step-by-step-guide-2f2c9f9fcdbf', 'JAVA');

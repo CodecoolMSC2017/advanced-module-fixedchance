@@ -37,4 +37,7 @@ public class AbstractController {
 
     @Autowired
     CourseStudentService courseStudentService;
+
+    @Autowired
+    PostService postService;
 }

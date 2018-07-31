@@ -37,4 +37,8 @@ class AbstractService {
 
     @Autowired
     CourseStudentRepository courseStudentRepository;
+
+    @Autowired
+    PostRepository postRepository;
+
 }

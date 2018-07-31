@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS posts;
+DROP TYPE IF EXISTS post_topics;
 DROP TABLE IF EXISTS course_topics;
 DROP TABLE IF EXISTS course_reviews;
 DROP TABLE IF EXISTS schedules;
@@ -163,4 +165,24 @@ CREATE TABLE course_topics (
     course_id INTEGER NOT NULL,
     name TEXT NOT NULL,
     FOREIGN KEY (course_id) REFERENCES courses(id)
+);
+
+CREATE TYPE post_topics AS ENUM (
+    'HTML',
+    'CSS',
+    'JAVASCRIPT',
+    'JAVA',
+    'PYTHON',
+    'PHP',
+    'RUBY',
+    'SOFT_SKILLS',
+    'PHOTO_EDITING'
+);
+
+CREATE TABLE posts (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    post_content TEXT NOT NULL,
+    post_topic post_topics NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
