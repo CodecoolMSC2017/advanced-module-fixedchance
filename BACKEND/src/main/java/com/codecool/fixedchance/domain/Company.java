@@ -62,10 +62,6 @@ public class Company extends AbstractModel implements Serializable {
         return ads;
     }
 
-    public String getUserName() {
-        return username;
-    }
-
     public boolean isEnabled() {
         return enabled;
     }
@@ -116,10 +112,6 @@ public class Company extends AbstractModel implements Serializable {
         this.ads = ads;
     }
 
-    public void setUserName(String userName) {
-        this.username = userName;
-    }
-
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
@@ -164,7 +156,7 @@ public class Company extends AbstractModel implements Serializable {
         return "Company{" +
                 "id='" + super.getId() +
                 "name='" + name + '\'' +
-                ", userName='" + username + '\'' +
+                ", username='" + username + '\'' +
                 ", registrationDate=" + registrationDate +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
