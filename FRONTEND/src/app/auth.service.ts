@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { User } from './user';
 import { LoginDetails } from './login-details';
 import { isUndefined } from 'util';
+import { Company } from './company';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,8 @@ import { isUndefined } from 'util';
 export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
+
+  private currentRole: string;
 
   getAuth(loginDetails?: LoginDetails): Observable<User> {
     const httpOptions = {};
@@ -28,4 +31,29 @@ export class AuthService {
     this.http.delete<void>('/api/auth');
     this.router.navigate(['']);
   }
+
+  getAuthCompany(loginDetails?: LoginDetails): Observable<Company> {
+    const httpOptions = {};
+    if (!isUndefined(loginDetails)) {
+      httpOptions['headers'] = new HttpHeaders({
+          'Authorization': 'Basic ' + window.btoa(loginDetails.username + ':' + loginDetails.password)
+      });
+    }
+    return this.http.get<Company>('/api/auth/company', httpOptions);
+  }
+
+  deleteAuthCompany(): Observable<void> {
+    return this.http.delete<void>('/api/auth/company');
+  }
+
+
+  getCurrentRole() {
+    return this.currentRole;
+  }
+
+  setCurrentRole(role: string) {
+    this.currentRole = role;
+  }
+
 }
+

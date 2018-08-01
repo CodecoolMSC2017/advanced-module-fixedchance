@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   selectedRole: string;
   prevSelectedRole: Element;
   user: any;
+  company: any;
   // google login
   googleLoginButton = 'google-login-button';
 
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       return;
     }
     this.getAuth();
+    /*
     this.user = JSON.parse(sessionStorage.getItem('user'));
     if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
       if (this.user == null) {
@@ -48,6 +50,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       }
     } else {
     }
+    */
   }
 
   roleChosen(event) {
@@ -61,11 +64,19 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
 
     getAuth() {
+      this.authService.setCurrentRole(this.selectedRole);
+      if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
     this.authService.getAuth(this.loginDetails).subscribe(user => {
       this.dataService.setUser(user);
       this.router.navigate(['home']);
     }, error => alert(error.message));
+  } else {
+    this.authService.getAuthCompany(this.loginDetails).subscribe(company => {
+      this.company = company;
+      this.router.navigate(['home']);
+    }, error => alert(error.message));
   }
+}
 
 
   // Angular hook that allows for interaction with elements inserted by the
