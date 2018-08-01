@@ -4,6 +4,8 @@ import { DataService } from '../data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
+import { Course } from '../course';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -21,20 +23,51 @@ export class ProfileComponent implements OnInit {
   userBirthDate : string;
   xpNum : number;
   showCourse : boolean;
+  courses : Course[];
 
   courseEntries : Array<String>;
 
-  constructor(private authService : AuthService, private dataService: DataService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe) { }
+  constructor(private http : HttpClient, private authService : AuthService, private dataService: DataService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe) { }
 
   ngOnInit() {
     
     this.user = this.dataService.getUser();
+
+    if (this.user.authorities[0] === 'ROLE_TEACHER') {
+     this.dataService.fetchTeacherCourses(this.user.id).subscribe(response => {
+        this.courses = response;
+      });
+    } else if (this.user.authorities[0] === 'ROLE_STUDENT') {
+      this.dataService.fetchStudentCourses(this.user.id).subscribe(response => {
+        this.courses = response;
+      });
+    }
+      
+    
     // convert date to the right format
     this.userBirthDate = this.datePipe.transform(this.user.birthDate,"yyyy-MM-dd");
-    
+      
     // xp calculations
     this.calculateXp();
     
+  }
+
+  onTeacherCourseClick(event) {
+    this.dataService.setCurrentCourse(this.findCourseById(event.target.id));
+    this.router.navigate(['course-edit']);
+  }
+
+  onStudentCourseClick(event) {
+    this.dataService.setCurrentCourse(this.findCourseById(event.target.id));
+    this.router.navigate(['course'], { queryParams : { available : false }});
+  }
+
+  findCourseById(id) : Course {
+    for (let i = 0; i < this.courses.length; i++) {
+      if (this.courses[i].id == id) {
+        return this.courses[i];
+      }
+    }
   }
 
   // the user can add courses if role is teacher or admin
@@ -58,7 +91,6 @@ export class ProfileComponent implements OnInit {
     this.percentage = 0;
     let experience = this.user.experience;
 
-    console.log(this.user);
     while (experience - 1200 - this.userLevel * 300 >= 0) {
       experience -= 1200 + this.userLevel * 300;
       this.userLevel++;
@@ -93,6 +125,7 @@ export class ProfileComponent implements OnInit {
 
   getExp() : string {
     return this.currentExp + " / " + this.expToNextLevel;
+
   }
 
   onLogoutClick() {

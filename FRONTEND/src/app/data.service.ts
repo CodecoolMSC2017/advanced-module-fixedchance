@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { User } from './user';
 import { Course } from './course';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,13 @@ export class DataService {
       userLevel++;
     }
     return userLevel;
+  }
+
+  fetchStudentCourses(id) : Observable<Course[]> {
+    return this.http.get<Course[]>("/api/courses/student/" + id);
+  }
+
+  fetchTeacherCourses(id) : Observable<Course[]> {
+    return this.http.get<Course[]>("/api/courses/" + id + "/courses");
   }
 }

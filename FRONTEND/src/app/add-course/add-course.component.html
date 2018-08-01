@@ -8,23 +8,113 @@
   </ul>
 </header>
 
-<p>
-  Add new course
-</p>
-<form id="add-course-form" autocomplete="off">
-  <input type="text" [(ngModel)]="name" placeholder="Course name" name="name">
-  <br>
-  <div *ngFor='let link of links'>
-    <input type="text" [attr.name]="link" placeholder="link">
+<div id="bck"></div>
+
+<div id="main-content">
+<button (click)="displayCourse()">ASD</button>
+  <div id="title-div">
+    <h1 id="title">ADD NEW COURSE</h1>
   </div>
-  <input type="button" value="Add new video" (click)="addNewVideoLink()">
-  <br>
-  <!--
-    <input type="text" [(ngModel)]="video" placeholder="Video Url" name="video"><br>
-    <input type="text" [(ngModel)]="videoName" placeholder="Video name" name="videoName"><br>
-    <input type="text" [(ngModel)]="description" placeholder="Description" name="description"><br>
-    <input type="text" [(ngModel)]="question" placeholder="Question" name="question"><br>
-    <input type="text" [(ngModel)]="answer" placeholder="Answer" name="answer"><br>
-    -->
-  <button id="add-course-button" (click)="onAddNewCourseClick()">Add new course</button>
-</form>
+    
+  <hr>
+
+  <form id="add-course-form" autocomplete="off">
+    <div id="add-course-div">
+      <h2>COURSE NAME</h2>
+      <input id="course-name" type="text" [(ngModel)]="course.name" name="name"><br>
+      
+      <hr>
+      
+      <!-- TOPICS -->
+      <h2>TOPICS</h2>
+      <h4>(minimum 3, maximum 10)</h4>
+      <div id="topic-wrapper">
+        <span class="added-topic" (click)="removeTopic($event)" id="{{ topic }}" *ngFor="let topic of course.topics">
+          <span id="{{ topic }}" style="width: 100%; height: 100%">{{ topic }}</span>
+        </span>
+      </div>
+      <input id="topic-input" *ngIf="topics.length <= 10" type="text" (keydown)="topicKey($event)" [(ngModel)]="currentTopic" name="topic" maxlength="12">
+      <!-- TOPICS -->
+
+      <hr>
+      
+      <!-- VIDEOS -->
+      <div id="videos">
+        <h2>VIDEOS</h2>
+        <h4>(minimum 3, maximum 15)</h4>
+
+        <div *ngFor="let video of course.videos; let i = index">
+          <div class="video-div">
+            <div id="delete-video-button" (click)="removeVideo($event)" vidnum="i" *ngIf="i > 2"><i class="fa fa-close"></i></div>
+            <input class="video-name-input" [(ngModel)]="course.videos[i].name" name="video-name" placeholder="VIDEO NAME">
+            <input class="video-desc-input" [(ngModel)]="course.videos[i].description" name="video-description" placeholder="VIDEO DESCRIPTION">
+            <input class="video-url-input" [(ngModel)]="course.videos[i].url" name="video-url" placeholder="VIDEO URL">
+          </div>
+        </div>
+        <div *ngIf="course.videos.length < 15" id="add-video-button" (click)="incrementVideoNum()"><i class="fa fa-plus"></i></div>
+
+      </div>
+      <!-- VIDEOS -->
+
+      <hr>
+
+      <!-- QUESTIONS -->
+      <div id="questions">
+        <h2>QUESTIONS</h2>
+        <h4>(minimum {{ course.videos.length }}, maximum {{ course.videos.length * 3 }})</h4>
+      
+        <div *ngFor="let question of course.questions; let i = index">
+          <div class="question-div">
+              <input class="question-input" [(ngModel)]="course.questions[i].question" name="question-name" placeholder="QUESTION"><br>
+              <select [(ngModel)]="course.questions[i].questionType" (change)="onChange(i)" name="question-type">
+                <option style="color:grey" value="NO" disabled>SELECT QUESTION TYPE</option>
+                <option value="SA">SINGLE ANSWER</option>
+                <option value="MA">MULTIPLE ANSWER</option>
+                <option value="WA">WRITTEN ANSWER</option>
+                <option value="YN">YES / NO</option>
+                <option value="TF">TRUE / FALSE</option>
+              </select>
+
+              <!-- SINGLE & MULTIPLE ANSWER -->
+              <div *ngIf="course.questions[i].questionType === 'SA' || course.questions[i].questionType === 'MA'">
+                <div *ngFor="let field of course.questions[i].questionAnswers; let j = index;">
+                  <input class="question-answer" [(ngModel)]="course.questions[i].questionAnswers[j].answer" name="answer"/>
+                  <input *ngIf="course.questions[i].questionType === 'SA'" class="answer-radio" type="radio" name="sa-radio">
+                  <input *ngIf="course.questions[i].questionType === 'MA'" class="answer-checkbox" type="checkbox" name="checkbox">
+                </div>
+              </div>
+              <!-- SINGLE & MULTIPLE ANSWER -->
+              
+              <!-- YES / NO & TRUE / FALSE -->
+              <div *ngIf="course.questions[i].questionType === 'YN' || course.questions[i].questionType === 'TF'">
+                <div class="yesno" *ngIf="course.questions[i].questionType === 'TF'">
+                  <span>TRUE</span>
+                  <input class="answer-radio" type="radio" name="sa-radio"><br>
+                  <span>FALSE</span>
+                  <input class="answer-radio" type="radio" name="sa-radio">
+                </div>
+                <div class="truefalse" *ngIf="course.questions[i].questionType === 'YN'">
+                  <span>YES</span>
+                  <input class="answer-radio" type="radio" name="sa-radio"><br>
+                  <span>NO</span>
+                  <input class="answer-radio" type="radio" name="sa-radio">
+                </div>
+              </div>
+              <!-- YES / NO & TRUE / FALSE -->
+              
+              <!-- WRITTEN ANSWER -->
+              <div *ngIf="course.questions[i].questionType === 'WA'">
+                <textarea rows="4" class="text-area" [(ngModel)]="course.questions[i].questionAnswers[0].answer"></textarea>
+              </div>
+              <!-- WRITTEN ANSWER -->
+
+          </div>
+        </div>
+      </div>
+      <!-- QUESTIONS -->
+      
+      <hr>
+      
+    </div>
+  </form>
+</div>

@@ -51,16 +51,15 @@
   margin-bottom: 0px;
 }
 
-.courseTopic {
+.course-name {
   cursor: pointer;
   margin-left: 50px;
-  font-size: 40px;
+  font-size: 46px;
   transition: all 0.2s ease-in-out;
 }
 
-.courseTopic:hover {
+.course-name:hover {
   color: orange;
-  font-size: 48px;
   transition: all 0.2s ease-in-out;
 }
 

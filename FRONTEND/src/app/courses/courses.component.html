@@ -18,17 +18,18 @@
   
   <hr>
   
+  <ng-template #t let-fill="fill">
+    <span class="star" [class.full]="fill === 100">
+      <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+    </span>
+  </ng-template>
+  
   <div id="courses" *ngIf="courses">
     <div *ngFor="let course of courses">
       <div *ngIf="!checkForStudent(course)">
         <div name="true" class="course" (click)="onCourseClick($event)" id="{{ course.id }}">
           <div class="course-name">{{ course.name }}</div>
           <div class="course-rating">
-            <ng-template #t let-fill="fill">
-              <span class="star" [class.full]="fill === 100">
-                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
-              </span>
-            </ng-template>
             <ngb-rating [rate]="course.rating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
           </div>
           <div class="course-price">{{ (5 + (0.6 * course.questions.length) + (0.5 * course.videos.length) + (0.3 * course.teacherLevel)) }}$</div>
@@ -40,7 +41,7 @@
   <hr>
 
   <div id="title-div">
-    <h1 id="title">FINISHED COURSES</h1>
+    <h1 id="title">PURCHASED COURSES</h1>
   </div>
     
   <hr>
@@ -48,7 +49,10 @@
       <div *ngFor="let course of courses">
         <div *ngIf="checkForStudent(course)">
           <div name="false" class="course" (click)="onCourseClick($event)" id="{{ course.id }}">
-            <span class="course-name">{{ course.name }}</span>
+            <div class="course-name">{{ course.name }}</div>
+            <div class="course-rating">
+                <ngb-rating [rate]="course.rating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+            </div>
           </div>
         </div>
       </div>

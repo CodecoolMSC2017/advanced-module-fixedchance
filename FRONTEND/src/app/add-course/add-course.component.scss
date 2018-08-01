@@ -1,3 +1,211 @@
-body {
-    background-color: black;
+#main-content {
+    position: relative;
+}
+
+#title-div {
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+}
+
+#title-div #title {
+    padding-top: 30px;
+    position: relative;
+}
+
+#add-course-div {
+    width: 90%;
+    border-radius: 10px;
+    border: 1px solid orange;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, .6);
+    text-align: center;
+
+    h2 {
+        margin: 0px;
+    }
+
+    h3 {
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    h4 {
+        margin: 0px;
+    }
+
+    #course-name,
+    #topic-input,
+    .video-name-input,
+    .video-desc-input,
+    .video-url-input,
+    .question-input,
+    .question-answer {
+        margin: 0 auto;
+        font-family: 'Teko', 'sans-serif';
+        text-align: center;
+        margin-top: 16px;
+        width: 60%;
+        height: 30px;
+        font-size: 60px;
+        padding: 30px;
+        background: rgba(30, 30, 30, .6);
+        border: 1px solid white;
+        transition: 200ms ease-in-out;  
+        color: white;
+    }
+
+    input:focus {
+        border: 1px solid orange;
+        transition: 200ms ease-in-out;
+    }
+
+    input::placeholder {
+        color: white;
+    }
+
+    #added-topics {
+        margin: 24px;
+    }
+
+    .added-topic {
+        display: inline-block;
+        background: green;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 8px;
+        font-size: 22px;
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: 300ms ease-in-out;
+
+    }
+
+    .added-topic:hover {
+        background: red;
+        transition: 300ms ease-in-out;
+    }
+
+    #topic-input {
+        margin-bottom: 20px;
+    }
+
+    #topic-wrapper {
+        height: 60px;
+        padding: 18px;
+    }
+
+    .video-div {
+        width: 90%;
+        border: 2px solid orange;
+        background: rgba(0, 0, 0, .6);
+        margin: 0 auto;
+        margin-top: 24px;
+        margin-bottom: 24px;
+        border-radius: 10px;
+    }
+
+    .video-name-input,
+    .video-desc-input,
+    .video-url-input,
+    .question-input,
+    .question-answer {
+        font-size: 40px;
+        padding: 16px;
+        height: 24px;
+        margin-bottom: 16px;
+    }
+
+    #add-video-button {
+        margin: 0 auto;
+        font-size: 40px;
+        background: green;
+        border-radius: 360px;
+        width: 76px;
+        height: 60px;
+        text-align: center;
+        padding-top: 16px;
+        cursor: pointer;
+    }
+
+    #delete-video-button {
+        color: white;
+        font-size: 40px;
+        float:right; 
+        padding-right: 6px;
+        padding-left: 6px;
+        background: red;
+        border-radius: 10px;
+        border: 2px solid orange;
+        margin-right: -1px;
+        margin-top: -1px;
+        margin-left: -100px;
+        cursor: pointer;
+    }
+
+    .question-div {
+        width: 90%;
+        border: 2px solid orange;
+        background: rgba(0, 0, 0, .6);
+        margin: 0 auto;
+        margin-top: 24px;
+        margin-bottom: 24px;
+        border-radius: 10px;
+    }
+
+    select {
+        margin: 0 auto;
+        font-family: 'Teko', 'sans-serif';
+        text-align: center;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        width: 40%;
+        font-size: 40px;
+        border: 1px solid white;
+        transition: 200ms ease-in-out; 
+        color: white;
+        background: rgba(30, 30, 30, .9);
+
+    }
+
+    .answer-radio {
+        background-color: black;
+        transform: scale(2.5);
+    }
+
+    .question-answer {
+        width: 80%;
+        margin-right: 40px;
+    }
+
+    .answer-checkbox {
+        transform: scale(2.5);
+    }
+
+    .truefalse,
+    .yesno {
+        font-size: 40px;
+        text-align: center;
+        width: 80%;
+        margin: 0 auto;
+
+    }
+
+    .truefalse span,
+    .yesno span {
+        display: inline-block;
+        width: 200px;
+        text-align: left;
+    }
+
+    .text-area {
+        font-family: 'Teko', 'sans-serif';
+        width: 90%;
+        resize: none;
+        font-size: 32px;
+    }
 }
