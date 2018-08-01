@@ -9,6 +9,7 @@ import { AddCourse } from '../add-course';
 import { AddVideo } from '../add-video';
 import { AddQuestion } from '../add-question';
 import { AddAnswer } from '../add-answer';
+import { Answer } from '../answer';
 
 @Component({
   selector: 'app-add-course',
@@ -81,12 +82,27 @@ export class AddCourseComponent implements OnInit {
     }
   }
 
-  removeVideo(event) {
-    let videoToRemove = event.target.getAttribute("vidnum");
-    this.course.videos.splice(videoToRemove, 1);
+  incrementQuestionNum() {
+    this.course.questions.push(new AddQuestion());
+  }
+
+  incrementAnswerNum(i) {
+    this.course.questions[i].questionAnswers.push(new AddAnswer());
+  }
+
+  removeVideo(i) {
+    this.course.videos.splice(i, 1);
     while (this.course.videos.length * 3 < this.course.questions.length) {
       this.course.questions.splice(-1, 1);
     }
+  }
+
+  removeQuestion(i) {
+    this.course.questions.splice(i, 1);
+  }
+
+  removeAnswer(i, j) {
+    this.course.questions[i].questionAnswers.splice(j, 1);
   }
 
   displayCourse() {

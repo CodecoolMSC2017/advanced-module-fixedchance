@@ -120,19 +120,35 @@
         margin-bottom: 16px;
     }
 
-    #add-video-button {
+    #add-video-button,
+    #add-question-button,
+    #add-answer-button {
         margin: 0 auto;
         font-size: 40px;
         background: green;
-        border-radius: 360px;
-        width: 76px;
+        border-radius: 50%;
+        width: 60px;
         height: 60px;
         text-align: center;
-        padding-top: 16px;
+        vertical-align: middle;
         cursor: pointer;
+
+        i {
+            padding-top: 12px;
+        }
     }
 
-    #delete-video-button {
+    #add-answer-button {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 12px;
+        i {
+            padding-top: 6px;
+        }
+    }
+
+    #delete-video-button,
+    #delete-question-button {
         color: white;
         font-size: 40px;
         float:right; 
@@ -208,4 +224,28 @@
         resize: none;
         font-size: 32px;
     }
+
+    .delete-answer-button {
+        color: red;
+        font-size: 30px;
+        padding-top: 16px;
+        float: right;
+        height: 100%;
+    }
+
+    #submit-button {
+        font-family: 'Teko', 'sans-serif';
+        width: 250px;
+        padding: 20px;
+        font-size: 40px;
+        background: white;
+        border: 2px solid black;
+        transition: 500ms;
+    }
+    
+    #submit-button:hover {
+        background-color: rgb(245, 170, 7);
+        transition: 500ms;
+    }
+    
 }
