@@ -35,4 +35,8 @@ public final class CourseService extends AbstractService {
         User teacher = userRepository.getOne(teacherId);
         return courseRepository.findByTeacher(teacher);
     }
+
+    public List<Course> findByStudent(User student) {
+        return courseRepository.findByStudents(student);
+    }
 }

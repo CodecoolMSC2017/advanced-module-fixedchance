@@ -1,6 +1,7 @@
 package com.codecool.fixedchance.controller;
 
 import com.codecool.fixedchance.domain.Course;
+import com.codecool.fixedchance.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -44,9 +45,15 @@ public class CourseController extends AbstractController {
     }
 
     @RequestMapping(path = "/courses/{teacher_id}/courses",
-            method = RequestMethod.GET,
-            consumes = {"application/json"})
+            method = RequestMethod.GET)
     public List<Course> findByTeacher(@PathVariable("teacher_id") Integer teacherId) {
         return courseService.findByTeacher(teacherId);
+    }
+
+    @RequestMapping(path = "/courses/student/{student_id}",
+        method = RequestMethod.GET)
+    public List<Course> findByStudentId(@PathVariable("student_id") Integer studentId) {
+        User student = userService.getOne(studentId);
+        return courseService.findByStudent(student);
     }
 }

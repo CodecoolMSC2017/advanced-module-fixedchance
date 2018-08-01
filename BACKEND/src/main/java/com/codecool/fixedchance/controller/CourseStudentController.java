@@ -1,6 +1,5 @@
 package com.codecool.fixedchance.controller;
 
-import com.codecool.fixedchance.domain.Course;
 import com.codecool.fixedchance.domain.CourseStudent;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,4 +14,5 @@ public class CourseStudentController extends AbstractController {
     public void add(@RequestBody CourseStudent courseStudent) {
         courseStudentService.add(courseStudent);
     }
+
 }
