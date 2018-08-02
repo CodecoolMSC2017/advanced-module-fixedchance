@@ -32,7 +32,7 @@
           <div class="course-rating">
             <ngb-rating [rate]="course.rating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
           </div>
-          <div class="course-price">{{ (5 + (0.6 * course.questions.length) + (0.5 * course.videos.length) + (0.3 * course.teacherLevel)) }}$</div>
+          <div class="course-price">{{ (5 + (0.6 * course.questions.length) + (0.5 * course.videos.length) + (0.3 * course.teacherLevel)) | number }}$</div>
         </div>
       </div>
     </div>

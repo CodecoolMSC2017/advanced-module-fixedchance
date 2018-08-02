@@ -95,19 +95,11 @@ CREATE TABLE course_videos (
 	CONSTRAINT video_not_empty CHECK (video <> '')
 );
 
-CREATE TYPE question_types AS ENUM (
-    'TF',
-    'SA',
-    'MA',
-    'YN',
-    'WA'
-);
-
 CREATE TABLE course_questions (
 	id SERIAL PRIMARY KEY,
 	course_id INTEGER NOT NULL,
 	question TEXT NOT NULL,
-	question_type question_types NOT NULL,
+	question_type TEXT NOT NULL,
 	FOREIGN KEY (course_id) REFERENCES courses(id),
 	CONSTRAINT question_not_empty CHECK (question <> '')
 );

@@ -23,8 +23,9 @@ public class CourseQuestionController extends AbstractController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
-    public void add(@RequestBody CourseQuestion question, @PathVariable("course_id") int courseId) {
+    public Integer add(@RequestBody CourseQuestion question, @PathVariable("course_id") int courseId) {
         questionService.add(courseId, question);
+        return question.getId();
     }
 
     @RequestMapping(path = "/courses/questions/{id}",

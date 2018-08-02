@@ -1,6 +1,5 @@
 package com.codecool.fixedchance.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -25,9 +24,7 @@ public class CourseQuestion extends AbstractModel {
 
     private String question;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 2)
-    private QuestionType questionType;
+    private String questionType;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "courseQuestion")
     private Set<CourseAnswer> answers = new HashSet<>();
@@ -35,7 +32,7 @@ public class CourseQuestion extends AbstractModel {
     public CourseQuestion() {}
 
     // Getters
-    public QuestionType getQuestionType() {
+    public String getQuestionType() {
         return questionType;
     }
 
@@ -52,7 +49,7 @@ public class CourseQuestion extends AbstractModel {
     }
 
     // Setters
-    public void setQuestionType(QuestionType questionType) {
+    public void setQuestionType(String questionType) {
         this.questionType = questionType;
     }
 

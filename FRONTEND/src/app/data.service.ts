@@ -4,6 +4,7 @@ import { User } from './user';
 import { Course } from './course';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AddCourse } from './add-course';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class DataService {
   user : User;
 
   course : Course;
+  demoCourse : AddCourse;
 
   constructor(private http : HttpClient) { }
 
@@ -54,5 +56,13 @@ export class DataService {
 
   fetchTeacherCourses(id) : Observable<Course[]> {
     return this.http.get<Course[]>("/api/courses/" + id + "/courses");
+  }
+
+  setDemo(course) {
+    this.demoCourse = course;
+  }
+
+  getDemo() {
+    return this.demoCourse;
   }
 }
