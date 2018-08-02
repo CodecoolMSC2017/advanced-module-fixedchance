@@ -194,8 +194,7 @@
     }
 
     .question-answer {
-        width: 80%;
-        margin-right: 40px;
+        width: 95%;
     }
 
     .answer-checkbox {
@@ -228,9 +227,6 @@
     .delete-answer-button {
         color: red;
         font-size: 30px;
-        padding-top: 16px;
-        float: right;
-        height: 100%;
     }
 
     #submit-button {
@@ -244,8 +240,57 @@
     }
     
     #submit-button:hover {
-        background-color: rgb(245, 170, 7);
+        background-color: orange;
         transition: 500ms;
+    }
+
+    .s-m-answer {
+        position: relative;
+        display: grid;
+        grid-template-columns: 12fr 1fr 1fr;
+        text-align: center;
+        margin: 0px 30px;
+
+        input[type="text"] {
+            margin: 0;
+            display: inline-grid;
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        div.check,
+        div.radio {
+            grid-column: 2;
+            position: relative;
+        }
+
+        div.radio input,
+        div.check input {
+            position: absolute;
+            display: block;
+            margin: 0;
+            transform: translate(-50%, -50%) scale(2.5);
+            left: 50%;
+            top: 50%;
+        }
+
+        div.x {
+            text-align: justify;
+        }
+
+        div.x span {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            top: 50%;
+            display: inline-grid;
+            grid-column: 3;
+            grid-row: 1;
+            text-align: justify;
+            
+        }
+
+
     }
     
 }
