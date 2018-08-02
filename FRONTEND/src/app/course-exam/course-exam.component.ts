@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../course';
 import { DataService } from '../data.service';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-exam',
@@ -12,7 +13,7 @@ export class CourseExamComponent implements OnInit {
 
   course : Course;
 
-  constructor(private authService : AuthService, private dataService : DataService) { 
+  constructor(private router : Router, private authService : AuthService, private dataService : DataService) { 
     this.course = this.dataService.getCurrentCourse();
   }
 
@@ -28,6 +29,7 @@ export class CourseExamComponent implements OnInit {
     for (let i = 0; i < inputs.length; i++) {
       console.log(inputs[i]);
     }
+    this.router.navigate(['exam-results']);
   }
 
   addClass(event) {
