@@ -16,7 +16,8 @@ import { CourseCheckoutComponent } from './course-checkout/course-checkout.compo
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent
+    component: MainComponent,
+    pathMatch: 'full'
   },
   {
     path: 'login',
