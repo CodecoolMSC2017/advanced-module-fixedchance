@@ -40,16 +40,6 @@ export class RegisterComponent implements OnInit {
     } else {
       this.register('COMPANY');
     }
-    /*  post.subscribe(response => {
-        const message = response;
-        if (message.message.startsWith("Reg")) {
-          this.errormessage = '';
-          this.router.navigate(['']);
-        } else {
-          this.errormessage = 'E-mail already in use';
-        }
-      });
-    */
   }
 
   roleChosen(event) {
@@ -94,6 +84,9 @@ export class RegisterComponent implements OnInit {
       this.registerDetails.role = this.selectedRole;
       this.registerService.studentOrTeacherRegister(this.registerDetails).subscribe(user => {
         this.router.navigate(['']);
+        // manually refresh/reload the page
+        location.reload();
+        alert('Your registration was successful!');
       }, error => alert(error.message));
     }
     if (role === 'COMPANY') {
@@ -101,6 +94,8 @@ export class RegisterComponent implements OnInit {
       this.registerDetails.subscription = this.selectedSub;
       this.registerService.companyRegister(this.registerDetails).subscribe(user => {
         this.router.navigate(['']);
+        location.reload();
+        alert('Your registration was successful!');
       }, error => alert(error.message));
     }
   }
