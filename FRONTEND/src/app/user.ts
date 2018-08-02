@@ -14,4 +14,5 @@ export class User {
     enabled: boolean;
     authorities: String[];
     courses : Course[];
+    registrationDate: number;
 }

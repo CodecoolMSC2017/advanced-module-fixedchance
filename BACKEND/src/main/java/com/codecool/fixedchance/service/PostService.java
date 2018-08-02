@@ -13,7 +13,7 @@ public final class PostService extends AbstractService {
         return postRepository.findAll(); }
 
     public void add(Post post) { postRepository.save(post);}
-
+    
     public List<Post> findAllByTopic(String postTopic) { return postRepository.findAllByPostTopic(postTopic);}
 
 }

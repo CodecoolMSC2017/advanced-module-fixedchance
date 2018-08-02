@@ -17,8 +17,6 @@ public class Post extends AbstractModel{
 
     private String postContent;
 
-    /*@Enumerated(EnumType.STRING)
-    private PostTopic postTopic;*/
     @NotNull
     private String postTopic;
 
@@ -33,10 +31,6 @@ public class Post extends AbstractModel{
         return postContent;
     }
 
-    /*public PostTopic getPostTopic() {
-        return postTopic;
-    }*/
-
     public String getPostTopic() {
         return postTopic;
     }
@@ -49,10 +43,6 @@ public class Post extends AbstractModel{
     public void setPostContent(String postContent) {
         this.postContent = postContent;
     }
-
-    /*public void setPostTopic(PostTopic postTopic) {
-        this.postTopic = postTopic;
-    }*/
 
     public void setPostTopic(String postTopic) {
         this.postTopic = postTopic;

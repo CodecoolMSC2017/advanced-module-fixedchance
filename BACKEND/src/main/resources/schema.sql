@@ -183,5 +183,9 @@ CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     user_name TEXT NOT NULL,
     post_content TEXT NOT NULL,
+<<<<<<< Updated upstream
     post_topic TEXT NOT NULL
+=======
+    post_topic post_topics NOT NULL
+>>>>>>> Stashed changes
 );
