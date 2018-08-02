@@ -1,16 +1,16 @@
 <div id="login-content">
   <div id="role-buttons">
-    <button name="STUDENT" (click)="roleChosen($event)" class="fa-button">STUDENT<br><i class="fa fa-graduation-cap img"></i></button>
-    <button name="TEACHER" (click)="roleChosen($event)" class="fa-button">TEACHER<br><i class="fa fa-book img"></i></button>
-    <button name="COMPANY" (click)="roleChosen($event)" class="fa-button">COMPANY<br><i class="fa fa-building img"></i></button>
+    <button name="STUDENT" (click)="roleChosen($event)" (click)="showGoogleLoginButton()" class="fa-button">STUDENT<br><i class="fa fa-graduation-cap img"></i></button>
+    <button name="TEACHER" (click)="roleChosen($event)" (click)="showGoogleLoginButton()" class="fa-button">TEACHER<br><i class="fa fa-book img"></i></button>
+    <button name="COMPANY" (click)="roleChosen($event)" (click)="showGoogleLoginButton()" class="fa-button">COMPANY<br><i class="fa fa-building img"></i></button>
   </div>
   <form id="login-form" autocomplete="off" *ngIf="selectedRole != null">
     <input type="text" [(ngModel)]="loginDetails.username" placeholder="Username" name="username"><br>
     <input type="password" [(ngModel)]="loginDetails.password" placeholder="Password" name="password"><br>
     <button (click)="onLoginClick()">Login</button>
   </form>
-  <div class="google-login">
-    <p>Login with Google</p>
+  <div id="google-login" hidden>
+    <p>or</p>
     <div id="{{ googleLoginButton }}"></div>
   </div>
 </div>
