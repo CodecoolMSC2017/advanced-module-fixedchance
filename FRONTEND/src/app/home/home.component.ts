@@ -4,10 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
 import { User } from '../user';
 import { Post } from '../post';
-<<<<<<< Updated upstream
 import { Observable } from 'rxjs';
-=======
->>>>>>> Stashed changes
 
 @Component({
   selector: 'app-home',
@@ -25,10 +22,7 @@ export class HomeComponent implements OnInit {
   postedContent :string = this.postedContent;
   postTopic: string = this.postTopic;
   posts = [];
-<<<<<<< Updated upstream
   searchedPosts = [];
-=======
->>>>>>> Stashed changes
   post: Post;
   show : boolean = false;
 
@@ -40,11 +34,7 @@ export class HomeComponent implements OnInit {
   fetchPosts() {
     this.http.get<Post[]>("/api/posts").subscribe(posts => {
       this.posts = posts;
-<<<<<<< Updated upstream
       this.searchedPosts = posts;
-=======
-      console.log(posts);
->>>>>>> Stashed changes
     });    
   }
 
@@ -67,7 +57,6 @@ export class HomeComponent implements OnInit {
   }
 
   onShareClick() {
-<<<<<<< Updated upstream
     
   }
 
@@ -82,18 +71,6 @@ export class HomeComponent implements OnInit {
 
   sendPost() : Observable<Post> {
     return this.http.post<Post>("/api/posts", {"userName": this.user.username, "postContent": this.postContent, "postTopic": this.postTopic.toUpperCase()});
-=======
-    this.show = true;
-    this.postContent = '';
-    this.postTopic = '';
-  }
-
-  addItem() {
-    this.http.post<Post>("/api/posts", {"userName": this.user.username, "postContent": this.postContent, "postTopic": this.postTopic.toUpperCase()}).subscribe(resp => {console.log(resp)})
-    this.posts.push(this.postContent);
-    this.postContent = '';
-    this.changePost(this.post);
->>>>>>> Stashed changes
   }
 
   removeItem(i) {
