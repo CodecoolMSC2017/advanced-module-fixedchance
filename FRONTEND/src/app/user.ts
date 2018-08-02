@@ -1,4 +1,5 @@
-import { Course } from "./course";
+import { Post } from './post';
+import { Course } from './course';
 
 export class User {
     id: number;

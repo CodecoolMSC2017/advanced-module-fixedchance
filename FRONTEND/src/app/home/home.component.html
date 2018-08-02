@@ -4,7 +4,7 @@
     <li class="toleft" id="logo">FIXEDCHANCE</li>
     <li *ngIf="user.authorities[0] === 'ROLE_STUDENT'" class="toleft" ><a routerLink="../courses">COURSES</a></li>
     <li *ngIf="user.authorities[0] === 'ROLE_TEACHER'" class="toleft" ><a routerLink="../add-course">ADD COURSE</a></li>
-    <li class="toleft"><input type="text" [(ngModel)]="choosen" id="ajax" list="json-datalist" placeholder="Search here"></li>
+    <li class="toleft"><input type="text" [(ngModel)]="chosen" id="ajax" list="json-datalist" placeholder="Search here"></li>
     <datalist id="json-datalist">
       <option value="HTML">
         <option value="CSS">
@@ -26,29 +26,24 @@
 </div>
 
   <div id="wall">
-    <div class="item" data-aos="flip-up">
-      <h3>Hello {{ user.firstName }}, do you have anything to share?</h3>
-      <hr>
-      <textarea style="width: 80%; margin-left: 10%;" type="text" [(ngModel)]="postContent" placeholder="Type your idea"></textarea>
-      <button id="shareButton" (click)="addItem()">Share</button>
-    </div><br>
-    <!--
-    <div *ngIf="show" class="item" data-aos="flip-up">
-      <h4> {{ user.firstName }} </h4>
-      <hr>
-      <p> {{ postedContent }} </p>
-    </div><br>
-      <img src="assets/code.png" class="item" id="trigger-left" data-aos="flip-up"><br>
-      <img src="assets/languages.jpeg" class="item" data-aos="flip-up"><br>
-      <img src="assets/math.jpg" class="item" id="trigger-right" data-aos="flip-up"><br>
-      <img src="assets/mentoring.jpg" class="item" data-aos="flip-up"><br>
-  -->
-    <div *ngFor="let post of posts.slice().reverse()">
+    <form>
+
+      <div class="item" data-aos="flip-up">
+        <h3>Hello {{ user.username }}, do you have anything to share?</h3>
+        <hr>
+        <textarea style="width: 80%; margin-left: 10%;" type="text" [(ngModel)]="postContent" placeholder="Type your idea" name="content"></textarea>
+        <input id="postTopicInp" type="text" placeholder="Topic" [(ngModel)]="postTopic" name="topic">
+        <button id="shareButton" (click)="addItem()">Share</button>
+      </div><br>
+    </form>
+    
+    <div *ngFor="let post of searchedPosts.slice().reverse()">
       <div class="item" data-aos="fade-down"
       data-aos-easing="linear"
       data-aos-duration="500">
-      <h5> {{ user.firstName }} </h5>
-      <p >{{ post }}</p>
+      <h4> {{ post.userName }} </h4>
+      <hr style="width: 80%;">
+      <p >{{ post.postContent }}</p>
       </div><br>
     </div>
   </div>

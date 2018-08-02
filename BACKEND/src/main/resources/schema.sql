@@ -181,8 +181,7 @@ CREATE TYPE post_topics AS ENUM (
 
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL,
+    user_name TEXT NOT NULL,
     post_content TEXT NOT NULL,
-    post_topic post_topics NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    post_topic TEXT NOT NULL
 );
