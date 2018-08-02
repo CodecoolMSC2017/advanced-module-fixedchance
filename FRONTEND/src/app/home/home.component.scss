@@ -41,6 +41,19 @@ textarea {
   resize: vertical;
 }
 
+h4 {
+  margin-left: 45%;
+  margin-right: 50%;
+}
+
+#postTopicInp {
+  width: 200px;
+  height: 20px;
+  margin-left: 37%;
+  margin-right: 15%;
+  margin-bottom: 20px;
+}
+
 #shareButton {
   display: block;
   margin-left: auto;
@@ -91,4 +104,19 @@ textarea {
   border-color: rgb(245, 170, 7);
   box-shadow: 0 0 20px rgb(245, 170, 7), inset 0 0 10px rgb(245, 170, 7), 0 2px 0 #000;
   }
+}
+
+.delete-post-button { 
+  color: white;
+  font-size: 25px;
+  float:right; 
+  padding-right: 6px;
+  padding-left: 6px;
+  background: red;
+  border-radius: 10px;
+  border: 2px solid orange;
+  margin-right: -1px;
+  margin-top: -1px;
+  margin-left: -100px;
+  cursor: pointer;
 }

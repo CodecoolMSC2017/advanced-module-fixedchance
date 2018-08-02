@@ -14,10 +14,7 @@ import java.security.GeneralSecurityException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 
 @RestController
@@ -29,6 +26,11 @@ public class UserController extends AbstractController {
     public User loginUser(@PathVariable("id") Integer id) {
         return userService.getOne(id);
     }
+
+    @RequestMapping(path = "/users",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<User> getUsers(){ return userService.getAll();}
 
    /* @RequestMapping(path = "/register",
             method = RequestMethod.POST,

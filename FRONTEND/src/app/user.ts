@@ -1,4 +1,5 @@
-import { Course } from "./course";
+import { Post } from './post';
+import { Course } from './course';
 
 export class User {
     id: number;
@@ -13,4 +14,5 @@ export class User {
     enabled: boolean;
     authorities: String[];
     courses : Course[];
+    registrationDate: number;
 }

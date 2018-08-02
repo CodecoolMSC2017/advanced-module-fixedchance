@@ -88,7 +88,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
       {
         'onSuccess': this.onGoogleLoginSuccess,
         'scope': 'profile',
-        'theme': 'light'
+        'theme': 'light',
+        'width': '148',
+        'height': '42'
       });
   }
 
@@ -100,6 +102,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
     xhr.send(idToken);
     // After get back the user -> auth -> redirect
     // this.router.navigate(['home']);
+  }
+
+  showGoogleLoginButton() {
+    const hiddenButton = document.getElementById('google-login');
+    hiddenButton.hidden = false;
   }
 
 }

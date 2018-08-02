@@ -1,64 +1,62 @@
 package com.codecool.fixedchance.domain;
 
 import com.fasterxml.jackson.annotation.*;
+import com.google.api.client.util.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="posts", schema="public")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Post extends AbstractModel{
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+
     @NotNull
-    private User user;
+    private String userName;
 
     private String postContent;
 
-    @Enumerated(EnumType.STRING)
-    private PostTopic postTopic;
+    @NotNull
+    private String postTopic;
 
     public Post() {}
 
     //Getters
-    public User getUser() {
-        return user;
+    public String getUserName() {
+        return userName;
     }
 
     public String getPostContent() {
         return postContent;
     }
 
-    public PostTopic getPostTopic() {
+    public String getPostTopic() {
         return postTopic;
     }
 
     //Setters
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setPostContent(String postContent) {
         this.postContent = postContent;
     }
 
-    public void setPostTopic(PostTopic postTopic) {
+    public void setPostTopic(String postTopic) {
         this.postTopic = postTopic;
     }
 
     //Methods
 
+
     @Override
     public String toString() {
         return "Post{" +
-                "user=" + user +
+                "userName='" + userName + '\'' +
                 ", postContent='" + postContent + '\'' +
-                ", postTopic=" + postTopic +
+                ", postTopic='" + postTopic + '\'' +
                 '}';
     }
 }

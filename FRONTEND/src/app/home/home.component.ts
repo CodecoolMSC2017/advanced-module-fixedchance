@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
 import { User } from '../user';
+import { Post } from '../post';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -13,18 +15,27 @@ export class HomeComponent implements OnInit {
 
   constructor(private http : HttpClient, private route: ActivatedRoute, private router: Router, public dataService : DataService) { }
 
-  choosen: string = this.choosen;
+  chosen: string = this.chosen;
   user : User;
   postContent : string = this.postContent;
+  userName:string = this.userName;
   postedContent :string = this.postedContent;
+  postTopic: string = this.postTopic;
   posts = [];
+  searchedPosts = [];
+  post: Post;
   show : boolean = false;
 
   ngOnInit() {
     this.user = this.dataService.getUser();
-    this.user.firstName = this.dataService.user.firstName;
-    this.dataService.post.subscribe(res => this.posts = res);
-    this.dataService.changePost(this.posts);
+    this.fetchPosts();
+  }
+
+  fetchPosts() {
+    this.http.get<Post[]>("/api/posts").subscribe(posts => {
+      this.posts = posts;
+      this.searchedPosts = posts;
+    });    
   }
 
   onLogOutClick() {
@@ -32,23 +43,37 @@ export class HomeComponent implements OnInit {
   }
 
   onSearchClick() {
-    console.log(this.choosen)
+    this.searchedPosts = [];
+    if(this.chosen.toUpperCase() === ''){
+      this.searchedPosts = this.posts;
+    }
+    else{
+      for(let i = 0; i < this.posts.length; i++) {
+        if(this.posts[i].postTopic === this.chosen.toUpperCase()){
+          this.searchedPosts.push(this.posts[i])
+        }
+      } 
+    }   
   }
 
   onShareClick() {
-    this.show = true;
-    this.postedContent = this.postContent;
-    this.postContent = '';
+    
   }
 
   addItem() {
-    this.posts.push(this.postContent);
-    this.postContent = '';
-    this.dataService.changePost(this.posts);
+    this.sendPost().subscribe(resp => {
+      this.fetchPosts();
+      this.show = true;
+      this.postContent = '';
+      this.postTopic = '';
+    });
+  }
+
+  sendPost() : Observable<Post> {
+    return this.http.post<Post>("/api/posts", {"userName": this.user.username, "postContent": this.postContent, "postTopic": this.postTopic.toUpperCase()});
   }
 
   removeItem(i) {
-    this.posts.splice(i, 1);
-    this.dataService.changePost(this.posts);
+    this.http.delete<void>('/api/posts/'+i).subscribe(resp => {this.fetchPosts()});
   }
 }

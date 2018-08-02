@@ -80,3 +80,13 @@
 .form-table {
     margin: 0 auto;
 }
+
+#google-login-button {
+    width: 100%;
+  }
+  
+  #google-login-button > div {
+    margin: 0 auto;
+    border: 2px solid black;
+  }
+  

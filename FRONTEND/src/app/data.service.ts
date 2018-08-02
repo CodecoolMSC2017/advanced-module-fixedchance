@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { User } from './user';
 import { Course } from './course';
+import { Post } from './post';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AddCourse } from './add-course';
@@ -11,19 +12,14 @@ import { AddCourse } from './add-course';
 })
 export class DataService {
 
-  private posts = new BehaviorSubject<any>(['Importing JSON file from Amazon with Python: https://stackoverflow.com/questions/51436740/importing-json-file-from-amazon-s3-into-aws-rds-postgresql-using-python', 'Creating own tag in HTML: https://stackoverflow.com/questions/51414777/can-we-make-our-own-tag-in-html']);
-  post = this.posts.asObservable();
-
   user : User;
 
   course : Course;
   demoCourse : AddCourse;
 
-  constructor(private http : HttpClient) { }
+  post: Post;
 
-  changePost(post) {
-    this.posts.next(post)
-  }
+  constructor(private http : HttpClient) { }
 
   setUser(user : User) {
     this.user = user;
