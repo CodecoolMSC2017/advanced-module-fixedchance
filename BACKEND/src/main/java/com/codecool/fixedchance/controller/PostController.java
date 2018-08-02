@@ -20,4 +20,8 @@ public class PostController extends AbstractController {
     public void add(@RequestBody Post post) {
         postService.add(post);
     }
+
+    @RequestMapping(path = "/posts/{id}",
+            method = RequestMethod.DELETE)
+    public void deletePost(@PathVariable("id") Integer id) { postService.delete(id);}
 }

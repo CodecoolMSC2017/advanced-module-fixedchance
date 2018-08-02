@@ -13,6 +13,8 @@ public final class PostService extends AbstractService {
 
     public void add(Post post) { postRepository.save(post);}
 
+    public void delete(Integer id) { postRepository.deleteById(id);}
+
     public List<Post> findAllByTopic(String postTopic) { return postRepository.findAllByPostTopic(postTopic);}
 
 }

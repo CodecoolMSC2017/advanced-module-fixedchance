@@ -37,14 +37,11 @@
       </div><br>
     </form>
     
-<<<<<<< Updated upstream
-    <div *ngFor="let post of searchedPosts.slice().reverse()">
-=======
-    <div *ngFor="let post of posts.slice().reverse()">
->>>>>>> Stashed changes
+    <div *ngFor="let post of searchedPosts.slice().reverse(), let i = index">
       <div class="item" data-aos="fade-down"
       data-aos-easing="linear"
       data-aos-duration="500">
+      <div *ngIf="user.username === post.userName" class="delete-post-button" (click)="removeItem(post.id)"><i class="fa fa-close"></i></div>
       <h4> {{ post.userName }} </h4>
       <hr style="width: 80%;">
       <p >{{ post.postContent }}</p>

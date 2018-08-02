@@ -74,11 +74,6 @@ export class HomeComponent implements OnInit {
   }
 
   removeItem(i) {
-    this.posts.splice(i, 1);
-    this.changePost(this.post);
-  }
-
-  changePost(post) {
-    this.posts.push(post)
+    this.http.delete<void>('/api/posts/'+i).subscribe(resp => {this.fetchPosts()});
   }
 }
