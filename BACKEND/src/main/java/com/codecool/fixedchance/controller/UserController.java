@@ -2,6 +2,7 @@ package com.codecool.fixedchance.controller;
 
 import com.codecool.fixedchance.domain.Company;
 import com.codecool.fixedchance.domain.User;
+import com.codecool.fixedchance.domain.UserDTO;
 import com.google.api.client.googleapis.auth.oauth2.*;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -25,6 +26,37 @@ public class UserController extends AbstractController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public User loginUser(@PathVariable("id") Integer id) {
         return userService.getOne(id);
+    }
+
+    @RequestMapping(path = "/all-users",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<UserDTO> getUserDTOs() {
+        List<User> users = userService.getAll();
+        List<UserDTO> userDtoList = new ArrayList<>();
+        for (User user : users) {
+            UserDTO usdto = new UserDTO();
+            usdto.setId(user.getId());
+            usdto.setUserName(user.getUsername());
+            usdto.setExperience(user.getExperience());
+            usdto.setRegistrationDate(user.getRegistrationDate());
+            usdto.setRole(user.getAuthorities().get(0));
+            userDtoList.add(usdto);
+        }
+        return userDtoList;
+    }
+    @RequestMapping(path = "/users/{username}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public UserDTO getUserDTO(@PathVariable("username") String userName) {
+        User user = userService.getUserByName(userName);
+        UserDTO usdto = new UserDTO();
+        usdto.setId(user.getId());
+        usdto.setUserName(user.getUsername());
+        usdto.setRegistrationDate(user.getRegistrationDate());
+        usdto.setExperience(user.getExperience());
+        usdto.setRole(user.getAuthorities().get(0));
+        return usdto;
     }
 
     @RequestMapping(path = "/users",
