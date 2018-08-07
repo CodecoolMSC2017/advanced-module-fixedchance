@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserEntry } from '../user-entry';
 import { AuthService } from '../auth.service';
 import { Course } from '../course';
@@ -17,7 +17,7 @@ export class GuestProfileComponent implements OnInit {
   courses : Course[];
   contentLoaded : boolean = false;
 
-  constructor(private dataService : DataService, private route : ActivatedRoute, private authService : AuthService, private datePipe : DatePipe) { }
+  constructor(private router : Router, private dataService : DataService, private route : ActivatedRoute, private authService : AuthService, private datePipe : DatePipe) { }
 
   ngOnInit() {
     this.route.url.subscribe(username => {
@@ -43,5 +43,9 @@ export class GuestProfileComponent implements OnInit {
 
   onLogoutClick() {
     this.authService.deleteAuth();
+  }
+
+  onCourseClick(event) {
+    this.router.navigate(['../courses/'+event.target.id]);
   }
 }

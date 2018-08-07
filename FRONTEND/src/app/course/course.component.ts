@@ -37,10 +37,6 @@ export class CourseComponent implements OnInit {
         this.http.get<Course>("/api/courses/" + courseId[1].path).subscribe(course => { 
           this.course = course;
           
-        console.log(course);
-        console.log(this.course);
-          
-          
         for (let i = 0; i < this.course.videos.length; i++) {
           this.course.videos[i].video = this.transformUrl(this.course.videos[i].video);
         }
