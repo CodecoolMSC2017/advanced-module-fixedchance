@@ -5,6 +5,7 @@ import { DataService } from '../data.service';
 import { User } from '../user';
 import { Post } from '../post';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private http : HttpClient, private route: ActivatedRoute, private router: Router, public dataService : DataService) { }
+  constructor(private http : HttpClient, private route: ActivatedRoute, private router: Router, public dataService : DataService, private authService : AuthService) { }
 
   chosen: string = this.chosen;
   user : User;
@@ -25,10 +26,14 @@ export class HomeComponent implements OnInit {
   searchedPosts = [];
   post: Post;
   show : boolean = false;
+  contentLoaded : boolean = false;
 
   ngOnInit() {
-    this.user = this.dataService.getUser();
-    this.fetchPosts();
+    this.authService.getAuth().subscribe(resp => {
+      this.user = resp;
+      this.fetchPosts();
+      this.contentLoaded = true;
+    });
   }
 
   fetchPosts() {

@@ -1,7 +1,7 @@
 <div id="dark-background" *ngIf="showCourse" (click)="backToProfile()"></div>
 
 <header id="top-bar">
-  <ul>
+  <ul *ngIf="contentLoaded">
     <li class="toleft"><img id="logoimg" src="assets/logo.png">
       <li class="toleft" id="logo">FIXEDCHANCE</li>
       <li class="toleft"><a routerLink="../home">DASHBOARD</a></li>
@@ -13,23 +13,23 @@
   
 <div id="bck"></div>
 
-<div class="progress-wrapper">
-  <span id="circle-span" style="float: left">
-    <circle-progress
-    [percent]="percentage"
-    [title]="userLevel"
-    [titleFontSize]="60"
-    [subtitle]="getExp()"
-    [subtitleFontSize]="32"
-    ></circle-progress>
-  </span>
-  <span class="data">
-         E-mail: {{ user.email }}
-    <br> Name: {{ user.firstName + " " + user.lastName}}
-    <br> Birth date: {{ userBirthDate }}
-    <br> Role: {{ user.authorities[0] }}
-    <br>
-    <div *ngIf='isValid()'>
+  <div class="progress-wrapper" *ngIf="contentLoaded">
+    <span id="circle-span" style="float: left">
+      <circle-progress
+      [percent]="percentage"
+      [title]="userLevel"
+      [titleFontSize]="60"
+      [subtitle]="getExp()"
+      [subtitleFontSize]="32"
+      ></circle-progress>
+    </span>
+    <span class="data">
+      E-mail: {{ user.email }}
+      <br> Name: {{ user.firstName + " " + user.lastName}}
+      <br> Birth date: {{ userBirthDate }}
+      <br> Role: {{ user.authorities[0] }}
+      <br>
+      <div *ngIf='isValid()'>
       <button class="prof-button" routerLink="../add-course">Add Course</button>
     </div>
     <div>
@@ -38,15 +38,15 @@
   </span>
 </div>
 
-<div class="courses">
+<div class="courses" *ngIf="contentLoaded">
   <div *ngIf="user.authorities[0] === 'ROLE_STUDENT'">
-    <p>YOUR PURCHASED COURSES</p>
-    <hr>
-    <div class="course" *ngFor="let course of courses">
-      <div class="course-name" (click)="onStudentCourseClick($event)" id="{{ course.id }}">{{ course.name }}</div>
-    </div>
+  <p>YOUR PURCHASED COURSES</p>
+  <hr>
+  <div class="course" *ngFor="let course of courses">
+    <div class="course-name" (click)="onStudentCourseClick($event)" id="{{ course.id }}">{{ course.name }}</div>
   </div>
-  
+  </div>
+
   <div *ngIf="user.authorities[0] === 'ROLE_TEACHER'">
     <p>YOUR COURSES</p>
     <hr>

@@ -1,5 +1,5 @@
 <header id="top-bar">
-  <ul>
+  <ul *ngIf="contentLoaded">
     <li class="toleft"><img id="logoimg" src="assets/logo.png" />
     <li class="toleft" id="logo">FIXEDCHANCE</li>
     <li *ngIf="user.authorities[0] === 'ROLE_STUDENT'" class="toleft" ><a routerLink="../courses">COURSES</a></li>
@@ -23,10 +23,10 @@
   </ul>
 </header>
 
-<div id=page>
+<div id="page">
 </div>
 
-  <div id="wall">
+  <div id="wall" *ngIf="contentLoaded">
     <form>
 
       <div class="item" data-aos="flip-up">

@@ -272,8 +272,7 @@ export class AddCourseComponent implements OnInit {
       this.saveQuestions(courseId).subscribe(questionResp => {
         this.saveTopics(courseId).subscribe(topicResp => {
           this.saveVideos(courseId).subscribe(videoResp => {
-            this.http.get("/api/courses/" + courseId).subscribe(course => { this.dataService.setCurrentCourse(course)
-            this.router.navigate(['course'], { queryParams : { available : false} });
+            this.http.get("/api/courses/" + courseId).subscribe(course => { this.router.navigate(['courses/' + courseId]);
             });
           });
         });

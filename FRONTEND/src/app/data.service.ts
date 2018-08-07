@@ -30,14 +30,6 @@ export class DataService {
     return this.user;
   }
 
-  setCurrentCourse(course) {
-    this.course = course;
-  }
-
-  getCurrentCourse() {
-    return this.course;
-  }
-
   calculateLevel(experience) : number {
     let userLevel = 0;
     while (experience - 1200 - userLevel * 300 >= 0) {
@@ -61,5 +53,9 @@ export class DataService {
 
   getGuestUser(username) : Observable<UserEntry> {
     return this.http.get<UserEntry>("/api/users/" + username);
+  }
+
+  fetchCurrentCourse(courseId) : Observable<Course> {
+    return this.http.get<Course>("/api/courses/"+courseId);
   }
 }

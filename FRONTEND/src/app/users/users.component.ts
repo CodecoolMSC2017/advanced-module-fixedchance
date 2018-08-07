@@ -25,19 +25,27 @@ export class UsersComponent implements OnInit {
   constructor(private dataService : DataService, private datePipe: DatePipe, private authService : AuthService, private router : Router, private orderPipe: OrderPipe) { }
 
   ngOnInit() {
-    this.user = this.dataService.getUser();
-    this.dataService.fetchUsers().subscribe(users => {
-      this.users = users;
-      this.usersProto = this.users;
-      let currentExp;
-      let expToNextLevel;
-      this.users.forEach(element => {
-        element.level = this.dataService.calculateLevel(element.experience);
-        element.regDate = this.datePipe.transform(element.registrationDate,"yyyy-MM-dd");
-        element.percentage = Math.round(element.experience / (1200 + element.level * 300)) * 10;
-        element.role = element.role.substring(5, element.role.length);
+    this.authService.getAuth().subscribe(resp => {
+      this.user = resp;
+      this.dataService.fetchUsers().subscribe(users => {
+        this.users = users;
+        this.usersProto = this.users;
+        this.users.forEach(element => {
+          element.level = this.dataService.calculateLevel(element.experience);
+          element.regDate = this.datePipe.transform(element.registrationDate,"yyyy-MM-dd");
+          //
+          let experience = element.experience;
+          while (experience - 1200 - element.level * 300 >= 0) {
+            experience -= 1200 + element.level * 300;
+          }
+          let currentExp = experience;
+          let expToNextLevel = 1200 + element.level * 300;
+          element.percentage = Math.round((currentExp / expToNextLevel) * 100);
+          //
+          element.role = element.role.substring(5, element.role.length);
+          this.contentLoaded = true});
+        });
       });
-      this.contentLoaded = true});
   }
 
   onUserClicked(event) {

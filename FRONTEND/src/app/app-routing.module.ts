@@ -50,27 +50,29 @@ const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
-    path: 'course',
+    path: 'courses/:id',
     component: CourseComponent,
     canActivate: [LoginGuard],
   },
   {
-    path: 'course-exam',
+    path: 'course-exam/:id',
     component: CourseExamComponent,
     canActivate: [LoginGuard],
   },
   {
-    path: 'course-checkout',
+    path: 'course-checkout/:id',
     component: CourseCheckoutComponent,
     canActivate: [LoginGuard],
   },
   {
     path: 'users',
     component: UsersComponent,
+    canActivate: [LoginGuard],
   },
   {
     path: 'users/:id',
     component: GuestProfileComponent,
+    canActivate: [LoginGuard],
   },
   {
     path: '**',

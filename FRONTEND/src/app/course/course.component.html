@@ -2,16 +2,18 @@
   <ul>
     <li class="toleft"><img id="logoimg" src="assets/logo.png" />
     <li class="toleft" id="logo">FIXEDCHANCE</li>
-    <li class="toleft"><a routerLink="../home">DASHBOARD</a></li>
+    <li class="toleft"><a routerLink="../../home">DASHBOARD</a></li>
     <li class="toright"><a (click)="onLogoutClick()">LOGOUT</a></li>
-    <li class="toright"><a routerLink="../profile">PROFILE</a></li>
+    <li class="toright"><a routerLink="../../profile">PROFILE</a></li>
   </ul>
 </header>
 
 <div id="bck"></div>
 
-<div id="main-content">
+<!-- START OF MAIN CONTENT -->
+<div id="main-content" *ngIf="contentLoaded">
 
+  <!-- START OF HEADER -->
   <div id="header-content">
     
     <div id="teacher-info-div">
@@ -51,9 +53,12 @@
     </div>
   
   </div>
+  <!-- END OF HEADER -->
 
+  <!-- START OF MAIN COURSE -->
   <div id="main-course-content">
 
+    <!-- REVIEWS -->
     <div id="reviews">
       <div id="review-title">
         <h1>REVIEWS</h1>
@@ -63,14 +68,16 @@
         <span id="review-description"><li>{{ review.description }}</li></span>
       </div>
     </div>
+    <!-- REVIEWS -->
     
     <hr>
 
+    <!-- VIDEOS -->
     <div id="videos">
       <div id="video-title">
         <h1>VIDEOS</h1>
       </div>
-      <div *ngIf="isAvailable == 'true'">
+      <div *ngIf="isAvailable == true">
         <div *ngFor="let video of course.videos | slice : 0 : 2">
           <div id="video">
             <div id="video-name">{{ video.name | uppercase }}</div>
@@ -79,7 +86,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="isAvailable == 'false'">
+      <div *ngIf="isAvailable == false">
         <div *ngFor="let video of course.videos">
           <div id="video">
             <div id="video-name">{{ video.name | uppercase }}</div>
@@ -89,23 +96,26 @@
         </div>
       </div>
     </div>
+    <!-- VIDEOS -->
+
     
     <hr>
     
-    <div *ngIf="isAvailable == 'false'">
+    <div *ngIf="isAvailable == false">
       <div id="done-with-course">
-        <button id="proceed-button" routerLink="../course-exam">SEE THE EXAM</button>
+        <button id="proceed-button" routerLink="onExamClick()">SEE THE EXAM</button>
       </div>
     </div>
     
-    <div *ngIf="isAvailable == 'true'">
+    <div *ngIf="isAvailable == true">
       <div id="pay-for-course">
         <h2>There are {{ course.videos.length - 2 }} videos and {{ course.questions.length }} questions left<br>
-        in this course for you.</h2><br>
-        <h1>{{ coursePrice }}$</h1>
-        <button id="checkout-button" (click)="onCheckout()">CHECKOUT</button>
+          in this course for you.</h2><br>
+          <h1>{{ coursePrice }}$</h1>
+          <button id="checkout-button" (click)="onCheckout()">CHECKOUT</button>
+        </div>
       </div>
     </div>
-      
-  </div>
+    <!-- END OF MAIN COURSE -->
 </div>
+<!-- END OF MAIN CONTENT -->

@@ -14,7 +14,7 @@ import { log } from 'util';
 })
 export class CoursesComponent implements OnInit {
 
-  user : User = this.dataService.getUser();
+  user : User;
   courses : Course[] = [];
   course : Course;
   userLevel : number;
@@ -23,6 +23,9 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit() {
     this.fetchCourses();
+    this.authService.getAuth().subscribe(resp => {
+      this.user = resp
+    });
   }
 
   fetchCourses() {
@@ -48,8 +51,7 @@ export class CoursesComponent implements OnInit {
   }
 
   onCourseClick(event) {
-    this.dataService.setCurrentCourse(this.findCourseById(event.target.id));
-    this.router.navigate(['course'], { queryParams : { available : event.target.getAttribute('name') }});
+    this.router.navigate(['courses/'+event.target.id]);
   }
 
   findCourseById(id) : Course {

@@ -20,36 +20,55 @@ export class CourseComponent implements OnInit {
   userLevel : number = 0;
   currentExp : number;
   expToNextLevel : number;
-  isAvailable : boolean;
+  isAvailable : boolean = true;
   coursePrice : number;
   percentage : number;
+  contentLoaded : boolean = false;
+  user : User;
 
   constructor(private route : ActivatedRoute, private router : Router, private http : HttpClient, private dataService : DataService, private authService : AuthService, config : NgbRatingConfig) {
     config.readonly = true;
-    this.course = this.dataService.getCurrentCourse();
-    for (let i = 0; i < this.course.videos.length; i++) {
-      this.course.videos[i].video = this.transformUrl(this.course.videos[i].video);
-    }
   }
   
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.isAvailable = params.available;
+    this.authService.getAuth().subscribe(resp => {
+      this.user = resp;
+      this.route.url.subscribe(courseId => {
+        this.http.get<Course>("/api/courses/" + courseId[1].path).subscribe(course => { 
+          this.course = course;
+          
+        console.log(course);
+        console.log(this.course);
+          
+          
+        for (let i = 0; i < this.course.videos.length; i++) {
+          this.course.videos[i].video = this.transformUrl(this.course.videos[i].video);
+        }
+        
+        this.course.students.forEach(student => {
+          console.log(student.id + " : " + this.user.id);
+          if (student.id === this.user.id) {
+            this.isAvailable = false;
+          }
+        });
+
+        this.teacher = this.course.teacher;
+        let experience = this.course.teacher.experience;
+        while (experience - 1200 - this.userLevel * 300 >= 0) {
+          experience -= 1200 + this.userLevel * 300;
+          this.userLevel++;
+        }
+        this.currentExp = experience;
+        this.expToNextLevel = 1200 + this.userLevel * 300;
+        this.percentage = Math.round((this.currentExp / this.expToNextLevel) * 100);
+        this.calculateRating();
+        this.calculatePrice();
+        this.contentLoaded = true;
+      });
     });
-
-    this.teacher = this.course.teacher;
-    let experience = this.course.teacher.experience;
-    while (experience - 1200 - this.userLevel * 300 >= 0) {
-      experience -= 1200 + this.userLevel * 300;
-      this.userLevel++;
-    }
-    this.currentExp = experience;
-    this.expToNextLevel = 1200 + this.userLevel * 300;
-    this.percentage = Math.round((this.currentExp / this.expToNextLevel) * 100);
-    this.calculateRating();
-    this.calculatePrice();
+  });
   }
-
+  
   calculatePrice() {
     this.coursePrice = 5 + (0.6 * this.course.questions.length) + (0.5 * this.course.videos.length) + (0.3 * this.userLevel);
   }
@@ -83,6 +102,10 @@ export class CourseComponent implements OnInit {
   }
 
   onCheckout() {
-    this.router.navigate(['course-checkout'], { queryParams : { price : this.coursePrice } })
+    this.router.navigate(['course-checkout/' + this.course.id]);
+  }
+
+  onExamClick() {
+    this.router.navigate(['course-exam/' + this.course.id]);
   }
 }

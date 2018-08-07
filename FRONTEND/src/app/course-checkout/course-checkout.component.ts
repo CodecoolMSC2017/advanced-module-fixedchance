@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
+import { User } from '../user';
+import { Course } from '../course';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-course-checkout',
@@ -13,19 +16,35 @@ export class CourseCheckoutComponent implements OnInit {
   price : number;
   coursePrice : number;
   errormessage : string;
+  user : User;
+  course : Course;
+  userLevel : number;
+  teacher : User;
 
-  constructor(private dataService : DataService, private http : HttpClient, private route : ActivatedRoute, private router : Router) { }
+  constructor(private authService : AuthService, private dataService : DataService, private http : HttpClient, private route : ActivatedRoute, private router : Router) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.coursePrice = params.price;
+    this.route.url.subscribe(uri => {
+      this.http.get<Course>('/api/courses/'+uri[1].path).subscribe(course => {
+        this.course = course;
+        this.authService.getAuth().subscribe(resp => {
+          this.user = resp;
+          this.teacher = this.course.teacher;
+          let experience = this.course.teacher.experience;
+          while (experience - 1200 - this.userLevel * 300 >= 0) {
+            experience -= 1200 + this.userLevel * 300;
+            this.userLevel++;
+          }
+          this.coursePrice = 5 + (0.6 * this.course.questions.length) + (0.5 * this.course.videos.length) + (0.3 * this.userLevel);
+        });
+      });
     });
   }
 
   onSubmit() {
     if (this.price >= this.coursePrice) {
       this.errormessage = 'Successful. Redirecting you to the course-page';
-      this.http.post("api/course-student", { 'courseId' : this.dataService.getCurrentCourse().id, 'studentId' : this.dataService.getUser().id })
+      this.http.post("api/course-student", { 'courseId' : this.course.id, 'studentId' : this.user.id });
       .subscribe( resp => { console.log(resp) } );
       setTimeout(() => {
         this.router.navigate(['course'], { queryParams : { available : false } })}, 2000);
@@ -35,6 +54,6 @@ export class CourseCheckoutComponent implements OnInit {
   }
 
   onBack() {
-    this.router.navigate(['course'], { queryParams : { available : true } });
+    this.router.navigate(['course/' + this.course.id]);
   }
 }

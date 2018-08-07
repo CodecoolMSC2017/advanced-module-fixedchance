@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
   xpNum : number;
   showCourse : boolean;
   courses : Course[];
+  contentLoaded : boolean = false;
 
   courseEntries : Array<String>;
 
@@ -31,35 +32,32 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     
-    this.user = this.dataService.getUser();
-
-    if (this.user.authorities[0] === 'ROLE_TEACHER') {
-     this.dataService.fetchTeacherCourses(this.user.id).subscribe(response => {
-        this.courses = response;
-      });
-    } else if (this.user.authorities[0] === 'ROLE_STUDENT') {
-      this.dataService.fetchStudentCourses(this.user.id).subscribe(response => {
-        this.courses = response;
-      });
-    }
-      
-    
-    // convert date to the right format
-    this.userBirthDate = this.datePipe.transform(this.user.birthDate,"yyyy-MM-dd");
-      
-    // xp calculations
-    this.calculateXp();
-    
+    this.authService.getAuth().subscribe(resp => {
+      this.user = resp;
+      if (this.user.authorities[0] === 'ROLE_TEACHER') {
+       this.dataService.fetchTeacherCourses(this.user.id).subscribe(response => {
+          this.courses = response;
+        });
+      } else if (this.user.authorities[0] === 'ROLE_STUDENT') {
+        this.dataService.fetchStudentCourses(this.user.id).subscribe(response => {
+          this.courses = response;
+        });
+      }
+      // convert date to the right format
+      this.userBirthDate = this.datePipe.transform(this.user.birthDate,"yyyy-MM-dd");
+        
+      // xp calculations
+      this.calculateXp();
+      this.contentLoaded = true;
+    });
   }
 
   onTeacherCourseClick(event) {
-    this.dataService.setCurrentCourse(this.findCourseById(event.target.id));
-    this.router.navigate(['course-edit']);
+    this.router.navigate(['course-edit/' + event.target.id]);
   }
 
   onStudentCourseClick(event) {
-    this.dataService.setCurrentCourse(this.findCourseById(event.target.id));
-    this.router.navigate(['course'], { queryParams : { available : false }});
+    this.router.navigate(['courses/' + event.target.id]);
   }
 
   findCourseById(id) : Course {

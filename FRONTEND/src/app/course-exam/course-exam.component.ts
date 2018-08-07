@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../course';
 import { DataService } from '../data.service';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-course-exam',
@@ -13,11 +14,14 @@ export class CourseExamComponent implements OnInit {
 
   course : Course;
 
-  constructor(private router : Router, private authService : AuthService, private dataService : DataService) { 
-    this.course = this.dataService.getCurrentCourse();
-  }
+  constructor(private http : HttpClient, private route : ActivatedRoute, private router : Router, private authService : AuthService, private dataService : DataService) {}
 
   ngOnInit() {
+    this.route.url.subscribe(uri => {
+      this.http.get<Course>('/api/courses/'+uri[1].path).subscribe(resp => {
+        this.course = resp;
+      });
+    });
   }
 
   onLogoutClick() {
