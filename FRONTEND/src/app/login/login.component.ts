@@ -67,7 +67,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.authService.setCurrentRole(this.selectedRole);
       if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
     this.authService.getAuth(this.loginDetails).subscribe(user => {
-      this.dataService.setUser(user);
       this.router.navigate(['home']);
     }, error => alert(error.message));
   } else {
