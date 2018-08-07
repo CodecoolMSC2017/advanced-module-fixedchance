@@ -21,13 +21,25 @@ export class AddCourseComponent implements OnInit {
   topics : String[] = [];
   currentTopic : string;
   course : AddCourse = new AddCourse();
-  videos : AddVideo[] = [];
   isDemo : boolean = false;
+  coursePrice : number = 0;
+  userLevel : number = 0;
 
   constructor(private authService : AuthService, private http: HttpClient, private route: ActivatedRoute, private router: Router, private dataService: DataService) { }
 
   ngOnInit() {
-    this.http.get<User>("api/login/6").subscribe(resp => { this.user = resp });
+    this.http.get<User>("api/login/6").subscribe(resp => { 
+      this.user = resp;
+    });
+  }
+
+  ngDoCheck() {
+    let experience = this.user.experience;
+    while (experience - 1200 - this.userLevel * 300 >= 0) {
+      experience -= 1200 + this.userLevel * 300;
+      this.userLevel++;
+    }
+    this.coursePrice = 5 + (0.6 * this.course.questions.length) + (0.5 * this.course.videos.length) + (0.3 * this.userLevel);
   }
   
   onChange(i) {

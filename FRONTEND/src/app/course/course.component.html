@@ -104,7 +104,7 @@
     
     <div *ngIf="isAvailable == false">
       <div id="done-with-course">
-        <button id="proceed-button" routerLink="onExamClick()">SEE THE EXAM</button>
+        <button id="proceed-button" (click)="onExamClick()">SEE THE EXAM</button>
       </div>
     </div>
     
