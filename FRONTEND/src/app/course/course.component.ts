@@ -14,7 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class CourseComponent implements OnInit {
 
-  courseRating : number;
+  courseRating : number = 0;
   course : Course;
   teacher: User;
   userLevel : number = 0;
@@ -83,6 +83,7 @@ export class CourseComponent implements OnInit {
       sumOfRatings += this.course.reviews[i].rating;
     }
     this.courseRating = sumOfRatings / this.course.reviews.length;
+    console.log(this.courseRating);
   }
 
   transformUrl(url) : string {
