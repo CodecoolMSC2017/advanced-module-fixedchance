@@ -23,6 +23,9 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SafePipe } from './safepipe.pipe';
 import { CourseExamComponent } from './course-exam/course-exam.component';
 import { CourseCheckoutComponent } from './course-checkout/course-checkout.component';
+import { UsersComponent } from './users/users.component';
+import { GuestProfileComponent } from './guest-profile/guest-profile.component';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,8 @@ import { CourseCheckoutComponent } from './course-checkout/course-checkout.compo
     SafePipe,
     CourseExamComponent,
     CourseCheckoutComponent,
+    UsersComponent,
+    GuestProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +68,7 @@ import { CourseCheckoutComponent } from './course-checkout/course-checkout.compo
     "titleColor": "white",
     "renderOnClick": false,
     "maxPercent": 100}),
+    OrderModule
   ],
   providers: [DataService, DatePipe, httpInterceptorProviders],
   bootstrap: [AppComponent]

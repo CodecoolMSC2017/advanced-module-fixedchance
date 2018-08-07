@@ -58,7 +58,6 @@ export class AddCourseComponent implements OnInit {
   topicKey(event) {
     if (event.key === ' ') {
       if (this.currentTopic != " " && this.currentTopic != null) {
-        this.currentTopic = this.currentTopic.trim();
           if (!this.course.topics.some(x => x === this.currentTopic) && this.course.topics.length <= 10) {
             this.course.topics.push(this.currentTopic);
           }
@@ -262,11 +261,6 @@ export class AddCourseComponent implements OnInit {
       this.course.questions[7].questionAnswers[0].isRight = true;
         // eighth question
       // questions
-
-
-      this.dataService.setDemo(this.course);
-
-
     } else {
       this.isDemo = false;
       this.course = new AddCourse();

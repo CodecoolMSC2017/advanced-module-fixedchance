@@ -1,0 +1,47 @@
+<header id="top-bar">
+  <ul>
+    <li class="toleft"><img id="logoimg" src="assets/logo.png" />
+    <li class="toleft" id="logo">FIXEDCHANCE</li>
+    <li class="toleft"><a routerLink="../home">DASHBOARD</a></li>
+    <li class="toright"><a (click)="onLogoutClick()">LOGOUT</a></li>
+    <li class="toright"><a routerLink="../profile">PROFILE</a></li>
+  </ul>
+</header>
+
+<div id="bck"></div>
+
+<div id="main-content">
+  <div id="title-div">
+    <h1 id="title">USERS</h1>
+  </div>
+  
+  <hr>
+  
+  <div *ngIf="contentLoaded" id="users-div">
+    <input [(ngModel)]="toSearch" placeholder="SEARCH" (keyup)="onSearch()"/><br>
+    <table>
+      <tr>
+        <th (click)="onReorder($event)" id="userName">USERNAME</th>
+        <th (click)="onReorder($event)" id="level">LEVEL</th>
+        <th (click)="onReorder($event)" id="regDate">MEMBER SINCE</th>
+        <th (click)="onReorder($event)" id="role">ROLE</th>
+      </tr>
+      <tr *ngFor="let userEntry of usersProto">
+        <td class="name-td" id="{{ userEntry.userName }}" (click)="onUserClicked($event)">{{ userEntry.userName }}</td>
+        <td> 
+          <circle-progress
+          [radius]="26"
+          [innerStrokeWidth]="8"
+          [outerStrokeWidth]="11"
+          [percent]="userEntry.percentage"
+          [title]="userEntry.level"
+          [titleFontSize]="30"
+          [showSubtitle]="false">
+          </circle-progress>
+        </td>
+        <td>{{ userEntry.regDate }}</td>
+        <td>{{ userEntry.role }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

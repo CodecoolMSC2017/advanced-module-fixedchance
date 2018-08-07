@@ -1,0 +1,30 @@
+<header id="top-bar">
+    <ul>
+      <li class="toleft"><img id="logoimg" src="assets/logo.png" />
+      <li class="toleft" id="logo">FIXEDCHANCE</li>
+      <li class="toleft"><a routerLink="../../home">DASHBOARD</a></li>
+      <li class="toright"><a (click)="onLogoutClick()">LOGOUT</a></li>
+      <li class="toright"><a routerLink="../../profile">PROFILE</a></li>
+    </ul>
+  </header>
+  
+  <div id="bck"></div>
+  
+  <div id="main-content">
+    <div id="user-div" *ngIf="contentLoaded">
+      <span class="label">ID:</span> <span class="value">{{ dispUser.id }}</span><br>
+      <span class="label">USERNAME:</span> <span class="value">{{ dispUser.userName }}</span><br>
+      <span class="label">EXPERIENCE:</span> <span class="value">{{ dispUser.experience }}</span><br>
+      <span class="label">REG-DATE:</span> <span class="value">{{ dispUser.regDate }}</span><br>
+      <span class="label">LEVEL:</span> <span class="value">{{ dispUser.level }}</span><br>
+      <span class="label">ROLE:</span> <span class="value">{{ dispUser.role }}</span><br>
+      <hr>
+      <div id="courses-div">
+        <h2 *ngIf="dispUser.role === 'TEACHER'">COURSES MADE BY {{ dispUser.userName | uppercase }}</h2>
+        <h2 *ngIf="dispUser.role === 'STUDENT'">COURSES PURCHASED BY {{ dispUser.userName | uppercase }}</h2>
+        <div *ngFor="let course of courses">
+          {{ course.name }}
+        </div>
+      </div>
+    </div>
+  </div>

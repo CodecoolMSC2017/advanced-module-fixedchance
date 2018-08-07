@@ -12,6 +12,8 @@ import { CoursesComponent } from './courses/courses.component';
 import { CourseComponent } from './course/course.component';
 import { CourseExamComponent } from './course-exam/course-exam.component';
 import { CourseCheckoutComponent } from './course-checkout/course-checkout.component';
+import { UsersComponent } from './users/users.component';
+import { GuestProfileComponent } from './guest-profile/guest-profile.component';
 
 const routes: Routes = [
   {
@@ -61,6 +63,14 @@ const routes: Routes = [
     path: 'course-checkout',
     component: CourseCheckoutComponent,
     canActivate: [LoginGuard],
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+  },
+  {
+    path: 'users/:id',
+    component: GuestProfileComponent,
   },
   {
     path: '**',

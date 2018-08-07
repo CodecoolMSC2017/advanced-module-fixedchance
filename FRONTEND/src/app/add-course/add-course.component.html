@@ -35,7 +35,7 @@
           <span id="{{ topic }}" style="width: 100%; height: 100%">{{ topic }}</span>
         </span>
       </div>
-      <input id="topic-input" *ngIf="topics.length <= 10" type="text" (keydown)="topicKey($event)" [(ngModel)]="currentTopic" name="topic" maxlength="12">
+      <input id="topic-input" *ngIf="topics.length <= 10" type="text" (keyup)="topicKey($event)" [(ngModel)]="currentTopic" name="topic" maxlength="12">
       <!-- TOPICS -->
 
       <hr>

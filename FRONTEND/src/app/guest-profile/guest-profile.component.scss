@@ -1,0 +1,24 @@
+#main-content {
+    position: relative;
+    padding-top: 32px;
+}
+
+#user-div {
+    width: 70%;
+    border-radius: 10px;
+    border: 1px solid orange;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, .6);
+    text-align: center;
+    padding: 24px;
+
+    span.label {
+        float: left;
+    }
+
+    span.value {
+        float: right;
+    }
+}

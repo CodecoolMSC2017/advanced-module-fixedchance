@@ -6,6 +6,7 @@ import { Post } from './post';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AddCourse } from './add-course';
+import { UserEntry } from './user-entry';
 
 @Injectable({
   providedIn: 'root'
@@ -54,11 +55,11 @@ export class DataService {
     return this.http.get<Course[]>("/api/courses/" + id + "/courses");
   }
 
-  setDemo(course) {
-    this.demoCourse = course;
+  fetchUsers() : Observable<UserEntry[]> {
+    return this.http.get<UserEntry[]>("/api/all-users");
   }
 
-  getDemo() {
-    return this.demoCourse;
+  getGuestUser(username) : Observable<UserEntry> {
+    return this.http.get<UserEntry>("/api/users/" + username);
   }
 }
