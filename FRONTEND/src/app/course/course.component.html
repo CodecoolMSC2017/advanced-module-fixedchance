@@ -111,7 +111,7 @@
       <div id="pay-for-course">
         <h2>There are {{ course.videos.length - 2 }} videos and {{ course.questions.length }} questions left<br>
           in this course for you.</h2><br>
-          <h1>{{ coursePrice }}$</h1>
+          <h1>{{ coursePrice | number }}$</h1>
           <button id="checkout-button" (click)="onCheckout()">CHECKOUT</button>
         </div>
       </div>

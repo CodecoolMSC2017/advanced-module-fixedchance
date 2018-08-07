@@ -130,6 +130,8 @@ export class AddCourseComponent implements OnInit {
   }
     
   demoMode() {
+    this.course = new AddCourse();
+
     if (!this.isDemo) {
       this.isDemo = true;
       this.course.courseName = 'PostgreSQL Best Practices';
