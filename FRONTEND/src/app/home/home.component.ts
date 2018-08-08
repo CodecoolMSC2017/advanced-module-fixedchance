@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   post: Post;
   show : boolean = false;
   contentLoaded : boolean = false;
+  toSearch : string;
 
   ngOnInit() {
     this.authService.getAuth().subscribe(resp => {
@@ -49,20 +50,24 @@ export class HomeComponent implements OnInit {
 
   onSearchClick() {
     this.searchedPosts = [];
-    if(this.chosen.toUpperCase() === ''){
+    if (this.toSearch.toUpperCase() === '' || this.toSearch == undefined) {
       this.searchedPosts = this.posts;
-    }
-    else{
-      for(let i = 0; i < this.posts.length; i++) {
-        if(this.posts[i].postTopic === this.chosen.toUpperCase()){
-          this.searchedPosts.push(this.posts[i])
+    } else {
+      this.posts.forEach(element => {
+        if (element.postTopic.indexOf(this.toSearch.toUpperCase()) !== -1) {
+          this.searchedPosts.push(element);
         }
-      } 
-    }   
+      });
+    }
   }
 
-  onShareClick() {
-    
+  onUserClicked(event) {
+    let userName = event.target.id;
+    if (userName == this.user.username) {
+      this.router.navigate(['profile']);
+    } else {
+      this.router.navigate(['users/'+userName]);
+    }
   }
 
   addItem() {
