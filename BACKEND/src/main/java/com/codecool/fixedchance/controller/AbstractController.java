@@ -40,4 +40,7 @@ public class AbstractController {
 
     @Autowired
     PostService postService;
+
+    @Autowired
+    SimpleUserService simpleUserService;
 }
