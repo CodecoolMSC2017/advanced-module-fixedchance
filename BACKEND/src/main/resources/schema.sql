@@ -1,16 +1,21 @@
+DROP TABLE IF EXISTS comment_answers;
+DROP TABLE IF EXISTS post_comments;
+DROP TABLE IF EXISTS post_topics;
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS course_topics;
 DROP TABLE IF EXISTS course_reviews;
 DROP TABLE IF EXISTS schedules;
 DROP TABLE IF EXISTS advertisements;
+DROP TABLE IF EXISTS student_answers;
 DROP TABLE IF EXISTS course_answers;
 DROP TABLE IF EXISTS course_questions;
-DROP TYPE IF EXISTS question_types;
 DROP TABLE IF EXISTS course_videos;
 DROP TABLE IF EXISTS course_student;
 DROP TABLE IF EXISTS courses;
 DROP TABLE IF EXISTS company_authorities;
 DROP TABLE IF EXISTS companies;
+DROP TABLE IF EXISTS student_teacher_reviews;
+DROP TABLE IF EXISTS teacher_student_reviews;
 DROP TABLE IF EXISTS authorities;
 DROP TABLE IF EXISTS simple_users;
 DROP TABLE IF EXISTS users;
@@ -44,6 +49,32 @@ CREATE TABLE authorities (
     authority TEXT NOT NULL,
     FOREIGN KEY (username) REFERENCES users(username),
     UNIQUE (username, authority)
+);
+
+CREATE TABLE teacher_student_reviews (
+    id SERIAL PRIMARY KEY,
+    teacher_id INTEGER NOT NULL,
+    student_id INTEGER NOT NULL,
+    motivation INTEGER NOT NULL,
+    communication INTEGER NOT NULL,
+    attitude INTEGER NOT NULL,
+    description TEXT NOT NULL,
+    date DATE NOT NULL,
+    FOREIGN KEY (teacher_id) REFERENCES users(id),
+    FOREIGN KEY (student_id) REFERENCES users(id)
+);
+
+CREATE TABLE student_teacher_reviews (
+    id SERIAL PRIMARY KEY,
+    student_id INTEGER NOT NULL,
+    teacher_id INTEGER NOT NULL,
+    knowledge INTEGER NOT NULL,
+    clarity INTEGER NOT NULL,
+    friendliness INTEGER NOT NULL,
+    description TEXT NOT NULL,
+    date DATE NOT NULL,
+    FOREIGN KEY (student_id) REFERENCES users(id),
+    FOREIGN KEY (teacher_id) REFERENCES users(id)
 );
 
 CREATE TABLE companies (
@@ -103,8 +134,22 @@ CREATE TABLE course_answers (
 	answer TEXT NOT NULL,
 	question_id INTEGER NOT NULL,
 	is_right BOOLEAN NOT NULL,
+    experience INTEGER NOT NULL,
 	FOREIGN KEY (question_id) REFERENCES course_questions(id),
 	CONSTRAINT answer_not_empty CHECK (answer <> '')
+);
+
+CREATE TABLE student_answers (
+    id SERIAL PRIMARY KEY,
+    student_id INTEGER NOT NULL,
+    course_id INTEGER NOT NULL,
+    question_id INTEGER NOT NULL,
+    answer_id INTEGER NOT NULL,
+    wa_answer TEXT NOT NULL,
+    FOREIGN KEY (student_id) REFERENCES users(id),
+    FOREIGN KEY (course_id) REFERENCES courses(id),
+    FOREIGN KEY (question_id) REFERENCES course_questions(id),
+    FOREIGN KEY (answer_id) REFERENCES course_answers(id)
 );
 
 CREATE TABLE advertisements (
@@ -149,5 +194,27 @@ CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     user_name TEXT NOT NULL,
     post_content TEXT NOT NULL,
-    post_topic TEXT NOT NULL
+    rating INTEGER DEFAULT 0
+);
+
+CREATE TABLE post_topics (
+    id SERIAL PRIMARY KEY,
+    post_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    FOREIGN KEY (post_id) REFERENCES posts(id)
+);
+
+CREATE TABLE post_comments (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    comment_text TEXT NOT NULL,
+    rating INTEGER DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE comment_answers (
+    id SERIAL PRIMARY KEY,
+    comment_id INTEGER NOT NULL,
+    answer_text TEXT NOT NULL,
+    FOREIGN KEY (comment_id) REFERENCES post_comments(id)
 );
