@@ -14,20 +14,20 @@ import { AuthService } from '../auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private http : HttpClient, private route: ActivatedRoute, private router: Router, public dataService : DataService, private authService : AuthService) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, public dataService: DataService, private authService: AuthService) { }
 
   chosen: string = this.chosen;
-  user : User;
-  postContent : string = this.postContent;
-  userName:string = this.userName;
-  postedContent :string = this.postedContent;
+  user: User;
+  postContent: string = this.postContent;
+  userName: string = this.userName;
+  postedContent: string = this.postedContent;
   postTopic: string = this.postTopic;
   posts = [];
   searchedPosts = [];
   post: Post;
-  show : boolean = false;
-  contentLoaded : boolean = false;
-  toSearch : string;
+  show: boolean;
+  contentLoaded: boolean;
+  toSearch: string;
 
   ngOnInit() {
     this.authService.getAuth().subscribe(resp => {
@@ -38,19 +38,19 @@ export class HomeComponent implements OnInit {
   }
 
   fetchPosts() {
-    this.http.get<Post[]>("/api/posts").subscribe(posts => {
+    this.http.get<Post[]>('/api/posts').subscribe(posts => {
       this.posts = posts;
       this.searchedPosts = posts;
-    });    
+    });
   }
 
   onLogOutClick() {
-    this.router.navigate(['']);
+    this.authService.deleteAuth();
   }
 
   onSearchClick() {
     this.searchedPosts = [];
-    if (this.toSearch.toUpperCase() === '' || this.toSearch == undefined) {
+    if (this.toSearch.toUpperCase() === '' || this.toSearch === undefined) {
       this.searchedPosts = this.posts;
     } else {
       this.posts.forEach(element => {
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
     if (userName == this.user.username) {
       this.router.navigate(['profile']);
     } else {
-      this.router.navigate(['users/'+userName]);
+      this.router.navigate(['users/' + userName]);
     }
   }
 
@@ -79,11 +79,12 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  sendPost() : Observable<Post> {
-    return this.http.post<Post>("/api/posts", {"userName": this.user.username, "postContent": this.postContent, "postTopic": this.postTopic.toUpperCase()});
+  sendPost(): Observable<Post> {
+    return this.http.post<Post>("/api/posts", {
+      'userName': this.user.username, 'postContent': this.postContent, 'postTopic': this.postTopic.toUpperCase() });
   }
 
   removeItem(i) {
-    this.http.delete<void>('/api/posts/'+i).subscribe(resp => {this.fetchPosts()});
+    this.http.delete<void>('/api/posts/' + i).subscribe(resp => { this.fetchPosts() });
   }
 }

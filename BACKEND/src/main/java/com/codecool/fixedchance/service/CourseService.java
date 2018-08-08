@@ -1,6 +1,7 @@
 package com.codecool.fixedchance.service;
 
 import com.codecool.fixedchance.domain.Course;
+import com.codecool.fixedchance.domain.SimpleUser;
 import com.codecool.fixedchance.domain.User;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,7 @@ public final class CourseService extends AbstractService {
     public Course getOne(int id) { return courseRepository.getOne(id); }
 
     public void add(Integer teacherId, Course course) {
-        User teacher = userRepository.getOne(teacherId);
+        SimpleUser teacher = simpleUserRepository.getOne(teacherId);
         course.setTeacher(teacher);
         courseRepository.save(course);
     }
@@ -32,7 +33,7 @@ public final class CourseService extends AbstractService {
     }
 
     public List<Course> findByTeacher(Integer teacherId) {
-        User teacher = userRepository.getOne(teacherId);
+        SimpleUser teacher = simpleUserRepository.findByUserId(teacherId);
         return courseRepository.findByTeacher(teacher);
     }
 

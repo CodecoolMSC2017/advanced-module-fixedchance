@@ -5,20 +5,20 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss',
-              './main.component.anim.scss']
+    './main.component.anim.scss']
 })
 export class MainComponent implements OnInit {
 
-  isSignIn : boolean = false;
-  isSignUp : boolean = false;
-  selectedRole : string;
-  prevSelectedRole : Element;
+  isSignIn: boolean;
+  isSignUp: boolean;
+  selectedRole: string;
+  prevSelectedRole: Element;
 
-  isStudentOverView : boolean;
-  isTeacherOverView : boolean;
-  isCompanyOverView : boolean;
+  isStudentOverView: boolean;
+  isTeacherOverView: boolean;
+  isCompanyOverView: boolean;
 
-  
+
 
   constructor() { }
 
@@ -49,11 +49,11 @@ export class MainComponent implements OnInit {
   }
 
   onEntryHover(event) {
-    const studentElement : HTMLElement = document.getElementById('student-overview');
-    const teacherElement : HTMLElement = document.getElementById('teacher-overview');
-    const companyElement : HTMLElement = document.getElementById('company-overview');
+    const studentElement: HTMLElement = document.getElementById('student-overview');
+    const teacherElement: HTMLElement = document.getElementById('teacher-overview');
+    const companyElement: HTMLElement = document.getElementById('company-overview');
     event.target.classList.add('overhover');
-    
+
     switch (event.target.id) {
       case 'student-overview':
         this.isStudentOverView = true;
@@ -80,9 +80,9 @@ export class MainComponent implements OnInit {
   }
 
   onEntryLeave(event) {
-    const studentElement : HTMLElement = document.getElementById('student-overview');
-    const teacherElement : HTMLElement = document.getElementById('teacher-overview');
-    const companyElement : HTMLElement = document.getElementById('company-overview');
+    const studentElement: HTMLElement = document.getElementById('student-overview');
+    const teacherElement: HTMLElement = document.getElementById('teacher-overview');
+    const companyElement: HTMLElement = document.getElementById('company-overview');
     event.target.classList.remove('overhover');
 
     switch (event.target.id) {

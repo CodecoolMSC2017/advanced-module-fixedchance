@@ -13,6 +13,7 @@ export class User {
     password: string;
     enabled: boolean;
     authorities: String[];
-    courses : Course[];
+    courses: Course[];
     registrationDate: number;
+    user: User;
 }

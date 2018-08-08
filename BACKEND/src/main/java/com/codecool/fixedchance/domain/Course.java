@@ -20,7 +20,7 @@ public class Course extends AbstractModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "teacherId")
     @NotNull
-    private User teacher;
+    private SimpleUser teacher;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "course_student",
@@ -68,7 +68,7 @@ public class Course extends AbstractModel {
         return students;
     }
 
-    public User getTeacher() {
+    public SimpleUser getTeacher() {
         return teacher;
     }
 
@@ -101,7 +101,7 @@ public class Course extends AbstractModel {
         this.students = students;
     }
 
-    public void setTeacher(User teacher) {
+    public void setTeacher(SimpleUser teacher) {
         this.teacher = teacher;
     }
 

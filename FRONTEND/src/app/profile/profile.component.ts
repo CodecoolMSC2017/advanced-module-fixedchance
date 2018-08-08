@@ -14,38 +14,38 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProfileComponent implements OnInit {
 
-  userLevel : number = 0;
-  currentExp : number;
-  expToNextLevel : number;
-  user : User;
-  percentage : number;
+  userLevel: number = 0;
+  currentExp: number;
+  expToNextLevel: number;
+  user: User;
+  percentage: number;
   // stores the date in the right format (yyyy-MM-dd)
-  userBirthDate : string;
-  xpNum : number;
-  showCourse : boolean;
-  courses : Course[];
-  contentLoaded : boolean = false;
+  userBirthDate: string;
+  xpNum: number;
+  showCourse: boolean;
+  courses: Course[];
+  contentLoaded: boolean;
 
-  courseEntries : Array<String>;
+  courseEntries: Array<String>;
 
-  constructor(private http : HttpClient, private authService : AuthService, private dataService: DataService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe) { }
+  constructor(private http: HttpClient, private authService: AuthService, private dataService: DataService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe) { }
 
   ngOnInit() {
-    
+
     this.authService.getAuth().subscribe(resp => {
       this.user = resp;
-      if (this.user.authorities[0] === 'ROLE_TEACHER') {
-       this.dataService.fetchTeacherCourses(this.user.id).subscribe(response => {
+      if (this.user.user.authorities[0] === 'ROLE_TEACHER') {
+        this.dataService.fetchTeacherCourses(this.user.id).subscribe(response => {
           this.courses = response;
         });
-      } else if (this.user.authorities[0] === 'ROLE_STUDENT') {
+      } else if (this.user.user.authorities[0] === 'ROLE_STUDENT') {
         this.dataService.fetchStudentCourses(this.user.id).subscribe(response => {
           this.courses = response;
         });
       }
       // convert date to the right format
-      this.userBirthDate = this.datePipe.transform(this.user.birthDate,"yyyy-MM-dd");
-        
+      this.userBirthDate = this.datePipe.transform(this.user.birthDate, 'yyyy-MM-dd');
+
       // xp calculations
       this.calculateXp();
       this.contentLoaded = true;
@@ -60,9 +60,9 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['courses/' + event.target.id]);
   }
 
-  findCourseById(id) : Course {
+  findCourseById(id): Course {
     for (let i = 0; i < this.courses.length; i++) {
-      if (this.courses[i].id == id) {
+      if (this.courses[i].id === id) {
         return this.courses[i];
       }
     }
@@ -70,7 +70,7 @@ export class ProfileComponent implements OnInit {
 
   // the user can add courses if role is teacher or admin
   isValid() {
-    if (this.user.role == 'TEACHER' || this.user.role == 'ADMIN') {
+    if (this.user.role === 'TEACHER' || this.user.role === 'ADMIN') {
       return true;
     } else {
       return false;
@@ -102,18 +102,18 @@ export class ProfileComponent implements OnInit {
     this.showCourse = true;
     switch (event.target.id) {
       case 'programming':
-      this.courseEntries = ["Python for dummies", "Python from zero to hero", "Python advanced", "Python master", "Python for web developers",
-      "Java for dummies", "Java from zero to hero", "Java advanced", "Java master", "Java for web developers"];
-      break;
+        this.courseEntries = ['Python for dummies', 'Python from zero to hero', 'Python advanced', 'Python master','Python for web developers',
+        'Java for dummies', 'Java from zero to hero', 'Java advanced', 'Java master', 'Java for web developers'];
+        break;
       case 'videos':
-      this.courseEntries = ["Fiery effect tutorial", "Manipulate sound effects", "Special effects", "CGI tutorial"];
-      break;
+        this.courseEntries = ['Fiery effect tutorial', 'Manipulate sound effects', 'Special effects', 'CGI tutorial'];
+        break;
       case 'photos':
-      this.courseEntries = ["All about exposure", "How to change hair color", "3D effect for text tutorial", "Masking for dummies"];
-      break;
+        this.courseEntries = ['All about exposure', 'How to change hair color', '3D effect for text tutorial', 'Masking for dummies'];
+        break;
       case 'softs':
-      this.courseEntries = ["A way to successful job interviews", "HR questions and answers", "You can be charismatic as well!"];
-      break;
+        this.courseEntries = ['A way to successful job interviews', 'HR questions and answers', 'You can be charismatic as well!'];
+        break;
     }
   }
 
@@ -121,8 +121,8 @@ export class ProfileComponent implements OnInit {
     this.showCourse = false;
   }
 
-  getExp() : string {
-    return this.currentExp + " / " + this.expToNextLevel;
+  getExp(): string {
+    return this.currentExp + ' / ' + this.expToNextLevel;
 
   }
 

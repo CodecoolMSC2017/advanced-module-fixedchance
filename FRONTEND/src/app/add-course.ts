@@ -3,10 +3,10 @@ import { AddQuestion } from './add-question';
 
 export class AddCourse {
 
-    courseName : string;
-    topics : string[] = [];
-    videos : AddVideo[] = [];
-    questions : AddQuestion[] = [];
+    courseName: string;
+    topics: string[] = [];
+    videos: AddVideo[] = [];
+    questions: AddQuestion[] = [];
 
     constructor() {
         for (let i = 0; i < 3; i++) {

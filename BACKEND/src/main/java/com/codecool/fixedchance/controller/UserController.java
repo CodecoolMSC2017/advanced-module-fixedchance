@@ -4,13 +4,11 @@ import com.codecool.fixedchance.domain.Company;
 import com.codecool.fixedchance.domain.SimpleUser;
 import com.codecool.fixedchance.domain.User;
 import com.codecool.fixedchance.domain.UserDTO;
-import com.codecool.fixedchance.service.SimpleUserService;
 import com.google.api.client.googleapis.auth.oauth2.*;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
@@ -23,9 +21,6 @@ import java.util.*;
 
 @RestController
 public class UserController extends AbstractController {
-
-    @Autowired
-    private SimpleUserService simpleUserService;
 
     @RequestMapping(path = "/login/{id}",
             method = RequestMethod.GET,
