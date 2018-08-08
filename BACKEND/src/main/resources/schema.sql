@@ -12,24 +12,31 @@ DROP TABLE IF EXISTS courses;
 DROP TABLE IF EXISTS company_authorities;
 DROP TABLE IF EXISTS companies;
 DROP TABLE IF EXISTS authorities;
+DROP TABLE IF EXISTS simple_users;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
 	id SERIAL PRIMARY KEY,
 	username TEXT NOT NULL UNIQUE,
+	password TEXT NOT NULL,
+	enabled BOOLEAN NOT NULL,
+	CONSTRAINT password_not_empty CHECK (password <> '')
+);
+
+CREATE TABLE simple_users (
+	id SERIAL PRIMARY KEY,
+	user_id INTEGER NOT NULL,
 	email TEXT UNIQUE, -- NOT NULL
 	first_name TEXT, -- NOT NULL
 	last_name TEXT, -- NOT NULL
 	birth_date DATE, -- NOT NULL
 	registration_date DATE, -- NOT NULL
 	experience INTEGER NOT NULL DEFAULT '0',
-	password TEXT NOT NULL,
-	enabled BOOLEAN NOT NULL,
 	description TEXT,
+	FOREIGN KEY(user_id) REFERENCES users(id),
 	CONSTRAINT email_not_empty CHECK (email <> ''),
 	CONSTRAINT firstname_not_empty CHECK (first_name <> ''),
-	CONSTRAINT lastname_not_empty CHECK (last_name <> ''),
-	CONSTRAINT password_not_empty CHECK (password <> '')
+	CONSTRAINT lastname_not_empty CHECK (last_name <> '')
 );
 
 CREATE TABLE authorities (
@@ -39,32 +46,20 @@ CREATE TABLE authorities (
     UNIQUE (username, authority)
 );
 
-
 CREATE TABLE companies (
-	id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY NOT NULL,
+	user_id INTEGER NOT NULL,
 	name TEXT NOT NULL UNIQUE,
-	username TEXT NOT NULL UNIQUE,
 	registration_date DATE NOT NULL,
 	email TEXT NOT NULL UNIQUE,
-	password TEXT NOT NULL,
 	active BOOLEAN NOT NULL DEFAULT 'false',
 	subscription TEXT NOT NULL,
 	payment_date DATE,
 	description TEXT,
-	enabled BOOLEAN NOT NULL,
+	FOREIGN KEY(user_id) REFERENCES users(id),
 	CONSTRAINT name_not_empty CHECK (name <> ''),
-	CONSTRAINT password_not_empty CHECK (password <> ''),
 	CONSTRAINT email_not_empty CHECK (email <> '')
 );
-
-CREATE TABLE company_authorities (
-    username TEXT NOT NULL,
-    authority TEXT NOT NULL DEFAULT 'ROLE_COMPANY',
-    FOREIGN KEY (username) REFERENCES companies(username),
-    UNIQUE (username, authority)
-);
-
-
 
 CREATE TABLE courses (
 	id SERIAL PRIMARY KEY,
@@ -103,8 +98,6 @@ CREATE TABLE course_questions (
 	CONSTRAINT question_not_empty CHECK (question <> '')
 );
 
-
-
 CREATE TABLE course_answers (
 	id SERIAL PRIMARY KEY,
 	answer TEXT NOT NULL,
@@ -113,8 +106,6 @@ CREATE TABLE course_answers (
 	FOREIGN KEY (question_id) REFERENCES course_questions(id),
 	CONSTRAINT answer_not_empty CHECK (answer <> '')
 );
-
-
 
 CREATE TABLE advertisements (
 	id SERIAL PRIMARY KEY,
@@ -126,8 +117,6 @@ CREATE TABLE advertisements (
 	CONSTRAINT description_not_empty CHECK (description <> '')
 );
 
-
-
 CREATE TABLE schedules (
 	id SERIAL PRIMARY KEY,
 	teacher_id INTEGER NOT NULL,
@@ -137,8 +126,6 @@ CREATE TABLE schedules (
 	FOREIGN KEY (teacher_id) REFERENCES users(id),
 	FOREIGN KEY (student_id) REFERENCES users(id)
 );
-
-
 
 CREATE TABLE course_reviews (
 	id SERIAL PRIMARY KEY,

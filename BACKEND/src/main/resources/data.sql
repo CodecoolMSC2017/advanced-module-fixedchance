@@ -1,13 +1,26 @@
-INSERT INTO users (username, email, first_name, last_name, birth_date, registration_date, password, enabled) VALUES
-    ('matteo', 'matteo@gmail.com', 'Máté', 'Hricz', '1993-04-26', '2018-07-02', '$2a$04$rQEGRkmhYgiVz8n6cwM00OSei7zr3c1AdpGDhTqfn2x5It3rC/uTy', true), --1
-    ('balint', 'balint@gmail.com', 'Bálint', 'Csizmadia', '1988-03-16', '2018-07-02', '$2a$04$pxPucsFlobeOrZSqbFdgx.8Mn5PhJX6apJzuBI5VElimJHRcgzTEq', true), --2
-    ('csanad', 'csanad@gmail.com', 'Csanád', 'Hegedűs', '1996-11-12', '2018-07-02', '$2a$04$uUK5k5HofChxb2/xYZ/Yoema6Py0Rw6pWn8SOynvKImyUPWGW7yK6', true), --3
-    ('uszkai', 'uszkai@gmail.com', 'Dávid', 'Uszkai', '1987-02-17', '2018-07-10', '$2a$04$Psu.WEJiSQ0qX9O4QLe4uOYyQqXP7xII7TGgg9pC0RYglZzwu3Q.y', true), --4
-    ('norbi', 'norbi@gmail.com', 'Norbert', 'Csecskedy', '1986-04-11', '2018-07-16', '$2a$04$/xXRsGXGE/sU7swhtDmyq.kCTDyicJHIBQl7M3YmFHLHmtOAZUSXS', true); --5
+INSERT INTO users (username, password, enabled) VALUES
+    ('matteo', '$2a$04$rQEGRkmhYgiVz8n6cwM00OSei7zr3c1AdpGDhTqfn2x5It3rC/uTy', true), --1
+    ('balint', '$2a$04$pxPucsFlobeOrZSqbFdgx.8Mn5PhJX6apJzuBI5VElimJHRcgzTEq', true), --2
+    ('csanad', '$2a$04$uUK5k5HofChxb2/xYZ/Yoema6Py0Rw6pWn8SOynvKImyUPWGW7yK6', true), --3
+    ('uszkai', '$2a$04$Psu.WEJiSQ0qX9O4QLe4uOYyQqXP7xII7TGgg9pC0RYglZzwu3Q.y', true), --4
+    ('norbi', '$2a$04$/xXRsGXGE/sU7swhtDmyq.kCTDyicJHIBQl7M3YmFHLHmtOAZUSXS', true); --5
 
-INSERT INTO users (username, email, first_name, last_name, birth_date, registration_date, experience, password, enabled) VALUES
-    ('kohrobi', 'kohrobi@gmail.com', 'Róbert', 'Kohányi', '1987-06-18', '2018-07-21', '7821', '$2a$04$sSneTQcV4U1Bv1CTpdFcEeL79ObP/Dwci.o3NwXUTiVuTDnYzZemq', true), --6
-    ('pakkko', 'pakkko@gmail.com', 'Pál', 'Monoczki', '1982-02-20', '2018-08-03', '6492', '$2a$04$/HUPO77ug5EIJkJCSfpzhOG8XDNip9m4kb61Nu9TYSzv2OILEjPXq', true);  --7
+INSERT INTO users (username, password, enabled) VALUES
+    ('kohrobi', '$2a$04$sSneTQcV4U1Bv1CTpdFcEeL79ObP/Dwci.o3NwXUTiVuTDnYzZemq', true), --6
+    ('pakkko', '$2a$04$/HUPO77ug5EIJkJCSfpzhOG8XDNip9m4kb61Nu9TYSzv2OILEjPXq', true),  --7
+    ('hitachi', '$2a$04$rAIJdDCU/721uR2uzYCb3ezLBMLpq1qoyc26OM.MGBINLIiLeC8MG', true), -- '12month', '2018-07-16', true), --1
+    ('intel', '$2a$04$rZUQN6w4n5F.fEHtYbAvI.Ufclo8mPPc7Y1fmTLWB8/OW1UpM2LGm', true);--'6month', '2018-07-29', true); --2
+
+INSERT INTO simple_users (user_id, email, first_name, last_name, birth_date, registration_date, experience) VALUES
+    (1, 'matteo@gmail.com', 'Máté', 'Hricz', '1993-04-26', '2018-07-02', '100000'), --1
+    (2, 'balint@gmail.com', 'Bálint', 'Csizmadia', '1988-03-16', '2018-07-02', '100000'), --2
+    (3, 'csanad@gmail.com', 'Csanád', 'Hegedűs', '1996-11-12', '2018-07-02', '100000'), --3
+    (4, 'uszkai@gmail.com', 'Dávid', 'Uszkai', '1987-02-17', '2018-07-10', '12000'), --4
+    (5, 'norbi@gmail.com', 'Norbert', 'Csecskedy', '1986-04-11', '2018-07-16', '12450'); --5
+
+INSERT INTO simple_users (user_id, email, first_name, last_name, birth_date, registration_date, experience) VALUES
+    (6, 'kohrobi@gmail.com', 'Róbert', 'Kohányi', '1987-06-18', '2018-07-21', '17203'), --6
+    (7, 'pakkko@gmail.com', 'Pál', 'Monoczki', '1982-02-20', '2018-08-03', '18123');  --7
 
 INSERT INTO authorities (username, authority) VALUES
     ('matteo', 'ROLE_ADMIN'),
@@ -16,15 +29,14 @@ INSERT INTO authorities (username, authority) VALUES
     ('uszkai', 'ROLE_STUDENT'),
     ('norbi', 'ROLE_STUDENT'),
     ('kohrobi', 'ROLE_TEACHER'),
-    ('pakkko', 'ROLE_TEACHER');
+    ('pakkko', 'ROLE_TEACHER'),
+    ('hitachi', 'ROLE_COMPANY'),
+    ('intel', 'ROLE_COMPANY');
 
-INSERT INTO companies (name, username, registration_date, email, password, active, subscription, payment_date, enabled) VALUES
-    ('Hitachi', 'hitachi', '2018-07-16', 'support@hitachi.com', '$2a$04$rAIJdDCU/721uR2uzYCb3ezLBMLpq1qoyc26OM.MGBINLIiLeC8MG', true, '12month', '2018-07-16', true), --1
-    ('Intel', 'intel', '2018-07-26', 'info@intel.com', '$2a$04$rZUQN6w4n5F.fEHtYbAvI.Ufclo8mPPc7Y1fmTLWB8/OW1UpM2LGm', true, '6month', '2018-07-29', true); --2
+INSERT INTO companies (user_id, name, registration_date, email, active, subscription, payment_date) VALUES
+    (8, 'Hitachi', '2018-07-16', 'support@hitachi.com', true, '12month', '2018-07-16'), --1
+    (9, 'Intel', '2018-07-26', 'info@intel.com', true, '6month', '2018-07-29'); --2
 
-INSERT INTO company_authorities (username) VALUES
-    ('hitachi'),
-    ('intel');
 
 INSERT INTO advertisements (company_id, name, description) VALUES
     (1, 'BACKEND JAVA Developer needed ASAP', 'If you''re familiar with JAVA, this job is for you!'), --1
