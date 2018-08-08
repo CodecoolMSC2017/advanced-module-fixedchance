@@ -14,6 +14,7 @@ import { CourseExamComponent } from './course-exam/course-exam.component';
 import { CourseCheckoutComponent } from './course-checkout/course-checkout.component';
 import { UsersComponent } from './users/users.component';
 import { GuestProfileComponent } from './guest-profile/guest-profile.component';
+import { TeacherContentGuard } from './teacher-content.guard';
 
 const routes: Routes = [
   {
@@ -42,7 +43,7 @@ const routes: Routes = [
   {
     path: 'add-course',
     component: AddCourseComponent,
-    canActivate: [LoginGuard],
+    canActivate: [LoginGuard, TeacherContentGuard],
   },
   {
     path: 'courses',
