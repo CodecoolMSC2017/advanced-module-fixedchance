@@ -33,9 +33,9 @@
     </div>
       
     <div id="course-info-div">
-      <span id="course-name">{{ course.name | uppercase }}</span><br>
+      <div id="course-name">{{ course.name | uppercase }}</div>
       
-      <span id="rating">
+      <div id="rating">
         <ng-template #t let-fill="fill">
           <span class="star" [class.full]="fill === 100">
             <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
@@ -43,9 +43,9 @@
         </ng-template>
         
         <ngb-rating [(rate)]="courseRating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
-      </span>
+      </div>
         
-      <span *ngIf="courseRating > 0" id="course-rating"> {{ courseRating }} </span>
+      <div *ngIf="courseRating > 0" id="course-rating">{{ courseRating }}</div>
       
       <div class="stat" id="num-of-videos">Number of videos: {{ course.videos.length }}</div>
       <div class="stat" id="num-of-ratings">Number of ratings: {{ course.reviews.length }}</div>

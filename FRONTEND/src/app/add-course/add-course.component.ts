@@ -30,15 +30,15 @@ export class AddCourseComponent implements OnInit {
   ngOnInit() {
     this.http.get<User>("api/login/6").subscribe(resp => { 
       this.user = resp;
+      let experience = this.user.experience;
+      while (experience - 1200 - this.userLevel * 300 >= 0) {
+        experience -= 1200 + this.userLevel * 300;
+        this.userLevel++;
+      }
     });
   }
 
   ngDoCheck() {
-    let experience = this.user.experience;
-    while (experience - 1200 - this.userLevel * 300 >= 0) {
-      experience -= 1200 + this.userLevel * 300;
-      this.userLevel++;
-    }
     this.coursePrice = 5 + (0.6 * this.course.questions.length) + (0.5 * this.course.videos.length) + (0.3 * this.userLevel);
   }
   

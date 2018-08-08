@@ -54,12 +54,15 @@
     border: 1px solid orange;
     border-radius: 10px;
     text-align: center;
+    align-items: center;
 }
 
 #course-name {
     display: inline-grid;
     grid-row: 1;
-    grid-column: 2;
+    grid-column-start: 1;
+    grid-column-end: 4;
+
     font-size: 42px;
     text-align: center;
     margin: 0 auto;
