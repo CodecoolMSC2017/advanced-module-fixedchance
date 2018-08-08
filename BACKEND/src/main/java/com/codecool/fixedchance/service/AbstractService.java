@@ -41,4 +41,7 @@ class AbstractService {
     @Autowired
     PostRepository postRepository;
 
+    @Autowired
+    SimpleUserRepository simpleUserRepository;
+
 }
