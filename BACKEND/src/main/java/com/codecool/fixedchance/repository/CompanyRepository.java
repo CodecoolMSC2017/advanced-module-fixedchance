@@ -4,10 +4,14 @@ import com.codecool.fixedchance.domain.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
     Company findByEmail(String email);
 
-    Company findByUsername(String username);
+    Optional<Company> findById(Integer id);
+
+    Company findByUserId(Integer id);
 }
