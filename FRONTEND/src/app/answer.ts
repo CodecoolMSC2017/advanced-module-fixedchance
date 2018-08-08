@@ -1,5 +1,5 @@
 export class Answer {
-    id : number;
-    answer : string;
-    right : string;
+    id: number;
+    answer: string;
+    right: string;
 }

@@ -2,8 +2,8 @@
   <ul *ngIf="contentLoaded">
     <li class="toleft"><img id="logoimg" src="assets/logo.png" />
     <li class="toleft" id="logo">FIXEDCHANCE</li>
-    <li *ngIf="user.authorities[0] === 'ROLE_STUDENT'" class="toleft" ><a routerLink="../courses">COURSES</a></li>
-    <li *ngIf="user.authorities[0] === 'ROLE_TEACHER'" class="toleft" ><a routerLink="../add-course">ADD COURSE</a></li>
+    <li *ngIf="user.user.authorities[0] === 'ROLE_STUDENT'" class="toleft" ><a routerLink="../courses">COURSES</a></li>
+    <li *ngIf="user.user.authorities[0] === 'ROLE_TEACHER'" class="toleft" ><a routerLink="../add-course">ADD COURSE</a></li>
     <li class="toleft"><a routerLink="../users">USERS</a></li>
     <li class="toright"><a (click)="onLogOutClick()">LOGOUT</a></li>
     <li class="toright"><a routerLink="../profile">PROFILE</a></li>
@@ -17,7 +17,7 @@
 
     <!-- Current User Post Section -->
     <div class="item" data-aos="flip-up">
-      <h3>Hello {{ user.username }}, do you have anything to share?</h3>
+      <h3>Hello {{ user.user.username }}, do you have anything to share?</h3>
       <hr>
       <textarea type="text" [(ngModel)]="postContent" placeholder="Type your idea" name="content"></textarea><br>
       <input id="postTopicInp" type="text" placeholder="Topic" [(ngModel)]="postTopic" name="topic"><br>

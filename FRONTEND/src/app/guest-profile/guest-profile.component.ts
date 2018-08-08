@@ -13,17 +13,17 @@ import { DatePipe } from '@angular/common';
 })
 export class GuestProfileComponent implements OnInit {
 
-  dispUser : UserEntry;
-  courses : Course[];
-  contentLoaded : boolean = false;
+  dispUser: UserEntry;
+  courses: Course[];
+  contentLoaded: boolean = false;
 
-  constructor(private router : Router, private dataService : DataService, private route : ActivatedRoute, private authService : AuthService, private datePipe : DatePipe) { }
+  constructor(private router: Router, private dataService: DataService, private route: ActivatedRoute, private authService: AuthService, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.route.url.subscribe(username => {
       this.dataService.getGuestUser(username[1]).subscribe(user => {
         user.level = this.dataService.calculateLevel(user.experience);
-        user.regDate = this.datePipe.transform(user.registrationDate,"yyyy-MM-dd");
+        user.regDate = this.datePipe.transform(user.registrationDate, "yyyy-MM-dd");
         user.role = user.role.substring(5, user.role.length);
         this.dispUser = user;
         if (this.dispUser.role === 'STUDENT') {
@@ -36,7 +36,7 @@ export class GuestProfileComponent implements OnInit {
             this.courses = courses;
             this.contentLoaded = true;
           });
-        } 
+        }
       });
     });
   }
@@ -46,6 +46,6 @@ export class GuestProfileComponent implements OnInit {
   }
 
   onCourseClick(event) {
-    this.router.navigate(['../courses/'+event.target.id]);
+    this.router.navigate(['../courses/' + event.target.id]);
   }
 }

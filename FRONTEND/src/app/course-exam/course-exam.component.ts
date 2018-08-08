@@ -12,13 +12,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CourseExamComponent implements OnInit {
 
-  course : Course;
+  course: Course;
 
-  constructor(private http : HttpClient, private route : ActivatedRoute, private router : Router, private authService : AuthService, private dataService : DataService) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, private authService: AuthService, private dataService: DataService) { }
 
   ngOnInit() {
     this.route.url.subscribe(uri => {
-      this.http.get<Course>('/api/courses/'+uri[1].path).subscribe(resp => {
+      this.http.get<Course>('/api/courses/' + uri[1].path).subscribe(resp => {
         this.course = resp;
       });
     });

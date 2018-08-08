@@ -1,8 +1,8 @@
-import { User } from "./user";
+import { User } from './user';
 
 export class Review {
-    id : number;
-    student : User;
-    rating : number;
-    description : string;
+    id: number;
+    student: User;
+    rating: number;
+    description: string;
 }

@@ -5,15 +5,15 @@ import { Video } from './video';
 import { Topic } from './topic';
 
 export class Course {
-    id : number;
-    name : string;
-    questions : Question[];
-    reviews : Review[];
-    students : User[];
-    teacher : User;
-    validated : boolean;
-    videos : Video[];
-    topics : Topic[];
-    teacherLevel : number | null;
-    rating : number | null;
+    id: number;
+    name: string;
+    questions: Question[];
+    reviews: Review[];
+    students: User[];
+    teacher: User;
+    validated: boolean;
+    videos: Video[];
+    topics: Topic[];
+    teacherLevel: number | null;
+    rating: number | null;
 }

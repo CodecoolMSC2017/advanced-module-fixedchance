@@ -1,5 +1,5 @@
 export class AddAnswer {
 
-    answer : string;
-    isRight : boolean;
+    answer: string;
+    isRight: boolean;
 }
