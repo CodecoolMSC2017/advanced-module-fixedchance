@@ -14,7 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class CourseComponent implements OnInit {
 
-  courseRating : number;
+  courseRating : number = 0;
   course : Course;
   teacher: User;
   userLevel : number = 0;
@@ -36,10 +36,6 @@ export class CourseComponent implements OnInit {
       this.route.url.subscribe(courseId => {
         this.http.get<Course>("/api/courses/" + courseId[1].path).subscribe(course => { 
           this.course = course;
-          
-        console.log(course);
-        console.log(this.course);
-          
           
         for (let i = 0; i < this.course.videos.length; i++) {
           this.course.videos[i].video = this.transformUrl(this.course.videos[i].video);
@@ -83,6 +79,7 @@ export class CourseComponent implements OnInit {
       sumOfRatings += this.course.reviews[i].rating;
     }
     this.courseRating = sumOfRatings / this.course.reviews.length;
+    console.log(this.courseRating);
   }
 
   transformUrl(url) : string {

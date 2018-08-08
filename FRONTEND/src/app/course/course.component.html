@@ -33,9 +33,9 @@
     </div>
       
     <div id="course-info-div">
-      <span id="course-name">{{ course.name | uppercase }}</span><br>
+      <div id="course-name">{{ course.name | uppercase }}</div>
       
-      <span id="rating">
+      <div id="rating">
         <ng-template #t let-fill="fill">
           <span class="star" [class.full]="fill === 100">
             <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
@@ -43,9 +43,9 @@
         </ng-template>
         
         <ngb-rating [(rate)]="courseRating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
-      </span>
+      </div>
         
-      <span id="course-rating"> {{ courseRating }} </span>
+      <div *ngIf="courseRating > 0" id="course-rating">{{ courseRating }}</div>
       
       <div class="stat" id="num-of-videos">Number of videos: {{ course.videos.length }}</div>
       <div class="stat" id="num-of-ratings">Number of ratings: {{ course.reviews.length }}</div>
@@ -62,6 +62,7 @@
     <div id="reviews">
       <div id="review-title">
         <h1>REVIEWS</h1>
+        <h2 *ngIf="course.reviews.length == 0">There are no reviews for this course yet.</h2>
       </div>
       <div id="review" *ngFor="let review of course.reviews">
           <span id="review-student-name">{{ review.student.username }}</span><ngb-rating [(rate)]="review.rating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating><br>
@@ -103,7 +104,7 @@
     
     <div *ngIf="isAvailable == false">
       <div id="done-with-course">
-        <button id="proceed-button" routerLink="onExamClick()">SEE THE EXAM</button>
+        <button id="proceed-button" (click)="onExamClick()">SEE THE EXAM</button>
       </div>
     </div>
     

@@ -46,8 +46,7 @@ export class CourseCheckoutComponent implements OnInit {
       this.errormessage = 'Successful. Redirecting you to the course-page';
       this.http.post("api/course-student", { 'courseId' : this.course.id, 'studentId' : this.user.id })
       .subscribe((resp => {}));
-      setTimeout(() => {
-        this.router.navigate(['course'], { queryParams : { available : false } })}, 2000);
+      setTimeout(() => { this.router.navigate(['course']), 2000});
     } else {
       this.errormessage = 'Confirmation price must be equal or higher than minimum price';
     }

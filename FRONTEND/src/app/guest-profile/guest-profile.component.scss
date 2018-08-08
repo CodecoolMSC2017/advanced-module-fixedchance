@@ -22,3 +22,19 @@
         float: right;
     }
 }
+
+#courses-div {
+
+    .course-name {
+        text-align: left;
+        cursor: pointer;
+        margin-left: 50px;
+        font-size: 46px;
+        transition: all 0.2s ease-in-out;
+    }
+    
+    .course-name:hover {
+        color: orange;
+        transition: all 0.2s ease-in-out;
+    }
+}
