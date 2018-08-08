@@ -1,6 +1,8 @@
 package com.codecool.fixedchance.service;
 
+import com.codecool.fixedchance.domain.SimpleUser;
 import com.codecool.fixedchance.domain.User;
+import com.codecool.fixedchance.repository.SimpleUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,17 +34,12 @@ public  class UserService extends AbstractService {
         return userRepository.getOne(id);
     }
 
-    public User find(String email) {
-        return userRepository.findByEmail(email);
-    }
-
     public void add(User user) {
             userRepository.save(user);
     }
 
     @Transactional
-    public void add(String username, String email, String firstName, String lastName, String password,
-                    String confirmationPassword, String role, Date birthDate) {
+    public void add(String username, String password, String confirmationPassword, String role) {
         if (!password.equals(confirmationPassword)) {
             throw new IllegalArgumentException();
         }
@@ -51,12 +48,8 @@ public  class UserService extends AbstractService {
                 passwordEncoder.encode(password),
                 AuthorityUtils.createAuthorityList("ROLE_" + role)));
         User user = userRepository.findByUsername(username);
-        user.setEmail(email);
-        user.setFirstName(firstName);
-        user.setLastName((lastName));
-        user.setBirthDate(birthDate);
-        user.setRegistrationDate(new Date());
         user.setEnabled(true);
+        user.setAll(user);
         userRepository.save(user);
     }
 
