@@ -3,9 +3,7 @@ package com.codecool.fixedchance.domain;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,16 +13,10 @@ import java.util.Set;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User extends AbstractModel implements Serializable {
 
-    private Integer experience = 0;
-    private String email;
     private String username;
-    private String firstName;
-    private String lastName;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-    private String description;
-    private Date birthDate;
     private boolean enabled;
-    private Date registrationDate = new Date();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "teacher")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -50,8 +42,10 @@ public class User extends AbstractModel implements Serializable {
     private List<String> authorities;
 
     @JsonInclude()
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Transient
     private String confpassword;
+
 
     public User() {
     }
@@ -81,36 +75,8 @@ public class User extends AbstractModel implements Serializable {
         return authorities;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public Date getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public Integer getExperience() {
-        return experience;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public String getConfpassword() {
@@ -134,13 +100,8 @@ public class User extends AbstractModel implements Serializable {
         this.posts = posts;
     }*/
 
-
     public void setSchedules(Set<Schedule> schedules) {
         this.schedules = schedules;
-    }
-
-    public void setExperience(Integer experience) {
-        this.experience = experience;
     }
 
     public void setTeacherCourses(Set<Course> teacherCourses) {
@@ -151,36 +112,8 @@ public class User extends AbstractModel implements Serializable {
         this.authorities = authorities;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
-    public void setExperience(int experience) {
-        this.experience = experience;
-    }
-
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public void setConfpassword(String confpassword) {
@@ -192,9 +125,10 @@ public class User extends AbstractModel implements Serializable {
     }
 
     public void setAll(User user) {
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
+        this.username = user.getUsername();
         this.password = user.getPassword();
+        this.enabled = user.isEnabled();
+
     }
 
     // Methods
@@ -202,16 +136,9 @@ public class User extends AbstractModel implements Serializable {
     public String toString() {
         return "User{" +
                 "id='" + super.getId() + "\'" +
-                ", experience='" + experience + "\'" +
-                ", email='" + email + '\'' +
                 ", userName='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
-                ", description='" + description + '\'' +
-                ", birthDate=" + birthDate +
                 ", enabled=" + enabled +
-                ", registrationDate=" + registrationDate +
                 ", confpassword='" + confpassword + '\'' +
                 '}';
     }
