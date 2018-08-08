@@ -7,6 +7,7 @@
       <li class="toleft"><a routerLink="../home">DASHBOARD</a></li>
       <li *ngIf="user.authorities[0] === 'ROLE_STUDENT'" class="toleft"><a routerLink="../courses">COURSES</a></li>
       <li *ngIf="user.authorities[0] === 'ROLE_TEACHER'" class="toleft"><a routerLink="../add-course">ADD COURSE</a></li>
+      <li class="toleft"><a routerLink="../users">USERS</a></li>
       <li class="toright"><a (click)="onLogoutClick()">LOGOUT</a></li>
     </ul>
   </header>
