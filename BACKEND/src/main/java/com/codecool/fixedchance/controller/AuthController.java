@@ -1,8 +1,9 @@
 package com.codecool.fixedchance.controller;
 
 import com.codecool.fixedchance.domain.Company;
+import com.codecool.fixedchance.domain.SimpleUser;
 import com.codecool.fixedchance.domain.User;
-import com.codecool.fixedchance.service.UserService;
+import com.codecool.fixedchance.service.SimpleUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +17,19 @@ import java.security.Principal;
 @RequestMapping("/auth")
 public class AuthController extends AbstractController {
 
+    @Autowired
+    private SimpleUserService simpleUserService;
+
     @GetMapping("")
-    public User get(Principal principal) {
-        return userService.getUserByName(principal.getName());
+    public SimpleUser get(Principal principal) {
+        User user = userService.getUserByName(principal.getName());
+        return simpleUserService.getByUserId(user.getId());
     }
 
     @GetMapping("/company")
     public Company getCompany(Principal principal) {
-        return companyService.getCompanyByName(principal.getName());
+        User user = userService.getUserByName(principal.getName());
+        return companyService.getByUserId(user.getId());
     }
 
     @DeleteMapping("")

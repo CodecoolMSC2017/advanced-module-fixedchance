@@ -1,13 +1,16 @@
 package com.codecool.fixedchance.controller;
 
 import com.codecool.fixedchance.domain.Company;
+import com.codecool.fixedchance.domain.SimpleUser;
 import com.codecool.fixedchance.domain.User;
 import com.codecool.fixedchance.domain.UserDTO;
+import com.codecool.fixedchance.service.SimpleUserService;
 import com.google.api.client.googleapis.auth.oauth2.*;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
@@ -21,6 +24,9 @@ import java.util.*;
 @RestController
 public class UserController extends AbstractController {
 
+    @Autowired
+    private SimpleUserService simpleUserService;
+
     @RequestMapping(path = "/login/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -32,15 +38,15 @@ public class UserController extends AbstractController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<UserDTO> getUserDTOs() {
-        List<User> users = userService.getAll();
+        List<SimpleUser> users = simpleUserService.getAll();
         List<UserDTO> userDtoList = new ArrayList<>();
-        for (User user : users) {
+        for (SimpleUser user : users) {
             UserDTO usdto = new UserDTO();
-            usdto.setId(user.getId());
-            usdto.setUserName(user.getUsername());
+            usdto.setId(user.getUser().getId());
+            usdto.setUserName(user.getUser().getUsername());
             usdto.setExperience(user.getExperience());
             usdto.setRegistrationDate(user.getRegistrationDate());
-            usdto.setRole(user.getAuthorities().get(0));
+            usdto.setRole(user.getUser().getAuthorities().get(0));
             userDtoList.add(usdto);
         }
         return userDtoList;
@@ -50,11 +56,12 @@ public class UserController extends AbstractController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public UserDTO getUserDTO(@PathVariable("username") String userName) {
         User user = userService.getUserByName(userName);
+        SimpleUser simpleUser = simpleUserService.getByUserId(user.getId());
         UserDTO usdto = new UserDTO();
         usdto.setId(user.getId());
         usdto.setUserName(user.getUsername());
-        usdto.setRegistrationDate(user.getRegistrationDate());
-        usdto.setExperience(user.getExperience());
+        usdto.setRegistrationDate(simpleUser.getRegistrationDate());
+        usdto.setExperience(simpleUser.getExperience());
         usdto.setRole(user.getAuthorities().get(0));
         return usdto;
     }
@@ -89,7 +96,8 @@ public class UserController extends AbstractController {
        } catch (ParseException e) {
            e.printStackTrace();
        }
-       userService.add(username, email, firstName, lastName, password, confirmationPassword, role, birthDate);
+       userService.add(username, password, confirmationPassword, role);
+       simpleUserService.add(username, email, firstName, lastName, birthDate);
    }
 
     @RequestMapping(path = "/user/{id}",
@@ -131,7 +139,8 @@ public void addCompany(@RequestBody Map<String, String> map) {
     String confirmationPassword = map.get("confirmationPassword");
     String role = map.get("role");
     String subscription = map.get("subscription");
-    companyService.add(username, name, email, password, confirmationPassword, role, subscription);
+    userService.add(username, password, confirmationPassword, role);
+    companyService.add(username, name, email, subscription);
 }
 
     @RequestMapping(path = "/company/{id}",
