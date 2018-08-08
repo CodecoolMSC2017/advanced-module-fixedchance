@@ -5,48 +5,45 @@
     <li *ngIf="user.authorities[0] === 'ROLE_STUDENT'" class="toleft" ><a routerLink="../courses">COURSES</a></li>
     <li *ngIf="user.authorities[0] === 'ROLE_TEACHER'" class="toleft" ><a routerLink="../add-course">ADD COURSE</a></li>
     <li class="toleft"><a routerLink="../users">USERS</a></li>
-    <li class="toleft"><input type="text" [(ngModel)]="chosen" id="ajax" list="json-datalist" placeholder="Search here"></li>
-    <datalist id="json-datalist">
-      <option value="HTML">
-        <option value="CSS">
-          <option value="JavaScript">
-            <option value="Java">
-              <option value="Python">
-                <option value="Ruby">
-                  <option value="PHP">
-                    <option value="Photo editing">
-                      <option value="Soft skills">
-                      </datalist>
-    <li class="toleft" id="button"><a (click)="onSearchClick()"><i class="fa fa-search"></i></a></li>
     <li class="toright"><a (click)="onLogOutClick()">LOGOUT</a></li>
     <li class="toright"><a routerLink="../profile">PROFILE</a></li>
   </ul>
 </header>
 
-<div id="page">
+<div id="bck">
 </div>
-
+<div id="main-content">
   <div id="wall" *ngIf="contentLoaded">
-    <form>
 
-      <div class="item" data-aos="flip-up">
-        <h3>Hello {{ user.username }}, do you have anything to share?</h3>
-        <hr>
-        <textarea style="width: 80%; margin-left: 10%;" type="text" [(ngModel)]="postContent" placeholder="Type your idea" name="content"></textarea>
-        <input id="postTopicInp" type="text" placeholder="Topic" [(ngModel)]="postTopic" name="topic">
-        <button id="shareButton" (click)="addItem()">Share</button>
-      </div><br>
-    </form>
+    <!-- Current User Post Section -->
+    <div class="item" data-aos="flip-up">
+      <h3>Hello {{ user.username }}, do you have anything to share?</h3>
+      <hr>
+      <textarea type="text" [(ngModel)]="postContent" placeholder="Type your idea" name="content"></textarea><br>
+      <input id="postTopicInp" type="text" placeholder="Topic" [(ngModel)]="postTopic" name="topic"><br>
+      <button id="shareButton" (click)="addItem()">Share</button>
+    </div><br>
+
+    <hr>
+    <!-- Search Posts By Topics -->
+    <div id="title-div">
+      <h1 id="title">POSTS</h1>
+      <input type="text" [(ngModel)]="toSearch" id="ajax" placeholder="Search here" (keyup)="onSearchClick()">
+    </div>
+
+    <hr>
     
+    <!-- Posts -->
     <div *ngFor="let post of searchedPosts.slice().reverse(), let i = index">
       <div class="item" data-aos="fade-down"
       data-aos-easing="linear"
       data-aos-duration="500">
       <div *ngIf="user.username === post.userName" class="delete-post-button" (click)="removeItem(post.id)"><i class="fa fa-close"></i></div>
-      <h4> {{ post.userName }} </h4>
+      <h4 id="{{ post.userName }}" (click)="onUserClicked($event)"> {{ post.userName }} </h4>
       <hr style="width: 80%;">
       <p >{{ post.postContent }}</p>
       </div><br>
     </div>
   </div>
+</div>
 

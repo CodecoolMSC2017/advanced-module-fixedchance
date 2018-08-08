@@ -37,38 +37,78 @@ section div:nth-of-type(2) {
 }
 
 textarea {
-  width: 100%;
-  resize: vertical;
+  margin: 0 auto;
+  font-family: 'Teko', 'sans-serif';
+  text-align: center;
+  margin-top: 16px;
+  width: 75%;
+  height: 8%;
+  font-size: 36px;
+  padding: 10px;
+  background: rgba(30, 30, 30, .6);
+  border: 1px solid white;
+  transition: 200ms ease-in-out;  
+  color: white;
 }
 
 h4 {
-  margin-left: 45%;
-  margin-right: 50%;
+  color: white;
+  transition: all 200ms ease-in-out;
+  cursor: pointer;
 }
 
 #postTopicInp {
-  width: 200px;
+  margin: 0 auto;
+  font-family: 'Teko', 'sans-serif';
+  text-align: center;
+  margin-top: 16px;
+  width: 40%;
   height: 20px;
-  margin-left: 37%;
-  margin-right: 15%;
-  margin-bottom: 20px;
+  font-size: 36px;
+  padding: 10px;
+  background: rgba(30, 30, 30, .6);
+  border: 1px solid white;
+  transition: 200ms ease-in-out;  
+  color: white;
 }
 
 #shareButton {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80px;
+  margin: 5px;
+  font-size: 30px;
+  color: black;
+  background: white;
+  border: 1px solid orange; 
+  width: auto;
+  height: auto;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+#main-content {
+  position: relative;
 }
 
 #wall .item {
-  display: block;
-  color: black;;
-  background-color: lightgray;
-  border: 2px solid;
-  border-color: orange;
-  margin:0 auto;
-  width: 50%;
+  width: 70%;
+    border-radius: 10px;
+    border: 1px solid orange;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, .6);
+    text-align: center;
+}
+
+#title-div {
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+}
+
+#title-div #title {
+  padding-top: 30px;
+  position: relative;
 }
 
 .hidden {
@@ -76,12 +116,18 @@ h4 {
 }
 
 #ajax {
-  background: #151515;
-  color:white;
-  height: 100%;
-  position: relative;
+  margin: 0 auto;
+  font-family: 'Teko', 'sans-serif';
   text-align: center;
-  width: 200px;
+  margin-top: 16px;
+  width: 40%;
+  height: 20px;
+  font-size: 36px;
+  padding: 10px;
+  background: rgba(30, 30, 30, .6);
+  border: 1px solid white;
+  transition: 200ms ease-in-out;  
+  color: white;
 }
 
 
