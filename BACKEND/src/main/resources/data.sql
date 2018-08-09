@@ -33,6 +33,13 @@ INSERT INTO authorities (username, authority) VALUES
     ('hitachi', 'ROLE_COMPANY'),
     ('intel', 'ROLE_COMPANY');
 
+
+INSERT INTO user_reviews (reviewer_id, reviewed_id, pov_one, pov_two, pov_three, description, date) VALUES
+    (6, 4, 3, 4, 3, 'It was good', '2018-01-01'), --1
+    (6, 5, 5, 5, 5, 'It was exceptional', '2018-04-16'), --2
+    (7, 4, 4, 3, 4, 'Very good student', '2018-08-01'); --3
+
+
 INSERT INTO companies (user_id, name, registration_date, email, active, subscription, payment_date) VALUES
     (8, 'Hitachi', '2018-07-16', 'support@hitachi.com', true, '12month', '2018-07-16'), --1
     (9, 'Intel', '2018-07-26', 'info@intel.com', true, '6month', '2018-07-29'); --2
@@ -100,71 +107,86 @@ INSERT INTO course_questions (course_id, question, question_type) VALUES
     (6, 'Can you debug in C#?', 'YN'), --23
     (6, 'You can write unit tests in C#.', 'TF'), --24
     (7, 'Can you access threads in C#?', 'YN'), --25
-    (7, 'You can create a GUI with C#.', 'TF'); --26
+    (7, 'You can create a GUI with C#.', 'TF'), --26
+    (7, 'Describe user interface', 'WA'); --27
 
 INSERT INTO course_answers (question_id, answer, is_right, experience) VALUES
-    (1, 'Yes', true, 200),
-    (1, 'No', false, 0),
-    (2, 'Yes', true, 400),
-    (2, 'No', false, 0),
-    (3, 'Yes', false, 0),
-    (3, 'No', true, 300),
-    (4, 'True', true, 400),
-    (4, 'False', false, 0),
-    (5, 'True', true, 200),
-    (5, 'False', false, 0),
-    (6, 'True', true, 400),
-    (6, 'False', false, 0),
-    (7, 'define function[]:', false, 0),
-    (7, 'function{}:', false, 0),
-    (7, 'def function():', true, 400),
-    (8, 'Dictionary dict = ["key1" : "value1", "key2" : "value2"]', false, 0),
-    (8, 'dict = {"key1" : "value1", "key2" : "value2"}', true, 200),
-    (8, 'dict = "DICTIONARY("key1" :: "value1", "key2" :: "value2")', false, 0),
-    (9, 'print(string[-1:]', true, 400),
-    (9, 'print(string(--1)', false, 0),
-    (9, 'print(string(1-;]', false, 0),
-    (10, 'Set', true, 400),
-    (10, 'Book', false, 0),
-    (10, 'Tuple', true, 500),
-    (10, 'Shelf', false, 0),
-    (10, 'Table', false, 0),
-    (11, 'Python is pass-by-value', true, 400),
-    (11, 'You can pass-by-reference, if you want to', false, 0),
-    (11, 'Python can not be object-oriented', false, 0),
-    (11, 'Python is fully os-independent', false, 0),
-    (11, 'You can define methods in classes', true, 400),
-    (12, 'array.remove(arrayItem)', true, 500),
-    (12, 'array.append(arrayItem', true, 200),
-    (12, 'dictionary.delete(dictionaryItem)', false, 0),
-    (12, 'del(dictionary[dictionaryItem])', true, 400),
-    (12, 'dictionary.pop(dictionaryItem)', false, 0),
-    (13, 'An iterator is an object that implements next, which is expected to return the next element of the iterable object that returned it, and raise a StopIteration exception when no more elements are available.', true, 300),
-    (14, 'A decorator is the name used for a software design pattern. Decorators dynamically alter the functionality of a function, method, or class without having to directly use subclasses or change the source code of the function being decorated.', true, 300),
-    (15, 'Yes', true, 400),
-    (15, 'No', false, 0),
-    (16, 'True', true, 200),
-    (16, 'False', false, 0),
-    (17, 'Yes', true, 400),
-    (17, 'No', false, 0),
-    (18, 'True', true, 200),
-    (18, 'False', false, 0),
-    (19, 'Yes', true, 400),
-    (19, 'No', false, 0),
-    (20, 'True', true, 200),
-    (20, 'False', false, 0),
-    (21, 'Yes', false, 0),
-    (21, 'No', true, 500),
-    (22, 'True', false, 0),
-    (22, 'False', true, 300),
-    (23, 'Yes', true, 400),
-    (23, 'No', false, 0),
-    (24, 'True', true, 200),
-    (24, 'False', false, 0),
-    (25, 'Yes', true, 400),
-    (25, 'No', false, 0),
-    (26, 'True', true, 200),
-    (26, 'False', false, 0);
+    (1, 'Yes', true, 200), --1
+    (1, 'No', false, 0), --2
+    (2, 'Yes', true, 400), --3
+    (2, 'No', false, 0), --4
+    (3, 'Yes', false, 0), --5
+    (3, 'No', true, 300), --6
+    (4, 'True', true, 400),  --7
+    (4, 'False', false, 0), --8
+    (5, 'True', true, 200), --9
+    (5, 'False', false, 0), --10
+    (6, 'True', true, 400), --11
+    (6, 'False', false, 0), --12
+    (7, 'define function[]:', false, 0), --13
+    (7, 'function{}:', false, 0), --14
+    (7, 'def function():', true, 400), --15
+    (8, 'Dictionary dict = ["key1" : "value1", "key2" : "value2"]', false, 0), --16
+    (8, 'dict = {"key1" : "value1", "key2" : "value2"}', true, 200), --17
+    (8, 'dict = "DICTIONARY("key1" :: "value1", "key2" :: "value2")', false, 0), --18
+    (9, 'print(string[-1:]', true, 400), --19
+    (9, 'print(string(--1)', false, 0), --20
+    (9, 'print(string(1-;]', false, 0), --21
+    (10, 'Set', true, 400), --22
+    (10, 'Book', false, 0), --23
+    (10, 'Tuple', true, 500), --24
+    (10, 'Shelf', false, 0), --25
+    (10, 'Table', false, 0), --26
+    (11, 'Python is pass-by-value', true, 400), --27
+    (11, 'You can pass-by-reference, if you want to', false, 0), --28
+    (11, 'Python can not be object-oriented', false, 0), --29
+    (11, 'Python is fully os-independent', false, 0), --30
+    (11, 'You can define methods in classes', true, 400), --31
+    (12, 'array.remove(arrayItem)', true, 500), --32
+    (12, 'array.append(arrayItem', true, 200), --33
+    (12, 'dictionary.delete(dictionaryItem)', false, 0), --34
+    (12, 'del(dictionary[dictionaryItem])', true, 400), --35
+    (12, 'dictionary.pop(dictionaryItem)', false, 0), --36
+    (13, 'An iterator is an object that implements next, which is expected to return the next element of the iterable object that returned it, and raise a StopIteration exception when no more elements are available.', true, 300), --37
+    (14, 'A decorator is the name used for a software design pattern. Decorators dynamically alter the functionality of a function, method, or class without having to directly use subclasses or change the source code of the function being decorated.', true, 300), --38
+    (15, 'Yes', true, 400), --39
+    (15, 'No', false, 0), --40
+    (16, 'True', true, 200), --41
+    (16, 'False', false, 0), --42
+    (17, 'Yes', true, 400), --43
+    (17, 'No', false, 0), --44
+    (18, 'True', true, 200), --45
+    (18, 'False', false, 0), --46
+    (19, 'Yes', true, 400), --47
+    (19, 'No', false, 0), --48
+    (20, 'True', true, 200), --49
+    (20, 'False', false, 0), --50
+    (21, 'Yes', false, 0), --51
+    (21, 'No', true, 500), --52
+    (22, 'True', false, 0), --53
+    (22, 'False', true, 300), --54
+    (23, 'Yes', true, 400), --55
+    (23, 'No', false, 0), --56
+    (24, 'True', true, 200), --57
+    (24, 'False', false, 0), --58
+    (25, 'Yes', true, 400), --59
+    (25, 'No', false, 0), --60
+    (26, 'True', true, 200), --61
+    (26, 'False', false, 0), --62
+    (27, 'A platform that lets you interract with the system', true, 300); --63
+
+
+INSERT INTO student_answers (student_id, course_id, question_id, answer_id) VALUES
+    (4, 2, 15, 39),
+    (4, 2, 16, 42),
+    (4, 3, 17, 43),
+    (4, 3, 18, 46),
+    (4, 7, 25, 59),
+    (4, 7, 26, 61);
+
+INSERT INTO student_answers (student_id, course_id, question_id, answer_id, wa_answer) VALUES
+    (4, 7, 27, 63, 'An interface for users');
+
 
 INSERT INTO course_videos (course_id, name, video, description) VALUES
     (1, 'Understanding the python syntax', 'https://www.youtube.com/watch?v=N4mEzFDjqtA', 'In this video you will learn the basic syntax of python.'),
@@ -245,3 +267,46 @@ INSERT INTO posts (user_name, post_content, rating) VALUES
     ('matteo', 'Hey Everyone! I just finished the Java Collections course and it really helped me a lot so I recommend it to you if you want to know more about Collections!!', 0),
     ('csanad', 'Please someone recommend me a good Java teacher here!!', 6),
     ('norbi', 'Hey Fellas! Here is a RESTful API Design — Step By Step Guide: https://hackernoon.com/restful-api-design-step-by-step-guide-2f2c9f9fcdbf', 14);
+
+
+INSERT INTO post_topics (post_id, name) VALUES
+    (1, 'Python'),
+    (1, 'Programming'),
+    (1, 'Github'),
+    (2, 'Blockchain'),
+    (2, 'Java'),
+    (2, 'Programming'),
+    (3, 'JavaScript'),
+    (3, 'Github'),
+    (3, 'Programming'),
+    (4, 'Web'),
+    (4, 'Development'),
+    (4, 'Programming'),
+    (5, 'REST'),
+    (5, 'API'),
+    (5, 'Programming'),
+    (6, 'Mentoring'),
+    (6, 'Help'),
+    (6, 'Programming'),
+    (7, 'Angular'),
+    (7, 'Help'),
+    (7, 'Programming'),
+    (8, 'Java'),
+    (8, 'Collections'),
+    (8, 'Programming'),
+    (9, 'Java'),
+    (9, 'Teacher'),
+    (9, 'Course'),
+    (10, 'REST'),
+    (10, 'API'),
+    (10, 'Programming');
+
+
+INSERT INTO post_comments (user_id, post_id, comment_text, rating) VALUES
+    (2, 1, 'Very helpful!', 20),
+    (4, 2, 'Thanks', 39),
+    (5, 5, 'I needed this!', 0);
+
+
+INSERT INTO comment_answers (user_id, comment_id, answer_text) VALUES
+    (3, 2, 'You''re welcome');

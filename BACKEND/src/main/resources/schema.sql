@@ -16,6 +16,7 @@ DROP TABLE IF EXISTS company_authorities;
 DROP TABLE IF EXISTS companies;
 DROP TABLE IF EXISTS student_teacher_reviews;
 DROP TABLE IF EXISTS teacher_student_reviews;
+DROP TABLE IF EXISTS user_reviews;
 DROP TABLE IF EXISTS authorities;
 DROP TABLE IF EXISTS simple_users;
 DROP TABLE IF EXISTS users;
@@ -51,31 +52,22 @@ CREATE TABLE authorities (
     UNIQUE (username, authority)
 );
 
-CREATE TABLE teacher_student_reviews (
+CREATE TABLE user_reviews (
     id SERIAL PRIMARY KEY,
-    teacher_id INTEGER NOT NULL,
-    student_id INTEGER NOT NULL,
-    motivation INTEGER NOT NULL,
-    communication INTEGER NOT NULL,
-    attitude INTEGER NOT NULL,
+    reviewer_id INTEGER NOT NULL,
+    reviewed_id INTEGER NOT NULL,
+    pov_one INTEGER NOT NULL,
+    pov_two INTEGER NOT NULL,
+    pov_three INTEGER NOT NULL,
     description TEXT NOT NULL,
     date DATE NOT NULL,
-    FOREIGN KEY (teacher_id) REFERENCES users(id),
-    FOREIGN KEY (student_id) REFERENCES users(id)
+    FOREIGN KEY (reviewer_id) REFERENCES users(id),
+    FOREIGN KEY (reviewed_id) REFERENCES users(id)
 );
 
-CREATE TABLE student_teacher_reviews (
-    id SERIAL PRIMARY KEY,
-    student_id INTEGER NOT NULL,
-    teacher_id INTEGER NOT NULL,
-    knowledge INTEGER NOT NULL,
-    clarity INTEGER NOT NULL,
-    friendliness INTEGER NOT NULL,
-    description TEXT NOT NULL,
-    date DATE NOT NULL,
-    FOREIGN KEY (student_id) REFERENCES users(id),
-    FOREIGN KEY (teacher_id) REFERENCES users(id)
-);
+-- TEACHER -> STUDENT : motivation, communication, attitude
+-- STUDENT -> TEACHER : knowledge, friendliness, clarity
+
 
 CREATE TABLE companies (
     id SERIAL PRIMARY KEY NOT NULL,
@@ -145,7 +137,7 @@ CREATE TABLE student_answers (
     course_id INTEGER NOT NULL,
     question_id INTEGER NOT NULL,
     answer_id INTEGER NOT NULL,
-    wa_answer TEXT NOT NULL,
+    wa_answer TEXT,
     FOREIGN KEY (student_id) REFERENCES users(id),
     FOREIGN KEY (course_id) REFERENCES courses(id),
     FOREIGN KEY (question_id) REFERENCES course_questions(id),
@@ -207,14 +199,18 @@ CREATE TABLE post_topics (
 CREATE TABLE post_comments (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL,
+    post_id INTEGER NOT NULL,
     comment_text TEXT NOT NULL,
     rating INTEGER DEFAULT 0,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (post_id) REFERENCES posts(id)
 );
 
 CREATE TABLE comment_answers (
     id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
     comment_id INTEGER NOT NULL,
     answer_text TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (comment_id) REFERENCES post_comments(id)
 );
