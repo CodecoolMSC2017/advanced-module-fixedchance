@@ -46,4 +46,13 @@ public class AbstractController {
 
     @Autowired
     UserReviewService userReviewService;
+
+    @Autowired
+    PostCommentService postCommentService;
+
+    @Autowired
+    PostAnswerService postAnswerService;
+
+    @Autowired
+    PostTopicService postTopicService;
 }

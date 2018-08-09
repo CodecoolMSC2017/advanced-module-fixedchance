@@ -46,4 +46,13 @@ class AbstractService {
 
     @Autowired
     UserReviewRepository userReviewRepository;
+
+    @Autowired
+    PostAnswerRepository postAnswerRepository;
+
+    @Autowired
+    PostCommentRepository postCommentRepository;
+
+    @Autowired
+    PostTopicRepository postTopicRepository;
 }
