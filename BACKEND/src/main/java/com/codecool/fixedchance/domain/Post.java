@@ -1,10 +1,11 @@
 package com.codecool.fixedchance.domain;
 
 import com.fasterxml.jackson.annotation.*;
-import com.google.api.client.util.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="posts", schema="public")
@@ -17,8 +18,8 @@ public class Post extends AbstractModel{
 
     private String postContent;
 
-    @NotNull
-    private String postTopic;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
+    private Set<PostTopic> topics = new HashSet<>();
 
     public Post() {}
 
@@ -31,8 +32,8 @@ public class Post extends AbstractModel{
         return postContent;
     }
 
-    public String getPostTopic() {
-        return postTopic;
+    public Set<PostTopic> getTopics() {
+        return topics;
     }
 
     //Setters
@@ -44,19 +45,17 @@ public class Post extends AbstractModel{
         this.postContent = postContent;
     }
 
-    public void setPostTopic(String postTopic) {
-        this.postTopic = postTopic;
+    public void setTopics(Set<PostTopic> topics) {
+        this.topics = topics;
     }
 
     //Methods
-
-
     @Override
     public String toString() {
         return "Post{" +
                 "userName='" + userName + '\'' +
                 ", postContent='" + postContent + '\'' +
-                ", postTopic='" + postTopic + '\'' +
+                ", postTopic='" + topics + '\'' +
                 '}';
     }
 }

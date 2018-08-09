@@ -1,9 +1,12 @@
 package com.codecool.fixedchance.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name="post_comments", schema="public")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PostComment extends AbstractModel {
 
 

@@ -30,6 +30,10 @@ public class User extends AbstractModel implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<CourseReview> reviews;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "student")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Set<StudentAnswer> answers;
+
     /*@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Post> posts;*/
 
@@ -51,6 +55,10 @@ public class User extends AbstractModel implements Serializable {
     }
 
     // Getters
+    public Set<StudentAnswer> getAnswers() {
+        return answers;
+    }
+
     public Set<CourseReview> getReviews() {
         return reviews;
     }
@@ -88,6 +96,10 @@ public class User extends AbstractModel implements Serializable {
     }
 
     // Setters
+    public void setAnswers(Set<StudentAnswer> answers) {
+        this.answers = answers;
+    }
+
     public void setReviews(Set<CourseReview> reviews) {
         this.reviews = reviews;
     }

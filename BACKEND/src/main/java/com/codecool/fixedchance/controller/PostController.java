@@ -15,6 +15,11 @@ public class PostController extends AbstractController {
         return postService.getAll();
     }
 
+    @RequestMapping(path = "/posts/{post_id}")
+    public Post getOne(@PathVariable("post_id") Integer id) {
+        return postService.getOne(id);
+    }
+
     @RequestMapping(path = "/posts",
             method = RequestMethod.POST)
     public void add(@RequestBody Post post) {
@@ -23,5 +28,5 @@ public class PostController extends AbstractController {
 
     @RequestMapping(path = "/posts/{id}",
             method = RequestMethod.DELETE)
-    public void deletePost(@PathVariable("id") Integer id) { postService.delete(id);}
+    public void delete(@PathVariable("id") Integer id) { postService.delete(id);}
 }

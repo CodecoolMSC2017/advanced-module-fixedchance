@@ -1,9 +1,12 @@
 package com.codecool.fixedchance.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name="post_answers", schema="public")
+@Table(name="comment_answers", schema="public")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PostAnswer extends AbstractModel {
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -13,6 +16,8 @@ public class PostAnswer extends AbstractModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "comment_id")
     private PostComment comment;
+
+    @Column(name = "answer_text")
     private String answer;
 
     public PostAnswer() {
