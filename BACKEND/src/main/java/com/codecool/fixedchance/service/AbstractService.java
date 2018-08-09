@@ -44,4 +44,6 @@ class AbstractService {
     @Autowired
     SimpleUserRepository simpleUserRepository;
 
+    @Autowired
+    UserReviewRepository userReviewRepository;
 }

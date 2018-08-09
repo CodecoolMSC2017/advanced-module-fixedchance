@@ -43,4 +43,7 @@ public class AbstractController {
 
     @Autowired
     SimpleUserService simpleUserService;
+
+    @Autowired
+    UserReviewService userReviewService;
 }
