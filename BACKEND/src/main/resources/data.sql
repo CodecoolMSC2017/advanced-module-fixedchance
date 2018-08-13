@@ -129,9 +129,9 @@ INSERT INTO course_answers (question_id, answer, is_right, experience) VALUES
     (8, 'Dictionary dict = ["key1" : "value1", "key2" : "value2"]', false, 0), --16
     (8, 'dict = {"key1" : "value1", "key2" : "value2"}', true, 200), --17
     (8, 'dict = "DICTIONARY("key1" :: "value1", "key2" :: "value2")', false, 0), --18
-    (9, 'print(string[-1:]', true, 400), --19
-    (9, 'print(string(--1)', false, 0), --20
-    (9, 'print(string(1-;]', false, 0), --21
+    (9, 'print(string[-1:])', true, 400), --19
+    (9, 'print(string(--1))', false, 0), --20
+    (9, 'print(string(1-;])', false, 0), --21
     (10, 'Set', true, 400), --22
     (10, 'Book', false, 0), --23
     (10, 'Tuple', true, 500), --24
@@ -143,7 +143,7 @@ INSERT INTO course_answers (question_id, answer, is_right, experience) VALUES
     (11, 'Python is fully os-independent', false, 0), --30
     (11, 'You can define methods in classes', true, 400), --31
     (12, 'array.remove(arrayItem)', true, 500), --32
-    (12, 'array.append(arrayItem', true, 200), --33
+    (12, 'array.append(arrayItem)', true, 200), --33
     (12, 'dictionary.delete(dictionaryItem)', false, 0), --34
     (12, 'del(dictionary[dictionaryItem])', true, 400), --35
     (12, 'dictionary.pop(dictionaryItem)', false, 0), --36
