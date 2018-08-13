@@ -26,6 +26,7 @@
   </ng-template>
   
   <div id="courses" *ngIf="courses">
+    <div *ngIf="availableCount == 0"><h4>THERE ARE NO AVAILABLE COURSES</h4></div>
     <div *ngFor="let course of courses">
       <div *ngIf="!checkForStudent(course)">
         <div name="true" class="course" (click)="onCourseClick($event)" id="{{ course.id }}">
@@ -47,6 +48,7 @@
     
   <hr>
   <div id="courses" *ngIf="courses">
+      <div *ngIf="purchasedCount == 0"><h4>YOU HAVE NO PURCHASED COURSES</h4></div>
       <div *ngFor="let course of courses">
         <div *ngIf="checkForStudent(course)">
           <div name="false" class="course" (click)="onCourseClick($event)" id="{{ course.id }}">

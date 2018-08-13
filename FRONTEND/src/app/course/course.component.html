@@ -3,6 +3,7 @@
     <li class="toleft"><img id="logoimg" src="assets/logo.png" />
     <li class="toleft" id="logo">FIXEDCHANCE</li>
     <li class="toleft"><a routerLink="../../home">DASHBOARD</a></li>
+    <li class="toleft"><a routerLink="../../users">USERS</a></li>
     <li class="toright"><a (click)="onLogoutClick()">LOGOUT</a></li>
     <li class="toright"><a routerLink="../../profile">PROFILE</a></li>
   </ul>
@@ -19,7 +20,7 @@
     <div id="teacher-info-div">
       <span id="profile-pic-span"><img id="profile-pic" src="assets/profile-pic.png"></span>
       <div id="teacher-stats">
-        <span id="teacher-name">{{ teacher.username }}</span><br>
+        <span id="teacher-name">{{ teacher.user.username }}</span><br>
         <span id="progress-bar">
           <circle-progress
           [radius]="50"

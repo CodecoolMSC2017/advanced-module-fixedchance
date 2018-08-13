@@ -18,6 +18,8 @@ export class CoursesComponent implements OnInit {
   courses: Course[] = [];
   course: Course;
   userLevel: number;
+  availableCount : number = 0;
+  purchasedCount : number = 0;
 
   constructor(private http: HttpClient, private dataService: DataService, private authService: AuthService, private router: Router) { }
 
@@ -31,11 +33,23 @@ export class CoursesComponent implements OnInit {
   fetchCourses() {
     this.http.get<Course[]>('/api/courses').subscribe(courses => {
       this.courses = courses;
+      this.countAvailables();
       for (let i = 0; i < this.courses.length; i++) {
         this.courses[i].teacherLevel = this.dataService.calculateLevel(this.courses[i].teacher.experience);
         this.courses[i].rating = this.getRating(this.courses[i].reviews);
       }
     });
+  }
+
+  countAvailables() {
+    for (let i = 0; i < this.courses.length; i++) {
+      if (!this.checkForStudent(this.courses[i])) {
+        this.availableCount++;
+      } else {
+        this.purchasedCount++;
+      }
+
+    }
   }
 
   getRating(reviews): number {

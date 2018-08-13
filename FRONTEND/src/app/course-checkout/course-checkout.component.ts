@@ -18,7 +18,7 @@ export class CourseCheckoutComponent implements OnInit {
   errormessage: string;
   user: User;
   course: Course;
-  userLevel: number;
+  userLevel: number = 0;
   teacher: User;
 
   constructor(private authService: AuthService, private dataService: DataService, private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
@@ -45,8 +45,10 @@ export class CourseCheckoutComponent implements OnInit {
     if (this.price >= this.coursePrice) {
       this.errormessage = 'Successful. Redirecting you to the course-page';
       this.http.post('api/course-student', { 'courseId': this.course.id, 'studentId': this.user.user.id })
-        .subscribe((resp => { }));
-      setTimeout(() => { this.router.navigate(['course']), 2000 });
+        .subscribe((resp => { 
+          setTimeout(this.router.navigate(['courses/' + this.course.id]), 4000);
+        }));
+      
     } else {
       this.errormessage = 'Confirmation price must be equal or higher than minimum price';
     }
