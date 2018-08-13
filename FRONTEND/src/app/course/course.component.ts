@@ -99,6 +99,11 @@ export class CourseComponent implements OnInit {
     }
   }
 
+  onUserNameClick(event) {
+    let username = event.target.getAttribute("name");
+    this.router.navigate(['users/' + username]);
+  }
+
   onCheckout() {
     this.router.navigate(['course-checkout/' + this.course.id]);
   }
