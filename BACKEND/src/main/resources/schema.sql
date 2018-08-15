@@ -1,3 +1,4 @@
+DROP TYPE IF EXISTS post_topics;
 DROP TABLE IF EXISTS comment_answers;
 DROP TABLE IF EXISTS post_comments;
 DROP TABLE IF EXISTS post_topics;

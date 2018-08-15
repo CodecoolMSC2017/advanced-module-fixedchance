@@ -1,5 +1,6 @@
 package com.codecool.fixedchance.service;
 
+import com.codecool.fixedchance.domain.Post;
 import com.codecool.fixedchance.domain.PostTopic;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,10 @@ public class PostTopicService extends AbstractService {
         return postTopicRepository.getOne(id);
     }
 
-    public void add(PostTopic topic) { postTopicRepository.save(topic);}
+    public void add(PostTopic topic, Integer postId) {
+        Post post = postRepository.getOne(postId);
+        topic.setPost(post);
+        postTopicRepository.save(topic);}
 
     public void delete(Integer id) { postTopicRepository.deleteById(id);}
 }

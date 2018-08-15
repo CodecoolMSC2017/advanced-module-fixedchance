@@ -19,10 +19,10 @@ public class PostTopicController extends AbstractController {
         return postTopicService.getOne(id);
     }
 
-    @RequestMapping(path = "/post-topics",
+    @RequestMapping(path = "/post-topics/{post_id}",
             method = RequestMethod.POST)
-    public void add(@RequestBody PostTopic topic) {
-        postTopicService.add(topic);
+    public void add(@RequestBody PostTopic topic, @PathVariable("post_id") int postId) {
+        postTopicService.add(topic, postId);
     }
 
     @RequestMapping(path = "/post-topics/{topic_id}",

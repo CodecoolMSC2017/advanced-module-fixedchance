@@ -17,7 +17,7 @@ public final class PostService extends AbstractService {
         return postRepository.getOne(id);
     }
 
-    public void add(Post post) { postRepository.save(post);}
+    public Post add(Post post) { return postRepository.save(post);}
 
     public void delete(Integer id) { postRepository.deleteById(id);}
 

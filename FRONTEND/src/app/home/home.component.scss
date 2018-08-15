@@ -25,10 +25,6 @@ section div:nth-of-type(2) {
   right: 40%;
 }
 
-#wall {
-  position: relative;
-}
-
 textarea {
   margin: 0 auto;
   font-family: 'Teko', 'sans-serif';
@@ -44,13 +40,21 @@ textarea {
   color: white;
 }
 
-h4 {
+.user {
+  font-size: 42px;
+  width: 0 auto;
+  padding: 0 auto;
   color: white;
   transition: all 200ms ease-in-out;
   cursor: pointer;
 }
 
-#postTopicInp {
+.user:hover {
+  color: orange;
+  transition: all 200ms ease-in-out;
+}
+
+#topic-input {
   margin: 0 auto;
   font-family: 'Teko', 'sans-serif';
   text-align: center;
@@ -63,6 +67,35 @@ h4 {
   border: 1px solid white;
   transition: 200ms ease-in-out;  
   color: white;
+}
+
+#added-topics {
+  margin: 24px;
+}
+
+.added-topic {
+  display: inline-block;
+  background: green;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 8px;
+  font-size: 22px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: 300ms ease-in-out;
+
+}
+
+.added-topic:hover {
+  background: red;
+  transition: 300ms ease-in-out;
+}
+
+#topic-wrapper {
+  height: 60px;
+  padding: 18px;
 }
 
 #shareButton {
@@ -80,17 +113,46 @@ h4 {
 
 #main-content {
   position: relative;
+  padding-top: 16px;
+}
+
+.post-form {
+  width: 70%;
+  border-radius: 10px;
+  border: 2px solid black;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  margin: 0 auto;
+  margin-top: 16px;
+  background: rgba(0, 0, 0, .6);
+  text-align: center;
+  animation: all 2s ease-in-out;
+  transition: 0.5s;
 }
 
 #wall .item {
   width: 70%;
-    border-radius: 10px;
-    border: 1px solid orange;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    margin: 0 auto;
-    background: rgba(0, 0, 0, .6);
-    text-align: center;
+  border-radius: 10px;
+  border: 2px solid black;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, .6);
+  text-align: center;
+  animation: all 2s ease-in-out;
+  transition: 0.5s;
+}
+
+#wall .item:hover {
+  border: 2px solid orange;
+  animation: all 2s ease-in-out;
+  transition: 0.5s;
+  color: orange;
+  cursor: pointer
+}
+
+.post-content {
+  font-size: 32px;
 }
 
 #title-div {
