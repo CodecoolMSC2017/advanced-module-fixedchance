@@ -6,6 +6,7 @@ import { DataService } from '../data.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { log } from 'util';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
@@ -20,18 +21,22 @@ export class CoursesComponent implements OnInit {
   userLevel: number;
   availableCount : number = 0;
   purchasedCount : number = 0;
+  contentLoaded : boolean;
 
   constructor(private http: HttpClient, private dataService: DataService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.fetchCourses();
     this.authService.getAuth().subscribe(resp => {
       this.user = resp;
+      this.fetchCourses().subscribe(courses => {
+        this.contentLoaded = true;
+      });
     });
   }
 
-  fetchCourses() {
-    this.http.get<Course[]>('/api/courses').subscribe(courses => {
+  fetchCourses() : Observable<Course[]> {
+    let x = this.http.get<Course[]>('/api/courses');
+      x.subscribe(courses => {
       this.courses = courses;
       this.countAvailables();
       for (let i = 0; i < this.courses.length; i++) {
@@ -39,6 +44,7 @@ export class CoursesComponent implements OnInit {
         this.courses[i].rating = this.getRating(this.courses[i].reviews);
       }
     });
+    return x;
   }
 
   countAvailables() {

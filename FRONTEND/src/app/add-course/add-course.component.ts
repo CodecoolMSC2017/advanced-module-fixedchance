@@ -343,6 +343,16 @@ export class AddCourseComponent implements OnInit {
     console.log(event.target);
     event.target.removeAttr('checked');
   }
+
+  modifyRadios(i, j) {
+    for (let k = 0; k < this.course.questions[i].questionAnswers.length; k++) {
+      if (j == this.course.questions[i].questionAnswers[k]) {
+        this.course.questions[i].questionAnswers[k].isRight = true;
+      } else {
+        this.course.questions[i].questionAnswers[k].isRight = false;
+      }
+    }
+  }
 }
 
 
