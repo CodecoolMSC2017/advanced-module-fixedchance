@@ -14,45 +14,47 @@
   
 <div id="bck"></div>
 
-  <div class="progress-wrapper" *ngIf="contentLoaded">
-    <span id="circle-span" style="float: left">
-      <circle-progress
-      [percent]="percentage"
-      [title]="userLevel"
-      [titleFontSize]="60"
-      [subtitle]="getExp()"
-      [subtitleFontSize]="32"
-      ></circle-progress>
-    </span>
-    <span class="data">
-      E-mail: {{ user.email }}
-      <br> Name: {{ user.firstName + " " + user.lastName}}
-      <br> Birth date: {{ userBirthDate }}
-      <br> Role: {{ user.user.authorities[0].split("_")[1] }}
-      <br>
-      <div *ngIf='isValid()'>
-      <button class="prof-button" routerLink="../add-course">Add Course</button>
-    </div>
-    <div>
-      <button class="prof-button" (click)="addXp()">Add XP</button>
-    </div>
-  </span>
-</div>
+<div id="main-content" *ngIf="contentLoaded">
 
-<div class="courses" *ngIf="contentLoaded">
-  <div *ngIf="user.user.authorities[0] === 'ROLE_STUDENT'">
-  <p>YOUR PURCHASED COURSES</p>
-  <hr>
-  <div class="course" *ngFor="let course of courses">
-    <div class="course-name" (click)="onStudentCourseClick($event)" id="{{ course.id }}">{{ course.name }}</div>
+  <div class="info-header">
+
+    <div class="picture">
+      <iframe [src]="blob | safe"></iframe><br>
+      <input type="file" name="file" id="file" class="image-button" (change)="selectFile($event)"/>
+      <label for="file">Choose Profile Picture</label>
+    </div>
+
+      <div class="user-info">
+        <circle-progress
+        (click)="addXp()"
+        [percent]="percentage"
+        [title]="userLevel"
+        [titleFontSize]="68"
+        [subtitle]="getExp()"
+        [radius]="100"
+        [subtitleFontSize]="36">
+      </circle-progress>
+      
+      <div class="data">
+        <i class="fa fa-envelope"></i>{{ user.email }}<br>
+        <i class="fa fa-address-card"></i>{{ user.firstName + " " + user.lastName}}<br> 
+        <i class="fa fa-birthday-cake"></i>{{ userBirthDate }}<br>
+        <i *ngIf="user.user.authorities[0] === 'ROLE_TEACHER'" class="fa fa-book"></i>
+        <i *ngIf="user.user.authorities[0] === 'ROLE_STUDENT'" class="fa fa-graduation-cap"></i>
+        <i *ngIf="user.user.authorities[0] === 'ROLE_COMPANY'" class="fa fa-building"></i>
+        <i *ngIf="user.user.authorities[0] === 'ROLE_ADMIN'" class="fa fa-connectdevelop"></i>{{ user.user.authorities[0].split("_")[1] }}<br>
+      </div>
   </div>
+    
   </div>
 
-  <div *ngIf="user.user.authorities[0] === 'ROLE_TEACHER'">
-    <p>YOUR COURSES</p>
+  <div class="courses">
+    <p *ngIf="user.user.authorities[0] === 'ROLE_STUDENT'">YOUR PURCHASED COURSES</p>
+    <p *ngIf="user.user.authorities[0] === 'ROLE_TEACHER'">YOUR COURSES</p>
     <hr>
     <div class="course" *ngFor="let course of courses">
-      <div class="course-name" (click)="onTeacherCourseClick($event)" id="{{ course.id }}">{{ course.name }}</div>
+      <div *ngIf="user.user.authorities[0] === 'ROLE_STUDENT'" class="course-name" (click)="onStudentCourseClick($event)" id="{{ course.id }}">{{ course.name }}</div>
+      <div *ngIf="user.user.authorities[0] === 'ROLE_TEACHER'" class="course-name" (click)="onTeacherCourseClick($event)" id="{{ course.id }}">{{ course.name }}</div>
     </div>
   </div> 
 </div>

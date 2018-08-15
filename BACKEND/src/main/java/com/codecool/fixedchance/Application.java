@@ -1,6 +1,8 @@
 package com.codecool.fixedchance;
 
+import com.codecool.fixedchance.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,51 +15,60 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 @SpringBootApplication
-public class Application extends WebSecurityConfigurerAdapter {
+public class Application extends WebSecurityConfigurerAdapter implements CommandLineRunner {
 
-	public static void main(String[] args) {
+    @Resource
+    private StorageService storageService;
 
-		SpringApplication.run(Application.class);
-	}
+    public static void main(String[] args) {
 
+        SpringApplication.run(Application.class);
+    }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf()
-				.disable()
-				.authorizeRequests()
-				.antMatchers("/register", "/company-register", "/google-login").permitAll()
-				.antMatchers("/courses").hasAnyAuthority("ROLE_STUDENT", "ROLE_ADMIN")
-				.antMatchers("/add-course").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
-				.anyRequest().authenticated()
-				.and()
-				.httpBasic();
-	}
+    @Override
+    public void run(String... arg) throws Exception {
+        storageService.deleteAll();
+        storageService.init();
+    }
 
-	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf()
+                .disable()
+                .authorizeRequests()
+                .antMatchers("/register", "/company-register", "/google-login").permitAll()
+                .antMatchers("/courses").hasAnyAuthority("ROLE_STUDENT", "ROLE_ADMIN")
+                .antMatchers("/add-course").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic();
+    }
 
-	@Bean
-	UserDetailsManager userDetailsManager(
-			@Autowired DataSource dataSource,
-			@Autowired JdbcTemplate jdbcTemplate,
-			@Autowired AuthenticationManager authenticationManager) {
-		JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager();
-		userDetailsManager.setJdbcTemplate(jdbcTemplate);
-		userDetailsManager.setDataSource(dataSource);
-		// Using AuthenticationManager re-authenticates the session on password change.
-		userDetailsManager.setAuthenticationManager(authenticationManager);
-		return userDetailsManager;
-	}
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    UserDetailsManager userDetailsManager(
+            @Autowired DataSource dataSource,
+            @Autowired JdbcTemplate jdbcTemplate,
+            @Autowired AuthenticationManager authenticationManager) {
+        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager();
+        userDetailsManager.setJdbcTemplate(jdbcTemplate);
+        userDetailsManager.setDataSource(dataSource);
+        // Using AuthenticationManager re-authenticates the session on password change.
+        userDetailsManager.setAuthenticationManager(authenticationManager);
+        return userDetailsManager;
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }

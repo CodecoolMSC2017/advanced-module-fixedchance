@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { DataService } from './data.service';
+import { UploadFileService } from './upload-file.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -9,6 +10,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 import { HomeComponent } from './home/home.component';
 import { MainComponent } from './main/main.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -26,6 +28,7 @@ import { CourseCheckoutComponent } from './course-checkout/course-checkout.compo
 import { UsersComponent } from './users/users.component';
 import { GuestProfileComponent } from './guest-profile/guest-profile.component';
 import { OrderModule } from 'ngx-order-pipe';
+
 
 @NgModule({
   declarations: [
@@ -68,9 +71,10 @@ import { OrderModule } from 'ngx-order-pipe';
     'titleColor': 'white',
     'renderOnClick': false,
     'maxPercent': 100}),
-    OrderModule
+    OrderModule,
+    HttpModule,
   ],
-  providers: [DataService, DatePipe, httpInterceptorProviders],
+  providers: [DataService, DatePipe, UploadFileService, httpInterceptorProviders, HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
