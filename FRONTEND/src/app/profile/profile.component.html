@@ -28,7 +28,7 @@
       E-mail: {{ user.email }}
       <br> Name: {{ user.firstName + " " + user.lastName}}
       <br> Birth date: {{ userBirthDate }}
-      <br> Role: {{ user.user.authorities[0] }}
+      <br> Role: {{ user.user.authorities[0].split("_")[1] }}
       <br>
       <div *ngIf='isValid()'>
       <button class="prof-button" routerLink="../add-course">Add Course</button>
