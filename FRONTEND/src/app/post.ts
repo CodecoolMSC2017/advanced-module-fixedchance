@@ -1,8 +1,9 @@
 import { User } from './user';
+import { Topic } from './topic';
 
 export class Post {
     id: number;
     postContent: string;
-    postTopic: string;
+    topics: string[];
     userName: string;
 }
