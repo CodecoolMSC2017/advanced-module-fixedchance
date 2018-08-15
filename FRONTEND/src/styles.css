@@ -19,7 +19,6 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: rgb(20, 20, 20);
   background: black;
   width: 100%;
   position: fixed;
@@ -56,10 +55,13 @@ html, body {
   font-size: 30px;
   cursor: pointer;
   width: 150px;
+  transition: all 200ms ease-in-out;
 }
 
 #top-bar li a:hover {
-  background-color: rgb(245, 170, 7);
+  background-color: orange;
+  transition: all 200ms ease-in-out;
+  color: black;
 }
 
 #top-bar li input {

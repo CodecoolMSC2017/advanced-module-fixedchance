@@ -82,8 +82,16 @@
               <div *ngIf="course.questions[i].questionType === 'SA' || course.questions[i].questionType === 'MA'">
                 <div class="s-m-answer" *ngFor="let field of course.questions[i].questionAnswers; let j = index;">
                   <input class="question-answer" [(ngModel)]="course.questions[i].questionAnswers[j].answer" name="answer"/>
-                  <div class="radio" *ngIf="course.questions[i].questionType === 'SA'"><input class="answer-radio" [(ngModel)]="course.questions[i].questionAnswers[j].isRight" type="radio" name="sa-radio-{{i}}"></div>
-                  <div class="check" *ngIf="course.questions[i].questionType === 'MA'"><input class="answer-checkbox" [(ngModel)]="course.questions[i].questionAnswers[j].isRight" type="checkbox" name="checkbox"></div>
+                  
+                  <div class="radio" *ngIf="course.questions[i].questionType === 'SA'">
+                    <input class="answer-radio"
+                           type="radio"
+                           [attr.name]="'sa-radio-' + i"
+                           [value]="field.answer">
+                          
+                  </div>
+
+                  <div class="check" *ngIf="course.questions[i].questionType === 'MA'"><input class="answer-checkbox" [(ngModel)]="course.questions[i].questionAnswers[j].isRight" type="checkbox" name="checkbox" [value]="checked ? false : true"></div>
                   <div class="x"><span class="delete-answer-button" (click)="removeAnswer(i, j)" *ngIf="j > 2"><i class="fa fa-close"></i></span></div>
                 </div>
                 <div *ngIf="course.questions[i].questionAnswers.length < 8" id="add-answer-button" (click)="incrementAnswerNum(i)"><i class="fa fa-plus"></i></div>
@@ -94,15 +102,15 @@
               <div *ngIf="course.questions[i].questionType === 'YN' || course.questions[i].questionType === 'TF'">
                 <div class="yesno" *ngIf="course.questions[i].questionType === 'TF'">
                   <span>TRUE</span>
-                  <input class="answer-radio" type="radio" name="sa-radio{{i}}"><br>
+                  <input class="answer-radio" [(ngModel)]="course.questions[i].questionAnswers[0].isRight" type="radio" name="sa-radio{{i}}" [value]="checked ? false : true"><br>
                   <span>FALSE</span>
-                  <input class="answer-radio" type="radio" name="sa-radio{{i}}">
+                  <input class="answer-radio" [(ngModel)]="course.questions[i].questionAnswers[1].isRight" type="radio" name="sa-radio{{i}}" [value]="checked ? false : true">
                 </div>
                 <div class="truefalse" *ngIf="course.questions[i].questionType === 'YN'">
                   <span>YES</span>
-                  <input class="answer-radio" type="radio" name="sa-radio{{i}}"><br>
+                  <input class="answer-radio" [(ngModel)]="course.questions[i].questionAnswers[0].isRight" type="radio" name="sa-radio{{i}}" [value]="checked ? false : true"><br>
                   <span>NO</span>
-                  <input class="answer-radio" type="radio" name="sa-radio{{i}}">
+                  <input class="answer-radio" [(ngModel)]="course.questions[i].questionAnswers[1].isRight" type="radio" name="sa-radio{{i}}" [value]="checked ? false : true">
                 </div>
               </div>
               <!-- YES / NO & TRUE / FALSE -->
