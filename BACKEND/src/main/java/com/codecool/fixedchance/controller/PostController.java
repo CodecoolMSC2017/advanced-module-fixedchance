@@ -29,4 +29,12 @@ public class PostController extends AbstractController {
     @RequestMapping(path = "/posts/{id}",
             method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Integer id) { postService.delete(id);}
+
+    @RequestMapping(path = "/posts/update/up/{post_id}",
+            method = RequestMethod.POST)
+    public void update(@PathVariable("post_id") Integer id) { postService.update(id);}
+
+    @RequestMapping(path = "/posts/update/down/{post_id}",
+            method = RequestMethod.POST)
+    public void decrementRating(@PathVariable("post_id") Integer id) { postService.decrement(id);}
 }

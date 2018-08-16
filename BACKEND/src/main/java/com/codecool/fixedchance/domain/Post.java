@@ -18,6 +18,8 @@ public class Post extends AbstractModel{
 
     private String postContent;
 
+    private Integer rating;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
     private Set<PostTopic> topics = new HashSet<>();
 
@@ -36,6 +38,10 @@ public class Post extends AbstractModel{
         return topics;
     }
 
+    public Integer getRating() {
+        return rating;
+    }
+
     //Setters
     public void setUserName(String userName) {
         this.userName = userName;
@@ -47,6 +53,10 @@ public class Post extends AbstractModel{
 
     public void setTopics(Set<PostTopic> topics) {
         this.topics = topics;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     //Methods

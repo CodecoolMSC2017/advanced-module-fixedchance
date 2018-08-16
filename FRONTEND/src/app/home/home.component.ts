@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
   show: boolean;
   contentLoaded: boolean;
   toSearch: string;
+  rating: number;
 
   ngOnInit() {
     this.authService.getAuth().subscribe(resp => {
@@ -58,8 +59,10 @@ export class HomeComponent implements OnInit {
       this.searchedPosts = this.posts;
     } else {
       this.posts.forEach(element => {
-        if (element.postTopic.indexOf(this.toSearch.toUpperCase()) !== -1) {
-          this.searchedPosts.push(element);
+        for(let i=0; i < element.topics.length; i++){
+          if (element.topics[i].name.toUpperCase() === (this.toSearch.toUpperCase())){
+            this.searchedPosts.push(element);
+          }
         }
       });
     }
@@ -129,6 +132,11 @@ export class HomeComponent implements OnInit {
     this.http.delete<void>('/api/posts/' + i).subscribe(resp => { this.fetchPosts() });
   }
 
+  //Write comment
+  onPostClicked($event) {
+    console.log(event.target);
+  }
+
   // logout with google acount
  signOut() {
   const auth2 = gapi.auth2.getAuthInstance();
@@ -137,4 +145,21 @@ export class HomeComponent implements OnInit {
           }
   }
 
+  onUpVoteClicked(event){
+    let postId = +event.target.id;
+    for(let i = 0; i < this.posts.length; i++){
+      if(postId === this.posts[i].id){
+        this.http.post<void>('/api/posts/update/up/' + postId, {}).subscribe(resp => {this.fetchPosts()})
+      }
+    }
+  }
+
+  onDownVoteClicked(event){
+    let postId = +event.target.id;
+    for(let i = 0; i < this.posts.length; i++){
+      if(postId === this.posts[i].id){
+        this.http.post<void>('/api/posts/update/down/' + postId, {}).subscribe(resp => {this.fetchPosts()})
+      }
+    }
+  }
 }
