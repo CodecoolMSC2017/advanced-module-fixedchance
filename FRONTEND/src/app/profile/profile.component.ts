@@ -5,7 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { Course } from '../course';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { UploadFileService } from '../upload-file.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,9 +27,14 @@ export class ProfileComponent implements OnInit {
   courses: Course[];
   contentLoaded: boolean;
 
+  selectedFiles : File[] = [];
+  currentFileUpload : File;
+
   courseEntries: Array<String>;
 
-  constructor(private http: HttpClient, private authService: AuthService, private dataService: DataService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe) { }
+  blob : any;
+
+  constructor(private uploadService : UploadFileService, private http: HttpClient, private authService: AuthService, private dataService: DataService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe) { }
 
   ngOnInit() {
 
@@ -126,7 +132,29 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  onLogoutClick() {
-    this.authService.deleteAuth();
+  selectFile(event) {
+    const file = event.target.files.item(0);
+    if (file.type.match('image.*')) {
+      this.selectedFiles = event.target.files;
+      this.upload();
+    } else {
+      alert('invalid format!');
+    }
+  }
+ 
+  upload() {
+    this.currentFileUpload = this.selectedFiles[0];
+    this.uploadService.pushFileToStorage(this.currentFileUpload, this.user.user.username).subscribe(event => {
+      if (event instanceof HttpResponse) {
+        console.log('File is completely uploaded!');
+        this.uploadService.getFile(this.user.user.username).subscribe(resp => { 
+          this.blob = window.URL.createObjectURL(resp);
+        });
+      } else {
+        console.log("asd");
+      }
+    });
+ 
+    this.selectedFiles = undefined;
   }
 }

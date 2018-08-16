@@ -41,17 +41,28 @@ public class SimpleUserService extends AbstractService {
         simpleUserRepository.save(user);
     }
 
+    private boolean isSimpleUserExists(String username) {
+        User user = userRepository.findByUsername(username);
+        SimpleUser simpleUser = getByUserId(user.getId());
+        return simpleUser != null;
+    }
+
     @Transactional
-    public void add(String username, String email, String firstName, String lastName, Date birthDate) {
-        User userWithBasicDetails = userRepository.findByUsername(username);
+    public SimpleUser add(String username, String email, String firstName, String lastName, Date birthDate) {
         SimpleUser user = new SimpleUser();
-        user.setUser(userWithBasicDetails);
-        user.setEmail(email);
-        user.setFirstName(firstName);
-        user.setLastName((lastName));
-        user.setBirthDate(birthDate);
-        user.setRegistrationDate(new Date());
-        simpleUserRepository.save(user);
+        User userWithBasicDetails = userRepository.findByUsername(username);
+        if (!isSimpleUserExists(username)) {
+            user.setUser(userWithBasicDetails);
+            user.setEmail(email);
+            user.setFirstName(firstName);
+            user.setLastName((lastName));
+            user.setBirthDate(birthDate);
+            user.setRegistrationDate(new Date());
+            simpleUserRepository.save(user);
+            return user;
+        } else {
+            return simpleUserRepository.findByUserId(userWithBasicDetails.getId());
+        }
     }
 }
 

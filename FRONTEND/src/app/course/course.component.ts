@@ -70,10 +70,6 @@ export class CourseComponent implements OnInit {
     this.coursePrice = 5 + (0.6 * this.course.questions.length) + (0.5 * this.course.videos.length) + (0.3 * this.userLevel);
   }
 
-  onLogoutClick() {
-    this.authService.deleteAuth();
-  }
-
   calculateRating() {
     let sumOfRatings = 0;
     for (let i = 0; i < this.course.reviews.length; i++) {

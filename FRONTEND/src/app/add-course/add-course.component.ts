@@ -63,10 +63,6 @@ export class AddCourseComponent implements OnInit {
 
   }
 
-  onLogoutClick() {
-    this.authService.deleteAuth();
-  }
-
   topicKey(event) {
     if (event.key === ' ') {
       if (this.currentTopic !== ' ' && this.currentTopic != null) {

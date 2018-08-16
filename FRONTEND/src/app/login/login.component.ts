@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataService } from '../data.service';
 import { AuthService } from '../auth.service';
 import { LoginDetails } from '../login-details';
+import { Observable } from 'rxjs';
 
 // Google's login API namespace
 declare const gapi: any;
@@ -39,18 +40,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
       return;
     }
     this.getAuth();
-    /*
-    this.user = JSON.parse(sessionStorage.getItem('user'));
-    if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
-      if (this.user == null) {
-        return;
-      } else {
-        this.dataService.setUser(this.user);
-        this.router.navigate(['home']);
-      }
-    } else {
-    }
-    */
   }
 
   roleChosen(event) {
@@ -62,21 +51,42 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.selectedRole = event.target.name;
   }
 
-
-    getAuth() {
-      this.authService.setCurrentRole(this.selectedRole);
-      if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
-    this.authService.getAuth(this.loginDetails).subscribe(user => {
-      this.router.navigate(['home']);
-    }, error => alert(error.message));
-  } else {
-    this.authService.getAuthCompany(this.loginDetails).subscribe(company => {
-      this.company = company;
-      this.router.navigate(['home']);
-    }, error => alert(error.message));
+  goHome() {
+    this.router.navigate(['home']);
   }
-}
 
+  getAuth() {
+    this.authService.setCurrentRole(this.selectedRole);
+    // temp solution
+    if (this.selectedRole === undefined) {
+      this.authService.onLogOutClick();
+      //  alert('Refresh the page and try again');
+      this.router.navigate(['']);
+    }
+    if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
+      if (this.loginDetails.password !== null) {
+        this.authService.getAuth(this.loginDetails).subscribe(user => {
+          this.goHome();
+        }, error => alert(error.message));
+      } else {
+        this.authService.getAuth().subscribe(user => {
+          this.goHome();
+        }, error => alert(error.message));
+      }
+    } else {
+      if (this.loginDetails.password !== null) {
+        this.authService.getAuthCompany(this.loginDetails).subscribe(company => {
+          this.company = company;
+          this.goHome();
+        }, error => alert(error.message));
+      } else {
+        this.authService.getAuth().subscribe(company => {
+          // Should redirect to company's home page
+          this.goHome();
+        }, error => alert(error.message));
+      }
+    }
+  }
 
   // Angular hook that allows for interaction with elements inserted by the
   // rendering of a view.
@@ -94,13 +104,29 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   onGoogleLoginSuccess = (googleUser) => {
+    const role = this.selectedRole;
     const idToken = googleUser.getAuthResponse().id_token;
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'api/google-login');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.send(idToken);
-    // After get back the user -> auth -> redirect
-    // this.router.navigate(['home']);
+    this.loginDetails.password = null;
+    // This 'if' condition is just a quick and TEMPORARY solution
+    // for solve the 'empty role' issue.
+    // TODO: solve it
+    if (role === undefined) {
+      this.authService.onLogOutClick();
+      this.router.navigate(['']);
+      location.reload();
+    }
+    this.sendToken([idToken, role]).subscribe(user => {
+      this.getAuth();
+    });
+  }
+
+  sendToken(params: string[]): Observable<any> {
+    const url = '/api/google-login';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json;charset=UTF-8'
+    });
+    const options = { headers: headers };
+    return this.http.post(url, JSON.stringify(params), options);
   }
 
   showGoogleLoginButton() {

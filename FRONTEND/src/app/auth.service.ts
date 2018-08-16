@@ -8,6 +8,9 @@ import { LoginDetails } from './login-details';
 import { isUndefined } from 'util';
 import { Company } from './company';
 
+
+declare const gapi: any;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,7 +24,7 @@ export class AuthService {
     const httpOptions = {};
     if (!isUndefined(loginDetails)) {
       httpOptions['headers'] = new HttpHeaders({
-          'Authorization': 'Basic ' + window.btoa(loginDetails.username + ':' + loginDetails.password)
+        'Authorization': 'Basic ' + window.btoa(loginDetails.username + ':' + loginDetails.password)
       });
     }
     return this.http.get<User>('/api/auth', httpOptions);
@@ -29,23 +32,17 @@ export class AuthService {
 
   deleteAuth() {
     this.http.delete<void>('/api/auth');
-    this.router.navigate(['']);
   }
 
   getAuthCompany(loginDetails?: LoginDetails): Observable<Company> {
     const httpOptions = {};
     if (!isUndefined(loginDetails)) {
       httpOptions['headers'] = new HttpHeaders({
-          'Authorization': 'Basic ' + window.btoa(loginDetails.username + ':' + loginDetails.password)
+        'Authorization': 'Basic ' + window.btoa(loginDetails.username + ':' + loginDetails.password)
       });
     }
     return this.http.get<Company>('/api/auth/company', httpOptions);
   }
-
-  deleteAuthCompany(): Observable<void> {
-    return this.http.delete<void>('/api/auth/company');
-  }
-
 
   getCurrentRole() {
     return this.currentRole;
@@ -53,6 +50,20 @@ export class AuthService {
 
   setCurrentRole(role: string) {
     this.currentRole = role;
+  }
+
+  // logout with google acount
+  signOut() {
+    const auth2 = gapi.auth2.getAuthInstance();
+    if (auth2 != null) {
+      auth2.disconnect();
+    }
+  }
+
+  onLogOutClick() {
+    this.router.navigate(['']);
+    this.deleteAuth();
+    this.signOut();
   }
 
 }

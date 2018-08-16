@@ -41,9 +41,6 @@ export class GuestProfileComponent implements OnInit {
     });
   }
 
-  onLogoutClick() {
-    this.authService.deleteAuth();
-  }
 
   onCourseClick(event) {
     this.router.navigate(['../courses/' + event.target.id]);

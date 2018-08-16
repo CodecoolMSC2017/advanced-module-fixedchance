@@ -24,9 +24,6 @@ export class CourseExamComponent implements OnInit {
     });
   }
 
-  onLogoutClick() {
-    this.authService.deleteAuth();
-  }
 
   submitButtonClicked() {
     let inputs = document.getElementsByClassName('checked');

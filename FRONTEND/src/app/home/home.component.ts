@@ -48,10 +48,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  onLogOutClick() {
-    this.authService.deleteAuth();
-    this.signOut();
-  }
 
   onSearchClick() {
     this.searchedPosts = [];
@@ -127,7 +123,7 @@ export class HomeComponent implements OnInit {
     return x;
   }
 
-  //Remove a specific post
+  // Remove a specific post
   removeItem(i) {
     this.http.delete<void>('/api/posts/' + i).subscribe(resp => { this.fetchPosts() });
   }
