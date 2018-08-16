@@ -37,8 +37,4 @@ public class AuthController extends AbstractController {
         session.invalidate();
     }
 
-    @DeleteMapping("/company")
-    public void deleteCompany(HttpSession session) {
-        session.invalidate();
-    }
 }
