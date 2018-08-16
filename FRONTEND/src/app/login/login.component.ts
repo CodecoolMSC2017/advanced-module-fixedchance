@@ -39,18 +39,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
       return;
     }
     this.getAuth();
-    /*
-    this.user = JSON.parse(sessionStorage.getItem('user'));
-    if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
-      if (this.user == null) {
-        return;
-      } else {
-        this.dataService.setUser(this.user);
-        this.router.navigate(['home']);
-      }
-    } else {
-    }
-    */
   }
 
   roleChosen(event) {
@@ -62,21 +50,42 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.selectedRole = event.target.name;
   }
 
-
-    getAuth() {
-      this.authService.setCurrentRole(this.selectedRole);
-      if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
-    this.authService.getAuth(this.loginDetails).subscribe(user => {
-      this.router.navigate(['home']);
-    }, error => alert(error.message));
-  } else {
-    this.authService.getAuthCompany(this.loginDetails).subscribe(company => {
-      this.company = company;
-      this.router.navigate(['home']);
-    }, error => alert(error.message));
+  goHome() {
+    this.router.navigate(['home']);
   }
-}
 
+  getAuth() {
+    this.authService.setCurrentRole(this.selectedRole);
+    // temp solution
+    if (this.selectedRole === undefined) {
+      this.authService.onLogOutClick();
+    //  alert('Refresh the page and try again');
+      this.router.navigate(['']);
+    }
+    if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
+      if (this.loginDetails.password !== null) {
+        this.authService.getAuth(this.loginDetails).subscribe(user => {
+          this.goHome();
+        }, error => alert(error.message));
+      } else {
+        this.authService.getAuth().subscribe(user => {
+          this.goHome();
+        }, error => alert(error.message));
+      }
+    } else {
+      if (this.loginDetails.password !== null) {
+        this.authService.getAuthCompany(this.loginDetails).subscribe(company => {
+          this.company = company;
+          this.goHome();
+        }, error => alert(error.message));
+      } else {
+        this.authService.getAuth().subscribe(company => {
+          // Should redirect to company's home page
+          this.goHome();
+        }, error => alert(error.message));
+      }
+    }
+  }
 
   // Angular hook that allows for interaction with elements inserted by the
   // rendering of a view.
@@ -94,13 +103,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   onGoogleLoginSuccess = (googleUser) => {
+    const role = this.selectedRole;
     const idToken = googleUser.getAuthResponse().id_token;
+    const params = [idToken, role];
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'api/google-login');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.send(idToken);
-    // After get back the user -> auth -> redirect
-    // this.router.navigate(['home']);
+    xhr.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+    xhr.send(JSON.stringify(params));
+    this.loginDetails.password = null;
+    this.getAuth();
   }
 
   showGoogleLoginButton() {
