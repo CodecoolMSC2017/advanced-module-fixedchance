@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataService } from '../data.service';
 import { AuthService } from '../auth.service';
 import { LoginDetails } from '../login-details';
+import { Observable } from 'rxjs';
 
 // Google's login API namespace
 declare const gapi: any;
@@ -59,7 +60,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     // temp solution
     if (this.selectedRole === undefined) {
       this.authService.onLogOutClick();
-    //  alert('Refresh the page and try again');
+      //  alert('Refresh the page and try again');
       this.router.navigate(['']);
     }
     if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
@@ -105,13 +106,27 @@ export class LoginComponent implements OnInit, AfterViewInit {
   onGoogleLoginSuccess = (googleUser) => {
     const role = this.selectedRole;
     const idToken = googleUser.getAuthResponse().id_token;
-    const params = [idToken, role];
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'api/google-login');
-    xhr.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
-    xhr.send(JSON.stringify(params));
     this.loginDetails.password = null;
-    this.getAuth();
+    // This 'if' condition is just a quick and TEMPORARY solution
+    // for solve the 'empty role' issue.
+    // TODO: solve it
+    if (role === undefined) {
+      this.authService.onLogOutClick();
+      this.router.navigate(['']);
+      location.reload();
+    }
+    this.sendToken([idToken, role]).subscribe(user => {
+      this.getAuth();
+    });
+  }
+
+  sendToken(params: string[]): Observable<any> {
+    const url = '/api/google-login';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json;charset=UTF-8'
+    });
+    const options = { headers: headers };
+    return this.http.post(url, JSON.stringify(params), options);
   }
 
   showGoogleLoginButton() {
