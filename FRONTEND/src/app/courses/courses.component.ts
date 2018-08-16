@@ -66,10 +66,6 @@ export class CoursesComponent implements OnInit {
     return sum / reviews.length;
   }
 
-  onLogoutClick() {
-    this.authService.deleteAuth();
-  }
-
   onCourseClick(event) {
     this.router.navigate(['courses/' + event.target.id]);
   }

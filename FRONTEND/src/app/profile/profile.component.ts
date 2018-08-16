@@ -132,10 +132,6 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  onLogoutClick() {
-    this.authService.deleteAuth();
-  }
-
   selectFile(event) {
     const file = event.target.files.item(0);
     if (file.type.match('image.*')) {
@@ -159,6 +155,6 @@ export class ProfileComponent implements OnInit {
       }
     });
  
-    this.selectedFiles = undefined
+    this.selectedFiles = undefined;
   }
 }

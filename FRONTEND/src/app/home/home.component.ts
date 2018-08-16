@@ -8,7 +8,7 @@ import { NewPost } from '../new-post';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 
-declare const gapi: any;
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -47,10 +47,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  onLogOutClick() {
-    this.authService.deleteAuth();
-    this.signOut();
-  }
 
   onSearchClick() {
     this.searchedPosts = [];
@@ -124,17 +120,9 @@ export class HomeComponent implements OnInit {
     return x;
   }
 
-  //Remove a specific post
+  // Remove a specific post
   removeItem(i) {
     this.http.delete<void>('/api/posts/' + i).subscribe(resp => { this.fetchPosts() });
-  }
-
-  // logout with google acount
- signOut() {
-  const auth2 = gapi.auth2.getAuthInstance();
-  if (auth2 != null) {
-          auth2.disconnect();
-          }
   }
 
 }

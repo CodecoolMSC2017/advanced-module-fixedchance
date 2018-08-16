@@ -86,8 +86,4 @@ export class UsersComponent implements OnInit {
       this.usersProto = this.orderPipe.transform(this.usersProto, this.order);
     }
   }
-
-  onLogoutClick() {
-    this.authService.deleteAuth();
-  }
 }
