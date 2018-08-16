@@ -1,4 +1,3 @@
-DROP TYPE IF EXISTS post_topics;
 DROP TABLE IF EXISTS comment_answers;
 DROP TABLE IF EXISTS post_comments;
 DROP TABLE IF EXISTS post_topics;
@@ -25,9 +24,9 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
 	id SERIAL PRIMARY KEY,
 	username TEXT NOT NULL UNIQUE,
-	password TEXT NOT NULL,
-	enabled BOOLEAN NOT NULL,
-	CONSTRAINT password_not_empty CHECK (password <> '')
+	password TEXT,
+	enabled BOOLEAN NOT NULL
+	-- CONSTRAINT password_not_empty CHECK (password <> '')
 );
 
 CREATE TABLE simple_users (
