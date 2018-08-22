@@ -148,10 +148,8 @@ public class User extends AbstractModel implements Serializable {
     public String toString() {
         return "User{" +
                 "id='" + super.getId() + "\'" +
-                ", userName='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", enabled=" + enabled +
-                ", confpassword='" + confpassword + '\'' +
+                ", username='" + username + '\'' +
+                ", authorities=" + authorities +
                 '}';
     }
 }

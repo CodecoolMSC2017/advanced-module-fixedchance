@@ -121,11 +121,8 @@ public class Company extends AbstractModel implements Serializable {
     public String toString() {
         return "Company{" +
                 "name='" + name + '\'' +
-                ", registrationDate=" + registrationDate +
                 ", email='" + email + '\'' +
-                ", active=" + active +
                 ", subscription='" + subscription + '\'' +
-                ", description='" + description + '\'' +
                 '}';
     }
 }
