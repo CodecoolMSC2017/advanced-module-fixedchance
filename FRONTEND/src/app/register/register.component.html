@@ -13,6 +13,7 @@
     <input type="password" [(ngModel)]="registerDetails.password" placeholder="Password" name="password"><br>
     <input type="password" [(ngModel)]="registerDetails.confirmationPassword" placeholder="Confirm Password" name="confirmationPassword"><br>
     <button id="regbutton" (click)="onRegisterClick()">Register</button>
+    <p> {{ message }} </p>
   </form>
 
   <form *ngIf="selectedRole == 'COMPANY'" id="register-form" autocomplete="off">
@@ -27,6 +28,6 @@
       <button name="later" (click)="subChosen($event)" class="fa-button later">CHOOSE LATER</button>
     </div>
     <button id="compregbutton" (click)="onRegisterClick()">Register</button>
+    <p> {{ message }} </p>
   </form>
 </div>
-<p>{{ errormessage }}</p>

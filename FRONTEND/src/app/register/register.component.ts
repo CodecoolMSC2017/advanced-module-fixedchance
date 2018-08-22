@@ -15,15 +15,13 @@ export class RegisterComponent implements OnInit {
 
   registerDetails: RegisterDetails = new RegisterDetails();
   name: string = this.name;
+  message: string;
 
-  message: Message;
-  errormessage: string;
   selectedRole: string;
   prevSelectedRole: Element;
 
   selectedSub: string;
   prevSelectedSub: Element;
-
 
   constructor(private registerService: RegisterService, private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
@@ -34,7 +32,9 @@ export class RegisterComponent implements OnInit {
     if (this.checkForMissingInfo()) {
       return;
     }
-
+    if (!this.isValidBirthday(new Date(this.registerDetails.birthdate))) {
+      return;
+    }
     if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
       this.register('REGULAR');
     } else {
@@ -79,24 +79,34 @@ export class RegisterComponent implements OnInit {
     return false;
   }
 
+  isValidBirthday(birthdate: Date) {
+    if (birthdate < new Date('1899-01-01') || birthdate > new Date('2018-01-01')) {
+      this.message = 'Incorrect birthdate';
+      return false;
+    }
+    return true;
+  }
+
+  redirectAfterSuccess() {
+    this.message = 'Your registration was successful!';
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
+  }
+
   register(role: string) {
     if (role === 'REGULAR') {
       this.registerDetails.role = this.selectedRole;
       this.registerService.studentOrTeacherRegister(this.registerDetails).subscribe(user => {
-        this.router.navigate(['']);
-        // manually refresh/reload the page
-        location.reload();
-        alert('Your registration was successful!');
-      }, error => alert(error.message));
+        this.redirectAfterSuccess();
+      }, error => this.message = error.error.message);
     }
     if (role === 'COMPANY') {
       this.registerDetails.role = this.selectedRole;
       this.registerDetails.subscription = this.selectedSub;
       this.registerService.companyRegister(this.registerDetails).subscribe(user => {
-        this.router.navigate(['']);
-        location.reload();
-        alert('Your registration was successful!');
-      }, error => alert(error.message));
+        this.redirectAfterSuccess();
+      }, error => this.message = error.error.message);
     }
   }
 }
