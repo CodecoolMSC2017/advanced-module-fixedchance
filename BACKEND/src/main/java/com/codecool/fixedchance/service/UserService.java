@@ -1,12 +1,14 @@
 package com.codecool.fixedchance.service;
 
 import com.codecool.fixedchance.domain.User;
+import com.codecool.fixedchance.exception.UserAlreadyExistsException;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,6 +31,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserService extends AbstractService {
+
+    private final static Logger logger = Logger.getLogger(UserService.class);
 
     @Autowired
     private UserDetailsManager userDetailsManager;
@@ -54,24 +58,25 @@ public class UserService extends AbstractService {
         return userRepository.getOne(id);
     }
 
- /*   public void add(User user) {
-            userRepository.save(user);
-    }
-    */
-
     @Transactional
-    public User add(String username, String password, String confirmationPassword, String role) {
+    public User add(String username, String password, String confirmationPassword, String role) throws UserAlreadyExistsException {
         if (!password.equals(confirmationPassword)) {
             throw new IllegalArgumentException();
         }
-        userDetailsManager.createUser(new org.springframework.security.core.userdetails.User(
-                username,
-                passwordEncoder.encode(password),
-                AuthorityUtils.createAuthorityList("ROLE_" + role)));
-        User user = userRepository.findByUsername(username);
-        user.setEnabled(true);
-        user.setAll(user);
-        userRepository.save(user);
+        User user;
+        if (!isUsernameExists(username)) {
+            userDetailsManager.createUser(new org.springframework.security.core.userdetails.User(
+                    username,
+                    passwordEncoder.encode(password),
+                    AuthorityUtils.createAuthorityList("ROLE_" + role)));
+            user = userRepository.findByUsername(username);
+            user.setEnabled(true);
+            user.setAll(user);
+            userRepository.save(user);
+            logger.info(userRepository.findByUsername(username) + " added to database.");
+        } else {
+            throw new UserAlreadyExistsException("Repeated registration attempt. User already exists.");
+        }
         return user;
     }
 
@@ -103,6 +108,7 @@ public class UserService extends AbstractService {
                     username,
                     "",
                     AuthorityUtils.createAuthorityList("ROLE_" + role)));
+            logger.info(getUserByName(username) + " added to database.");
         }
         return getUserByName(username);
     }
@@ -119,8 +125,7 @@ public class UserService extends AbstractService {
         try {
             idToken = verifier.verify(googleToken);
         } catch (GeneralSecurityException | IOException e) {
-            e.printStackTrace();
-            // TODO: log here
+            logger.fatal("Unable to read google token.", e);
         }
         if (idToken != null) {
             return idToken.getPayload();
