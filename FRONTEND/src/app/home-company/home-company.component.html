@@ -1,0 +1,56 @@
+<header id="top-bar">
+    <ul *ngIf="contentLoaded">
+      <li class="toleft"><img id="logoimg" src="assets/logo.png" />
+      <li class="toleft" id="logo">FIXEDCHANCE</li>
+      <li class="toleft"><a routerLink="../users">USERS</a></li>
+      <li class="toright"><a (click)="authService.onLogOutClick()">LOGOUT</a></li>
+      <li class="toright"><a routerLink="../profile">PROFILE</a></li>
+    </ul>
+  </header>
+  
+  <div id="bck">
+  </div>
+  <div id="main-content">
+    <div id="wall" *ngIf="contentLoaded">
+  
+      <!-- Current User Post Section -->
+      <div class="post-form" data-aos="flip-up">
+        <h3>Hello {{ company.user.username }}, do you have anything to share?</h3>
+        <hr>
+        <textarea type="text" [(ngModel)]="postContent" placeholder="Type your idea" name="postContent"></textarea><br>
+        <h4>(minimum 3, maximum 10)</h4>
+        <div id="topic-wrapper">
+          <span class="added-topic" (click)="removeTopic($event)" id="{{ topic }}" *ngFor="let topic of post.topics">
+            <span id="{{ topic }}" style="width: 100%; height: 100%">{{ topic }}</span>
+          </span>
+        </div>
+        <input id="topic-input" *ngIf="topics.length <= 10" type="text" (keyup)="topicKey($event)" [(ngModel)]="currentTopic" name="topic" maxlength="12" placeholder="Type a topic">
+        <br>
+        <button id="shareButton" (click)="addItem()">Share</button>
+      </div><br>
+  
+      <hr>
+      <!-- Search Posts By Topics -->
+      <div id="title-div">
+        <h1 id="title">POSTS</h1>
+        <input type="text" [(ngModel)]="toSearch" id="ajax" placeholder="Search here" (keyup)="onSearchClick()">
+      </div>
+      <hr>
+      
+      <!-- Posts -->
+      <div *ngFor="let post of searchedPosts.slice().reverse(), let i = index">
+        <div class="item" data-aos="fade-down"
+        data-aos-easing="linear"
+        data-aos-duration="500">
+        <div class="up-button"><i (click)="onUpVoteClicked($event)" id="{{ post.id }}" class="fa fa-chevron-up"></i></div>
+        <div class="rating"> {{ post.rating }}</div>
+        <div class="down-button"><i (click)="onDownVoteClicked($event)" id="{{ post.id }}" class="fa fa-chevron-down"></i></div>
+        <div *ngIf="company.user.username === post.userName" class="delete-post-button" (click)="removeItem(post.id)"><i class="fa fa-close"></i></div>
+        <div class="user" id="{{ post.userName }}" (click)="onUserClicked($event)"> {{ post.userName }} </div>
+        <p class="post-content">{{ post.postContent }}</p>
+      </div><br>
+    </div>
+  </div>
+  </div>
+  
+  

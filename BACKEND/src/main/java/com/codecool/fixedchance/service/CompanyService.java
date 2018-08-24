@@ -1,7 +1,9 @@
 package com.codecool.fixedchance.service;
 
 import com.codecool.fixedchance.domain.Company;
+import com.codecool.fixedchance.domain.SimpleUser;
 import com.codecool.fixedchance.domain.User;
+import com.codecool.fixedchance.exception.WrongRoleSelectionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +23,12 @@ public class CompanyService extends AbstractService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private SimpleUserService simpleUserService;
+
     public List<Company> getAll() {
         return companyRepository.findAll();
     }
@@ -37,21 +45,34 @@ public class CompanyService extends AbstractService {
         return companyRepository.findByUserId(id);
     }
 
+    boolean isCompanyExists(String username) {
+        User user = userRepository.findByUsername(username);
+        Company company = getByUserId(user.getId());
+        return company != null;
+    }
+
     public void add(Company company) {
         companyRepository.save(company);
     }
 
     @Transactional
-    public void add(String username, String name, String email, String subscription) {
-        User user = userRepository.findByUsername(username);
+    public Company add(String username, String name, String email, String subscription) throws WrongRoleSelectionException {
+        User userWithBasicDetails = userRepository.findByUsername(username);
         Company company = new Company();
-        company.setUser(user);
+        company.setUser(userWithBasicDetails);
         company.setName(name);
         company.setEmail(email);
         company.setSubscription(subscription);
         company.setRegistrationDate(new Date());
         company.setActive(true);
-        companyRepository.save(company);
+        if (!isCompanyExists(username) && !simpleUserService.isSimpleUserExists(username)) {
+            companyRepository.save(company);
+            return company;
+        } else if (!isCompanyExists(username) && simpleUserService.isSimpleUserExists(username)) {
+            throw new WrongRoleSelectionException("Wrong role selection.");
+        } else {
+            return companyRepository.findByUserId(userWithBasicDetails.getId());
+        }
     }
 
     public void update(Integer id, Company comp) {

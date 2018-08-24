@@ -6,6 +6,7 @@ import com.codecool.fixedchance.domain.User;
 import com.codecool.fixedchance.domain.UserDTO;
 import com.codecool.fixedchance.exception.MissingUserRoleException;
 import com.codecool.fixedchance.exception.UserAlreadyExistsException;
+import com.codecool.fixedchance.exception.WrongRoleSelectionException;
 import org.apache.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -78,7 +79,7 @@ public class UserController extends AbstractController {
      }
      */
     @PostMapping("/register")
-    public void add(@RequestBody Map<String, String> map) throws UserAlreadyExistsException {
+    public void add(@RequestBody Map<String, String> map) throws UserAlreadyExistsException, WrongRoleSelectionException {
         String username = map.get("username");
         String email = map.get("email");
         String password = map.get("password");
@@ -101,7 +102,12 @@ public class UserController extends AbstractController {
             logger.info(e.getMessage());
             throw new UserAlreadyExistsException();
         }
-        simpleUserService.add(username, email, firstName, lastName, birthDate);
+        try {
+            simpleUserService.add(username, email, firstName, lastName, birthDate);
+        } catch (WrongRoleSelectionException e) {
+            logger.info(e.getMessage());
+            throw new WrongRoleSelectionException();
+        }
     }
 
     @RequestMapping(path = "/user/{id}",
@@ -130,7 +136,7 @@ public class UserController extends AbstractController {
     }
 
     @PostMapping("/company-register")
-    public void addCompany(@RequestBody Map<String, String> map) throws UserAlreadyExistsException {
+    public void addCompany(@RequestBody Map<String, String> map) throws UserAlreadyExistsException, WrongRoleSelectionException {
         String username = map.get("username");
         String name = map.get("name");
         String email = map.get("email");
@@ -144,7 +150,12 @@ public class UserController extends AbstractController {
             logger.info(e.getMessage());
             throw new UserAlreadyExistsException();
         }
-        companyService.add(username, name, email, subscription);
+        try {
+            companyService.add(username, name, email, subscription);
+        } catch (WrongRoleSelectionException e) {
+            logger.info((e.getMessage()));
+            throw new WrongRoleSelectionException();
+        }
     }
 
     @RequestMapping(path = "/company/{id}",
@@ -170,7 +181,7 @@ public class UserController extends AbstractController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json;charset=UTF-8"})
     public @ResponseBody
-    User googleLogin(@RequestBody() String[] params) throws MissingUserRoleException {
+    User googleLogin(@RequestBody() String[] params) throws MissingUserRoleException, WrongRoleSelectionException {
         final String token = params[0];
         final String role = params[1];
         if (role != null) {
