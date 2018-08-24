@@ -18,6 +18,7 @@ declare const gapi: any;
 
 export class LoginComponent implements OnInit, AfterViewInit {
 
+  message: string;
   loginDetails: LoginDetails = new LoginDetails();
   selectedRole: string;
   prevSelectedRole: Element;
@@ -55,36 +56,44 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.router.navigate(['home']);
   }
 
+  goHomeWithCompany() {
+    this.router.navigate(['home-company']);
+  }
+
   getAuth() {
     this.authService.setCurrentRole(this.selectedRole);
-    // temp solution
-    if (this.selectedRole === undefined) {
-      this.authService.onLogOutClick();
-      //  alert('Refresh the page and try again');
-      this.router.navigate(['']);
-    }
     if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
       if (this.loginDetails.password !== null) {
         this.authService.getAuth(this.loginDetails).subscribe(user => {
+          if (user !== null && user.user.authorities[0].split('_')[1] === this.selectedRole ||
+          user !== null && user.user.authorities[0].split('_')[1] === 'ADMIN') {
           this.goHome();
+          } else {
+            this.message = 'This user is already in the system with an other role.';
+          }
         }, error => alert(error.message));
       } else {
         this.authService.getAuth().subscribe(user => {
           this.goHome();
         }, error => alert(error.message));
       }
-    } else {
+    } else if (this.selectedRole === 'COMPANY') {
       if (this.loginDetails.password !== null) {
         this.authService.getAuthCompany(this.loginDetails).subscribe(company => {
-          this.company = company;
-          this.goHome();
+          if (company !== null && company.user.authorities[0].split('_')[1] === this.selectedRole) {
+            this.goHomeWithCompany();
+            } else {
+              this.message = 'This user is already in the system with an other role.';
+            }
         }, error => alert(error.message));
       } else {
-        this.authService.getAuth().subscribe(company => {
-          // Should redirect to company's home page
-          this.goHome();
+        this.authService.getAuthCompany().subscribe(company => {
+          this.goHomeWithCompany();
         }, error => alert(error.message));
       }
+    } else {
+      this.authService.onLogOutClick();
+      this.router.navigate(['']);
     }
   }
 
@@ -114,11 +123,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.authService.onLogOutClick();
       this.router.navigate(['']);
       location.reload();
-    }
+    } else {
     this.sendToken([idToken, role]).subscribe(user => {
       this.getAuth();
-    });
+    }, error => this.message = error.error.message);
   }
+}
+
 
   sendToken(params: string[]): Observable<any> {
     const url = '/api/google-login';
