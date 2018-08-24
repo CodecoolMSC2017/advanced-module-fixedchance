@@ -2,6 +2,7 @@ package com.codecool.fixedchance.service;
 
 import com.codecool.fixedchance.domain.User;
 import com.codecool.fixedchance.exception.UserAlreadyExistsException;
+import com.codecool.fixedchance.exception.WrongRoleSelectionException;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
@@ -46,6 +47,9 @@ public class UserService extends AbstractService {
     @Autowired
     private SimpleUserService simpleUserService;
 
+    @Autowired
+    private CompanyService companyService;
+
     public User getUserByName(String username) {
         return userRepository.findByUsername(username);
     }
@@ -75,6 +79,7 @@ public class UserService extends AbstractService {
             userRepository.save(user);
             logger.info(userRepository.findByUsername(username) + " added to database.");
         } else {
+            logger.info("Repeated registration attempt. User already exists.");
             throw new UserAlreadyExistsException("Repeated registration attempt. User already exists.");
         }
         return user;
@@ -134,7 +139,7 @@ public class UserService extends AbstractService {
     }
 
     @Transactional
-    public User getUserByGoogleToken(String token, String role) {
+    public User getUserByGoogleToken(String token, String role) throws WrongRoleSelectionException {
         final String CLIENT_ID = "899873551530-nq1cl62rki8ehf4qgc3dm8hnp9l5icvi.apps.googleusercontent.com";
         User user;
         GoogleIdToken.Payload payload = getGooglePayload(token, CLIENT_ID);
@@ -153,8 +158,31 @@ public class UserService extends AbstractService {
         user = getGoogleAuthenticatedUser(username, role);
 
         add(user);
-        simpleUserService.add(username, email, firstName, lastName, null);
 
+        String currentRole = user.getAuthorities().get(0).split("_")[1];
+
+        if (currentRole.equals(role)) {
+            if (role.equals("STUDENT") || role.equals("TEACHER")) {
+                try {
+                    simpleUserService.add(username, email, firstName, lastName, null);
+                } catch (WrongRoleSelectionException e) {
+                    logger.info("Wrong role selection.");
+                    throw new WrongRoleSelectionException();
+                }
+            } else if (role.equals("COMPANY")) {
+                try {
+                    // The default company name is the username
+                    // and the default subscription value is 'later'
+                    companyService.add(username, username, email, "later");
+                } catch (WrongRoleSelectionException e) {
+                    logger.info("Wrong role selection.");
+                    throw new WrongRoleSelectionException();
+                }
+            }
+        } else {
+            logger.info("Wrong role selection.");
+            throw new WrongRoleSelectionException();
+        }
         return user;
     }
 
