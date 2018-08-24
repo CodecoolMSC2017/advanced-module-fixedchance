@@ -10,8 +10,6 @@ export class User {
     birthDate: Date;
     experience: number;
     role: string;
-    password: string;
-    enabled: boolean;
     authorities: String[];
     courses: Course[];
     registrationDate: number;

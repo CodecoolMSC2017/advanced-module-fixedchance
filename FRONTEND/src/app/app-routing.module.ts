@@ -15,6 +15,7 @@ import { CourseCheckoutComponent } from './course-checkout/course-checkout.compo
 import { UsersComponent } from './users/users.component';
 import { GuestProfileComponent } from './guest-profile/guest-profile.component';
 import { TeacherContentGuard } from './teacher-content.guard';
+import { HomeCompanyComponent } from './home-company/home-company.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,11 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'home-company',
+    component: HomeCompanyComponent,
     canActivate: [LoginGuard],
   },
   {

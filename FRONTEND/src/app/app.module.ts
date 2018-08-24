@@ -28,6 +28,7 @@ import { CourseCheckoutComponent } from './course-checkout/course-checkout.compo
 import { UsersComponent } from './users/users.component';
 import { GuestProfileComponent } from './guest-profile/guest-profile.component';
 import { OrderModule } from 'ngx-order-pipe';
+import { HomeCompanyComponent } from './home-company/home-company.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { OrderModule } from 'ngx-order-pipe';
     CourseCheckoutComponent,
     UsersComponent,
     GuestProfileComponent,
+    HomeCompanyComponent,
   ],
   imports: [
     BrowserModule,
