@@ -2,6 +2,7 @@ package com.codecool.fixedchance.service;
 
 import com.codecool.fixedchance.domain.Post;
 import com.codecool.fixedchance.domain.PostTopic;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public final class PostService extends AbstractService {
 
     public List<Post> getAll() {
-        return postRepository.findAll();
+        return postRepository.findAllByOrderByIdAsc();
     }
 
     public Post getOne(Integer id) {

@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS comment_answers;
 DROP TABLE IF EXISTS post_comments;
 DROP TABLE IF EXISTS post_topics;
+DROP TABLE IF EXISTS post_users;
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS course_topics;
 DROP TABLE IF EXISTS course_reviews;
@@ -187,6 +188,15 @@ CREATE TABLE posts (
     user_name TEXT NOT NULL,
     post_content TEXT NOT NULL,
     rating INTEGER DEFAULT 0
+);
+
+CREATE TABLE post_users (
+    post_id INTEGER NOT NULL,
+    voter_id INTEGER NOT NULL,
+    vote BOOLEAN NOT NULL,
+    FOREIGN KEY (post_id) REFERENCES posts(id),
+    FOREIGN KEY (voter_id) REFERENCES users(id),
+    PRIMARY KEY (post_id, voter_id)
 );
 
 CREATE TABLE post_topics (

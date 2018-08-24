@@ -12,5 +12,6 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, In
 
     List<Advertisement> findAll();
 
+
     List<Advertisement> findByCompany(Company company);
 }

@@ -12,6 +12,11 @@ import java.util.Set;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Post extends AbstractModel{
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "post_users",
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "voter_id")})
+    private Set<User> users = new HashSet<>();
 
     @NotNull
     private String userName;
@@ -26,6 +31,11 @@ public class Post extends AbstractModel{
     public Post() {}
 
     //Getters
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -43,6 +53,11 @@ public class Post extends AbstractModel{
     }
 
     //Setters
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
     public void setUserName(String userName) {
         this.userName = userName;
     }

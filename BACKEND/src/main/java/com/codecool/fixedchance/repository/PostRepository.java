@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
-    List<Post> findAll();
+    List<Post> findAllByOrderByIdAsc();
 
     List<Post> findAllByTopics(PostTopic topic);
 

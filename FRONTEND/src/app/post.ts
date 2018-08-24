@@ -7,4 +7,5 @@ export class Post {
     topics: string[];
     userName: string;
     rating: number;
+    users: string[];
 }

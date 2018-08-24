@@ -58,4 +58,7 @@ class AbstractService {
 
     @Autowired
     StudentAnswerRepository studentAnswerRepository;
+
+    @Autowired
+    PostVoteRepository postVoteRepository;
 }

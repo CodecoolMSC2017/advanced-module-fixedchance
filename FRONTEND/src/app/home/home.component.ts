@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
 import { User } from '../user';
 import { Post } from '../post';
+import { Vote } from '../vote';
 import { NewPost } from '../new-post';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
@@ -32,6 +33,8 @@ export class HomeComponent implements OnInit {
   contentLoaded: boolean;
   toSearch: string;
   rating: number;
+  users: string[];
+  vote: Vote = new Vote;
 
   ngOnInit() {
     this.authService.getAuth().subscribe(resp => {
@@ -76,8 +79,6 @@ export class HomeComponent implements OnInit {
   topicKey(event) {
     if (event.key === ' ') {
       if (this.currentTopic !== ' ' && this.currentTopic != null) {
-        console.log(this.post);
-        console.log(this.post.topics);
         if (!this.post.topics.some(x => x === this.currentTopic) && this.post.topics.length <= 10) {
           this.post.topics.push(this.currentTopic);
         }
@@ -143,19 +144,47 @@ export class HomeComponent implements OnInit {
 
   onUpVoteClicked(event){
     let postId = +event.target.id;
+    let userId = +this.user.user.id;
+    let currentVote = true;
+    this.vote.postId = postId;
+    this.vote.voterId = userId;
+    this.vote.vote = currentVote;
+    let postUsers = [];
     for(let i = 0; i < this.posts.length; i++){
       if(postId === this.posts[i].id){
-        this.http.post<void>('/api/posts/update/up/' + postId, {}).subscribe(resp => {this.fetchPosts()})
+        for(let j = 0; j < this.posts[i].users.length; j++){
+          postUsers.push(this.posts[i].users[j].username);
+        }
+        console.log(postUsers);
+        if(!postUsers.some(x => x === this.user.user.username)){
+          this.http.post<void>('/api/posts/update/up/' + postId, {}).subscribe(resp => {this.sendVoteToDataBase(this.vote)})
+        }
+      }
+    }
+  }
+  onDownVoteClicked(event){
+    let postId = +event.target.id;
+    let userId = +this.user.user.id;
+    let currentVote = false;
+    this.vote.postId = postId;
+    this.vote.voterId = userId;
+    this.vote.vote = currentVote;
+    let postUsers = [];
+    for(let i = 0; i < this.posts.length; i++){
+      if(postId === this.posts[i].id){
+        for(let j = 0; j < this.posts[i].users.length; j++){
+          postUsers.push(this.posts[i].users[j].username);
+        }
+        console.log(postUsers);
+        if(!postUsers.some(x => x === this.user.user.username)){
+          this.http.post<void>('/api/posts/update/down/' + postId, {}).subscribe(resp => {this.sendVoteToDataBase(this.vote)})
+        }
       }
     }
   }
 
-  onDownVoteClicked(event){
-    let postId = +event.target.id;
-    for(let i = 0; i < this.posts.length; i++){
-      if(postId === this.posts[i].id){
-        this.http.post<void>('/api/posts/update/down/' + postId, {}).subscribe(resp => {this.fetchPosts()})
-      }
-    }
+  sendVoteToDataBase(vote) {
+    console.log(vote);
+    this.http.post<void>('/api/vote', {'postId': vote.postId, 'voterId': vote.voterId, 'vote': vote.vote }).subscribe(resp => {this.fetchPosts()})
   }
 }

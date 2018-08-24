@@ -58,4 +58,7 @@ public class AbstractController {
 
     @Autowired
     StudentAnswerService studentAnswerService;
+
+    @Autowired
+    PostVoteService postVoteService;
 }

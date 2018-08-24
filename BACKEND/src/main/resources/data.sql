@@ -269,6 +269,20 @@ INSERT INTO posts (user_name, post_content, rating) VALUES
     ('norbi', 'Hey Fellas! Here is a RESTful API Design — Step By Step Guide: https://hackernoon.com/restful-api-design-step-by-step-guide-2f2c9f9fcdbf', 14);
 
 
+INSERT INTO post_users (post_id, voter_id, vote) VALUES
+    (1, 5, true),
+    (3, 7, false),
+    (6, 2, true),
+    (2, 9, true),
+    (5, 3, false),
+    (1, 8, true),
+    (2, 5, false),
+    (7, 9, true),
+    (7, 2, false),
+    (9, 5, true),
+    (8, 2, true);
+
+
 INSERT INTO post_topics (post_id, name) VALUES
     (1, 'Python'),
     (1, 'Programming'),
