@@ -62,18 +62,38 @@ export class RegisterComponent implements OnInit {
 
   checkForMissingInfo() {
     if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
-      if (this.registerDetails.email == null || this.registerDetails.password == null
-        || this.registerDetails.firstName == null || this.registerDetails.lastName == null || this.registerDetails.username == null ||
-        this.registerDetails.birthdate == null) {
+      if (this.registerDetails.firstName == null || this.registerDetails.lastName == null || this.registerDetails.birthdate == null) {
+          this.message = 'Please fill in all fields';
+        return true;
+      }
+      if (this.registerDetails.username == null || this.registerDetails.username === '' ||
+      this.registerDetails.username.length < 4) {
+        this.message = 'Username must be longer than 4 character!';
         return true;
       }
     } else {
-      if (this.registerDetails.email == null || this.registerDetails.companyname == null || this.registerDetails.password == null) {
+      if (this.registerDetails.companyname == null || this.registerDetails.companyname === '' ||
+      this.registerDetails.companyname.length < 4) {
+        this.message = 'Username must be longer than 4 character!';
+        return true;
+      }
+      if (this.registerDetails.confirmationPassword == null || this.registerDetails.confirmationPassword === '') {
+        this.message = 'Please fill in all fields';
         return true;
       }
     }
-
+    const regex = '[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)';
+    if (this.registerDetails.email == null || this.registerDetails.email === ''  || !this.registerDetails.email.match(regex)) {
+      this.message = 'Incorrect e-mail format';
+      return true;
+    }
+    if (this.registerDetails.password == null || this.registerDetails.password === '' ||
+    this.registerDetails.password.length < 6) {
+      this.message = 'Password must be longer than 6 character!';
+      return true;
+    }
     if (this.registerDetails.password !== this.registerDetails.confirmationPassword) {
+      this.message = 'Password does not match the confirm password.';
       return true;
     }
     return false;
@@ -81,7 +101,7 @@ export class RegisterComponent implements OnInit {
 
   isValidBirthday(birthdate: Date) {
     if (birthdate < new Date('1899-01-01') || birthdate > new Date('2018-01-01')) {
-      this.message = 'Incorrect birthdate';
+      this.message = 'Invalid date';
       return false;
     }
     return true;

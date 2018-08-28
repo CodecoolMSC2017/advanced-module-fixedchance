@@ -4,6 +4,7 @@ import com.codecool.fixedchance.domain.Company;
 import com.codecool.fixedchance.domain.SimpleUser;
 import com.codecool.fixedchance.domain.User;
 import com.codecool.fixedchance.domain.UserDTO;
+import com.codecool.fixedchance.exception.MissingRegistrationInfoException;
 import com.codecool.fixedchance.exception.MissingUserRoleException;
 import com.codecool.fixedchance.exception.UserAlreadyExistsException;
 import com.codecool.fixedchance.exception.WrongRoleSelectionException;
@@ -79,7 +80,7 @@ public class UserController extends AbstractController {
      }
      */
     @PostMapping("/register")
-    public void add(@RequestBody Map<String, String> map) throws UserAlreadyExistsException, WrongRoleSelectionException {
+    public void add(@RequestBody Map<String, String> map) throws UserAlreadyExistsException, WrongRoleSelectionException, MissingRegistrationInfoException {
         String username = map.get("username");
         String email = map.get("email");
         String password = map.get("password");
@@ -90,6 +91,12 @@ public class UserController extends AbstractController {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String role = map.get("role");
         Date birthDate = null;
+        try {
+            userService.userDetailsValidator(username, null, email, password, confirmationPassword, role);
+        } catch (MissingRegistrationInfoException e) {
+            logger.warn("Missing registration information.");
+            throw new MissingRegistrationInfoException();
+        }
         try {
             birthDate = format.parse(birthDateStr);
         } catch (ParseException e) {
@@ -136,7 +143,7 @@ public class UserController extends AbstractController {
     }
 
     @PostMapping("/company-register")
-    public void addCompany(@RequestBody Map<String, String> map) throws UserAlreadyExistsException, WrongRoleSelectionException {
+    public void addCompany(@RequestBody Map<String, String> map) throws UserAlreadyExistsException, WrongRoleSelectionException, MissingRegistrationInfoException {
         String username = map.get("username");
         String name = map.get("name");
         String email = map.get("email");
@@ -144,6 +151,12 @@ public class UserController extends AbstractController {
         String confirmationPassword = map.get("confirmationPassword");
         String role = map.get("role");
         String subscription = map.get("subscription");
+        try {
+            userService.userDetailsValidator(username, name, email, password, confirmationPassword, role);
+        } catch (MissingRegistrationInfoException e) {
+            logger.warn("Missing registration information.");
+            throw new MissingRegistrationInfoException();
+        }
         try {
             userService.add(username, password, confirmationPassword, role);
         } catch (UserAlreadyExistsException e) {

@@ -1,6 +1,7 @@
 package com.codecool.fixedchance.service;
 
 import com.codecool.fixedchance.domain.User;
+import com.codecool.fixedchance.exception.MissingRegistrationInfoException;
 import com.codecool.fixedchance.exception.UserAlreadyExistsException;
 import com.codecool.fixedchance.exception.WrongRoleSelectionException;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Component
@@ -118,6 +120,28 @@ public class UserService extends AbstractService {
         return getUserByName(username);
     }
 
+    public void userDetailsValidator(String username, String name, String email, String password, String confirmationPassword, String role) throws MissingRegistrationInfoException {
+        if (role.equals("COMPANY")) {
+            if (name == null || name.equals("")) {
+                throw new MissingRegistrationInfoException();
+            }
+            if (name.length() < 4) {
+                name = name + new Random().nextInt(900) + 100;
+            }
+        }
+        if (role.equals("STUDENT") || role.equals("TEACHER")) {
+            if (username == null || username.equals("")) {
+                throw new MissingRegistrationInfoException();
+            }
+            if (username.length() < 4) {
+                username = username + new Random().nextInt(900) + 100;
+            }
+        }
+        if (email == null || email.equals("") || password == null || password.equals("") || confirmationPassword == null || confirmationPassword.equals("")) {
+            throw new MissingRegistrationInfoException();
+        }
+    }
+
     // TODO: Move to a new package as a regular method
     public GoogleIdToken.Payload getGooglePayload(final String googleToken, final String clientId) {
         HttpTransport transport = new NetHttpTransport();
@@ -147,7 +171,9 @@ public class UserService extends AbstractService {
         String email = payload.getEmail();
         // creating username from the first part of the email address
         String username = email.split("@")[0];
-
+        if (username.length() < 4) {
+            username = username + new Random().nextInt(900) + 100;
+        }
         String name = (String) payload.get("name");
         String firstName = (String) payload.get("given_name");
         String lastName = (String) payload.get("family_name");
