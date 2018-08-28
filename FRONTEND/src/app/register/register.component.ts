@@ -73,12 +73,12 @@ export class RegisterComponent implements OnInit {
       }
     } else {
       if (this.registerDetails.companyname == null || this.registerDetails.companyname === '' ||
-      this.registerDetails.companyname.length < 4) {
-        this.message = 'Username must be longer than 4 character!';
+      this.registerDetails.confirmationPassword == null || this.registerDetails.confirmationPassword === '') {
+        this.message = 'Please fill in all fields';
         return true;
       }
-      if (this.registerDetails.confirmationPassword == null || this.registerDetails.confirmationPassword === '') {
-        this.message = 'Please fill in all fields';
+      if (this.registerDetails.companyname.length < 4) {
+        this.message = 'Username must be longer than 4 character!';
         return true;
       }
     }
