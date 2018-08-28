@@ -130,8 +130,8 @@ export class HomeComponent implements OnInit {
   }
 
   //Write comment
-  onPostClicked($event) {
-    console.log(event.target);
+  onPostClicked(event) {
+    let postId = event.target.id;
   }
 
   // logout with google acount
@@ -155,9 +155,11 @@ export class HomeComponent implements OnInit {
         for(let j = 0; j < this.posts[i].users.length; j++){
           postUsers.push(this.posts[i].users[j].username);
         }
-        console.log(postUsers);
         if(!postUsers.some(x => x === this.user.user.username)){
           this.http.post<void>('/api/posts/update/up/' + postId, {}).subscribe(resp => {this.sendVoteToDataBase(this.vote)})
+        }
+        else{
+          alert("You've already voted this post!")
         }
       }
     }
@@ -175,16 +177,17 @@ export class HomeComponent implements OnInit {
         for(let j = 0; j < this.posts[i].users.length; j++){
           postUsers.push(this.posts[i].users[j].username);
         }
-        console.log(postUsers);
         if(!postUsers.some(x => x === this.user.user.username)){
           this.http.post<void>('/api/posts/update/down/' + postId, {}).subscribe(resp => {this.sendVoteToDataBase(this.vote)})
+        }
+        else{
+          alert("You've already voted this post!")
         }
       }
     }
   }
 
   sendVoteToDataBase(vote) {
-    console.log(vote);
     this.http.post<void>('/api/vote', {'postId': vote.postId, 'voterId': vote.voterId, 'vote': vote.vote }).subscribe(resp => {this.fetchPosts()})
   }
 }
