@@ -1,11 +1,9 @@
 package com.codecool.fixedchance.service;
 
 import com.codecool.fixedchance.domain.Company;
-import com.codecool.fixedchance.domain.SimpleUser;
 import com.codecool.fixedchance.domain.User;
 import com.codecool.fixedchance.exception.WrongRoleSelectionException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Component;
@@ -69,7 +67,7 @@ public class CompanyService extends AbstractService {
             companyRepository.save(company);
             return company;
         } else if (!isCompanyExists(username) && simpleUserService.isSimpleUserExists(username)) {
-            throw new WrongRoleSelectionException("Wrong role selection.");
+            throw new WrongRoleSelectionException("Wrong role selection");
         } else {
             return companyRepository.findByUserId(userWithBasicDetails.getId());
         }

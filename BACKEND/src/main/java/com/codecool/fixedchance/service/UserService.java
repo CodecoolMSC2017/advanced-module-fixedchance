@@ -1,6 +1,9 @@
 package com.codecool.fixedchance.service;
 
+import com.codecool.fixedchance.domain.Company;
+import com.codecool.fixedchance.domain.SimpleUser;
 import com.codecool.fixedchance.domain.User;
+import com.codecool.fixedchance.exception.EmailAlreadyExistsException;
 import com.codecool.fixedchance.exception.MissingRegistrationInfoException;
 import com.codecool.fixedchance.exception.UserAlreadyExistsException;
 import com.codecool.fixedchance.exception.WrongRoleSelectionException;
@@ -65,10 +68,8 @@ public class UserService extends AbstractService {
     }
 
     @Transactional
-    public User add(String username, String password, String confirmationPassword, String role) throws UserAlreadyExistsException {
-        if (!password.equals(confirmationPassword)) {
-            throw new IllegalArgumentException();
-        }
+    public User add(String username, String password, String role)
+            throws UserAlreadyExistsException {
         User user;
         if (!isUsernameExists(username)) {
             userDetailsManager.createUser(new org.springframework.security.core.userdetails.User(
@@ -120,13 +121,24 @@ public class UserService extends AbstractService {
         return getUserByName(username);
     }
 
-    public void userDetailsValidator(String username, String name, String email, String password, String confirmationPassword, String role) throws MissingRegistrationInfoException {
+    public void userDetailsValidator(String username, String name, String email,
+                                     String password, String confirmationPassword, String role,
+                                     String subscription) throws MissingRegistrationInfoException, EmailAlreadyExistsException {
+        SimpleUser simpleUser = simpleUserService.find(email);
+        Company comp = companyService.find(email);
+        if (simpleUser != null || comp != null) {
+            logger.info("Registration attempt with an already used e-mail address");
+            throw new EmailAlreadyExistsException("Registration attempt with an already used e-mail address");
+        }
         if (role.equals("COMPANY")) {
             if (name == null || name.equals("")) {
                 throw new MissingRegistrationInfoException();
             }
             if (name.length() < 4) {
                 name = name + new Random().nextInt(900) + 100;
+            }
+            if (subscription == null) {
+                throw new MissingRegistrationInfoException();
             }
         }
         if (role.equals("STUDENT") || role.equals("TEACHER")) {
@@ -137,8 +149,12 @@ public class UserService extends AbstractService {
                 username = username + new Random().nextInt(900) + 100;
             }
         }
-        if (email == null || email.equals("") || password == null || password.equals("") || confirmationPassword == null || confirmationPassword.equals("")) {
+        if (email == null || email.equals("") || password == null || password.equals("") ||
+                confirmationPassword == null || confirmationPassword.equals("")) {
             throw new MissingRegistrationInfoException();
+        }
+        if (!password.equals(confirmationPassword)) {
+            throw new IllegalArgumentException("Password does not match the confirm password");
         }
     }
 
@@ -174,10 +190,10 @@ public class UserService extends AbstractService {
         if (username.length() < 4) {
             username = username + new Random().nextInt(900) + 100;
         }
-        String name = (String) payload.get("name");
         String firstName = (String) payload.get("given_name");
         String lastName = (String) payload.get("family_name");
         // Later
+        //   String name = (String) payload.get("name");
         //   String pictureUrl = (String) payload.get("picture");
         //   String locale = (String) payload.get("locale");
 

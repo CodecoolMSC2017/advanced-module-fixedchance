@@ -1,6 +1,5 @@
 package com.codecool.fixedchance.service;
 
-
 import com.codecool.fixedchance.domain.SimpleUser;
 import com.codecool.fixedchance.domain.User;
 import com.codecool.fixedchance.exception.WrongRoleSelectionException;
@@ -24,6 +23,9 @@ public class SimpleUserService extends AbstractService {
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private UserService userService;
 
     public List<SimpleUser> getAll() {
         return simpleUserRepository.findAll();
@@ -52,7 +54,8 @@ public class SimpleUserService extends AbstractService {
     }
 
     @Transactional
-    public SimpleUser add(String username, String email, String firstName, String lastName, Date birthDate) throws WrongRoleSelectionException {
+    public SimpleUser add(String username, String email, String firstName, String lastName, Date birthDate)
+            throws WrongRoleSelectionException {
         SimpleUser user = new SimpleUser();
         User userWithBasicDetails = userRepository.findByUsername(username);
         user.setUser(userWithBasicDetails);
@@ -65,7 +68,7 @@ public class SimpleUserService extends AbstractService {
             simpleUserRepository.save(user);
             return user;
         } else if (!isSimpleUserExists(username) && companyService.isCompanyExists(username)) {
-            throw new WrongRoleSelectionException("Wrong role selection.");
+            throw new WrongRoleSelectionException("Wrong role selection");
         } else {
             return simpleUserRepository.findByUserId(userWithBasicDetails.getId());
         }

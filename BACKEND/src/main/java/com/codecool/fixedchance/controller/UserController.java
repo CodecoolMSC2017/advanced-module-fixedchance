@@ -4,14 +4,12 @@ import com.codecool.fixedchance.domain.Company;
 import com.codecool.fixedchance.domain.SimpleUser;
 import com.codecool.fixedchance.domain.User;
 import com.codecool.fixedchance.domain.UserDTO;
-import com.codecool.fixedchance.exception.MissingRegistrationInfoException;
-import com.codecool.fixedchance.exception.MissingUserRoleException;
-import com.codecool.fixedchance.exception.UserAlreadyExistsException;
-import com.codecool.fixedchance.exception.WrongRoleSelectionException;
+import com.codecool.fixedchance.exception.*;
 import org.apache.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +20,8 @@ import java.util.*;
 public class UserController extends AbstractController {
 
     private final static Logger logger = Logger.getLogger(UserController.class);
+
+    // Methods for users with STUDENT or TEACHER role
 
     @RequestMapping(path = "/login/{id}",
             method = RequestMethod.GET,
@@ -71,16 +71,10 @@ public class UserController extends AbstractController {
         return userService.getAll();
     }
 
-    /* @RequestMapping(path = "/register",
-             method = RequestMethod.POST,
-             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
-             consumes = {"application/json"})
-     public void registerUser(@RequestBody User user) {
-         userService.add(user);
-     }
-     */
     @PostMapping("/register")
-    public void add(@RequestBody Map<String, String> map) throws UserAlreadyExistsException, WrongRoleSelectionException, MissingRegistrationInfoException {
+    @Transactional
+    public void add(@RequestBody Map<String, String> map) throws UserAlreadyExistsException, WrongRoleSelectionException,
+            MissingRegistrationInfoException, EmailAlreadyExistsException {
         String username = map.get("username");
         String email = map.get("email");
         String password = map.get("password");
@@ -92,19 +86,19 @@ public class UserController extends AbstractController {
         String role = map.get("role");
         Date birthDate = null;
         try {
-            userService.userDetailsValidator(username, null, email, password, confirmationPassword, role);
-        } catch (MissingRegistrationInfoException e) {
-            logger.warn("Missing registration information.");
-            throw new MissingRegistrationInfoException();
-        }
-        try {
             birthDate = format.parse(birthDateStr);
         } catch (ParseException e) {
             e.printStackTrace();
             logger.fatal("Error has been reached unexpectedly while parsing date");
         }
         try {
-            userService.add(username, password, confirmationPassword, role);
+            userService.userDetailsValidator(username, null, email, password, confirmationPassword, role, null);
+        } catch (MissingRegistrationInfoException e) {
+            logger.warn("Missing registration information.");
+            throw new MissingRegistrationInfoException();
+        }
+        try {
+            userService.add(username, password, role);
         } catch (UserAlreadyExistsException e) {
             logger.info(e.getMessage());
             throw new UserAlreadyExistsException();
@@ -133,6 +127,8 @@ public class UserController extends AbstractController {
         logger.info(userService.getOne(id) + " deleted.");
     }
 
+    // Methods for users with COMPANY role
+
     @RequestMapping(path = "/company-login",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -143,7 +139,9 @@ public class UserController extends AbstractController {
     }
 
     @PostMapping("/company-register")
-    public void addCompany(@RequestBody Map<String, String> map) throws UserAlreadyExistsException, WrongRoleSelectionException, MissingRegistrationInfoException {
+    @Transactional
+    public void addCompany(@RequestBody Map<String, String> map) throws UserAlreadyExistsException,
+            WrongRoleSelectionException, MissingRegistrationInfoException, EmailAlreadyExistsException {
         String username = map.get("username");
         String name = map.get("name");
         String email = map.get("email");
@@ -152,13 +150,13 @@ public class UserController extends AbstractController {
         String role = map.get("role");
         String subscription = map.get("subscription");
         try {
-            userService.userDetailsValidator(username, name, email, password, confirmationPassword, role);
+            userService.userDetailsValidator(username, name, email, password, confirmationPassword, role, subscription);
         } catch (MissingRegistrationInfoException e) {
             logger.warn("Missing registration information.");
             throw new MissingRegistrationInfoException();
         }
         try {
-            userService.add(username, password, confirmationPassword, role);
+            userService.add(username, password, role);
         } catch (UserAlreadyExistsException e) {
             logger.info(e.getMessage());
             throw new UserAlreadyExistsException();
