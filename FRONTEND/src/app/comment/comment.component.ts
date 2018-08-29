@@ -49,7 +49,6 @@ export class CommentComponent implements OnInit {
       this.comments = resp;
       for(let i = 0; i < this.comments.length; i++){
         if(this.comments[i].post.id === +postId){
-          console.log(this.comments[i]);
           let displayedComment = new DisplayedComment();
           this.getOwnerName(this.comments[i].simpleUser.id).subscribe(resp => {
             displayedComment.commentOwner = resp.username;
@@ -90,6 +89,8 @@ export class CommentComponent implements OnInit {
   }
 
   // New comment
-  addComment(event) {}
+  addComment(id) {
+    console.log(id);
+  }
 
 }

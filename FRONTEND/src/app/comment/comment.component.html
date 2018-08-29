@@ -34,7 +34,7 @@
       data-aos-duration="500"
       id="{{ post.id }}">
       <textarea class="comment-content" type="text" [(ngModel)]="commentCont" placeholder="Type your idea" ></textarea><br>
-      <button id="{{ post.id }}" class="shareButton" (click)="addComment($event)">Share</button>
+      <button class="shareButton" (click)="addComment(post.id)">Share</button>
     </div>
 
 
