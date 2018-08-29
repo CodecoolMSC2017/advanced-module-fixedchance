@@ -1,0 +1,122 @@
+
+#main-content {
+position: relative;
+padding-top: 16px;
+}
+
+#wall .item {
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    grid-template-rows: 25% 25% 25% 25%;
+    width: 70%;
+    border-radius: 10px;
+    border: 2px solid black;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, .6);
+    text-align: center;
+    animation: all 2s ease-in-out;
+    transition: 0.5s;
+}
+
+.item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    grid-template-rows: 33% 33% 33%; 
+}
+
+.post-content {
+    grid-row: 3;
+    grid-column: 2;
+    font-size: 32px;
+}
+
+.up-button {
+    color: white;
+    grid-row: 1;
+    grid-column: 1;
+    font-size: 32px;
+}
+
+.up-button :hover {
+    animation: all 2s ease-in-out;
+    transition: 0.5s;
+    color: green;
+}
+
+.rating {
+    color: white;
+    grid-row: 2;
+    grid-column: 1;
+    font-size: 32px;
+}
+
+.down-button {
+    color: white;
+    grid-row: 3;
+    grid-column: 1;
+    font-size: 32px;
+}
+
+.down-button :hover {
+    animation: all 2s ease-in-out;
+    transition: 0.5s;
+    color: red;
+} 
+
+.show-comments {
+    grid-row: 4;
+    grid-column: 1;
+    width: 100px;
+    margin-left: 15px;
+}
+
+.comment-form {
+    width: 70%;
+  border-radius: 10px;
+  border: 2px solid black;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, .6);
+  text-align: center;
+  animation: all 2s ease-in-out;
+  transition: 0.5s;
+}
+
+textarea {
+    margin: 0 auto;
+    font-family: 'Teko', 'sans-serif';
+    text-align: center;
+    margin-top: 16px;
+    width: 75%;
+    height: 8%;
+    font-size: 36px;
+    padding: 10px;
+    background: rgba(30, 30, 30, .6);
+    border: 1px solid white;
+    transition: 200ms ease-in-out;  
+    color: white;
+  }
+
+.shareButton {
+    margin: 5px;
+    font-size: 30px;
+    color: black;
+    background: white;
+    border: 1px solid orange; 
+    width: auto;
+    height: auto;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+.write-comment {
+    grid-row: 4;
+    grid-column: 2;
+    width: 100px;
+    margin-left: 60px;
+}
+
+.hidden {
+    display: none;
+}

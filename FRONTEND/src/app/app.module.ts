@@ -29,6 +29,7 @@ import { UsersComponent } from './users/users.component';
 import { GuestProfileComponent } from './guest-profile/guest-profile.component';
 import { OrderModule } from 'ngx-order-pipe';
 import { HomeCompanyComponent } from './home-company/home-company.component';
+import { CommentComponent } from './comment/comment.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { HomeCompanyComponent } from './home-company/home-company.component';
     UsersComponent,
     GuestProfileComponent,
     HomeCompanyComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,
