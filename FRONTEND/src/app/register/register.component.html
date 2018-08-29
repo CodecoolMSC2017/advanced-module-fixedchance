@@ -5,22 +5,22 @@
     <button name="COMPANY" (click)="roleChosen($event)" class="fa-button">COMPANY<br><i class="fa fa-building img"></i></button>
   </div>
   <form *ngIf="selectedRole == 'STUDENT' || selectedRole == 'TEACHER'" id="register-form" autocomplete="off">
-    <input type="text" [(ngModel)]="registerDetails.email" placeholder="E-mail" name="email"><br>
+    <input type="email" [(ngModel)]="registerDetails.email" placeholder="E-mail" name="email" required><br>
     <input type="text" [(ngModel)]="registerDetails.firstName" placeholder="First Name" name="firstname"><br>
     <input type="text" [(ngModel)]="registerDetails.lastName" placeholder="Last Name" name="lastname"><br>
-    <input type="text" [(ngModel)]="registerDetails.username" placeholder="Username" name="username"><br>
+    <input type="text" [(ngModel)]="registerDetails.username" placeholder="Username" name="username" required><br>
     <input type="date" [(ngModel)]="registerDetails.birthdate" name="birthdate"><br>
-    <input type="password" [(ngModel)]="registerDetails.password" placeholder="Password" name="password"><br>
-    <input type="password" [(ngModel)]="registerDetails.confirmationPassword" placeholder="Confirm Password" name="confirmationPassword"><br>
+    <input type="password" [(ngModel)]="registerDetails.password" placeholder="Password" name="password" required><br>
+    <input type="password" [(ngModel)]="registerDetails.confirmationPassword" placeholder="Confirm Password" name="confirmationPassword" required><br>
     <button id="regbutton" (click)="onRegisterClick()">Register</button>
     <p> {{ message }} </p>
   </form>
 
   <form *ngIf="selectedRole == 'COMPANY'" id="register-form" autocomplete="off">
     <input type="text" [(ngModel)]="registerDetails.companyname" placeholder="Company Name" name="name"><br>
-    <input type="text" [(ngModel)]="registerDetails.email" placeholder="E-mail" name="email"><br>
-    <input type="password" [(ngModel)]="registerDetails.password" placeholder="Password" name="password"><br>
-    <input type="password" [(ngModel)]="registerDetails.confirmationPassword" placeholder="Confirm Password" name="confpassword"><br>
+    <input type="email" [(ngModel)]="registerDetails.email" placeholder="E-mail" name="email" required><br>
+    <input type="password" [(ngModel)]="registerDetails.password" placeholder="Password" name="password" required><br>
+    <input type="password" [(ngModel)]="registerDetails.confirmationPassword" placeholder="Confirm Password" name="confpassword" required><br>
     <div id="sub-buttons">
       <button name="1month" (click)="subChosen($event)" class="fa-button">1 MONTH<br><i class="img">20$</i></button>
       <button name="6month" (click)="subChosen($event)" class="fa-button">6 MONTH<br><i class="img">40$</i></button>

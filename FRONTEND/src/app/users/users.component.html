@@ -2,9 +2,11 @@
   <ul *ngIf="contentLoaded">
     <li class="toleft"><img id="logoimg" src="assets/logo.png" />
     <li class="toleft" id="logo">FIXEDCHANCE</li>
-    <li class="toleft"><a routerLink="../home">DASHBOARD</a></li>
-    <li *ngIf="user.user.authorities[0] === 'ROLE_STUDENT'" class="toleft" ><a routerLink="../courses">COURSES</a></li>
-    <li *ngIf="user.user.authorities[0] === 'ROLE_TEACHER'" class="toleft" ><a routerLink="../add-course">ADD COURSE</a></li>
+    <li *ngIf="user !== null && user.user.authorities[0] === 'ROLE_STUDENT'" class="toleft"><a routerLink="../home">DASHBOARD</a></li>
+    <li *ngIf="user !== null && user.user.authorities[0] === 'ROLE_TEACHER'" class="toleft"><a routerLink="../home">DASHBOARD</a></li>
+    <li *ngIf="user === null && company.user.authorities[0] === 'ROLE_COMPANY'"class="toleft"><a routerLink="../home-company">DASHBOARD</a></li>
+    <li *ngIf="user !== null && user.user.authorities[0] === 'ROLE_STUDENT'" class="toleft" ><a routerLink="../courses">COURSES</a></li>
+    <li *ngIf="user !== null && user.user.authorities[0] === 'ROLE_TEACHER'" class="toleft" ><a routerLink="../add-course">ADD COURSE</a></li>
     <li class="toright"><a (click)="authService.onLogOutClick()">LOGOUT</a></li>
     <li class="toright"><a routerLink="../profile">PROFILE</a></li>
   </ul>

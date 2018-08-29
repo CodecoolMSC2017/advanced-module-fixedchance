@@ -11,7 +11,10 @@ import { PasswordChange } from './password-change';
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  // stores the profile picture from google
+  userPicture: String;
+
+  constructor(private http: HttpClient, private user: User) { }
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>('/api/users');
@@ -31,5 +34,13 @@ export class UserService {
       password: newUser.password,
       confirmationPassword: newUser.confirmationPassword
     });
+  }
+
+  setUserPicture(pictureUrl: String) {
+    this.userPicture = pictureUrl;
+  }
+
+  getUserPicture() {
+    return this.userPicture;
   }
 }

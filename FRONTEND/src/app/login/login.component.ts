@@ -5,6 +5,7 @@ import { DataService } from '../data.service';
 import { AuthService } from '../auth.service';
 import { LoginDetails } from '../login-details';
 import { Observable } from 'rxjs';
+import { UserService } from '../user.service';
 
 // Google's login API namespace
 declare const gapi: any;
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   googleLoginButton = 'google-login-button';
 
   constructor(private authService: AuthService, private http: HttpClient, private route: ActivatedRoute, private router: Router,
-    public dataService: DataService) { }
+    public dataService: DataService, private userService: UserService) { }
 
   ngOnInit() {
   }
@@ -61,6 +62,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   getAuth() {
+    // if a previous login happened with google
+    // must delete the profile picture from userService
+    if (this.userService.userPicture !== 'undefined') {
+      this.userService.userPicture = null;
+    }
     this.authService.setCurrentRole(this.selectedRole);
     if (this.selectedRole === 'STUDENT' || this.selectedRole === 'TEACHER') {
       if (this.loginDetails.password !== null) {
@@ -69,9 +75,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
           user !== null && user.user.authorities[0].split('_')[1] === 'ADMIN') {
           this.goHome();
           } else {
-            this.message = 'This user is already in the system with an other role.';
+            this.message = 'Wrong role selected';
           }
-        }, error => alert(error.message));
+        }, error => this.message = 'Wrong username or password');
       } else {
         this.authService.getAuth().subscribe(user => {
           this.goHome();
@@ -83,9 +89,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
           if (company !== null && company.user.authorities[0].split('_')[1] === this.selectedRole) {
             this.goHomeWithCompany();
             } else {
-              this.message = 'This user is already in the system with an other role.';
+              this.message = 'Wrong role selected';
             }
-        }, error => alert(error.message));
+        }, error => this.message = 'Wrong username or password');
       } else {
         this.authService.getAuthCompany().subscribe(company => {
           this.goHomeWithCompany();
@@ -126,6 +132,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
     } else {
     this.sendToken([idToken, role]).subscribe(user => {
       this.getAuth();
+
+    // tmp pic containing solution - should store in the DB
+    const userPicture = googleUser.w3.Paa;
+    this.userService.setUserPicture(userPicture);
+
     }, error => this.message = error.error.message);
   }
 }

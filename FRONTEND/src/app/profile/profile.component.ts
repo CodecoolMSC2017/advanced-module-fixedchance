@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
 import { DataService } from '../data.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { Course } from '../course';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { UploadFileService } from '../upload-file.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +16,7 @@ import { UploadFileService } from '../upload-file.service';
 })
 export class ProfileComponent implements OnInit {
 
-  userLevel: number = 0;
+  userLevel = 0;
   currentExp: number;
   expToNextLevel: number;
   user: User;
@@ -27,17 +28,21 @@ export class ProfileComponent implements OnInit {
   courses: Course[];
   contentLoaded: boolean;
 
-  selectedFiles : File[] = [];
-  currentFileUpload : File;
+  selectedFiles: File[] = [];
+  currentFileUpload: File;
 
   courseEntries: Array<String>;
 
-  blob : any;
+  blob: any;
 
-  constructor(private uploadService : UploadFileService, private http: HttpClient, private authService: AuthService, private dataService: DataService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe) { }
+  constructor(private uploadService: UploadFileService,
+    private authService: AuthService,
+    private dataService: DataService,
+    private router: Router,
+    private datePipe: DatePipe,
+    private userService: UserService) { }
 
   ngOnInit() {
-
     this.authService.getAuth().subscribe(resp => {
       this.user = resp;
       if (this.user.user.authorities[0] === 'ROLE_TEACHER') {
@@ -108,8 +113,9 @@ export class ProfileComponent implements OnInit {
     this.showCourse = true;
     switch (event.target.id) {
       case 'programming':
-        this.courseEntries = ['Python for dummies', 'Python from zero to hero', 'Python advanced', 'Python master','Python for web developers',
-        'Java for dummies', 'Java from zero to hero', 'Java advanced', 'Java master', 'Java for web developers'];
+        this.courseEntries = ['Python for dummies', 'Python from zero to hero', 'Python advanced', 'Python master',
+        'Python for web developers', 'Java for dummies', 'Java from zero to hero', 'Java advanced',
+        'Java master', 'Java for web developers'];
         break;
       case 'videos':
         this.courseEntries = ['Fiery effect tutorial', 'Manipulate sound effects', 'Special effects', 'CGI tutorial'];
@@ -141,7 +147,7 @@ export class ProfileComponent implements OnInit {
       alert('invalid format!');
     }
   }
- 
+
   upload() {
     this.currentFileUpload = this.selectedFiles[0];
     this.uploadService.pushFileToStorage(this.currentFileUpload, this.user.user.username).subscribe(event => {
@@ -151,10 +157,9 @@ export class ProfileComponent implements OnInit {
           this.blob = window.URL.createObjectURL(resp);
         });
       } else {
-        console.log("asd");
+        console.log('asd');
       }
     });
- 
     this.selectedFiles = undefined;
   }
 }
