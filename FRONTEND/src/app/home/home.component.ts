@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataService } from '../data.service';
 import { User } from '../user';
 import { Post } from '../post';
@@ -79,7 +79,7 @@ export class HomeComponent implements OnInit {
   topicKey(event) {
     if (event.key === ' ') {
       if (this.currentTopic !== ' ' && this.currentTopic != null) {
-        if (!this.post.topics.some(x => x === this.currentTopic) && this.post.topics.length <= 10) {
+        if (!this.post.topics.some(x => x === this.currentTopic) && this.post.topics.length < 10) {
           this.post.topics.push(this.currentTopic);
         }
       }
@@ -98,29 +98,35 @@ export class HomeComponent implements OnInit {
 
   // Add new post
   addItem() {
-    this.sendPost().subscribe(post => {
-      let postId = post.id;
-      this.savePostTopic(postId).subscribe(resp => {
-        this.fetchPosts()})
-        this.show = true;
-        this.postContent = '';
-        this.post.topics = [];
-      });
-  }
+    if (this.post.topics.length >= 3 && this.post.topics.length <= 10) {
+      this.sendPost().subscribe(post => {
+        let postId = post.id;
+        this.savePostTopic(postId).subscribe(resp => {
+          this.fetchPosts()})
+          this.show = true;
+          this.postContent = '';
+          this.post.topics = [];
+        });
+      } else if (this.post.topics.length < 3) {
+        alert("Please provide at least 3 topics");
+      } else {
+        alert("Please provide less than 10 topics");
+      }
+    }
 
   sendPost(): Observable<any> {
-    let x;
-    x = this.http.post("/api/posts", {
-      'userName': this.user.user.username, 'postContent': this.postContent })
-    return x;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json;charset=UTF-8'
+    });
+    const options = { headers: headers };
+    return this.http.post("/api/posts", { 'userName': this.user.user.username, 'postContent': this.postContent, 'rating' : 0 }, options);
   }
 
   savePostTopic(postId): Observable<any>{
     let x;
     for(let i = 0;i < this.post.topics.length; i++){
-      x = this.http.post<void>("/api/post-topics/" + postId, {
-        'id': postId, 'name': this.post.topics[i]});
-      }
+      x = this.http.post<void>("/api/post-topics/" + postId, { 'id': postId, 'name': this.post.topics[i] }); 
+    }
     return x;
   }
 
@@ -136,10 +142,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  onPostClicked(event) {
-    let postId = event.target.id;
-    this.fetchPost(postId);
-    this.router.navigate(['comment/' + postId]);
+  onPostClicked(id) {
+    console.log(id);
+    this.router.navigate(['comment/' + id]);
   }
 
   // logout with google acount
@@ -150,7 +155,7 @@ export class HomeComponent implements OnInit {
           }
   }
 
-  onUpVoteClicked(event){
+  onUpVoteClicked(event) {
     let postId = +event.target.id;
     let userId = +this.user.user.id;
     let currentVote = true;
@@ -172,6 +177,7 @@ export class HomeComponent implements OnInit {
       }
     }
   }
+
   onDownVoteClicked(event){
     let postId = +event.target.id;
     let userId = +this.user.user.id;

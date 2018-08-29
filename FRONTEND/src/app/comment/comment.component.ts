@@ -5,7 +5,6 @@ import { DataService } from '../data.service';
 import { AuthService } from '../auth.service';
 import { User } from '../user';
 import { Post } from '../post';
-import { Vote } from '../vote';
 import { Comment } from '../comment';
 import { DisplayedComment } from '../displayed-comment';
 import { Observable } from 'rxjs';

@@ -21,7 +21,8 @@ public class PostController extends AbstractController {
     }
 
     @RequestMapping(path = "/posts",
-            method = RequestMethod.POST)
+            method = RequestMethod.POST,
+            consumes = {"application/json"})
     public Post add(@RequestBody Post post) {
         return postService.add(post);
     }

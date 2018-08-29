@@ -44,14 +44,13 @@
       <div class="item" data-aos="fade-down"
       data-aos-easing="linear"
       data-aos-duration="500"
-      id="{{ post.id }}"
-      (click)="onPostClicked($event)">
-      <div class="up-button"><i (click)="onUpVoteClicked($event)" id="{{ post.id }}" class="fa fa-chevron-up"></i></div>
+      id="{{ post.id }}">
+      <div class="up-button"><i (click)="onUpVoteClicked($event)" (id)="post.id" class="fa fa-chevron-up"></i></div>
       <div class="rating"> {{ post.rating }}</div>
       <div class="down-button"><i (click)="onDownVoteClicked($event)" id="{{ post.id }}" class="fa fa-chevron-down"></i></div>
       <div *ngIf="user.user.username === post.userName" class="delete-post-button" (click)="removeItem(post.id)"><i class="fa fa-close"></i></div>
       <div class="user" id="{{ post.userName }}" (click)="onUserClicked($event)"> {{ post.userName }} </div>
-      <p class="post-content">{{ post.postContent }}</p>
+      <p (click)="onPostClicked(post.id)" class="post-content">{{ post.postContent }}</p>
     </div><br>
   </div>
 </div>
