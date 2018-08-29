@@ -19,10 +19,11 @@ public class PostCommentController extends AbstractController {
         return postCommentService.getOne(id);
     }
 
-    @RequestMapping(path = "/comments",
-            method = RequestMethod.POST)
-    public void add(@RequestBody PostComment comment) {
-        postCommentService.add(comment);
+    @RequestMapping(path = "/comments/{post_id}",
+            method = RequestMethod.POST,
+            consumes = {"application/json"})
+    public void add(@RequestBody PostComment comment, @PathVariable("post_id") Integer postId) {
+        postCommentService.add(comment, postId);
     }
 
     @RequestMapping(path = "/comments/{comment_id}",

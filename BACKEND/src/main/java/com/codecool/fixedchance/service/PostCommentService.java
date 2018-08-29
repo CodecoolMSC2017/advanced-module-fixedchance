@@ -1,5 +1,6 @@
 package com.codecool.fixedchance.service;
 
+import com.codecool.fixedchance.domain.Post;
 import com.codecool.fixedchance.domain.PostComment;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,10 @@ public class PostCommentService extends AbstractService {
         return postCommentRepository.getOne(id);
     }
 
-    public void add(PostComment comment) { postCommentRepository.save(comment);}
+    public void add(PostComment comment, Integer postId) {
+        comment.setPost(postRepository.getOne(postId));
+        postCommentRepository.save(comment);
+    }
 
     public void delete(Integer id) { postCommentRepository.deleteById(id);}
 

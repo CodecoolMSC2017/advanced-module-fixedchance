@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,9 +24,16 @@ public class Post extends AbstractModel{
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
     private Set<PostTopic> topics = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
+    private List<PostComment> comments = new ArrayList<>();
+
     public Post() {}
 
     //Getters
+
+    public List<PostComment> getComments() {
+        return comments;
+    }
 
     public String getUserName() {
         return userName;
@@ -59,6 +68,10 @@ public class Post extends AbstractModel{
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public void setComments(List<PostComment> comments) {
+        this.comments = comments;
     }
 
     //Methods

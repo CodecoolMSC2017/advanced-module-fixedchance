@@ -1,22 +1,27 @@
 package com.codecool.fixedchance.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="post_comments", schema="public")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PostComment extends AbstractModel {
 
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private SimpleUser simpleUser;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "post_id")
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "postId")
+    @JsonBackReference
     private Post post;
+
+    @Column(name = "user_id")
+    private Integer userId;
+
 
     private String commentText;
     private Integer rating;
@@ -25,8 +30,9 @@ public class PostComment extends AbstractModel {
     }
 
     // Getters
-    public SimpleUser getSimpleUser() {
-        return simpleUser;
+
+    public Integer getUserId() {
+        return userId;
     }
 
     public Post getPost() {
@@ -42,8 +48,9 @@ public class PostComment extends AbstractModel {
     }
 
     // Setters
-    public void setSimpleUser(SimpleUser simpleUser) {
-        this.simpleUser = simpleUser;
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public void setPost(Post post) {
@@ -59,10 +66,11 @@ public class PostComment extends AbstractModel {
     }
 
     // Methods
+
     @Override
     public String toString() {
         return "PostComment{" +
-                "simpleUser=" + simpleUser +
+                "userId=" + userId +
                 ", post=" + post +
                 ", commentText='" + commentText + '\'' +
                 ", rating=" + rating +

@@ -1,10 +1,8 @@
-import { Post } from './post';
-import { User } from './user';
-
 export class Comment {
 
-    simpleUser : User;
-    post : Post;
+    id : number;
+    userId : number;
     commentText : string;
     rating : number;
+    username : string;
 }

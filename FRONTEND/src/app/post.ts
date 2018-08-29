@@ -1,5 +1,4 @@
-import { User } from './user';
-import { Topic } from './topic';
+import { Comment } from './comment';
 
 export class Post {
     id: number;
@@ -8,4 +7,5 @@ export class Post {
     userName: string;
     rating: number;
     users: string[];
+    comments : Comment[];
 }
