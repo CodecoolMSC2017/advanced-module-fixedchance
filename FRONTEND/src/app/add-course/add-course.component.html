@@ -84,11 +84,7 @@
                   <input class="question-answer" [(ngModel)]="course.questions[i].questionAnswers[j].answer" name="answer"/>
                   
                   <div class="radio" *ngIf="course.questions[i].questionType === 'SA'">
-                    <input class="answer-radio"
-                           type="radio"
-                           [attr.name]="'sa-radio-' + i"
-                           [value]="field.answer">
-                          
+                    <input class="answer-radio" [(ngModel)]="course.questions[i].questionAnswers[j].isRight" type="radio" [name]="'sa-radio' + i" [value]="checked ? false : true">
                   </div>
 
                   <div class="check" *ngIf="course.questions[i].questionType === 'MA'"><input class="answer-checkbox" [(ngModel)]="course.questions[i].questionAnswers[j].isRight" type="checkbox" name="checkbox" [value]="checked ? false : true"></div>
@@ -102,15 +98,15 @@
               <div *ngIf="course.questions[i].questionType === 'YN' || course.questions[i].questionType === 'TF'">
                 <div class="yesno" *ngIf="course.questions[i].questionType === 'TF'">
                   <span>TRUE</span>
-                  <input class="answer-radio" [(ngModel)]="course.questions[i].questionAnswers[0].isRight" type="radio" name="sa-radio{{i}}" [value]="checked ? false : true"><br>
+                  <input class="answer-radio" [(ngModel)]="course.questions[i].questionAnswers[0].isRight" type="radio" [name]="'sa-radio' + i" [value]="checked ? false : true"><br>
                   <span>FALSE</span>
-                  <input class="answer-radio" [(ngModel)]="course.questions[i].questionAnswers[1].isRight" type="radio" name="sa-radio{{i}}" [value]="checked ? false : true">
+                  <input class="answer-radio" [(ngModel)]="course.questions[i].questionAnswers[1].isRight" type="radio" [name]="'sa-radio' + i" [value]="checked ? false : true">
                 </div>
                 <div class="truefalse" *ngIf="course.questions[i].questionType === 'YN'">
                   <span>YES</span>
-                  <input class="answer-radio" [(ngModel)]="course.questions[i].questionAnswers[0].isRight" type="radio" name="sa-radio{{i}}" [value]="checked ? false : true"><br>
+                  <input class="answer-radio" [(ngModel)]="course.questions[i].questionAnswers[0].isRight" type="radio" [name]="'sa-radio' + i" [value]="checked ? false : true"><br>
                   <span>NO</span>
-                  <input class="answer-radio" [(ngModel)]="course.questions[i].questionAnswers[1].isRight" type="radio" name="sa-radio{{i}}" [value]="checked ? false : true">
+                  <input class="answer-radio" [(ngModel)]="course.questions[i].questionAnswers[1].isRight" type="radio" [name]="'sa-radio' + i" [value]="checked ? false : true">
                 </div>
               </div>
               <!-- YES / NO & TRUE / FALSE -->

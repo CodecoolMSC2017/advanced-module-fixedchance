@@ -15,10 +15,6 @@
   margin-left: 160px;
 }
 
-section div:nth-of-type(2) {
-  grid-column: 2 / 4;
-}
-
 .form-div {
   position: absolute;
   left: 40%;
@@ -118,13 +114,6 @@ textarea {
   padding-top: 16px;
 }
 
-.item {
-  position: relative;
-  display: grid;
-  grid-template-columns: 10% 80% 10%;
-  grid-template-rows: 33% 33% 33%; 
-}
-
 .post-form {
   width: 70%;
   border-radius: 10px;
@@ -139,7 +128,7 @@ textarea {
   transition: 0.5s;
 }
 
-#wall .item {
+#wall div .item {
   display: grid;
   grid-template-columns: 10% 80% 10%;
   grid-template-rows: 33% 33% 33%;
@@ -219,22 +208,19 @@ textarea {
   }
 }
 
-#wall .delete-post-button { 
+.delete-post-button { 
+  float: right;
   width: 30%;
   height: 55%;
   grid-row: 1;
   grid-column: 3;
   color: white;
   font-size: 25px;
-  float:right; 
   padding-right: 6px;
   padding-left: 6px;
   background: red;
   border-radius: 10px;
   border: 2px solid orange;
-  margin-right: -20px;
-  margin-top: -1px;
-  margin-left: -100px;
   cursor: pointer;
 }
 
