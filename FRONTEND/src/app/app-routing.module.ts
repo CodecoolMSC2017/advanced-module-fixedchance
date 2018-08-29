@@ -16,6 +16,7 @@ import { UsersComponent } from './users/users.component';
 import { GuestProfileComponent } from './guest-profile/guest-profile.component';
 import { TeacherContentGuard } from './teacher-content.guard';
 import { HomeCompanyComponent } from './home-company/home-company.component';
+import { CommentComponent } from './comment/comment.component'
 
 const routes: Routes = [
   {
@@ -79,6 +80,11 @@ const routes: Routes = [
   {
     path: 'users/:id',
     component: GuestProfileComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'comment/:id',
+    component: CommentComponent,
     canActivate: [LoginGuard],
   },
   {

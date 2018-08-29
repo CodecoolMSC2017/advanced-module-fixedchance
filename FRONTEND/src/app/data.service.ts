@@ -3,6 +3,7 @@ import { Course } from './course';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserEntry } from './user-entry';
+import { Post } from './post';
 
 @Injectable({
   providedIn: 'root'

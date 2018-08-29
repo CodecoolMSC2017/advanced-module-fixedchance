@@ -1,0 +1,54 @@
+<header id="top-bar">
+  <ul *ngIf="contentLoaded">
+    <li class="toleft"><img id="logoimg" src="assets/logo.png" />
+    <li class="toleft" id="logo">FIXEDCHANCE</li>
+    <li class="toleft"><a routerLink="../../home">DASHBOARD</a></li>
+    <li class="toright"><a (click)="authService.onLogOutClick()">LOGOUT</a></li>
+    <li class="toright"><a routerLink="../../profile">PROFILE</a></li>
+  </ul>
+</header>
+
+<div id="bck">
+</div>
+<div id="main-content">
+  <div id="wall" *ngIf="contentLoaded">
+
+  <!-- Post -->
+      <div (ngModel)="post" class="item" data-aos="fade-down"
+      data-aos-easing="linear"
+      data-aos-duration="500"
+      id="{{ post.id }}">
+      <div class="up-button"><i (click)="onUpVoteClicked($event)" id="{{ post.id }}" class="fa fa-chevron-up"></i></div>
+      <div class="rating"> {{ post.rating }}</div>
+      <div class="down-button"><i (click)="onDownVoteClicked($event)" id="{{ post.id }}" class="fa fa-chevron-down"></i></div>
+      <div class="user" id="{{ post.userName }}" (click)="onUserClicked($event)"> {{ post.userName }} </div>
+      <p class="post-content">{{ post.postContent }}</p>
+      <button *ngIf="comments" id="{{ post.id }}"class="show-comments" (click)="onShowCommentsClicked($event)">Show Comments</button>
+      <button class="write-comment" (click)="onWriteCommentClicked($event)">Write Comment</button>
+    </div><br>
+
+
+  <!-- New Comment Form -->
+    <div class="comment-form hidden" data-aos="fade-down"
+      data-aos-easing="linear"
+      data-aos-duration="500"
+      id="{{ post.id }}">
+      <textarea class="comment-content" type="text" [(ngModel)]="commentCont" placeholder="Type your idea" ></textarea><br>
+      <button id="{{ post.id }}" class="shareButton" (click)="addComment($event)">Share</button>
+    </div>
+
+
+  <!-- Comments -->
+    <div class="comments">
+        <div *ngFor="let comment of correspondingComments" class="item" data-aos="fade-down"
+        data-aos-easing="linear"
+        data-aos-duration="500"
+        id="{{ comment.id }}">
+        <div class="up-button"><i (click)="onUpVoteClicked($event)" id="{{ comment.id }}" class="fa fa-chevron-up"></i></div>
+        <div class="rating"> {{ comment.rating }}</div>
+        <div class="down-button"><i (click)="onDownVoteClicked($event)" id="{{ comment.id }}" class="fa fa-chevron-down"></i></div>
+        <div class="user" id="{{ comment.userName }}" (click)="onUserClicked($event)"> {{ comment.commentOwner }} </div>
+        <p class="post-content">{{ comment.commentContent }}</p>
+    </div><br>
+  </div>
+</div>

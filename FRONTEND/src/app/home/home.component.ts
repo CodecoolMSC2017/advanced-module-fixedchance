@@ -129,9 +129,17 @@ export class HomeComponent implements OnInit {
     this.http.delete<void>('/api/posts/' + i).subscribe(resp => { this.fetchPosts() });
   }
 
-  //Write comment
+  // Navigate to a specific post to write comment
+  fetchPost(id) {
+    this.http.get<Post>('/api/posts/' + id).subscribe(resp => {
+      this.post = resp;
+    });
+  }
+
   onPostClicked(event) {
     let postId = event.target.id;
+    this.fetchPost(postId);
+    this.router.navigate(['comment/' + postId]);
   }
 
   // logout with google acount

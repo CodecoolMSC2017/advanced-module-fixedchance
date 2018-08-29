@@ -256,17 +256,3 @@ textarea {
   transition: 0.5s;
   color: red;
 } 
-
-.comment-form{
-  width: 65%;
-  border-radius: 10px;
-  border: 2px solid black;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
-  margin: 0 auto;
-  margin-top: 16px;
-  background: rgba(0, 0, 0, .6);
-  text-align: center;
-  animation: all 2s ease-in-out;
-  transition: 0.5s;
-}

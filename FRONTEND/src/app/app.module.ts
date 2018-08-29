@@ -29,6 +29,7 @@ import { UsersComponent } from './users/users.component';
 import { GuestProfileComponent } from './guest-profile/guest-profile.component';
 import { OrderModule } from 'ngx-order-pipe';
 import { HomeCompanyComponent } from './home-company/home-company.component';
+import { CommentComponent } from './comment/comment.component';
 import { UserService } from './user.service';
 import { User } from './user';
 
@@ -51,6 +52,7 @@ import { User } from './user';
     UsersComponent,
     GuestProfileComponent,
     HomeCompanyComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,
