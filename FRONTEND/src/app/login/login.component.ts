@@ -69,9 +69,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
           user !== null && user.user.authorities[0].split('_')[1] === 'ADMIN') {
           this.goHome();
           } else {
-            this.message = 'This user is already in the system with an other role.';
+            this.message = 'Wrong role selected';
           }
-        }, error => alert(error.message));
+        }, error => this.message = 'Wrong username or password');
       } else {
         this.authService.getAuth().subscribe(user => {
           this.goHome();
@@ -83,9 +83,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
           if (company !== null && company.user.authorities[0].split('_')[1] === this.selectedRole) {
             this.goHomeWithCompany();
             } else {
-              this.message = 'This user is already in the system with an other role.';
+              this.message = 'Wrong role selected';
             }
-        }, error => alert(error.message));
+        }, error => this.message = 'Wrong username or password');
       } else {
         this.authService.getAuthCompany().subscribe(company => {
           this.goHomeWithCompany();
