@@ -17,11 +17,15 @@
 <div id="main-content" *ngIf="contentLoaded">
 
   <div class="info-header">
-
-    <div class="picture">
+    
+    <div class="picture" *ngIf="userService.userPicture == undefined">
       <iframe [src]="blob | safe"></iframe><br>
       <input type="file" name="file" id="file" class="image-button" (change)="selectFile($event)"/>
       <label for="file">Choose Profile Picture</label>
+    </div>
+
+    <div class="picture" *ngIf="userService.userPicture != undefined">
+        <img id="googleProfileImg" src="{{ userService.userPicture }}"><br>
     </div>
 
       <div class="user-info">

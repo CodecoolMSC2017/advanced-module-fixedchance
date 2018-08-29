@@ -29,6 +29,8 @@ import { UsersComponent } from './users/users.component';
 import { GuestProfileComponent } from './guest-profile/guest-profile.component';
 import { OrderModule } from 'ngx-order-pipe';
 import { HomeCompanyComponent } from './home-company/home-company.component';
+import { UserService } from './user.service';
+import { User } from './user';
 
 
 @NgModule({
@@ -76,7 +78,7 @@ import { HomeCompanyComponent } from './home-company/home-company.component';
     OrderModule,
     HttpModule,
   ],
-  providers: [DataService, DatePipe, UploadFileService, httpInterceptorProviders, HttpClientModule],
+  providers: [DataService, UserService, User, DatePipe, UploadFileService, httpInterceptorProviders, HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
