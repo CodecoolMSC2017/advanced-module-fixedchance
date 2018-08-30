@@ -28,7 +28,7 @@ export class AddCourseComponent implements OnInit {
   constructor(private authService: AuthService, private http: HttpClient, private route: ActivatedRoute, private router: Router, private dataService: DataService) { }
 
   ngOnInit() {
-    this.http.get<User>('api/login/6').subscribe(resp => {
+    this.authService.getAuth().subscribe(resp => {
       this.user = resp;
       let experience = this.user.experience;
       while (experience - 1200 - this.userLevel * 300 >= 0) {
@@ -305,7 +305,7 @@ export class AddCourseComponent implements OnInit {
   saveAnswers(i, courseId, questionId) {
     for (let j = 0; j < this.course.questions[i].questionAnswers.length; j++) {
       this.http.post('/api/courses/' + courseId + '/questions/' + questionId + '/answers', {
-        'answer': this.course.questions[i].questionAnswers[j].answer, 'isRight': this.course.questions[i].questionAnswers[j].isRight
+        'answer': this.course.questions[i].questionAnswers[j].answer, 'isRight': this.course.questions[i].questionAnswers[j].isRight, 'experience' : 0
       }).subscribe(answerId => {
        });
     }
@@ -324,7 +324,6 @@ export class AddCourseComponent implements OnInit {
   saveVideos(courseId): Observable<any> {
     let x;
     for (let i = 0; i < this.course.videos.length; i++) {
-      console.log(this.course.videos[i]);
       x = this.http.post('/api/courses/' + courseId + '/videos', {
         'name': this.course.videos[i].name, 'video': this.course.videos[i].url, 'description': this.course.videos[i].description });
       x.subscribe(videoId => { });

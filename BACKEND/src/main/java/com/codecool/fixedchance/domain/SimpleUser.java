@@ -18,7 +18,7 @@ public class SimpleUser extends AbstractModel implements Serializable {
     private Integer experience = 0;
     private String email;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
     private String firstName;
     private String lastName;

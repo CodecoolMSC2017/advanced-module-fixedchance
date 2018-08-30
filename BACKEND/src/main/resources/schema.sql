@@ -127,7 +127,7 @@ CREATE TABLE course_answers (
 	answer TEXT NOT NULL,
 	question_id INTEGER NOT NULL,
 	is_right BOOLEAN NOT NULL,
-    experience INTEGER NOT NULL,
+    experience INTEGER,
 	FOREIGN KEY (question_id) REFERENCES course_questions(id),
 	CONSTRAINT answer_not_empty CHECK (answer <> '')
 );
