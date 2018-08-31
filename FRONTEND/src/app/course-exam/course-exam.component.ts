@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class CourseExamComponent implements OnInit {
 
   course: Course;
+  contentLoaded : boolean = false;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, private authService: AuthService, private dataService: DataService) { }
 
@@ -20,6 +21,7 @@ export class CourseExamComponent implements OnInit {
     this.route.url.subscribe(uri => {
       this.http.get<Course>('/api/courses/' + uri[1].path).subscribe(resp => {
         this.course = resp;
+        this.contentLoaded = true;
       });
     });
   }

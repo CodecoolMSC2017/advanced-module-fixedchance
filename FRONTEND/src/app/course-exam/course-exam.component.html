@@ -10,20 +10,22 @@
   
 <div id="bck"></div>
 
-<div id="main-content">
+<div id="main-content" *ngIf="contentLoaded">
 
   <div id="exam-content">
     <form>
       <div *ngFor="let question of course.questions">
-        <div id="{{ question.id }}" class="question">
-          {{ question.question | uppercase }}
-          <!-- SINGLE ANSWER, TRUE FALSE, YES NO -->
+        <div *ngIf="question.answers.length > 0">
+
+          <div id="{{ question.id }}" class="question">
+            {{ question.question | uppercase }}
+            <!-- SINGLE ANSWER, TRUE FALSE, YES NO -->
           <div *ngIf="question.questionType === 'SA' || question.questionType === 'TF' || question.questionType === 'YN'">
             <div *ngFor="let answer of question.answers">
               <input (click)="addClass($event)" id="{{ answer.id }}" name="{{ question.id }}" type="radio">{{ answer.answer }}
             </div>
           </div>
-
+          
           <!-- MULTIPLE ANSWER -->
           <div *ngIf="question.questionType === 'MA'">
             <div *ngFor="let answer of question.answers">
@@ -35,10 +37,11 @@
           <div *ngIf="question.questionType === 'WA'">
             <div *ngFor="let answer of question.answers">
               <textarea (click)="addClass($event)" id="{{ answer.id }}" name="{{ question.id }}" placeholder="Write your answer"></textarea>
-           </div>
+            </div>
           </div>
-       </div>
-     </div>  
+        </div>
+      </div>  
+    </div>
       <hr>
       <div style="margin: 0 auto; text-align: center">
        <button id="submit-button" (click)="submitButtonClicked()">SUBMIT</button>
