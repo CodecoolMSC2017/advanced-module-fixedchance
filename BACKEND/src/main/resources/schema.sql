@@ -185,9 +185,11 @@ CREATE TABLE course_topics (
 
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
     user_name TEXT NOT NULL,
     post_content TEXT NOT NULL,
-    rating INTEGER DEFAULT 0
+    rating INTEGER DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES simple_users(id)
 );
 
 CREATE TABLE post_users (

@@ -65,4 +65,9 @@ export class CommentComponent implements OnInit {
       this.ngOnInit();
     });
   }
+
+  onUserNameClick(event) {
+    let username = event.target.getAttribute("name");
+    this.router.navigate(['users/' + username]);
+  }
 }

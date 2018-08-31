@@ -256,17 +256,17 @@ INSERT INTO course_topics (course_id, name) VALUES
     (8, 'English'),
     (8, 'Information Technology');
 
-INSERT INTO posts (user_name, post_content, rating) VALUES
-    ('csanad', 'Hi everyone, if you are interested in Python You should check out this article: https://gist.github.com/sloria/7001839', 3),
-    ('uszkai', 'Hey! What''s up? Here is a really good post about BlockChain and Java : https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa', 8),
-    ('balint', 'Hey FixedChancers! If you are interested in JavaScript here is a nice github repo which explains everythin from the basics: https://github.com/wesbos/es6-articles', 15),
-    ('norbi', 'If you have some free time and want to read something interesting you should check this out: https://codeburst.io/the-2018-web-developer-roadmap-826b1b806e8d', 12),
-    ('matteo', 'In case you need a fake online REST API for testing and prototyping: https://jsonplaceholder.typicode.com/', 20),
-    ('uszkai', 'If you need some extra help with your project feel free to write me a message! Check out my profile', 22),
-    ('balint', 'Hey FixedChance Society! Iam stuck with my angular project and I was wondering if someone could help me.', 5),
-    ('matteo', 'Hey Everyone! I just finished the Java Collections course and it really helped me a lot so I recommend it to you if you want to know more about Collections!!', 0),
-    ('csanad', 'Please someone recommend me a good Java teacher here!!', 6),
-    ('norbi', 'Hey Fellas! Here is a RESTful API Design — Step By Step Guide: https://hackernoon.com/restful-api-design-step-by-step-guide-2f2c9f9fcdbf', 14);
+INSERT INTO posts (user_id, user_name, post_content, rating) VALUES
+    (3, 'csanad', 'Hi everyone, if you are interested in Python You should check out this article: https://gist.github.com/sloria/7001839', 3),
+    (4, 'uszkai', 'Hey! What''s up? Here is a really good post about BlockChain and Java : https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa', 8),
+    (2, 'balint', 'Hey FixedChancers! If you are interested in JavaScript here is a nice github repo which explains everythin from the basics: https://github.com/wesbos/es6-articles', 15),
+    (5, 'norbi', 'If you have some free time and want to read something interesting you should check this out: https://codeburst.io/the-2018-web-developer-roadmap-826b1b806e8d', 12),
+    (1, 'matteo', 'In case you need a fake online REST API for testing and prototyping: https://jsonplaceholder.typicode.com/', 20),
+    (4, 'uszkai', 'If you need some extra help with your project feel free to write me a message! Check out my profile', 22),
+    (2, 'balint', 'Hey FixedChance Society! Iam stuck with my angular project and I was wondering if someone could help me.', 5),
+    (1, 'matteo', 'Hey Everyone! I just finished the Java Collections course and it really helped me a lot so I recommend it to you if you want to know more about Collections!!', 0),
+    (3, 'csanad', 'Please someone recommend me a good Java teacher here!!', 6),
+    (5, 'norbi', 'Hey Fellas! Here is a RESTful API Design — Step By Step Guide: https://hackernoon.com/restful-api-design-step-by-step-guide-2f2c9f9fcdbf', 14);
 
 
 INSERT INTO post_users (post_id, voter_id, vote) VALUES
