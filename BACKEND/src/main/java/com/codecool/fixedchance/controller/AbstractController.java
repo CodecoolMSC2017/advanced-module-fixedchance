@@ -51,9 +51,6 @@ public class AbstractController {
     PostCommentService postCommentService;
 
     @Autowired
-    PostAnswerService postAnswerService;
-
-    @Autowired
     PostTopicService postTopicService;
 
     @Autowired

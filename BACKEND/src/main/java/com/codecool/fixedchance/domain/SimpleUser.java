@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -43,8 +44,10 @@ public class SimpleUser extends AbstractModel implements Serializable {
     @Transient
     private String confpassword;
 
-    /*@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Post> posts;*/
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Transient
+    private List<Post> posts;
 
 
 
@@ -56,9 +59,9 @@ public class SimpleUser extends AbstractModel implements Serializable {
         return reviews;
     }
 
-    /*public Set<Post> getPosts() {
+    public List<Post> getPosts() {
         return posts;
-    }*/
+    }
 
     public void setReviews(Set<CourseReview> reviews) {
         this.reviews = reviews;
@@ -108,9 +111,9 @@ public class SimpleUser extends AbstractModel implements Serializable {
         return lastName;
     }
 
-    /*public void setPosts(Set<Post> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
-    }*/
+    }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;

@@ -35,6 +35,9 @@ export class ProfileComponent implements OnInit {
 
   blob: any;
 
+  // For the demo
+  demoPicture: String;
+
   constructor(private uploadService: UploadFileService,
     private authService: AuthService,
     private dataService: DataService,
@@ -45,6 +48,11 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.authService.getAuth().subscribe(resp => {
       this.user = resp;
+      // Manual picture setting for the demo
+      this.userService.userPicture = null;
+      this.demoPicture = null;
+      this.isDaveOrRobert();
+      // -----------------------------------
       if (this.user.user.authorities[0] === 'ROLE_TEACHER') {
         this.dataService.fetchTeacherCourses(this.user.id).subscribe(response => {
           this.courses = response;
@@ -161,5 +169,16 @@ export class ProfileComponent implements OnInit {
       }
     });
     this.selectedFiles = undefined;
+  }
+
+  // For the demo
+  isDaveOrRobert() {
+    if (this.user.user.username === 'uszkai') {
+      this.demoPicture = 'assets/uszkai.jpg';
+    } else if (this.user.user.username === 'kohrobi') {
+      this.demoPicture = 'assets/kohrobi.jpg';
+    } else if (this.userService.userPicture !== undefined || this.userService.userPicture !== null) {
+      this.demoPicture = this.userService.userPicture;
+    }
   }
 }

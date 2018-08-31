@@ -4,6 +4,7 @@ import com.codecool.fixedchance.domain.Post;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,12 @@ public class PostController extends AbstractController {
 
     @RequestMapping(path = "/posts/{id}",
             method = RequestMethod.DELETE)
-    public void delete(@PathVariable("id") Integer id) { postService.delete(id);}
+    @Transactional
+    public void delete(@PathVariable("id") Integer id) {
+        postCommentService.deleteByPost(id);
+        postVoteService.delete(id);
+        postService.delete(id);
+    }
 
     @RequestMapping(path = "/posts/update/up/{post_id}",
             method = RequestMethod.POST)

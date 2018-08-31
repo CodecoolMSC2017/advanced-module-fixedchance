@@ -17,16 +17,28 @@
 <div id="main-content" *ngIf="contentLoaded">
 
   <div class="info-header">
-    
-    <div class="picture" *ngIf="userService.userPicture == undefined">
+    <!-- Just for the demo. Remove the condition after 'null' and rewrite null to 'undefined'  -->
+    <div class="picture" *ngIf="userService.userPicture == null && demoPicture == null">
       <iframe [src]="blob | safe"></iframe><br>
       <input type="file" name="file" id="file" class="image-button" (change)="selectFile($event)"/>
       <label for="file">Choose Profile Picture</label>
     </div>
 
-    <div class="picture" *ngIf="userService.userPicture != undefined">
+    
+  <!-- 
+    <div class="picture" *ngIf="userService.userPicture !== undefined">
         <img id="googleProfileImg" src="{{ userService.userPicture }}"><br>
     </div>
+  -->
+  
+    <!-- Just for the demo -->
+    <div class="picture" *ngIf="userService.userPicure == null && demoPicture !== null">
+      <img id="googleProfileImg" src=" {{ demoPicture }} "><br>
+      <input type="file" name="file" id="file" class="image-button" (change)="selectFile($event)"/>
+      <label for="file">Choose Profile Picture</label>
+    </div>
+    
+
 
       <div class="user-info">
         <circle-progress

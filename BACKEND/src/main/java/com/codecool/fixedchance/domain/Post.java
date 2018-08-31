@@ -14,17 +14,21 @@ import java.util.Set;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Post extends AbstractModel{
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     @NotNull
+    private SimpleUser user;
+
     private String userName;
 
     private String postContent;
 
     private Integer rating;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
-    private Set<PostTopic> topics = new HashSet<>();
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "post")
+    private List<PostTopic> topics = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "post")
     private List<PostComment> comments = new ArrayList<>();
 
     public Post() {}
@@ -39,11 +43,15 @@ public class Post extends AbstractModel{
         return userName;
     }
 
+    public SimpleUser getUser() {
+        return user;
+    }
+
     public String getPostContent() {
         return postContent;
     }
 
-    public Set<PostTopic> getTopics() {
+    public List<PostTopic> getTopics() {
         return topics;
     }
 
@@ -58,11 +66,15 @@ public class Post extends AbstractModel{
         this.userName = userName;
     }
 
+    public void setUser(SimpleUser user) {
+        this.user = user;
+    }
+
     public void setPostContent(String postContent) {
         this.postContent = postContent;
     }
 
-    public void setTopics(Set<PostTopic> topics) {
+    public void setTopics(List<PostTopic> topics) {
         this.topics = topics;
     }
 
@@ -78,9 +90,12 @@ public class Post extends AbstractModel{
     @Override
     public String toString() {
         return "Post{" +
-                "userName='" + userName + '\'' +
+                "user=" + user +
+                ", userName='" + userName + '\'' +
                 ", postContent='" + postContent + '\'' +
-                ", postTopic='" + topics + '\'' +
+                ", rating=" + rating +
+                ", topics=" + topics +
+                ", comments=" + comments +
                 '}';
     }
 }

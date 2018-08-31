@@ -1,12 +1,11 @@
 package com.codecool.fixedchance.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="post_comments", schema="public")
@@ -30,7 +29,6 @@ public class PostComment extends AbstractModel {
     }
 
     // Getters
-
     public Integer getUserId() {
         return userId;
     }
@@ -48,7 +46,6 @@ public class PostComment extends AbstractModel {
     }
 
     // Setters
-
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
