@@ -327,7 +327,3 @@ INSERT INTO post_comments (user_id, post_id, comment_text, rating) VALUES
     (2, 9, 'Check out kohrobi''s profile!', 12),
     (1, 9, 'Thank you!!', 2),
     (5, 5, 'I needed this!', 0);
-
-
-INSERT INTO comment_answers (user_id, comment_id, answer_text) VALUES
-    (3, 2, 'You''re welcome');

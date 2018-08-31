@@ -9,4 +9,6 @@ import java.util.List;
 public interface PostVoteRepository extends JpaRepository<PostVote, PostUserIdentity> {
 
     List<PostVote> findAll();
+
+    void deleteAllByPostId(Integer id);
 }

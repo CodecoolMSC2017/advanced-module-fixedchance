@@ -11,9 +11,6 @@ import java.util.Set;
 
 @Entity
 @Table(name="posts", schema="public")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Post extends AbstractModel{
 
@@ -28,10 +25,10 @@ public class Post extends AbstractModel{
 
     private Integer rating;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "post")
     private List<PostTopic> topics = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "post")
     private List<PostComment> comments = new ArrayList<>();
 
     public Post() {}

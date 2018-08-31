@@ -217,12 +217,3 @@ CREATE TABLE post_comments (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (post_id) REFERENCES posts(id)
 );
-
-CREATE TABLE comment_answers (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL,
-    comment_id INTEGER NOT NULL,
-    answer_text TEXT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (comment_id) REFERENCES post_comments(id)
-);

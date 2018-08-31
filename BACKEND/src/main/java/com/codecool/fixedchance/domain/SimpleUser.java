@@ -45,6 +45,8 @@ public class SimpleUser extends AbstractModel implements Serializable {
     private String confpassword;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Transient
     private List<Post> posts;
 
 

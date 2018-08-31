@@ -1,5 +1,6 @@
 package com.codecool.fixedchance.service;
 
+import com.codecool.fixedchance.domain.Post;
 import com.codecool.fixedchance.domain.PostUserIdentity;
 import com.codecool.fixedchance.domain.PostVote;
 import org.springframework.stereotype.Service;
@@ -17,4 +18,9 @@ public class PostVoteService extends AbstractService {
         puIdentity.setVoterId(postVote.getVoterId());
         postVote.setPostUserIdentity(puIdentity);
         postVoteRepository.save(postVote);}
+
+    public void delete(Integer id) {
+        Post post = postRepository.getOne(id);
+        postVoteRepository.deleteAllByPostId(id);
+    }
 }
