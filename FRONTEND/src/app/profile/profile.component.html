@@ -34,6 +34,8 @@
     <!-- Just for the demo -->
     <div class="picture" *ngIf="userService.userPicure == null && demoPicture !== null">
       <img id="googleProfileImg" src=" {{ demoPicture }} "><br>
+      <input type="file" name="file" id="file" class="image-button" (change)="selectFile($event)"/>
+      <label for="file">Choose Profile Picture</label>
     </div>
     
 
