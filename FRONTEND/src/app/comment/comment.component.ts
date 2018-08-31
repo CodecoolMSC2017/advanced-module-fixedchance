@@ -66,14 +66,8 @@ export class CommentComponent implements OnInit {
     });
   }
 
-<<<<<<< HEAD
-  // UpVote
-  onUpVoteClicked(event) {
-    let commentId = event.target.id;
-=======
   onUserNameClick(event) {
     let username = event.target.getAttribute("name");
     this.router.navigate(['users/' + username]);
->>>>>>> 626dd28eec20aaf42c824317d15808adf58fd367
   }
 }
