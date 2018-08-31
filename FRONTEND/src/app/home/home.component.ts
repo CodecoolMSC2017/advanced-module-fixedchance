@@ -33,8 +33,9 @@ export class HomeComponent implements OnInit {
   contentLoaded: boolean;
   toSearch: string;
   rating: number;
-  users: string[];
+  votes: Vote[] = [];
   vote: Vote = new Vote;
+  voters: number[] = [];
 
   ngOnInit() {
     this.authService.getAuth().subscribe(resp => {
@@ -157,48 +158,69 @@ export class HomeComponent implements OnInit {
 
   onUpVoteClicked(event) {
     let postId = +event.target.id;
-    let userId = +this.user.user.id;
+    let userId = this.user.user.id;
     let currentVote = true;
     this.vote.postId = postId;
-    this.vote.voterId = userId;
+    this.vote.voterId = +userId;
     this.vote.vote = currentVote;
-    let postUsers = [];
-    for(let i = 0; i < this.posts.length; i++){
-      if(postId === this.posts[i].id){
-        for(let j = 0; j < this.posts[i].users.length; j++){
-          postUsers.push(this.posts[i].users[j].username);
-        }
-        if(!postUsers.some(x => x === this.user.user.username)){
-          this.http.post<void>('/api/posts/update/up/' + postId, {}).subscribe(resp => {this.sendVoteToDataBase(this.vote)})
-        }
-        else{
-          alert("You've already voted this post!")
+    this.getVoters().subscribe(resp => {
+      console.log(resp);
+      this.votes = resp;
+      for(let i = 0; i < this.posts.length; i++){
+        if(postId === +this.posts[i].id){
+          console.log(this.posts[i].id);
+          for(let i = 0; i < this.votes.length; i++){
+            if(this.votes[i].postId === +postId){
+              this.voters.push(this.votes[i].voterId)
+            }
+          }
+          console.log(this.voters);
+          if(!this.voters.some(x => x === this.user.user.id)){
+            this.http.post<void>('/api/posts/update/up/' + postId, {}).subscribe(resp => {this.sendVoteToDataBase(this.vote)})
+          }
+          else{
+            alert("You've already voted this post!")
+          }
         }
       }
-    }
+      this.voters = [];
+    });
+  }
+
+  // Get the voters
+  getVoters() : Observable<Vote[]> {
+    return this.http.get<Vote[]>('/api/votes')
   }
 
   onDownVoteClicked(event){
     let postId = +event.target.id;
-    let userId = +this.user.user.id;
+    let userId = this.user.user.id;
     let currentVote = false;
     this.vote.postId = postId;
-    this.vote.voterId = userId;
+    this.vote.voterId = +userId;
     this.vote.vote = currentVote;
-    let postUsers = [];
-    for(let i = 0; i < this.posts.length; i++){
-      if(postId === this.posts[i].id){
-        for(let j = 0; j < this.posts[i].users.length; j++){
-          postUsers.push(this.posts[i].users[j].username);
-        }
-        if(!postUsers.some(x => x === this.user.user.username)){
-          this.http.post<void>('/api/posts/update/down/' + postId, {}).subscribe(resp => {this.sendVoteToDataBase(this.vote)})
-        }
-        else{
-          alert("You've already voted this post!")
+    this.getVoters().subscribe(resp => {
+      console.log(resp);
+      this.votes = resp;
+      for(let i = 0; i < this.posts.length; i++){
+        if(postId === +this.posts[i].id){
+          console.log(this.posts[i].id);
+          for(let i = 0; i < this.votes.length; i++){
+            if(this.votes[i].postId === +postId){
+              this.voters.push(this.votes[i].voterId)
+            }
+          }
+          console.log(this.voters);
+          if(!this.voters.some(x => x === this.user.user.id)){
+            this.http.post<void>('/api/posts/update/down/' + postId, {}).subscribe(resp => {this.sendVoteToDataBase(this.vote)})
+          }
+          else{
+            alert("You've already voted this post!")
+          }
         }
       }
-    }
+      this.voters = [];
+    });
   }
 
   sendVoteToDataBase(vote) {

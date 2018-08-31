@@ -65,4 +65,9 @@ export class CommentComponent implements OnInit {
       this.ngOnInit();
     });
   }
+
+  // UpVote
+  onUpVoteClicked(event) {
+    let commentId = event.target.id;
+  }
 }
