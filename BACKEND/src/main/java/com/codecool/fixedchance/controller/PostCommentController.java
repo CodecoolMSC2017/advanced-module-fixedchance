@@ -29,4 +29,8 @@ public class PostCommentController extends AbstractController {
     @RequestMapping(path = "/comments/{comment_id}",
             method = RequestMethod.DELETE)
     public void delete(@PathVariable("comment_id") Integer id) { postCommentService.delete(id);}
+
+    @RequestMapping(path = "/comment/{comment_id}",
+            method = RequestMethod.PUT)
+    public void updateComment(@PathVariable("comment_id") Integer id) { postCommentService.update(id);}
 }

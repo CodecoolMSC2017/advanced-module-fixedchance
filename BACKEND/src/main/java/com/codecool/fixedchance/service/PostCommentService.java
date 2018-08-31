@@ -27,4 +27,10 @@ public class PostCommentService extends AbstractService {
         postCommentRepository.deleteAllByPostId(id);
     }
 
+    public void update(Integer id) {
+        PostComment postComment = postCommentRepository.getOne(id);
+        postComment.setRating(postComment.getRating() + 1);
+        postCommentRepository.save(postComment);
+    }
+
 }
