@@ -103,6 +103,7 @@ export class HomeComponent implements OnInit {
         const postId = post.id;
         this.savePostTopic(postId).subscribe(resp => {
           this.fetchPosts().subscribe(posts => {
+            this.posts = posts;
             this.searchedPosts = posts;
           });
         });
