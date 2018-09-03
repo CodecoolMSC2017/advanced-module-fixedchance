@@ -45,17 +45,11 @@ public class PostController extends AbstractController {
         postService.delete(id);
     }
 
-    @RequestMapping(path = "/posts/update/up/{post_id}",
-            method = RequestMethod.POST)
-    public void update(@PathVariable("post_id") Integer id) {
-        logger.info("incrementing post rating with id {}", id);
-        postService.update(id);
+    @RequestMapping(path = "/posts/update/{post_id}/{rating}",
+            method = RequestMethod.PUT)
+    public void update(@PathVariable("post_id") Integer id, @PathVariable("rating") Boolean rating) {
+        logger.info("updating post rating with id {}", id);
+        postService.update(id, rating);
     }
 
-    @RequestMapping(path = "/posts/update/down/{post_id}",
-            method = RequestMethod.POST)
-    public void decrementRating(@PathVariable("post_id") Integer id) {
-        logger.info("decrementing post rating with id {}", id);
-        postService.decrement(id);
-    }
 }

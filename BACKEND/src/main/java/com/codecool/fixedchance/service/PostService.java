@@ -27,14 +27,13 @@ public final class PostService extends AbstractService {
 
     public void delete(Integer id) { postRepository.deleteById(id);}
 
-    public void update(Integer id) {
+    public void update(Integer id, Boolean rating) {
         Post post = postRepository.getOne(id);
-        post.setRating(post.getRating() + 1);
-        postRepository.save(post);}
-
-    public void decrement(Integer id) {
-        Post post = postRepository.getOne(id);
-        post.setRating(post.getRating() - 1);
+        if (rating) {
+            post.setRating(post.getRating() + 1);
+        } else {
+            post.setRating(post.getRating() - 1);
+        }
         postRepository.save(post);}
 
     public List<Post> findAllByTopic(PostTopic topic) { return postRepository.findAllByTopics(topic);}
