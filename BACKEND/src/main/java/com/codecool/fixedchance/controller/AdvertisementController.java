@@ -1,6 +1,8 @@
 package com.codecool.fixedchance.controller;
 
 import com.codecool.fixedchance.domain.Advertisement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,13 +10,17 @@ import java.util.List;
 @RestController
 public class AdvertisementController extends AbstractController {
 
+    private static final Logger logger = LoggerFactory.getLogger(AdvertisementController.class);
+
     @RequestMapping("/advertisements")
     public List<Advertisement> getAll() {
+        logger.info("returning all advertisements");
         return advertisementService.getAll();
     }
 
     @RequestMapping("/advertisements/{id}")
     public Advertisement getOne(@PathVariable("id") Integer id) {
+        logger.info("getting ad with id {}", id);
         return advertisementService.getOne(id);
     }
 
@@ -22,6 +28,7 @@ public class AdvertisementController extends AbstractController {
             method = RequestMethod.POST,
             consumes = {"application/json"})
     public void add(@PathVariable("company_id") Integer companyId, @RequestBody Advertisement ad) {
+        logger.info("creating ad for company with id {}, {}", companyId, ad);
         advertisementService.add(companyId, ad);
     }
 
@@ -29,6 +36,7 @@ public class AdvertisementController extends AbstractController {
             method = RequestMethod.PUT,
             consumes = {"application/json"})
     public void put(@PathVariable("id") Integer id, @RequestBody Advertisement ad) {
+        logger.info("updating ad with id {} to {}", id, ad);
         advertisementService.update(id, ad);
     }
 
@@ -36,6 +44,7 @@ public class AdvertisementController extends AbstractController {
             method = RequestMethod.DELETE,
             consumes = {"application/json"})
     public void delete(@PathVariable("id") Integer id) {
+        logger.info("deleting ad with id {}", id);
         advertisementService.delete(id);
     }
 
@@ -43,6 +52,7 @@ public class AdvertisementController extends AbstractController {
             method = RequestMethod.GET,
             consumes = {"application/json"})
     public List<Advertisement> findByCompany(@PathVariable("company_id") Integer companyId) {
+        logger.info("returning ads of company with id {}", companyId);
         return advertisementService.findByCompany(companyId);
     }
 }
