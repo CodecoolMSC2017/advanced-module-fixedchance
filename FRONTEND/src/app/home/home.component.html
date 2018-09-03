@@ -17,27 +17,26 @@
 
     <!-- Current User Post Section -->
     <div class="post-form" data-aos="flip-up">
-      <h3>Hello {{ user.user.username }}, do you have anything to share?</h3>
+      <h2>NEW POST</h2>
       <hr>
-      <textarea type="text" [(ngModel)]="postContent" placeholder="Type your idea" name="postContent"></textarea><br>
+      <textarea type="text" [(ngModel)]="postContent" name="postContent"></textarea><br>
       <h4>(minimum 3, maximum 10)</h4>
       <div id="topic-wrapper">
         <span class="added-topic" (click)="removeTopic($event)" id="{{ topic }}" *ngFor="let topic of post.topics">
           <span id="{{ topic }}" style="width: 100%; height: 100%">{{ topic }}</span>
         </span>
       </div>
-      <input id="topic-input" *ngIf="topics.length <= 10" type="text" (keyup)="topicKey($event)" [(ngModel)]="currentTopic" name="topic" maxlength="12" placeholder="Type a topic">
+      <input id="topic-input" *ngIf="topics.length <= 10" type="text" (keyup)="topicKey($event)" [(ngModel)]="currentTopic" name="topic" maxlength="12" placeholder="TOPIC">
       <br>
-      <button id="shareButton" (click)="addItem()">Share</button>
+      <button id="shareButton" (click)="addItem()">SHARE</button>
     </div><br>
 
     <hr>
     <!-- Search Posts By Topics -->
     <div id="title-div">
       <h1 id="title">POSTS</h1>
-      <input type="text" [(ngModel)]="toSearch" id="ajax" placeholder="Search here" (keyup)="onSearchClick()">
+      <input type="text" [(ngModel)]="toSearch" id="ajax" placeholder="SEARCH" (keyup)="onSearchClick()">
     </div>
-    <hr>
     
     <!-- Posts -->
     <div *ngFor="let post of searchedPosts.slice().reverse(), let i = index">

@@ -92,21 +92,24 @@ textarea {
 }
 
 #topic-wrapper {
-  height: 60px;
+  height: 25px;
   padding: 18px;
 }
 
 #shareButton {
-  margin: 5px;
-  font-size: 30px;
-  color: black;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: 'Teko', 'sans-serif';
+  width: 200px;
+  font-size: 28px;
   background: white;
-  border: 1px solid orange; 
-  width: auto;
-  height: auto;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
+  border: 2px solid black;
+  transition: 500ms;
+}
+
+#shareButton:hover {
+  background-color: orange;
+  transition: 200ms;
 }
 
 #main-content {
@@ -161,11 +164,12 @@ textarea {
   margin: 0 auto;
   position: relative;
   text-align: center;
+  margin-bottom: 24px;
 }
 
 #title-div #title {
-  padding-top: 30px;
   position: relative;
+  margin: 0 auto;
 }
 
 .hidden {
@@ -210,18 +214,20 @@ textarea {
 }
 
 .delete-post-button { 
-  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
   width: 30%;
-  height: 55%;
+  height: 15%;
+  padding: 6;
   grid-row: 1;
   grid-column: 3;
   color: white;
   font-size: 25px;
-  padding-right: 6px;
-  padding-left: 6px;
+  padding: 0;
   background: red;
   border-radius: 10px;
-  border: 2px solid orange;
+  border: 2px solid black;
   cursor: pointer;
 }
 
@@ -257,3 +263,12 @@ textarea {
   transition: 0.5s;
   color: red;
 } 
+
+h4 {
+  margin: 0 auto;
+}
+
+h2 {
+  margin: 0 auto;
+  margin-top: 12px;
+}

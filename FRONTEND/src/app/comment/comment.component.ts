@@ -8,6 +8,7 @@ import { Post } from '../post';
 import { Comment } from '../comment';
 import { DisplayedComment } from '../displayed-comment';
 import { Observable } from 'rxjs';
+import { Vote } from '../vote';
 
 @Component({
   selector: 'app-comment',
@@ -24,6 +25,8 @@ export class CommentComponent implements OnInit {
   correspondingComments: DisplayedComment[] = [];
   commentCont = this.commentCont;
   comments: boolean;
+  votes: Vote[] = [];
+  voters: number[] = [];
 
   ngOnInit() {
     this.authService.getAuth().subscribe(resp => {
@@ -34,7 +37,6 @@ export class CommentComponent implements OnInit {
       this.fetchCurrentPost(postId).subscribe(resp => {
         this.post = resp;
         this.fetchComments();
-        console.log(this.post);
         this.contentLoaded = true;
       })
     });
@@ -69,5 +71,50 @@ export class CommentComponent implements OnInit {
   onUserNameClick(event) {
     let username = event.target.getAttribute("name");
     this.router.navigate(['users/' + username]);
+  }
+
+  onVoteClicked(event) {
+    const vote = new Vote();
+    vote.postId = +event.target.id;
+    if (event.target.getAttribute('name') === 'true') {
+      vote.vote = true;
+    } else {
+      vote.vote = false;
+    }
+    vote.voterId = this.user.user.id;
+    this.getVoters().subscribe(resp => {
+      this.votes = resp;
+      for (let j = 0; j < this.votes.length; j++) {
+        if (this.votes[j].postId === +vote.postId) {
+          this.voters.push(this.votes[j].voterId);
+          }
+        }
+        if (!this.voters.some(x => x === this.user.user.id)) {
+          this.http.put<void>('/api/posts/update/'  + vote.postId + '/' + vote.vote, {}).subscribe(() => {
+            if (vote.vote === true) {
+              this.post.rating++;
+            } else {
+              this.post.rating--;
+            }
+            this.sendVoteToDataBase(vote);
+          });
+        } else {
+          alert('You\'ve already voted this post!');
+        }
+      this.voters = [];
+  });
+}
+
+  // Get the voters
+  getVoters(): Observable<Vote[]> {
+    return this.http.get<Vote[]>('/api/votes');
+  }
+
+  sendVoteToDataBase(vote) {
+    this.http.post<void>('/api/vote', {
+      'postId': vote.postId,
+      'voterId': vote.voterId,
+      'vote': vote.vote
+      }).subscribe(resp => {});
   }
 }

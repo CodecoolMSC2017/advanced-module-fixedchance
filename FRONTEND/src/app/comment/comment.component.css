@@ -34,6 +34,7 @@ padding-top: 16px;
     grid-row: 1;
     grid-column: 1;
     font-size: 32px;
+    cursor: pointer;
 }
 
 .up-button :hover {
@@ -54,6 +55,7 @@ padding-top: 16px;
     grid-row: 3;
     grid-column: 1;
     font-size: 32px;
+    cursor: pointer;
 }
 
 .down-button :hover {
@@ -87,20 +89,23 @@ textarea {
     border: 1px solid white;
     transition: 200ms ease-in-out;  
     color: white;
-  }
+}
 
 .shareButton {
-    margin: 5px;
-    font-size: 30px;
-    color: black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: 'Teko', 'sans-serif';
+    width: 200px;
+    font-size: 28px;
     background: white;
-    border: 1px solid orange; 
-    width: auto;
-    height: auto;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-  }
+    border: 2px solid black;
+    transition: 500ms;
+}
+
+.shareButton:hover {
+    background-color: orange;
+    transition: 200ms;
+}
 
 .write-comment {
     grid-row: 4;
@@ -111,4 +116,15 @@ textarea {
 
 .hidden {
     display: none;
+}
+
+.user {
+    font-size: 44px;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+}
+
+.user:hover {
+    color: orange;
+    transition: all 200ms ease-in-out;
 }

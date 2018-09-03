@@ -18,10 +18,10 @@
       data-aos-easing="linear"
       data-aos-duration="500"
       id="{{ post.id }}">
-      <div class="up-button"><i (click)="onUpVoteClicked($event)" id="{{ post.id }}" class="fa fa-chevron-up"></i></div>
-      <div class="rating"> {{ post.rating }}</div>
-      <div class="down-button"><i (click)="onDownVoteClicked($event)" id="{{ post.id }}" class="fa fa-chevron-down"></i></div>
-      <div class="user" (name)="post.userName" (click)="onUserNameClick($event)"> {{ post.userName }} </div>
+      <div class="up-button"><i (click)="onVoteClicked($event)" name="true" id="{{ post.id }}" class="fa fa-chevron-up"></i></div>
+      <div class="rating">{{ post.rating }}</div>
+      <div class="down-button"><i (click)="onVoteClicked($event)" name="false" id="{{ post.id }}" class="fa fa-chevron-down"></i></div>
+      <div class="user" [attr.name]="post.userName" (click)="onUserNameClick($event)">{{ post.userName }}</div>
       <p class="post-content">{{ post.postContent }}</p>
     </div><br>
 
@@ -31,8 +31,8 @@
       data-aos-easing="linear"
       data-aos-duration="500"
       id="{{ post.id }}">
-      <textarea class="comment-content" type="text" [(ngModel)]="commentCont" placeholder="Type your idea" ></textarea><br>
-      <button class="shareButton" (click)="addComment(post.id)">Share</button>
+      <textarea class="comment-content" type="text" [(ngModel)]="commentCont" placeholder="COMMENT" ></textarea><br>
+      <button class="shareButton" (click)="addComment(post.id)">SHARE</button>
     </div>
 
 

@@ -27,7 +27,6 @@ CREATE TABLE users (
 	username TEXT NOT NULL UNIQUE,
 	password TEXT,
 	enabled BOOLEAN NOT NULL
-	-- CONSTRAINT password_not_empty CHECK (password <> '')
 );
 
 CREATE TABLE simple_users (
