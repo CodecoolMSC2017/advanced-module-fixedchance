@@ -27,6 +27,7 @@ padding-top: 16px;
     grid-row: 3;
     grid-column: 2;
     font-size: 32px;
+    word-break: break-word;
 }
 
 .up-button {
@@ -89,6 +90,7 @@ textarea {
     border: 1px solid white;
     transition: 200ms ease-in-out;  
     color: white;
+    resize: none;
 }
 
 .shareButton {

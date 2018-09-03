@@ -65,6 +65,7 @@ export class CommentComponent implements OnInit {
   addComment(id) {
     this.http.post<void>("/api/comments/" + id, { "userId": this.user.user.id, "postId": id, "commentText": this.commentCont, "rating": 0 }).subscribe(resp => {
       this.ngOnInit();
+      this.commentCont = '';
     });
   }
 
