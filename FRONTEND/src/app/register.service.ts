@@ -24,7 +24,7 @@ export class RegisterService {
   }
 
   companyRegister(registerDetails: RegisterDetails): Observable<void> {
-    return this.http.post<void>('/api/company-register', {
+    return this.http.post<void>('/api/company/register', {
       name: registerDetails.companyname,
       username: registerDetails.companyname,
       email: registerDetails.email,

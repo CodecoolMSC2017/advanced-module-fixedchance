@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -40,9 +41,14 @@ public class Application extends WebSecurityConfigurerAdapter implements Command
         http.csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/register", "/company-register", "/google-login").permitAll()
-                .antMatchers("/courses").hasAnyAuthority("ROLE_STUDENT", "ROLE_ADMIN")
-                .antMatchers("/add-course").hasAnyAuthority("ROLE_TEACHER", "ROLE_ADMIN")
+                .antMatchers("/auth/**", "/register", "/company/register", "/google-login", "/login/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/course-student", "/course-checkout", "/course-exam/**").hasAnyAuthority("ROLE_STUDENT")
+                .antMatchers(HttpMethod.POST, "/add-course", "/courses/**", "/course-edit/**", "/add-course/**").hasAnyAuthority("ROLE_TEACHER")
+                // company must access /courses/** endpoint because they can see the user's profile where is his/her courses. SHT
+                .antMatchers(HttpMethod.GET, "/company/**", "/courses/**").hasAnyAuthority("ROLE_COMPANY")
+                .antMatchers(HttpMethod.GET, "/home", "/courses/**", "/votes/**").hasAnyAuthority("ROLE_STUDENT", "ROLE_TEACHER")
+                .antMatchers("/posts/**", "/comments/**", "/post-topics/**", "/users/**", "/all-users", "/profile", "/vote", "/votes/**").hasAnyAuthority("ROLE_STUDENT", "ROLE_TEACHER", "ROLE_COMPANY")
+                .antMatchers("/**").hasAnyAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

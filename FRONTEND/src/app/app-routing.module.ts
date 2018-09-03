@@ -38,7 +38,7 @@ const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
-    path: 'home-company',
+    path: 'company/home',
     component: HomeCompanyComponent,
     canActivate: [LoginGuard],
   },

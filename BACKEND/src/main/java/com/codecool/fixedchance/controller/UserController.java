@@ -129,7 +129,7 @@ public class UserController extends AbstractController {
 
     // Methods for users with COMPANY role
 
-    @RequestMapping(path = "/company-login",
+    @RequestMapping(path = "/company/login",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
@@ -138,7 +138,7 @@ public class UserController extends AbstractController {
         return companyService.find(company.getEmail());
     }
 
-    @PostMapping("/company-register")
+    @PostMapping("/company/register")
     @Transactional
     public void addCompany(@RequestBody Map<String, String> map) throws UserAlreadyExistsException,
             WrongRoleSelectionException, MissingRegistrationInfoException, EmailAlreadyExistsException {

@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   goHomeWithCompany() {
-    this.router.navigate(['home-company']);
+    this.router.navigate(['company/home']);
   }
 
   getAuth() {
