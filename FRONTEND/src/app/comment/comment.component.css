@@ -122,6 +122,8 @@ textarea {
     font-size: 44px;
     cursor: pointer;
     transition: all 200ms ease-in-out;
+    grid-column: 2;
+    grid-row: 1;
 }
 
 .user:hover {

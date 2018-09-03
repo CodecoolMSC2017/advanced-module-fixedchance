@@ -23,7 +23,6 @@ public class PostComment extends AbstractModel {
 
 
     private String commentText;
-    private Integer rating;
 
     public PostComment() {
     }
@@ -41,10 +40,6 @@ public class PostComment extends AbstractModel {
         return commentText;
     }
 
-    public Integer getRating() {
-        return rating;
-    }
-
     // Setters
     public void setUserId(Integer userId) {
         this.userId = userId;
@@ -58,10 +53,6 @@ public class PostComment extends AbstractModel {
         this.commentText = commentText;
     }
 
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
     // Methods
 
     @Override
@@ -70,7 +61,6 @@ public class PostComment extends AbstractModel {
                 "userId=" + userId +
                 ", post=" + post +
                 ", commentText='" + commentText + '\'' +
-                ", rating=" + rating +
                 '}';
     }
 }

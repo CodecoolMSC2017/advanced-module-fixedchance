@@ -316,14 +316,14 @@ INSERT INTO post_topics (post_id, name) VALUES
     (10, 'Programming');
 
 
-INSERT INTO post_comments (user_id, post_id, comment_text, rating) VALUES
-    (2, 1, 'Very helpful!', 20),
-    (4, 2, 'Thanks', 39),
-    (1, 3, 'Thank for the advice', 12),
-    (3, 6, 'That is very helpful', 17),
-    (6, 4, 'Thanks for the useful link', 9),
-    (2, 7, 'Thanks', 5),
-    (5, 8, 'That is a good recommendation', 12),
-    (2, 9, 'Check out kohrobi''s profile!', 12),
-    (1, 9, 'Thank you!!', 2),
-    (5, 5, 'I needed this!', 0);
+INSERT INTO post_comments (user_id, post_id, comment_text) VALUES
+    (2, 1, 'Very helpful!'),
+    (4, 2, 'Thanks'),
+    (1, 3, 'Thank for the advice'),
+    (3, 6, 'That is very helpful'),
+    (6, 4, 'Thanks for the useful link'),
+    (2, 7, 'Thanks'),
+    (5, 8, 'That is a good recommendation'),
+    (2, 9, 'Check out kohrobi''s profile!'),
+    (1, 9, 'Thank you!!'),
+    (5, 5, 'I needed this!');

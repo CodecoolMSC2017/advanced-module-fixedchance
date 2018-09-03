@@ -117,4 +117,9 @@ export class CommentComponent implements OnInit {
       'vote': vote.vote
       }).subscribe(resp => {});
   }
+
+  onCommentVoteClicked(event) {
+    let rating = event.target.getAttribute('name');
+    console.log(this.post);
+  }
 }

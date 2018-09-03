@@ -25,28 +25,23 @@
       <p class="post-content">{{ post.postContent }}</p>
     </div><br>
 
-
-  <!-- New Comment Form -->
-    <div class="comment-form" data-aos="fade-down"
+    <!-- Comments -->
+    <div class="comments">
+      <div *ngFor="let comment of post.comments" class="item" data-aos="fade-down"
       data-aos-easing="linear"
       data-aos-duration="500"
-      id="{{ post.id }}">
-      <textarea class="comment-content" type="text" [(ngModel)]="commentCont" placeholder="COMMENT" ></textarea><br>
-      <button class="shareButton" (click)="addComment(post.id)">SHARE</button>
-    </div>
-
-
-  <!-- Comments -->
-    <div class="comments">
-        <div *ngFor="let comment of post.comments" class="item" data-aos="fade-down"
+      id="{{ comment.id }}">
+      <div class="user" [attr.name]="comment.username" (click)="onUserNameClick($event)"> {{ comment.username }} </div>
+      <p class="post-content">{{ comment.commentText }}</p>
+    </div><br>
+    
+    <!-- New Comment Form -->
+      <div class="comment-form" data-aos="fade-down"
         data-aos-easing="linear"
         data-aos-duration="500"
-        id="{{ comment.id }}">
-        <div class="up-button"><i (click)="onUpVoteClicked($event)" id="{{ comment.id }}" class="fa fa-chevron-up"></i></div>
-        <div class="rating"> {{ comment.rating }}</div>
-        <div class="down-button"><i (click)="onDownVoteClicked($event)" id="{{ comment.id }}" class="fa fa-chevron-down"></i></div>
-        <div class="user" (name)="comment.username" (click)="onUserNameClick($event)"> {{ comment.username }} </div>
-        <p class="post-content">{{ comment.commentText }}</p>
-    </div><br>
+        id="{{ post.id }}">
+        <textarea class="comment-content" type="text" [(ngModel)]="commentCont" placeholder="COMMENT" ></textarea><br>
+        <button class="shareButton" (click)="addComment(post.id)">SHARE</button>
+      </div>
   </div>
 </div>

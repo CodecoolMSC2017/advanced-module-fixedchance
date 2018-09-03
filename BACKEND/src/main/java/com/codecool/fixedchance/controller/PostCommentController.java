@@ -39,11 +39,4 @@ public class PostCommentController extends AbstractController {
         logger.info("deleting comment with id {}", id);
         postCommentService.delete(id);
     }
-
-    @RequestMapping(path = "/comment/{comment_id}",
-            method = RequestMethod.PUT)
-    public void updateComment(@PathVariable("comment_id") Integer id) {
-        logger.info("incrementing comment rating with id {}", id);
-        postCommentService.update(id);
-    }
 }

@@ -212,7 +212,6 @@ CREATE TABLE post_comments (
     user_id INTEGER NOT NULL,
     post_id INTEGER NOT NULL,
     comment_text TEXT NOT NULL,
-    rating INTEGER DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (post_id) REFERENCES posts(id)
 );
