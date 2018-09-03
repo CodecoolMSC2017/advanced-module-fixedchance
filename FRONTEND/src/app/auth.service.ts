@@ -63,8 +63,8 @@ export class AuthService {
   onLogOutClick() {
     this.router.navigate(['']);
     this.deleteAuth();
-    this.signOut();
+    if (gapi.auth2.getAuthInstance()) {
+      this.signOut();
+    }
   }
-
 }
-
