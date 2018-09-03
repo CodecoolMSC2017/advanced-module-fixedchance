@@ -263,7 +263,7 @@ INSERT INTO posts (user_id, user_name, post_content, rating) VALUES
     (5, 'norbi', 'If you have some free time and want to read something interesting you should check this out: https://codeburst.io/the-2018-web-developer-roadmap-826b1b806e8d', 12),
     (1, 'matteo', 'In case you need a fake online REST API for testing and prototyping: https://jsonplaceholder.typicode.com/', 20),
     (4, 'uszkai', 'If you need some extra help with your project feel free to write me a message! Check out my profile', 22),
-    (2, 'balint', 'Hey FixedChance Society! Iam stuck with my angular project and I was wondering if someone could help me.', 5),
+    (2, 'balint', 'Hey FixedChance Society! I am stuck with my angular project and I was wondering if someone could help me.', 5),
     (1, 'matteo', 'Hey Everyone! I just finished the Java Collections course and it really helped me a lot so I recommend it to you if you want to know more about Collections!!', 0),
     (3, 'csanad', 'Please someone recommend me a good Java teacher here!!', 6),
     (5, 'norbi', 'Hey Fellas! Here is a RESTful API Design — Step By Step Guide: https://hackernoon.com/restful-api-design-step-by-step-guide-2f2c9f9fcdbf', 14);
