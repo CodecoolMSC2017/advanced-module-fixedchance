@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataService } from '../data.service';
 import { User } from '../user';
@@ -9,7 +9,6 @@ import { NewPost } from '../new-post';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 
-declare const gapi: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,7 +16,8 @@ declare const gapi: any;
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private http: HttpClient, private router: Router, public dataService: DataService, private authService: AuthService) { }
+  constructor(private http: HttpClient, private router: Router, public dataService: DataService, private authService: AuthService) {
+  }
 
   chosen: string = this.chosen;
   user: User;
@@ -39,15 +39,15 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.authService.getAuth().subscribe(resp => {
       this.user = resp;
-      this.fetchPosts().subscribe(resp => {
-          this.posts = resp;
-          this.searchedPosts = resp;
-          this.contentLoaded = true;
-        });
+      this.fetchPosts().subscribe(posts => {
+        this.posts = posts;
+        this.searchedPosts = posts;
+        this.contentLoaded = true;
       });
+    });
   }
 
-  fetchPosts() : Observable<Post[]> {
+  fetchPosts(): Observable<Post[]> {
     return this.http.get<Post[]>('/api/posts');
   }
 
@@ -101,7 +101,7 @@ export class HomeComponent implements OnInit {
     if (this.post.topics.length >= 3 && this.post.topics.length <= 10) {
       this.sendPost().subscribe(post => {
         const postId = post.id;
-        this.savePostTopic(postId).subscribe(resp => {
+        this.savePostTopic(postId).subscribe(() => {
           this.fetchPosts().subscribe(posts => {
             this.posts = posts;
             this.searchedPosts = posts;
@@ -126,21 +126,29 @@ export class HomeComponent implements OnInit {
     return this.http.post('/api/posts', {
       'userName': this.user.user.username,
       'postContent': this.postContent,
-      'rating': 0 },
+      'rating': 0
+    },
       options);
   }
 
   savePostTopic(postId): Observable<any> {
     let x;
     for (let i = 0; i < this.post.topics.length; i++) {
-      x = this.http.post<void>('/api/post-topics/' + postId, { 'id': postId, 'name': this.post.topics[i] });
+      x = this.http.post<void>('/api/post-topics/' + postId, {
+        'id': postId,
+        'name': this.post.topics[i]
+      });
     }
     return x;
   }
 
   // Remove a specific post
   removeItem(i) {
-    this.http.delete<void>('/api/posts/' + i).subscribe(resp => { this.fetchPosts().subscribe( resp => { this.searchedPosts = resp; }) });
+    this.http.delete<void>('/api/posts/' + i).subscribe(() => {
+      this.fetchPosts().subscribe(posts => {
+        this.searchedPosts = posts;
+      });
+    });
   }
 
   // Navigate to a specific post to write comment
@@ -154,16 +162,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['comment/' + id]);
   }
 
-  // logout with google acount
-  signOut() {
-    const auth2 = gapi.auth2.getAuthInstance();
-    if (auth2 != null) {
-      auth2.disconnect();
-    }
-  }
-
   onVoteClicked(event) {
-    console.log(event.target);
     const vote = new Vote();
     vote.postId = +event.target.id;
     if (event.target.getAttribute('name') === 'true') {
@@ -183,11 +182,11 @@ export class HomeComponent implements OnInit {
           }
           if (!this.voters.some(x => x === this.user.user.id)) {
             if (vote.vote === true) {
-              this.posts[i].rating++; 
+              this.posts[i].rating++;
             } else {
               this.posts[i].rating--;
             }
-            this.http.put<void>('/api/posts/update/'  + vote.postId + '/' + vote.vote, {}).subscribe(() => {
+            this.http.put<void>('/api/posts/update/' + vote.postId + '/' + vote.vote, {}).subscribe(() => {
               this.sendVoteToDataBase(vote);
             });
           } else {
@@ -209,6 +208,7 @@ export class HomeComponent implements OnInit {
       'postId': vote.postId,
       'voterId': vote.voterId,
       'vote': vote.vote
-      }).subscribe(resp => {});
+    }).subscribe(
+      () => { });
   }
 }

@@ -54,7 +54,10 @@ export class AuthService {
 
   // logout with google acount
   signOut() {
-    const auth2 = gapi.auth2.getAuthInstance();
+    let auth2;
+    if (gapi.auth2.getAuthInstance() !== 'undefined') {
+    auth2 = gapi.auth2.getAuthInstance();
+    }
     if (auth2 != null) {
       auth2.disconnect();
     }
@@ -63,8 +66,6 @@ export class AuthService {
   onLogOutClick() {
     this.router.navigate(['']);
     this.deleteAuth();
-    if (gapi.auth2.getAuthInstance()) {
-      this.signOut();
-    }
+    this.signOut();
   }
 }
