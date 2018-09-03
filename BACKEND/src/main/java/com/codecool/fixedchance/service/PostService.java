@@ -2,7 +2,8 @@ package com.codecool.fixedchance.service;
 
 import com.codecool.fixedchance.domain.Post;
 import com.codecool.fixedchance.domain.PostTopic;
-import org.springframework.data.jpa.repository.Query;
+import com.codecool.fixedchance.domain.SimpleUser;
+import com.codecool.fixedchance.domain.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,11 @@ public final class PostService extends AbstractService {
         return postRepository.getOne(id);
     }
 
-    public Post add(Post post) { return postRepository.save(post);}
+    public Post add(Post post) {
+        User user = userRepository.findByUsername(post.getUserName());
+        SimpleUser simpleUser = simpleUserRepository.findByUserId(user.getId());
+        post.setUser(simpleUser);
+        return postRepository.save(post);}
 
     public void delete(Integer id) { postRepository.deleteById(id);}
 
