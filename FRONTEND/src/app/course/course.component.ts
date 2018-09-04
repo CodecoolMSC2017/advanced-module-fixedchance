@@ -4,7 +4,7 @@ import { DataService } from '../data.service';
 import { User } from '../user';
 import { AuthService } from '../auth.service';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -42,7 +42,6 @@ export class CourseComponent implements OnInit {
           }
 
           this.course.students.forEach(student => {
-            console.log(student.id + ' : ' + this.user.user.id);
             if (student.id === this.user.user.id) {
               this.isAvailable = false;
             }
@@ -50,7 +49,6 @@ export class CourseComponent implements OnInit {
 
           this.teacher = this.course.teacher;
           let experience = this.course.teacher.experience;
-          console.log(this.course.teacher.experience)
           while (experience - 1200 - this.userLevel * 300 >= 0) {
             experience -= 1200 + this.userLevel * 300;
             this.userLevel++;
@@ -59,7 +57,7 @@ export class CourseComponent implements OnInit {
           this.expToNextLevel = 1200 + this.userLevel * 300;
           this.percentage = Math.round((this.currentExp / this.expToNextLevel) * 100);
           this.calculateRating();
-          this.calculatePrice();
+          this.calculatePrice();;
           this.contentLoaded = true;
         });
       });
@@ -76,7 +74,6 @@ export class CourseComponent implements OnInit {
       sumOfRatings += this.course.reviews[i].rating;
     }
     this.courseRating = sumOfRatings / this.course.reviews.length;
-    console.log(this.courseRating);
   }
 
   transformUrl(url): string {
