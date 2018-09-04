@@ -32,6 +32,7 @@ import { HomeCompanyComponent } from './home-company/home-company.component';
 import { CommentComponent } from './comment/comment.component';
 import { UserService } from './user.service';
 import { User } from './user';
+import { SuccessfulPaymentComponent } from './successful-payment/successful-payment.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { User } from './user';
     GuestProfileComponent,
     HomeCompanyComponent,
     CommentComponent,
+    SuccessfulPaymentComponent,
   ],
   imports: [
     BrowserModule,

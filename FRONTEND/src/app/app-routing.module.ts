@@ -11,12 +11,12 @@ import { AddCourseComponent } from './add-course/add-course.component';
 import { CoursesComponent } from './courses/courses.component';
 import { CourseComponent } from './course/course.component';
 import { CourseExamComponent } from './course-exam/course-exam.component';
-import { CourseCheckoutComponent } from './course-checkout/course-checkout.component';
 import { UsersComponent } from './users/users.component';
 import { GuestProfileComponent } from './guest-profile/guest-profile.component';
 import { TeacherContentGuard } from './teacher-content.guard';
 import { HomeCompanyComponent } from './home-company/home-company.component';
 import { CommentComponent } from './comment/comment.component'
+import { SuccessfulPaymentComponent } from './successful-payment/successful-payment.component';
 
 const routes: Routes = [
   {
@@ -68,11 +68,6 @@ const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
-    path: 'course-checkout/:id',
-    component: CourseCheckoutComponent,
-    canActivate: [LoginGuard],
-  },
-  {
     path: 'users',
     component: UsersComponent,
     canActivate: [LoginGuard],
@@ -88,9 +83,13 @@ const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
+    path: 'successful',
+    component: SuccessfulPaymentComponent
+  },
+  {
     path: '**',
     component: NotfoundComponent
-  },
+  }
 ];
 
 @NgModule({

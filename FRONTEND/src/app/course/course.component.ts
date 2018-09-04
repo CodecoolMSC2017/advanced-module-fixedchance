@@ -57,7 +57,12 @@ export class CourseComponent implements OnInit {
           this.expToNextLevel = 1200 + this.userLevel * 300;
           this.percentage = Math.round((this.currentExp / this.expToNextLevel) * 100);
           this.calculateRating();
-          this.calculatePrice();;
+          this.calculatePrice();
+          localStorage.setItem("purchaseCourse", this.course.id.toString());
+          localStorage.setItem("purchaseStudent", this.user.user.id.toString());
+          if (this.isAvailable === true) {
+            setTimeout(() => { require('../../assets/paypal'); }, 2000);
+          }
           this.contentLoaded = true;
         });
       });
@@ -98,7 +103,11 @@ export class CourseComponent implements OnInit {
   }
 
   onCheckout() {
-    this.router.navigate(['course-checkout/' + this.course.id]);
+    
+    this.http.post('api/course-student', { 'courseId': this.course.id, 'studentId': this.user.user.id })
+    .subscribe(resp => { 
+      this.router.navigate(['courses/' + this.course.id]);
+    });
   }
 
   onExamClick() {
