@@ -8,7 +8,7 @@
 
     style: {
         label: 'checkout',
-        size:  'large',    // small | medium | large | responsive
+        size:  'responsive',    // small | medium | large | responsive
         shape: 'pill',     // pill | rect
         color: 'black'      // gold | blue | silver | black
     },

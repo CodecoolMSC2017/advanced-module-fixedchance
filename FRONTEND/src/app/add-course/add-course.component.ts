@@ -91,7 +91,11 @@ export class AddCourseComponent implements OnInit {
   }
 
   incrementQuestionNum() {
-    this.course.questions.push(new AddQuestion());
+    let q = new AddQuestion();
+    for (let i = 0; i < q.questionAnswers.length; i++) {
+      q.questionAnswers[i].isRight = false;
+    }
+    this.course.questions.push(q);
   }
 
   incrementAnswerNum(i) {
@@ -278,6 +282,36 @@ export class AddCourseComponent implements OnInit {
   }
 
   saveCourse() {
+    if (!this.course.courseName) {
+      alert("Provide a course name!");
+      return;
+    }
+
+    if (this.course.topics.length < 3) {
+      alert("Provide atleast 3 topics!");
+      return;
+    }
+
+    for (let i = 0; i < this.course.videos.length; i++) {
+      if (!this.course.videos[i].name || !this.course.videos[i].description || !this.course.videos[i].url) {
+        alert("Provide video details!");
+        return;
+      }
+    }
+
+    for (let i = 0; i < this.course.questions.length; i++) {
+      if (!this.course.questions[i].question) {
+        alert("Provide question details!");
+        return;
+      }
+      for (let j = 0; j < this.course.questions[i].questionAnswers.length; j++) {
+        if (!this.course.questions[i].questionAnswers[j].answer) {
+          alert('Provide question details');
+          return;
+        }
+      }
+    }
+
     this.http.post('/api/courses/' + this.user.user.id, { 'name': this.course.courseName, 'isValidated': true }).subscribe(courseId => {
       this.saveQuestions(courseId).subscribe(questionResp => {
         this.saveTopics(courseId).subscribe(topicResp => {
@@ -335,7 +369,6 @@ export class AddCourseComponent implements OnInit {
     if (this.course.questions[i].questionAnswers[j].isRight) {
       return 'checked';
     }
-    console.log(event.target);
     event.target.removeAttr('checked');
   }
 

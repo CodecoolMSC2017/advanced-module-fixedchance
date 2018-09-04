@@ -6,6 +6,7 @@ import { AuthService } from '../auth.service';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 declare const require : any;
 
@@ -27,6 +28,7 @@ export class CourseComponent implements OnInit {
   percentage: number;
   contentLoaded: boolean;
   user: User;
+  addButton : boolean = true;
 
   constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, private dataService: DataService, private authService: AuthService, config: NgbRatingConfig) {
     config.readonly = true;
@@ -62,14 +64,11 @@ export class CourseComponent implements OnInit {
           this.calculatePrice();
           localStorage.setItem("purchaseCourse", this.course.id.toString());
           localStorage.setItem("purchaseStudent", this.user.user.id.toString());
+          localStorage.setItem("coursePrice", this.coursePrice.toString());
+          this.contentLoaded = true;
         });
       });
     });
-  }
-
-  ngAfterViewInit() {
-    require('../../assets/paypal');
-    this.contentLoaded = true;
   }
 
   calculatePrice() {
