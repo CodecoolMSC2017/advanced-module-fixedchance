@@ -7,6 +7,8 @@ import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
+declare const require : any;
+
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -60,13 +62,14 @@ export class CourseComponent implements OnInit {
           this.calculatePrice();
           localStorage.setItem("purchaseCourse", this.course.id.toString());
           localStorage.setItem("purchaseStudent", this.user.user.id.toString());
-          if (this.isAvailable === true) {
-            setTimeout(() => { require('../../assets/paypal'); }, 2000);
-          }
-          this.contentLoaded = true;
         });
       });
     });
+  }
+
+  ngAfterViewInit() {
+    require('../../assets/paypal');
+    this.contentLoaded = true;
   }
 
   calculatePrice() {

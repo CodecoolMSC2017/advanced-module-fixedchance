@@ -24,7 +24,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SafePipe } from './safepipe.pipe';
 import { CourseExamComponent } from './course-exam/course-exam.component';
-import { CourseCheckoutComponent } from './course-checkout/course-checkout.component';
 import { UsersComponent } from './users/users.component';
 import { GuestProfileComponent } from './guest-profile/guest-profile.component';
 import { OrderModule } from 'ngx-order-pipe';
@@ -49,7 +48,6 @@ import { SuccessfulPaymentComponent } from './successful-payment/successful-paym
     CourseComponent,
     SafePipe,
     CourseExamComponent,
-    CourseCheckoutComponent,
     UsersComponent,
     GuestProfileComponent,
     HomeCompanyComponent,
