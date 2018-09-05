@@ -1,11 +1,10 @@
 package com.codecool.fixedchance.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,11 +14,14 @@ import java.util.Set;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class CourseQuestion extends AbstractModel {
+public class CourseQuestion extends AbstractModel implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id")
     @NotNull
+    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonBackReference
     private Course course;
 
     private String question;
@@ -67,14 +69,5 @@ public class CourseQuestion extends AbstractModel {
 
     public void setAll(CourseQuestion question) {
         this.question = question.getQuestion();
-    }
-
-    // Methods
-    @Override
-    public String toString() {
-        return "CourseQuestion{" +
-                "course=" + course +
-                ", question='" + question + '\'' +
-                '}';
     }
 }

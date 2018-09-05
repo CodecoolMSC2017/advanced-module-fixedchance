@@ -1,0 +1,46 @@
+<header id="top-bar">
+  <ul>
+    <li class="toleft"><img id="logoimg" src="assets/logo.png" />
+    <li class="toleft" id="logo">FIXEDCHANCE</li>
+    <li class="toleft"><a routerLink="../../home">DASHBOARD</a></li>
+    <li class="toright"><a (click)="authService.onLogOutClick()">LOGOUT</a></li>
+    <li class="toright"><a routerLink="../../profile">PROFILE</a></li>
+  </ul>
+</header>
+
+<div id="bck"></div>
+
+<div id="main-content" *ngIf="contentLoaded">
+  
+  
+  
+  <div *ngFor="let entry of exanswer">
+    <div *ngIf="entry.answer.right === true">
+      <div class="question-wrapper correct">
+        <div class="question">{{ entry.question.question }}</div>
+        <div *ngFor="let answer of entry.question.answers">
+          <div class="answers">{{ answer.answer }}</div>
+        </div>
+        <div class="student-answer">Your answer: {{entry.answer.answer}}.</div>
+      </div>
+    </div>
+
+    <div *ngIf="entry.answer.right === false">
+        <div class="question-wrapper incorrect">
+          <div class="question">{{ entry.question.question }}</div>
+          <div *ngFor="let answer of entry.question.answers">
+            <div class="answers">{{ answer.answer }}</div>
+          </div>
+          <div class="student-answer">Your answer: {{entry.answer.answer}}.
+            <div *ngFor="let answer of entry.question.answers">
+              <div *ngIf="answer.right === true">Correct answer: {{ answer.answer }}.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+
+
+</div>

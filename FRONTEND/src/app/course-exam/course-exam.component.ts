@@ -4,6 +4,9 @@ import { DataService } from '../data.service';
 import { AuthService } from '../auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../user';
+import { Observable } from 'rxjs';
+import { Exanswer } from '../exanswer';
 
 @Component({
   selector: 'app-course-exam',
@@ -14,6 +17,7 @@ export class CourseExamComponent implements OnInit {
 
   course: Course;
   contentLoaded : boolean = false;
+  user : User;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, private authService: AuthService, private dataService: DataService) { }
 
@@ -21,18 +25,19 @@ export class CourseExamComponent implements OnInit {
     this.route.url.subscribe(uri => {
       this.http.get<Course>('/api/courses/' + uri[1].path).subscribe(resp => {
         this.course = resp;
-        this.contentLoaded = true;
+        this.authService.getAuth().subscribe(user => {
+          this.user = user;
+          this.contentLoaded = true;
+        });
       });
     });
   }
 
 
   submitButtonClicked() {
-    let inputs = document.getElementsByClassName('checked');
-    for (let i = 0; i < inputs.length; i++) {
-      console.log(inputs[i]);
-    }
-    this.router.navigate(['exam-results']);
+    this.sendAnswers().subscribe(resp => {
+      this.router.navigate(['exam-results/' + this.course.id]);
+    });
   }
 
   addClass(event) {
@@ -42,5 +47,23 @@ export class CourseExamComponent implements OnInit {
     } else {
       event.target.classList.add('checked');
     }
+  }
+
+  sendAnswers() : Observable<void> {
+    // student, course, question, answer (IDS!)
+    let inputs = document.getElementsByClassName('checked');
+    let x;
+    for (let i = 0; i < inputs.length; i++) { 
+      const body = { 'studentId' : this.user.user.id, 'courseId' : this.course.id, 'questionId' : inputs[i].getAttribute('name'), 'answerId' : inputs[i].id };
+      x = this.http.post<void>('api/student-answers/answers', body);
+      if (i != inputs.length - 1) {
+        x.subscribe(resp => {});
+      }
+    }
+    return x;
+  }
+
+  showCourse() {
+    console.log(this.course);
   }
 }

@@ -1,6 +1,8 @@
 package com.codecool.fixedchance.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -8,18 +10,20 @@ import javax.persistence.*;
 @Table(name = "student_answers")
 public class StudentAnswer extends AbstractModel {
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     private User student;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
-    @JsonBackReference
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     private Course course;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "question_id")
-    @JsonBackReference
     private CourseQuestion question;
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -60,6 +64,12 @@ public class StudentAnswer extends AbstractModel {
         this.answer = answer;
     }
 
+    public void setAll(User student, Course course, CourseQuestion question, CourseAnswer answer) {
+        this.student = student;
+        this.course = course;
+        this.question = question;
+        this.answer = answer;
+    }
     // Methods
     @Override
     public String toString() {

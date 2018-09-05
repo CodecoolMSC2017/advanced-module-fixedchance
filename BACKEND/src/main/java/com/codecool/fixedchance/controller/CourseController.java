@@ -28,7 +28,7 @@ public class CourseController extends AbstractController {
         return courseService.getOne(id);
     }
 
-    
+
     @RequestMapping(path = "/courses/{teacher_id}",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,

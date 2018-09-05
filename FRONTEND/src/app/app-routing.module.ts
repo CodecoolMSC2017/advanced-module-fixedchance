@@ -17,6 +17,7 @@ import { TeacherContentGuard } from './teacher-content.guard';
 import { HomeCompanyComponent } from './home-company/home-company.component';
 import { CommentComponent } from './comment/comment.component'
 import { SuccessfulPaymentComponent } from './successful-payment/successful-payment.component';
+import { ExamResultsComponent } from './exam-results/exam-results.component';
 
 const routes: Routes = [
   {
@@ -85,6 +86,10 @@ const routes: Routes = [
   {
     path: 'successful',
     component: SuccessfulPaymentComponent
+  },
+  {
+    path: 'exam-results/:courseid',
+    component: ExamResultsComponent
   },
   {
     path: '**',

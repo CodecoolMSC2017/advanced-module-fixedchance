@@ -1,5 +1,6 @@
 package com.codecool.fixedchance.controller;
 
+import com.codecool.fixedchance.domain.AnswerDTO;
 import com.codecool.fixedchance.domain.StudentAnswer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,13 +27,20 @@ public class StudentAnswerController extends AbstractController {
         return studentAnswerService.getOne(id);
     }
 
-    @RequestMapping(path = "/student-answers/{student_answer_id}/answers",
+    @RequestMapping(path = "/student-answers/answers",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = {"application/json"})
-    public void add(@PathVariable("student_answer_id") Integer answerId, @RequestBody StudentAnswer answer) {
-        logger.info("creating student-answer for answer with id {}, {}", answerId, answer);
-        studentAnswerService.add(answerId, answer);
+    public void add(@RequestBody AnswerDTO answerDTO) {
+        logger.info("creating student-answer for answer with id {}, {}", answerDTO.getAnswerId(), answerDTO.toString());
+        studentAnswerService.add(answerDTO);
+    }
+
+    @GetMapping(path = "/exanswers/{course_id}/{student_id}")
+    public List<StudentAnswer> findAllByCourseIdAndStudentId(@PathVariable("course_id") Integer courseId,
+                                              @PathVariable("student_id") Integer studentId) {
+        logger.info("returning all student answers for student {} for course {}", studentId, courseId);
+        return studentAnswerService.findAllByCourseIdAndStudentId(courseId, studentId);
     }
 
     @RequestMapping(path = "/student-answers/{id}",

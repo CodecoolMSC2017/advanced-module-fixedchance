@@ -33,6 +33,7 @@ import { UserService } from './user.service';
 import { User } from './user';
 import { SuccessfulPaymentComponent } from './successful-payment/successful-payment.component';
 import { PaypalComponent } from './paypal/paypal.component';
+import { ExamResultsComponent } from './exam-results/exam-results.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { PaypalComponent } from './paypal/paypal.component';
     CommentComponent,
     SuccessfulPaymentComponent,
     PaypalComponent,
+    ExamResultsComponent,
   ],
   imports: [
     BrowserModule,

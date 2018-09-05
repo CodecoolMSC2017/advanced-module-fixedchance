@@ -1,0 +1,36 @@
+#main-content {
+    position: relative;
+    padding-top: 10px;
+}
+
+.question {
+    font-size: 45px;
+    margin: 12px;
+    margin-bottom: 0px;
+}
+
+.question-wrapper {
+    border: 2px solid orange;
+    margin: 50px;  
+    border-radius: 15px;  
+}
+
+.correct {
+    border: 2px solid rgb(0, 59, 0);
+    background: rgba(0, 255, 0, .2);
+}
+
+.incorrect {
+    border: 2px solid rgb(109, 0, 0);
+    background: rgba(255, 0, 0, .2);
+}
+
+.answers {
+    margin-left: 30px;
+    font-size: 35px;
+}
+
+.student-answer {
+    margin: 16px;
+    font-size: 38px;
+}

@@ -42,7 +42,8 @@ public class Application extends WebSecurityConfigurerAdapter implements Command
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/auth/**", "/register", "/company/register", "/google-login", "/login/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/course-student", "/course-checkout", "/course-exam/**").hasAnyAuthority("ROLE_STUDENT")
+                .antMatchers(HttpMethod.POST, "/course-student", "/course-checkout", "/course-exam/**", "/student-answers/**").hasAnyAuthority("ROLE_STUDENT")
+                .antMatchers(HttpMethod.GET,"/exanswers/**").hasAnyAuthority("ROLE_STUDENT")
                 .antMatchers(HttpMethod.POST, "/add-course", "/courses/**", "/course-edit/**", "/add-course/**").hasAnyAuthority("ROLE_TEACHER")
                 // company must access /courses/** endpoint because they can see the user's profile where is his/her courses. SHT
                 .antMatchers(HttpMethod.GET, "/company/**", "/courses/**").hasAnyAuthority("ROLE_COMPANY")

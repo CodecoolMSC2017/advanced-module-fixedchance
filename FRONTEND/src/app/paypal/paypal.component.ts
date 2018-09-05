@@ -11,6 +11,7 @@ export class PaypalComponent implements OnInit {
   
   
   addButton = false;
+  coursePrice : number;
 
   paypalConfig = {
     env: 'sandbox',
@@ -29,7 +30,7 @@ export class PaypalComponent implements OnInit {
             payment: {
                 transactions: [{
                     amount: {
-                        total: localStorage.getItem("coursePrice"),
+                        total: this.coursePrice,
                         currency: 'USD'
                     }
                 }]
@@ -47,6 +48,7 @@ export class PaypalComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+      this.coursePrice = Math.round(+localStorage.getItem("coursePrice") * 100) / 100;
   }
 
   ngAfterViewChecked(): void {

@@ -1,6 +1,6 @@
 package com.codecool.fixedchance.service;
 
-import com.codecool.fixedchance.domain.StudentAnswer;
+import com.codecool.fixedchance.domain.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,7 +16,20 @@ public class StudentAnswerService extends AbstractService {
         return studentAnswerRepository.getOne(id);
     }
 
-    public void add(Integer studentAnserId, StudentAnswer studentAnswer) { studentAnswerRepository.save(studentAnswer);}
+    public void add(AnswerDTO answerDTO) {
+        User student = userRepository.getOne(answerDTO.getStudentId());
+        Course course = courseRepository.getOne(answerDTO.getCourseId());
+        CourseQuestion question = questionRepository.getOne(answerDTO.getQuestionId());
+        CourseAnswer answer = answerRepository.getOne(answerDTO.getAnswerId());
+
+        StudentAnswer studentAnswer = new StudentAnswer();
+        studentAnswer.setAll(student, course, question, answer);
+        studentAnswerRepository.save(studentAnswer);
+    }
+
+    public List<StudentAnswer> findAllByCourseIdAndStudentId(Integer courseId, Integer studentId) {
+        return studentAnswerRepository.findAllByCourseIdAndStudentId(courseId, studentId);
+    }
 
     public void delete(Integer id) { studentAnswerRepository.deleteById(id);}
 }

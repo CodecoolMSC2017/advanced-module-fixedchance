@@ -9,9 +9,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="course_answers", schema="public")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CourseAnswer extends AbstractModel {
 

@@ -71,7 +71,8 @@ INSERT INTO courses (teacher_id, name, is_validated) VALUES
     (6, 'All about JAVA collections', false), --5
     (7, 'C# basics', true), --6
     (7, 'C# for rookies', true), --7
-    (7, 'C# intermediate', false); --8
+    (7, 'C# intermediate', false), --8
+    (6, 'Python for the best', true); --9
 
 INSERT INTO course_student (course_id, student_id) VALUES
     (1, 4),
@@ -79,7 +80,8 @@ INSERT INTO course_student (course_id, student_id) VALUES
     (3, 4),
     (5, 4),
     (6, 5),
-    (7, 5);
+    (7, 5),
+    (9, 5);
 
 INSERT INTO course_questions (course_id, question, question_type) VALUES
     (1, 'Can you create classes in Python?', 'YN'), --1
@@ -108,7 +110,10 @@ INSERT INTO course_questions (course_id, question, question_type) VALUES
     (6, 'You can write unit tests in C#.', 'TF'), --24
     (7, 'Can you access threads in C#?', 'YN'), --25
     (7, 'You can create a GUI with C#.', 'TF'), --26
-    (7, 'Describe user interface', 'WA'); --27
+    (7, 'Describe user interface', 'WA'), --27
+    (9, 'Python is an object-oriented programming language.', 'TF'), --28
+    (9, 'You can define the type of variables', 'TF'), --29
+    (9, 'You can delete a file with Python', 'TF'); --30
 
 INSERT INTO course_answers (question_id, answer, is_right, experience) VALUES
     (1, 'Yes', true, 200), --1
@@ -173,7 +178,13 @@ INSERT INTO course_answers (question_id, answer, is_right, experience) VALUES
     (25, 'No', false, 0), --60
     (26, 'True', true, 200), --61
     (26, 'False', false, 0), --62
-    (27, 'A platform that lets you interract with the system', true, 300); --63
+    (27, 'A platform that lets you interract with the system', true, 300), --63
+    (28, 'True', false, 300), --64
+    (28, 'False', true, 300), --65
+    (29, 'True', false, 300), --66
+    (29, 'False', true, 300), --67
+    (30, 'True', true, 300), --68
+    (30, 'False', false, 300); --69
 
 
 INSERT INTO student_answers (student_id, course_id, question_id, answer_id) VALUES
@@ -212,7 +223,10 @@ INSERT INTO course_videos (course_id, name, video, description) VALUES
     (7, 'Generics', 'https://www.youtube.com/watch?v=U4E5j45swiI', 'Learn generics.'),
     (8, 'Windows forms', 'https://www.youtube.com/watch?v=J4J3ZcXRN_E', 'Create a basic GUI.'),
     (8, 'Game', 'https://www.youtube.com/watch?v=o8hPt8s_bwU', 'Learn to develop a game.'),
-    (8, 'OOP Game', 'https://www.youtube.com/watch?v=decfmj7b5Vg', 'Learn to develop an OOP game');
+    (8, 'OOP Game', 'https://www.youtube.com/watch?v=decfmj7b5Vg', 'Learn to develop an OOP game'),
+    (9, 'Basic OOP in Python', 'https://www.youtube.com/watch?v=ZDa-Z5JzLYM', 'This video will show you how to use classes.'),
+    (9, 'Python matrix tutorial', 'https://www.youtube.com/watch?v=Go-FfGhxbSM', 'This video will teach you how to use matrixes.'),
+    (9, 'Python algorithms 1', 'https://www.youtube.com/watch?v=ob4faIum4kQ', 'Learn how to make algorithms.');
 
 INSERT INTO course_reviews (course_id, student_id, rating, description) VALUES
     (1, 4, 5, 'Great course! Learned a lot from it!'),
@@ -228,7 +242,8 @@ INSERT INTO course_reviews (course_id, student_id, rating, description) VALUES
     (6, 4, 5, 'Thanks for the course!'),
     (6, 5, 5, 'I Love it!'),
     (7, 4, 5, 'Thank youuuuu!'),
-    (7, 5, 5, 'I''d give it 6 out of 5, if I could.');
+    (7, 5, 5, 'I''d give it 6 out of 5, if I could.'),
+    (9, 5, 4, 'Could be better');
 
 INSERT INTO course_topics (course_id, name) VALUES
     (1, 'Programming'),
@@ -254,7 +269,8 @@ INSERT INTO course_topics (course_id, name) VALUES
     (7, 'Information Technology'),
     (8, 'Programming'),
     (8, 'English'),
-    (8, 'Information Technology');
+    (8, 'Information Technology'),
+    (9, 'Python');
 
 INSERT INTO posts (user_id, user_name, post_content, rating) VALUES
     (3, 'csanad', 'Hi everyone, if you are interested in Python You should check out this article: https://gist.github.com/sloria/7001839', 3),

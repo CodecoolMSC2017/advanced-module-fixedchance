@@ -3,9 +3,12 @@ package com.codecool.fixedchance.domain;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +18,7 @@ import java.util.Set;
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Course extends AbstractModel {
+public class Course extends AbstractModel implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "teacherId")
@@ -111,16 +114,5 @@ public class Course extends AbstractModel {
 
     public void setValidated(boolean validated) {
         isValidated = validated;
-    }
-
-    //Methods
-    @Override
-    public String toString() {
-        return "Course{" +
-                "teacher=" + teacher +
-                ", students=" + students +
-                ", name='" + name + '\'' +
-                ", isValidated=" + isValidated +
-                '}';
     }
 }
