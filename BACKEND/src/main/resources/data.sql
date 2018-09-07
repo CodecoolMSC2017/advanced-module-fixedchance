@@ -48,9 +48,9 @@ INSERT INTO companies (user_id, name, registration_date, email, active, subscrip
 INSERT INTO advertisements (company_id, name, description) VALUES
     (1, 'BACKEND JAVA Developer needed ASAP', 'If you''re familiar with JAVA, this job is for you!'), --1
     (1, 'FRONTEND JavaScript & Angular dev', 'If you''re experienced in these technologies, apply'), --2
-    (1, 'Project Manager or Scrum Master', 'We''re looking for an experienced leader personality to lead our team'), --3
-    (1, 'Mobile Application Developer', 'Develop mobile apps in NativeScript with a great team!'), --4
-    (1, 'Promotion Agent', 'We need an ambitious person to promote our projects to other companies!'), --5
+    (2, 'Project Manager or Scrum Master', 'We''re looking for an experienced leader personality to lead our team'), --3
+    (2, 'Mobile Application Developer', 'Develop mobile apps in NativeScript with a great team!'), --4
+    (2, 'Promotion Agent', 'We need an ambitious person to promote our projects to other companies!'), --5
     (2, 'Website Designer', 'If you''re an expert in CSS, SCSS, HTML, JavaScript, we are looking for you!'), --6
     (2, 'Software Developer needed', 'We are looking for a software developer who knows Python'); --7
 
