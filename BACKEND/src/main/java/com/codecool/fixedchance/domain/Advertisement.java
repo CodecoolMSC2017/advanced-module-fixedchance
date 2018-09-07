@@ -37,7 +37,7 @@ public class Advertisement extends AbstractModel {
     }
 
     // Setters
-    public void setCompany(Company company) {
+    public void setCompany(Company  company) {
         this.company = company;
     }
 

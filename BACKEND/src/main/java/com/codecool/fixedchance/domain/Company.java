@@ -2,13 +2,14 @@ package com.codecool.fixedchance.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "companies", schema = "public")
@@ -20,8 +21,9 @@ public class Company extends AbstractModel implements Serializable {
 
     private String name;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
+
     private String email;
     private boolean active;
     private String subscription;
@@ -30,8 +32,9 @@ public class Company extends AbstractModel implements Serializable {
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "company")
-    private Set<Advertisement> ads = new HashSet<>();
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Transient
+    private List<Advertisement> ads = new ArrayList<>();
 
     public Company() {
     }
@@ -45,7 +48,7 @@ public class Company extends AbstractModel implements Serializable {
         return paymentDate;
     }
 
-    public Set<Advertisement> getAds() {
+    public List<Advertisement> getAds() {
         return ads;
     }
 
@@ -83,7 +86,7 @@ public class Company extends AbstractModel implements Serializable {
         this.paymentDate = paymentDate;
     }
 
-    public void setAds(Set<Advertisement> ads) {
+    public void setAds(List<Advertisement> ads) {
         this.ads = ads;
     }
 
