@@ -5,11 +5,12 @@ import { NewPost } from '../new-post';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { Company } from '../company';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataService } from '../data.service';
+import { Vote } from '../vote';
+import { Advertisement } from '../advertisement';
 
-declare const gapi: any;
 
 @Component({
   selector: 'app-home-company',
@@ -17,50 +18,114 @@ declare const gapi: any;
   styleUrls: ['./home-company.component.scss']
 })
 export class HomeCompanyComponent implements OnInit {
-
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, public dataService: DataService, private authService: AuthService) { }
+  constructor(private http: HttpClient, private router: Router, public dataService: DataService, private authService: AuthService) {
+  }
 
   chosen: string = this.chosen;
   user: User;
   company: Company;
-  postContent: string = this.postContent;
-  userName: string = this.userName;
+  adContent: string = this.adContent;
+  adTitle: string = this.adTitle;
+  userName: string;
   postedContent: string = this.postedContent;
   topics: string[] = [];
   currentTopic: string;
-  posts = [];
-  searchedPosts = [];
-  post: NewPost = new NewPost();
+  advertisements = [];
+  searchedAds = [];
+  advertisement: Advertisement = new Advertisement(); // NewAdvertisement ?
   show: boolean;
   contentLoaded: boolean;
   toSearch: string;
   rating: number;
+  votes: Vote[] = [];
+  voters: number[] = [];
+
+  postContent: string = this.postContent;
+  posts = [];
+  searchedPosts = [];
+  post: NewPost = new NewPost();
+
 
   ngOnInit() {
     this.authService.getAuthCompany().subscribe(resp => {
       this.company = resp;
-      this.fetchPosts();
-      this.contentLoaded = true;
+      this.userName = this.company.name;
+      this.fetchAds().subscribe(ads => {
+        this.advertisements = ads;
+        this.searchedAds = this.advertisements;
+        this.contentLoaded = true;
+      });
+      this.fetchPosts().subscribe(posts => {
+        this.posts = posts;
+        this.searchedPosts = posts;
+        this.contentLoaded = true;
+      });
     });
   }
 
-  fetchPosts() {
-    this.http.get<Post[]>('/api/posts').subscribe(posts => {
-      this.posts = posts;
-      this.searchedPosts = posts;
+
+  fetchAds(): Observable<Advertisement[]> {
+    return this.http.get<Advertisement[]>('/api/advertisements');
+  }
+
+  // Add new advertisement
+  addItem() {
+    this.sendAd().subscribe(advertisement => {
+      const adId = advertisement.id;
+      this.fetchAds().subscribe(ads => {
+        this.advertisements = ads;
+        this.searchedAds = this.advertisements;
+      });
+      this.show = true;
+      this.adContent = '';
     });
+  }
+
+  sendAd(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json;charset=UTF-8'
+    });
+    const options = { headers: headers };
+    return this.http.post('/api/advertisements/' + this.company.id, {
+      'name': this.adTitle,
+      'description': this.adContent,
+    },
+      options);
+  }
+
+  // Remove a specific advertisement
+  removeItem(i) {
+    this.http.delete<void>('/api/advertisements/' + i).subscribe(() => {
+      this.fetchAds().subscribe(ads => {
+        this.searchedAds = ads;
+      });
+    });
+  }
+
+  onAdClicked(id) {
+    this.router.navigate(['advertisement/' + id]);
+  }
+
+
+  fetchPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>('/api/posts');
+  }
+
+
+  onPostClicked(id) {
+    this.router.navigate(['comment/' + id]);
   }
 
 
   onSearchClick() {
-    this.searchedPosts = [];
+    this.searchedAds = [];
     if (this.toSearch.toUpperCase() === '' || this.toSearch === undefined) {
-      this.searchedPosts = this.posts;
+      this.searchedAds = this.advertisements;
     } else {
-      this.posts.forEach(element => {
+      this.advertisements.forEach(element => {
         for (let i = 0; i < element.topics.length; i++) {
           if (element.topics[i].name.toUpperCase() === (this.toSearch.toUpperCase())) {
-            this.searchedPosts.push(element);
+            this.searchedAds.push(element);
           }
         }
       });
@@ -68,100 +133,61 @@ export class HomeCompanyComponent implements OnInit {
   }
 
   onUserClicked(event) {
-    let userName = event.target.id;
-    if (userName == this.user.username) {
+    const userName = event.target.id;
+    if (userName === this.company.name) {
       this.router.navigate(['profile']);
     } else {
       this.router.navigate(['users/' + userName]);
     }
   }
 
-  topicKey(event) {
-    if (event.key === ' ') {
-      if (this.currentTopic !== ' ' && this.currentTopic != null) {
-        console.log(this.post);
-        console.log(this.post.topics);
-        if (!this.post.topics.some(x => x === this.currentTopic) && this.post.topics.length <= 10) {
-          this.post.topics.push(this.currentTopic);
+  onVoteClicked(event) {
+    const vote = new Vote();
+    vote.postId = +event.target.id;
+    if (event.target.getAttribute('name') === 'true') {
+      vote.vote = true;
+    } else {
+      vote.vote = false;
+    }
+    vote.voterId = this.company.user.id;
+    this.getVoters().subscribe(resp => {
+      this.votes = resp;
+      for (let i = 0; i < this.posts.length; i++) {
+        if (vote.postId === +this.posts[i].id) {
+          for (let j = 0; j < this.votes.length; j++) {
+            if (this.votes[j].postId === +vote.postId) {
+              this.voters.push(this.votes[j].voterId);
+            }
+          }
+          if (!this.voters.some(x => x === this.company.user.id)) {
+            if (vote.vote === true) {
+              this.posts[i].rating++;
+            } else {
+              this.posts[i].rating--;
+            }
+            this.http.put<void>('/api/posts/update/' + vote.postId + '/' + vote.vote, {}).subscribe(() => {
+              this.sendVoteToDataBase(vote);
+            });
+          } else {
+            alert('You\'ve already voted this post!');
+          }
         }
       }
-      this.currentTopic = '';
-    }
-  }
-
-  removeTopic(event) {
-    let topicToRemove = event.target.id;
-    for (let i = 0; i < this.post.topics.length; i++) {
-      if (this.post.topics[i] === topicToRemove) {
-        this.post.topics.splice(i, 1);
-      }
-    }
-  }
-
-  // Add new post
-  addItem() {
-    this.sendPost().subscribe(post => {
-      let postId = post.id;
-      this.savePostTopic(postId).subscribe(resp => {
-        this.fetchPosts()
-      })
-      this.show = true;
-      this.postContent = '';
-      this.post.topics = [];
+      this.voters = [];
     });
   }
 
-  sendPost(): Observable<any> {
-    let x;
-    x = this.http.post("/api/posts", {
-      'userName': this.company.user.username, 'postContent': this.postContent
-    })
-    return x;
+  // Get the voters
+  getVoters(): Observable<Vote[]> {
+    return this.http.get<Vote[]>('/api/votes');
   }
 
-  savePostTopic(postId): Observable<any> {
-    let x;
-    for (let i = 0; i < this.post.topics.length; i++) {
-      x = this.http.post<void>("/api/post-topics/" + postId, {
-        'id': postId, 'name': this.post.topics[i]
-      });
-    }
-    return x;
-  }
-
-  // Remove a specific post
-  removeItem(i) {
-    this.http.delete<void>('/api/posts/' + i).subscribe(resp => { this.fetchPosts() });
-  }
-
-  //Write comment
-  onPostClicked($event) {
-    console.log(event.target);
-  }
-
-  // logout with google acount
-  signOut() {
-    const auth2 = gapi.auth2.getAuthInstance();
-    if (auth2 != null) {
-      auth2.disconnect();
-    }
-  }
-
-  onUpVoteClicked(event) {
-    let postId = +event.target.id;
-    for (let i = 0; i < this.posts.length; i++) {
-      if (postId === this.posts[i].id) {
-        this.http.post<void>('/api/posts/update/up/' + postId, {}).subscribe(resp => { this.fetchPosts() })
-      }
-    }
-  }
-
-  onDownVoteClicked(event) {
-    let postId = +event.target.id;
-    for (let i = 0; i < this.posts.length; i++) {
-      if (postId === this.posts[i].id) {
-        this.http.post<void>('/api/posts/update/down/' + postId, {}).subscribe(resp => { this.fetchPosts() })
-      }
-    }
+  sendVoteToDataBase(vote) {
+    this.http.post<void>('/api/vote', {
+      'postId': vote.postId,
+      'voterId': vote.voterId,
+      'vote': vote.vote
+    }).subscribe(
+      () => { });
   }
 }

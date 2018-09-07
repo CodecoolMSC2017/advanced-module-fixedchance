@@ -55,7 +55,7 @@ export class AuthService {
   // logout with google acount
   signOut() {
     let auth2;
-    if (gapi.auth2.getAuthInstance() !== 'undefined') {
+    if (gapi.auth2 !== undefined) {
     auth2 = gapi.auth2.getAuthInstance();
     }
     if (auth2 != null) {
