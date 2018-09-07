@@ -12,7 +12,8 @@ public class AdvertisementController extends AbstractController {
 
     private static final Logger logger = LoggerFactory.getLogger(AdvertisementController.class);
 
-    @RequestMapping("/advertisements")
+    @RequestMapping(value = "/advertisements",
+            method = RequestMethod.GET)
     public List<Advertisement> getAll() {
         logger.info("returning all advertisements");
         return advertisementService.getAll();
@@ -27,9 +28,9 @@ public class AdvertisementController extends AbstractController {
     @RequestMapping(path = "/advertisements/{company_id}",
             method = RequestMethod.POST,
             consumes = {"application/json"})
-    public void add(@PathVariable("company_id") Integer companyId, @RequestBody Advertisement ad) {
+    public Advertisement add(@PathVariable("company_id") Integer companyId, @RequestBody Advertisement ad) {
         logger.info("creating ad for company with id {}, {}", companyId, ad);
-        advertisementService.add(companyId, ad);
+        return advertisementService.add(companyId, ad);
     }
 
     @RequestMapping(path = "/advertisements/{id}",
@@ -41,8 +42,7 @@ public class AdvertisementController extends AbstractController {
     }
 
     @RequestMapping(path = "/advertisements/{id}",
-            method = RequestMethod.DELETE,
-            consumes = {"application/json"})
+            method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Integer id) {
         logger.info("deleting ad with id {}", id);
         advertisementService.delete(id);

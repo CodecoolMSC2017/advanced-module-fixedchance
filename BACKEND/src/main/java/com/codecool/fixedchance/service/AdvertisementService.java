@@ -20,11 +20,12 @@ public final class AdvertisementService extends AbstractService {
         return advertisementRepository.getOne(id);
     }
 
-    public void add(Integer companyId, Advertisement ad) {
-        Company company = companyRepository.getOne(companyId);
+    public Advertisement add(Integer companyId, Advertisement ad) {
+        Company company = companyRepository.findById(companyId).orElse(null);
         ad.setCompany(company);
         advertisementRepository.save(ad);
         logger.info(ad + " added to database.");
+        return ad;
     }
 
     public void update(Integer id, Advertisement ad) {
